@@ -3,7 +3,7 @@ Project
 =======
 
 
-`Troubleshoot 2-BM <https://github.com/decarlof/project>`_ provides a template doc to add to any project.
+`Troubleshoot 2-BM <https://github.com/decarlof/trbl_2bm/>`_ provides a template doc to add to any project.
 
 
 Documentation
@@ -14,7 +14,7 @@ Documentation
 Contribute
 ----------
 
-* Documentation: https://github.com/tomography/trbl_2bm/tree/master/doc
-* Issue Tracker: https://github.com/tomography/trbl_2bm/issues
+* Documentation: https://trbl-2bm.readthedocs.io
+* Issue Tracker: https://github.com/decarlof/trbl_2bm/issues
 
 
