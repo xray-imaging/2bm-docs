@@ -8,7 +8,7 @@ TBL 2-BM
    :alt: project
 
 
-This `GitHub repository <https://github.com/tomography/trbl_2bm>`_ 
+This `GitHub repository <https://github.com/decarlof/trbl_2bm>`_ 
 contains information on how to troubleshoot the APS beamline 2-BM
 
 
@@ -16,8 +16,8 @@ contains information on how to troubleshoot the APS beamline 2-BM
 Contribute
 ----------
 
-* Documentation: https://github.com/tomography/trbl_2bm/tree/master/doc
-* Issue Tracker: https://github.com/tomography/trbl_2bm/issues
+* Documentation: https://github.com/decarlof/trbl_2bm/tree/master/doc
+* Issue Tracker: https://github.com/decarlof/trbl_2bm/issues
 
 Content
 -------
