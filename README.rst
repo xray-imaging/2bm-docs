@@ -1,6 +1,6 @@
-=======
-Project
-=======
+====
+TRBL
+====
 
 
 `Troubleshoot 2-BM <https://github.com/decarlof/trbl_2bm/>`_ provides a template doc to add to any project.
