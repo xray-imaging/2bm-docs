@@ -1,15 +1,15 @@
-====
-TRBL
-====
+========
+2-BM Ops
+========
 
 
-`Troubleshoot 2-BM <https://trbl-2bm.readthedocs.io>`_ provides a template doc to add to any project.
+`Troubleshoot 2-BM <https://2bm-ops.readthedocs.io>`_ provides a template doc to add to any project.
 
 
 Features
 --------
 
-* Documentation: https://trbl-2bm.readthedocs.io
-* Issue Tracker: https://github.com/decarlof/trbl_2bm/issues
+* Documentation: https://2bm-ops.readthedocs.io
+* Issue Tracker: https://github.com/decarlof/2bm-ops/issues
 
 
