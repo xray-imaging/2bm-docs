@@ -9,8 +9,7 @@
 
 
 This `GitHub repository <https://github.com/decarlof/2bm-ops>`_ 
-contains information on how to troubleshoot the APS beamline 2-BM
-
+contains instruction and troubleshoting information to operate the APS beamline 2-BM
 
 
 Contribute
