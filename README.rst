@@ -3,7 +3,7 @@
 ========
 
 
-`Troubleshoot 2-BM <https://2bm-ops.readthedocs.io>`_ provides a template doc to add to any project.
+`2-BM Ops <https://2bm-ops.readthedocs.io>`_ provides instruction and troubleshoting to operate the APS beamline 2-BM
 
 
 Features
