@@ -15,7 +15,7 @@ contains instruction and troubleshoting information to operate the APS beamline 
 Contribute
 ----------
 
-* Documentation: https://github.com/decarlof/2bm-ops/tree/master/doc
+* Documentation: https://github.com/decarlof/2bm-ops/tree/master/docs
 * Issue Tracker: https://github.com/decarlof/2bm-ops/issues
 
 Content
