@@ -25,5 +25,6 @@ Content
    :maxdepth: 1
 
    source/about
+   source/instructions
    source/troubleshoot
    source/issue
