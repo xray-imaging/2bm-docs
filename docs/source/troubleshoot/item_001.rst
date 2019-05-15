@@ -7,8 +7,6 @@ Tomo@0deg and Tomo@90deg
 
 The Tomo@0deg and Tomo@90deg motors are not responding (control screes is white)
 
-Solution
---------
 
 These two motors are controlled by an EPICS softIOC. If the screen for Tomo@0deg and Tomo@90deg
 are white it means that the softIOC was not started. To solve this please run::

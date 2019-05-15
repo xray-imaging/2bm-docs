@@ -5,18 +5,18 @@
 
 .. image:: source/img/project-logo.png
    :width: 320px
+   :align: center
    :alt: project
 
 
-This `GitHub repository <https://github.com/decarlof/2bm-ops>`_ 
-contains instruction and troubleshoting information to operate the APS beamline 2-BM
+Manual and troubleshoting information to operate the APS beamline 2-BM
 
 
 Contribute
 ----------
 
-* Documentation: https://github.com/decarlof/2bm-ops/tree/master/docs
-* Issue Tracker: https://github.com/decarlof/2bm-ops/issues
+* `Documentation <https://github.com/decarlof/2bm-ops/tree/master/docs>`_
+* `Issue Tracker <https://github.com/decarlof/2bm-ops/issues>`_
 
 Content
 -------
