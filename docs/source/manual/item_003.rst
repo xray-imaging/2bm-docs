@@ -1,21 +1,10 @@
-Globus startup
-==============
+Download data from the APS
+==========================
 
-hadyn
------
+Data sets are distributed using a `Globus <https://www.globus.org>`_, to use it you need to create 
+a `Globus Account <https://docs.globus.org/how-to/get-started/>`_  and set up you computer as 
+a `Globus EndPoint <https://www.globus.org/globus-connect-personal>`_.
 
-Log in as tomo@handyn::
 
-    [tomo@handyn,~]$ cd ~/Software/globusconnectpersonal-2.3.5/
-    [tomo@handyn,~]$ ./globusconnect
-
-pg10ge
-------
-
-Log in as user2bmb@pg10ge::
-
-    [user2bmb@pg10ge]$ cd ~/globusconnectpersonal-2.3.6
-    [user2bmb@pg10ge]$ ./globusconnectpersonal -status
-    [user2bmb@pg10ge]$ ./globusconnectpersonal -stop
-    [user2bmb@pg10ge]$ ./globusconnectpersonal -start &
+To download data from the APS follow the download link provided at the beginning of the experiment.
 
