@@ -25,6 +25,6 @@ Content
    :maxdepth: 1
 
    source/about
-   source/instructions
+   source/manual
    source/troubleshoot
-   source/issue
+   source/support
