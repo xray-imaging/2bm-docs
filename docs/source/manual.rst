@@ -10,3 +10,4 @@ Manual
    manual/item_002
    manual/item_003
    manual/item_004
+   manual/item_005
