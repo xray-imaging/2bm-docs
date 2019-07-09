@@ -13,3 +13,4 @@ Manual
    manual/item_005
    manual/item_006
    manual/item_007
+   manual/item_008
