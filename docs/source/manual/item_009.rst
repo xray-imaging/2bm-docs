@@ -12,17 +12,19 @@ PCO dimax
 .. image:: ../img/dimax_01.png
    :width: 320px
    :align: center
-   :alt: dimax
+   :alt: dimax_01
+
 
 .. image:: ../img/dimax_02.png
    :width: 320px
    :align: center
-   :alt: dimax
+   :alt: dimax_02
 
-   .. image:: ../img/dimax_03.png
+
+.. image:: ../img/dimax_03.png
    :width: 320px
    :align: center
-   :alt: dimax
+   :alt: dimax_03
 
 
 Flir Orx
