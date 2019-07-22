@@ -14,3 +14,4 @@ TroubleShoot
    troubleshoot/item_006
    troubleshoot/item_007
    troubleshoot/item_008
+   troubleshoot/item_009
