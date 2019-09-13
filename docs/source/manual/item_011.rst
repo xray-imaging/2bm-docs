@@ -20,8 +20,7 @@ for help::
 Testing mode
 ------------
 
-
-Set:: 
+In testing mode, the motor position are printed but not actual motor motion occurs. To enable testing mode set:: 
 
     TESTING = True 
 
