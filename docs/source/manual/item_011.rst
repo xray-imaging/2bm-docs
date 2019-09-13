@@ -8,13 +8,14 @@ Usage
 
 ::
 
-    energy mono 24.9
-    energy pink 2.657
-    energy white
+    user2bmb@acturus% cd ~/MCT/flir/
+    user2bmb@acturus% energy mono 24.9
+    user2bmb@acturus% energy pink 2.657
+    user2bmb@acturus% energy white
 
 for help::
 
-    energy -h
+    user2bmb@acturus% energy -h
 
 Testing mode
 ------------
