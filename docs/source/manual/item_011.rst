@@ -24,4 +24,4 @@ Set::
 
     TESTING = True 
 
-in `energy_lib <https://github.com/decarlof/tomo2bm/blob/master/flir/energy/libs/energy_lib.py>`_
+in `energy_lib <https://github.com/decarlof/tomo2bm/blob/master/flir/libs/energy_lib.py>`_
