@@ -15,3 +15,13 @@ Usage
 for help::
 
     energy -h
+
+Testing mode
+------------
+
+
+Set:: 
+
+    TESTING = True 
+
+in `energy_lib <https://github.com/decarlof/tomo2bm/blob/master/flir/energy/libs/energy_lib.py>`_
