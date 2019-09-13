@@ -6,12 +6,14 @@ Energy
 Usage
 -----
 
+Login into user2bmb@arcturus then::
+
 ::
 
-    user2bmb@acturus% cd ~/MCT/flir/
-    user2bmb@acturus% energy mono 24.9
-    user2bmb@acturus% energy pink 2.657
-    user2bmb@acturus% energy white
+    cd ~/MCT/flir/
+    energy mono 24.9
+    energy pink 2.657
+    energy white
 
 for help::
 
@@ -20,7 +22,7 @@ for help::
 Testing mode
 ------------
 
-In testing mode, the motor position are printed but not actual motor motion occurs. To enable testing mode set:: 
+In testing mode, the motor positions are printed but not actual motor motion occurs. To enable testing mode set:: 
 
     TESTING = True 
 
