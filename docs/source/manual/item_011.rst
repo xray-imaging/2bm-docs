@@ -7,6 +7,7 @@ Examples
 --------
 
 ::
+
     energy mono 24.9
     energy pink 2.657
     energy white
