@@ -15,7 +15,7 @@ Login into user2bmb@arcturus then::
 
 for help::
 
-    user2bmb@acturus% energy -h
+    energy -h
 
 Testing mode
 ------------
