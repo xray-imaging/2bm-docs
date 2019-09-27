@@ -15,8 +15,8 @@ Manual and troubleshoting information to operate the APS beamline 2-BM
 Contribute
 ----------
 
-* `Documentation <https://github.com/decarlof/2bm-ops/tree/master/docs>`_
-* `Issue Tracker <https://github.com/decarlof/2bm-ops/issues>`_
+* `Documentation <https://github.com/decarlof/2bm-docs/tree/master/docs>`_
+* `Issue Tracker <https://github.com/decarlof/2bm-docs/issues>`_
 
 Content
 -------
