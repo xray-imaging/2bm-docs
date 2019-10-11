@@ -8,7 +8,8 @@ Usage
 
 Login into user2bmb@arcturus then::
 
-    cd ~/MCT/flir/
+    bash
+    cd ~/2bm-ops/
     energy mono 24.9
     energy pink 2.657
     energy white
