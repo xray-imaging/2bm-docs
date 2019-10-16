@@ -8,7 +8,7 @@ To operate 2-BM in testing mode during machine studies when the shutter permit i
 
     TESTING = True
 
-of `aps2bm_lib.py <https://github.com/decarlof/tomo2bm/blob/master/flir/libs/aps2bm_lib.py>`_
+of `aps2bm_lib.py <https://github.com/decarlof/2bm-tomo/blob/master/flir/libs/aps2bm_lib.py>`_
 
 To return to normal beamtime operation set::
 
