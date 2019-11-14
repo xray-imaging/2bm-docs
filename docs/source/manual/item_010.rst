@@ -21,7 +21,9 @@ and open the user info screen:
 and make sure the user PV are updated correctly from the scheduling system if not hit the update button or manually enter the user last name/email address then::
 
     bash
-    globus mkdir
+    globus -h
+
+    globus dirs
     globus email
 
 
