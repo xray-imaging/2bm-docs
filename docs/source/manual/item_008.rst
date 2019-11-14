@@ -4,7 +4,7 @@ Testing Mode
 .. contents:: 
    :local:
 
-To operate 2-BM in testing mode during machine studies when the shutter permit is not enambled set::
+To operate 2-BM in testing mode during machine studies when the shutter permit is not enabled set::
 
     TESTING = True
 
