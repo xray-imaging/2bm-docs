@@ -1,7 +1,7 @@
 Auto 
 ====
 
-`auto <https://github.com/decarlof/2bm-ops/blob/master/auto.py>`_ is a python script that automates several 2-BM beamline operations tasks. 
+`auto <https://github.com/decarlof/2bm-ops/blob/master/auto>`_ is a python script that automates several 2-BM beamline operations tasks. 
 
 Usage
 -----
@@ -10,13 +10,13 @@ Login into user2bmb@arcturus then::
 
     bash
     cd ~/2bm-ops
-    auto.py --focus
-    auto.py --res
-    auto.py --axis
+    auto --focus
+    auto --res
+    auto --axis
 
 for help::
 
-    auto.py --help
+    auto --help
     usage: auto.py [-h] [--res] [--axis] [--roll] [--pitch] [--focus]
 
     optional arguments:
