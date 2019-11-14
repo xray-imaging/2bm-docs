@@ -17,3 +17,4 @@ Manual
    manual/item_009
    manual/item_010
    manual/item_011
+   manual/item_012
