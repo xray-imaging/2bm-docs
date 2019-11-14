@@ -9,6 +9,7 @@ Usage
 Login into user2bmb@arcturus then::
 
     bash
+    cd ~/2bm-ops
     auto.py --focus
     auto.py --res
     auto.py --axis
@@ -17,7 +18,7 @@ for help::
 
     auto.py --help
     usage: auto.py [-h] [--res] [--axis] [--roll] [--pitch] [--focus]
-    
+
     optional arguments:
     -h, --help  show this help message and exit
     --res       measure the image resolution (μm/pixel)
