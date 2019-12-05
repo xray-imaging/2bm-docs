@@ -1,14 +1,33 @@
-Tomo@0deg and Tomo@90deg
-========================
+Bluesky time out error
+======================
 
 .. contents:: 
    :local:
 
+If you get this time out error::
 
-The Tomo@0deg and Tomo@90deg motors are not responding (control screes is white)
+    <class 'str'>: (<class 'TimeoutError'>, TimeoutError('Failed to connect to mona:StopAcquisition',))
 
 
-These two motors are controlled by an EPICS softIOC. If the screen for Tomo@0deg and Tomo@90deg
-are white it means that the softIOC was not started. To solve this please run::
+at the end of a scan using bluesky verify that the soft IOC providing the PV "mona:StopAcquisition" is up and running with::
 
-    $ start_2bmS1.sh
+
+    [user2bmb@lyra,47,startup]$ cd ~/.ipython/profile_2bmb/startup/
+    [user2bmb@lyra,52,startup]$ caget mona:StopAcquisition
+
+if you get::
+
+    Channel connect timed out: 'mona:StopAcquisition' not found
+
+then you need to start the soft IOC with::
+
+    [user2bmb@lyra,47,startup]$ cd ~/.ipython/profile_2bmb/startup/
+    
+    screen
+    softIoc -d mona.db
+    keypresses: [^a] then [d]
+
+and you will get::
+
+    [user2bmb@lyra,46,startup]$ caget mona:StopAcquisition
+    mona:StopAcquisition           Ok
