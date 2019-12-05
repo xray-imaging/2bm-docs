@@ -1,15 +1,28 @@
-Testing Mode
-============
+Energy 
+======
 
-.. contents:: 
-   :local:
+`energy <https://github.com/decarlof/tomo2bm/blob/master/flir/energy>`_ is a python script that changes the 2-BM beamline energy configuration. 
 
-To operate 2-BM in testing mode during machine studies when the shutter permit is not enabled set::
+Usage
+-----
 
-    TESTING = True
+Login into user2bmb@arcturus then::
 
-of `aps2bm_lib.py <https://github.com/decarlof/2bm-tomo/blob/master/flir/libs/aps2bm_lib.py>`_
+    bash
+    cd ~/2bm-ops/
+    energy mono 24.9
+    energy pink 2.657
+    energy white
 
-To return to normal beamtime operation set::
+for help::
 
-    TESTING = False
+    energy -h
+
+Testing mode
+------------
+
+In testing mode, the motor positions are printed but not actual motor motion occurs. To enable testing mode set:: 
+
+    TESTING = True 
+
+in `energy_lib <https://github.com/decarlof/tomo2bm/blob/master/flir/libs/energy_lib.py>`_

@@ -1,11 +1,36 @@
-Auto Rec
-========
+Detectors
+=========
 
 .. contents:: 
    :local:
 
-After data collection each data set is automatically transferred to the data analysis machine (tomo@handyn). To setup a reconstruction to automatically start for each newly transferred data set type::
+Here are the model/part number of the detectors in use at 2-BM. 
 
-    tomo@handyn$ bash
-    tomo@handyn$ auto_rec /local/data/
+PCO dimax
+---------
 
+.. image:: ../img/dimax_01.png
+   :width: 320px
+   :align: center
+   :alt: dimax_01
+
+
+.. image:: ../img/dimax_02.png
+   :width: 320px
+   :align: center
+   :alt: dimax_02
+
+
+.. image:: ../img/dimax_03.png
+   :width: 320px
+   :align: center
+   :alt: dimax_03
+
+
+Flir Orx
+--------
+
+.. image:: ../img/flir.png
+   :width: 320px
+   :align: center
+   :alt: flir
