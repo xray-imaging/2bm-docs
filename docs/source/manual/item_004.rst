@@ -1,15 +1,35 @@
-FDT data transfer
-=================
+Data reconstruction
+===================
 
-.. contents:: 
-   :local:
+At the APS
+----------
 
-To copy data from windows (ex.: S:\data\2019-02\user_name\test.h5) to linux  (ex.: /local/data/user_name/) first install FDT (http://monalisa.cern.ch/FDT/ on both machines then go to the linux machine start the fdt server::
+Your raw data are automatically copied from the detector to the analysis computer (handyn in this example) under the folder /local/data/YYYY-MM/PI_lastName. After the transfer the data are also automatically reconstructed with:: 
 
-    $ cd /local/data/fdt
-    $ java -jar fdt.jar
+    recon --type try --srs 30  /local/data/YYYY-MM/PI_lastName/file.h5 
 
-then go to the windows machine from a dos prompt start the copy (client)::
 
-    $ cd C:\Users\se2admin\Desktop\FDT\
-    $ java -jar fdt.jar -c handyn -d /local/data/Dunand/ S:\data\2019-02\Dunand\test.h5
+Login at the beamline Linux machine handyn as user “tomo” then type::
+
+    [tomo@handyn,~]$ recon -h
+
+
+for help. More detailed instruction are at https://github.com/decarlof/util/tree/master/recon
+
+To do a test reconstruction just type::
+
+    tomo@handyn,~]$ recon /local/data/YYYY-MM/PI_lastName/file.h5 
+
+
+At your home institution
+------------------------
+
+Install the following::
+
+    Conda: https://www.anaconda.com/download/
+    Tomopy: conda install -c conda-forge tomopy
+
+then copy from https://github.com/decarlof/util/tree/master/recon in your python working directory::
+
+    find_center
+    recon
