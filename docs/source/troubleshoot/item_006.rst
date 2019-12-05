@@ -1,24 +1,19 @@
-Globus is down
+sublime editor
 ==============
 
-All internal data transfer is handled by `Globus <https://www.globus.org>`_, if down make sure to
-start the local `Globus EndPoint <https://www.globus.org/globus-connect-personal>`_ with:
+.. contents:: 
+   :local:
+
+if the sublime editor fails to start with::
+
+    user2bmb@pg10ge$ sublime
 
 
-hadyn
-~~~~~
+is because there is another session opened remotely. To kill it::
 
-Log in as tomo@handyn::
+    user2bmb@pg10ge$ ps -A | grep sublime
 
-    [tomo@handyn,~]$ cd ~/Software/globusconnectpersonal-2.3.5/
-    [tomo@handyn,~]$ ./globusconnect
+to find the sublime's process id # (ex. 12345), then::
 
-pg10ge
-~~~~~~
-
-Log in as user2bmb@pg10ge::
-
-    [user2bmb@pg10ge]$ cd ~/globusconnectpersonal-2.3.6
-    [user2bmb@pg10ge]$ ./globusconnectpersonal -status
-    [user2bmb@pg10ge]$ ./globusconnectpersonal -stop
-    [user2bmb@pg10ge]$ ./globusconnectpersonal -start &
+    user2bmb@pg10ge$ kill -9 12345
+    user2bmb@pg10ge$ sublime

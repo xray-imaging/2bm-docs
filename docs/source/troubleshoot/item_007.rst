@@ -1,19 +1,14 @@
-sublime editor
-==============
+Tomo@0deg and Tomo@90deg
+========================
 
 .. contents:: 
    :local:
 
-if the sublime editor fails to start with::
 
-    user2bmb@pg10ge$ sublime
+The Tomo@0deg and Tomo@90deg motors are not responding (control screes is white)
 
 
-is because there is another session opened remotely. To kill it::
+These two motors are controlled by an EPICS softIOC. If the screen for Tomo@0deg and Tomo@90deg
+are white it means that the softIOC was not started. To solve this please run::
 
-    user2bmb@pg10ge$ ps -A | grep sublime
-
-to find the sublime's process id # (ex. 12345), then::
-
-    user2bmb@pg10ge$ kill -9 12345
-    user2bmb@pg10ge$ sublime
+    $ start_2bmS1.sh

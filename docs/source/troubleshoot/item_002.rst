@@ -1,9 +1,16 @@
-Windows remote reboot
-=====================
+EPICS ioc reboot
+================ 
 
 .. contents:: 
    :local:
 
-If you need to reboot a windows machine from a remote session use::
+To reboot the 2bma or 2bmb ioc::
 
-    Alt + F4
+    [user2bmb@arcturus]$ iocConsole ioc2bma
+    [user2bmb@arcturus]$ reboot
+
+or::
+
+    [user2bmb@arcturus]$ iocConsole ioc2bmb
+    [user2bmb@arcturus]$ reboot
+
