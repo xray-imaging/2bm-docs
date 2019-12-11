@@ -1,5 +1,5 @@
 Scope Setting
-============+
+=============
 
 .. contents:: 
    :local:
