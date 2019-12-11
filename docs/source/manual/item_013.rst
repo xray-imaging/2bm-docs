@@ -1,15 +1,17 @@
-Testing Mode
-============
+Scope Setting
+============+
 
 .. contents:: 
    :local:
 
-To operate 2-BM in testing mode during machine studies when the shutter permit is not enabled set::
+To operate 2-BM Digita Oscilloscope under epics/medm you neet to start a soft epics IOC with::
 
-    TESTING = True
+    user2bmb@arcturus$ cd /net/s6dserv/xorApps/epics/synApps_5_8/ioc/dlm/iocBoot/iocLinux
+    user2bmb@arcturus$ run
 
-of `aps2bm_lib.py <https://github.com/decarlof/2bm-tomo/blob/master/flir/libs/aps2bm_lib.py>`_
+then in a different xterm start the medm screen with::
 
-To return to normal beamtime operation set::
+    user2bmb@arcturus$ cd /net/s6dserv/xorApps/epics/synApps_5_8/ioc/dlm
+    user2bmb@arcturus$ start_caQtDM
 
-    TESTING = False
+and select the DLM400 button
