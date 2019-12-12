@@ -14,4 +14,14 @@ then in a different xterm start the medm screen with::
     user2bmb@arcturus$ cd /net/s6dserv/xorApps/epics/synApps_5_8/ioc/dlm
     user2bmb@arcturus$ start_caQtDM
 
-and select the DLM400 button
+and select
+
+- DLM400 button to start the control screen for the scope then
+- caputRec
+    - click on (re)start recorder
+    - click on Refresh Menu
+    - click Select Macro to pick dlm or dummy
+    - click DO to collect a plot
+- scanH (for Harware-assisted scans)
+    - if caputRec is set with dlm macro it collect multiple plots
+    - if caputRec is set with dummy macro it .... 
