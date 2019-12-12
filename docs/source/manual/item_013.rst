@@ -25,3 +25,12 @@ and select
 - scanH (for Harware-assisted scans)
     - if caputRec is set with dlm macro it collect multiple plots
     - if caputRec is set with dummy macro it .... 
+
+
+To view the mda files collected by the scan record use::
+
+    /home/beams/MOONEY/bin/mdaExplorer/APSshare/bin/dview
+
+To convert MDA files to ASCII::
+
+    /APSshare/bin/mda2ascii
