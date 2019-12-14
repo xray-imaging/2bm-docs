@@ -20,10 +20,35 @@ and open the user info screen:
 
 and make sure the user PV are updated correctly from the scheduling system if not hit the update button or manually enter the user last name/email address then::
 
-    bash
-    globus -h
+    [user2bmb@arcturus]$ bash
 
-    globus dirs
-    globus email
+to create YYYY-MM/PI_last_name directories on data collection and data analysis computers::
+
+    [user2bmb@arcturus]$ globus dirs
+
+to send a notification email to the experiment PI with the Globus link from where to downalod the data::
+
+    [user2bmb@arcturus]$ globus email
+
+to send the same to all users listed in the proposal::
+
+    [user2bmb@arcturus]$ globus email --schedule
+
+
+Full help::
+
+    [user2bmb@arcturus]$ globus -h
+    usage: globus [-h] [--config FILE]  ...
+
+    optional arguments:
+        -h, --help     show this help message and exit
+        --config FILE  File name of configuration
+
+    Commands:
+  
+        init         Create configuration file
+        show         Show endpoints
+        email        Create folder on endpoint and send email with link to user
+        dirs         Create folders on data collection and data analysis computers
 
 
