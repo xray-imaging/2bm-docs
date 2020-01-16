@@ -4,7 +4,15 @@ FDT data transfer
 .. contents:: 
    :local:
 
-To copy data from windows (ex.: S:\data\2019-02\user_name\test.h5) to linux  (ex.: /local/data/user_name/) first install FDT (http://monalisa.cern.ch/FDT/ on both machines then go to the linux machine start the fdt server::
+To copy data from windows from:: 
+
+   S:\data\2019-02\user_name\test.h5 
+
+to linux machine::
+
+   /local/data/user_name/ 
+   
+first install FDT (http://monalisa.cern.ch/FDT/ on both machines then go to the linux machine start the fdt server::
 
     $ cd /local/data/fdt
     $ java -jar fdt.jar
