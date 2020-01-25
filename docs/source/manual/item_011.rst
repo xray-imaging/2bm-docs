@@ -1,7 +1,8 @@
 Raw Data Viewer 
 ===============
 
-To view the tomographic raw data you can use:
+To view the tomographic raw data we suggest to install `Fiji <https://imagej.net/Fiji>`_ and add 
+the `HDF plugin <https://github.com/paulscherrerinstitute/ch.psi.imagej.hdf5>`_
 
-to view the raw data you can use  `hdfview <https://support.hdfgroup.org/products/java/hdfview/>`_ or 
+Other options are `hdfview <https://support.hdfgroup.org/products/java/hdfview/>`_ or 
 `argos <https://github.com/titusjan/argos>`_
