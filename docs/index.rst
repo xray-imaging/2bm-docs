@@ -25,5 +25,5 @@ Content
 Contribute
 ----------
 
-* `Documentation <https://github.com/decarlof/2bm-docs/tree/master/docs>`_
-* `Issue Tracker <https://github.com/decarlof/2bm-docs/issues>`_
+* `Documentation <https://github.com/xray-imaging/2bm-docs/tree/master/docs>`_
+* `Issue Tracker <https://github.com/xray-imaging/2bm-docs/issues>`_
