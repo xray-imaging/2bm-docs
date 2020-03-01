@@ -2,7 +2,7 @@
 Operation
 =========
 
-This section contains beamline operator instructions.
+This section contains beamline operation instructions.
 
 .. toctree::
    :glob:

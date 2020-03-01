@@ -18,9 +18,11 @@ Content
    :maxdepth: 1
 
    source/about
-   source/manual
+   source/user
+   source/ops
    source/troubleshoot
-   source/support
+   source/contacts
+   source/publications
 
 Contribute
 ----------
