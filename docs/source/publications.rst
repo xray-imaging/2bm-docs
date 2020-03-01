@@ -1,10 +1,14 @@
 Publications
 ============
 
+TO BE COMPLETED:
+
 Credits
 ~~~~~~~
 
-We kindly request that you cite the following article :cite:`de2016nanoscale` related to the **TXM of 32-ID**
+TO BE COMPLETED:
+
+We kindly request that you cite the following article :cite:`de2016nanoscale` related to the **2-BM**
 
 If you have been using **TomoPy** for the 3D reconstructions, please cite :cite:`gursoy2014tomopy`
 
@@ -17,7 +21,9 @@ If you have been using **TomoPy** for the 3D reconstructions, please cite :cite:
 List
 ~~~~
 
-**Below is the up-to-date publication list from the 32-ID TXM user community:**
+TO BE COMPLETED:
+
+**Below is the up-to-date publication list from the 2-BM user community:**
 
 .. bibliography:: bibtex/ref.bib
    :style: reversedate
