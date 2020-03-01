@@ -1,10 +1,11 @@
-======
-Manual
-======
+=========
+Operation
+=========
 
+This section contains beamline operator instructions.
 
 .. toctree::
    :glob:
    :maxdepth: 1
 
-   manual/item*
+   ops/item*
