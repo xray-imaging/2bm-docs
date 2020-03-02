@@ -11,14 +11,13 @@ The sector 2 bending magnet beamline is fully dedicated to microtomography with 
    :alt: project
 
 
-
-Sample Alignment
+Beamline Control
 ================
 
-.. contents:: 
-   :local:
+All beamline components and detectors are controlled using `EPICS <https://epics-controls.org/>`_ and `areaDetector <https://areadetector.github.io/master/index.html>`_.
+Each device can be configure and controlled through a graphic user interface (GUI) or through a python script using `PyEpics <https://cars9.uchicago.edu/software/python/pyepics3/>`_.
 
-First start the tomography control user interface with::
+To start the tomography control user interface::
 
     $ start_tomo
 
@@ -28,7 +27,73 @@ First start the tomography control user interface with::
    :alt: tomo_user
 
 
-After loading the same move it up/down by adjusting the TomoY motor in the positive/negative direction. To center the sample on the rotation axis, rotate the sample between 0 and 180 degree and adjust Tomo@0deg till the sample is in the middle of the image at both position, then move the rotary stage at 90 deg and adjust Tomo@90deg to move the sample again in the middle of the image.
+Detector
+========
+
+Select the detector to use from:
+
+.. image:: img/item_002.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user
+
+For FLIR Oryx the control screen is:
+
+.. image:: img/item_003.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user
+
+To collect an image press Acquire Start.
+
+
+ImageJ
+======
+
+To view the images collected by the detector press ImageJ on:
+
+.. image:: img/item_004.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user
+
+then make sure the areaDetector plug-in for ImageJ is on select:
+
+.. image:: img/item_005.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user 
+
+and press start at:
+
+.. image:: img/item_006.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user 
+
+
+Sample Alignment
+================
+
+.. contents:: 
+   :local:
+
+Load the sample on the kinematic mount at:
+
+.. image:: img/tomo_refs.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user
+
+then using:
+
+.. image:: img/item_001.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user
+
+
+ move it up/down by adjusting the TomoY motor in the positive/negative direction. To center the sample on the rotation axis, rotate the sample at 0 degree and adjust Tomo@0deg till the sample is in the middle of the image at both position, then move the rotary stage at 90 deg and adjust Tomo@90deg to move the sample again in the middle of the image.
 
 Data collection
 ===============
