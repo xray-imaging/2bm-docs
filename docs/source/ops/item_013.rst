@@ -1,5 +1,5 @@
-Scope Setting
-=============
+Oscilloscope setup
+==================
 
 .. contents:: 
    :local:

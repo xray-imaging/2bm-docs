@@ -4,7 +4,7 @@
 
 
 .. image:: source/img/project-logo.png
-   :width: 320px
+   :width: 720px
    :align: center
    :alt: project
 
@@ -18,6 +18,7 @@ Content
    :maxdepth: 1
 
    source/about
+   source/overview
    source/user
    source/ops
    source/troubleshoot
