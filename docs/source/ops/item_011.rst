@@ -1,8 +1,15 @@
-Raw Data Viewer 
-===============
+Testing Mode
+============
 
-To view the tomographic raw data we suggest to install `Fiji <https://imagej.net/Fiji>`_ and add 
-the `HDF plugin <https://github.com/paulscherrerinstitute/ch.psi.imagej.hdf5>`_
+.. contents:: 
+   :local:
 
-Other options are `hdfview <https://support.hdfgroup.org/products/java/hdfview/>`_ or 
-`argos <https://github.com/titusjan/argos>`_
+To operate 2-BM in testing mode during machine studies when the shutter permit is not enabled set::
+
+    TESTING = True
+
+of `aps2bm_lib.py <https://github.com/decarlof/2bm-tomo/blob/master/flir/libs/aps2bm_lib.py>`_
+
+To return to normal beamtime operation set::
+
+    TESTING = False
