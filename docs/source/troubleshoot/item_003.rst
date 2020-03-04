@@ -17,7 +17,7 @@ To stop/restart area detector use ::
     user2bmb@pg10ge$ ~/2bmbOryx.sh stop
 
 
-To power cycle the camera unplug the powersupply at::
+To power cycle the camera unplug the powersupply at:
 
 .. image:: ../img/camera.png 
    :width: 720px
