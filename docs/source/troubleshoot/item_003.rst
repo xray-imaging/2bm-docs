@@ -21,7 +21,7 @@ To stop/restart area detector use ::
 To power cycle the camera unplug the power supply:
 
 .. image:: ../img/camera.png 
-   :width: 480px
+   :width: 240px
    :align: center
    :alt: tomo_user
 
