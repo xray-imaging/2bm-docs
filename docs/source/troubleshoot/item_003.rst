@@ -7,7 +7,8 @@ Detector restart
 Flir
 ----
 
-The area detector IOC controlling the FLIR camera status can be checked with::
+The area detector IOC controlling the FLIR camera run on the linux machine named pg10ge.
+To check the area detector status::
 
     user2bmb@pg10ge$ ~/2bmbOryx.sh status
 
@@ -17,15 +18,15 @@ To stop/restart area detector use ::
     user2bmb@pg10ge$ ~/2bmbOryx.sh stop
 
 
-To power cycle the camera unplug the powersupply at:
+To power cycle the camera unplug the power supply:
 
 .. image:: ../img/camera.png 
-   :width: 720px
+   :width: 480px
    :align: center
    :alt: tomo_user
 
 
-If the area detector IOC controlling the FLIR camera fails to boot even after a camera power cycle, it means that the last auto save file (auto_setting.sav) is corrupted. To recover you need to replace the corrupted auto save with a good one::
+If the area detector fails to boot even after a camera power cycle, it means that the last auto save file (auto_setting.sav) is corrupted. To recover you need to replace the corrupted auto save with a good one::
 
 
     user2bmb@pg10ge$ ~/2bmbOryx.sh stop
