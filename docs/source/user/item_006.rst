@@ -4,21 +4,35 @@ Data analysis
 At the APS
 ----------
 
-Your raw data are automatically copied from the detector to the analysis computer (handyn in this example) under the folder /local/data/YYYY-MM/PI_lastName. After the transfer the data are also automatically reconstructed with:: 
+Your raw data are automatically copied from the detector to the analysis computer (handyn in this example) under the folder /local/data/YYYY-MM/PI_lastName. 
 
-    [tomo@handyn,~]$ tomopy recon --reconstruction-type try --file-name /local/data.h5
+Manual
+~~~~~~
 
+To manually reconstruct a data set, use the `tomopy cli <https://github.com/tomography/tomopy-cli>`_. 
 
-Login at the beamline Linux machine handyn as user “tomo” then type::
+For help::
 
     [tomo@handyn,~]$ tomopy recon -h
 
-
-for help. More detailed instruction are at `tomopy cli <https://github.com/tomography/tomopy-cli>`_.
-
-To do a test reconstruction just type::
+To do a test reconstruction type::
 
     [tomo@handyn,~]$ tomopy recon --file-name /local/data/YYYY-MM/PI_lastName/file.h5 
+
+More detailed instruction are at `tomopy cli <https://github.com/tomography/tomopy-cli>`_.
+
+
+Automatic
+~~~~~~~~~
+
+To setup a reconstruction to start automatically type::
+
+    [tomo@handyn,~]$ bash
+    [tomo@handyn,~]$ auto_rec /local/data/YYYY-MM/PI_lastName/
+
+auto_rec runs tomopy recon for each newly transferred data set with the following options::
+
+    tomopy recon --reconstruction-type try --file-name /local/data/YYYY-MM/PI_lastName/data.h5
 
 
 At your home institution
@@ -34,4 +48,5 @@ then you can run reconstrutions with::
 
     $ tomopy recon --file-name /data/file.h5
 
+More detailed instruction are at `tomopy cli <https://github.com/tomography/tomopy-cli>`_.
 
