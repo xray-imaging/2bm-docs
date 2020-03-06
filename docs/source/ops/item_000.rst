@@ -5,7 +5,7 @@ At the beginning of a new user beamtime login into user2bmb@arcturus then::
 
     start_tomo 
 
-and open the user info screen:
+and check the user info screen:
 
 .. image:: ../img/medm_screen.png 
    :width: 480px
@@ -13,6 +13,7 @@ and open the user info screen:
    :alt: tomo_user
 
 make sure the user PV are updated correctly from the scheduling system if not hit the update button or manually enter the user last name/email address then
+
 as user2bmb@arcturus::
 
     [user2bmb@arcturus]$ bash
