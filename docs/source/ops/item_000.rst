@@ -29,3 +29,9 @@ as tomo@mona3::
 
     [tomo@mona3]$ bash
     [tomo@mona3]$ auto_rec /local/data/YYYY-MM/PI_lastName/
+
+At the end of the user beamtime make a Globus copy between
+
+    [user2bmb@pg10ge]$  /local/data/YYYY-MM/PI_lastName/
+
+    and the same on Globus.
