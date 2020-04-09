@@ -12,7 +12,8 @@ to linux machine::
 
    /local/data/user_name/ 
    
-first install FDT (http://monalisa.cern.ch/FDT/ on both machines then go to the linux machine start the fdt server::
+first install `FDT <http://monalisa.cern.ch/FDT/>`_ on both machines then go to the linux 
+machine start the fdt server::
 
     $ cd /local/data/fdt
     $ java -jar fdt.jar
