@@ -22,7 +22,10 @@ Please follow this steps:
 - login in the the APS data management system using the same badge number/password combination that use to access the APS poroposal system but put a "d" in front of the badge number
 - if you forgot your password you can reset it `here <https://beam.aps.anl.gov/pls/apsweb/forgot_password.start_process>`_
 - go to /gdata/dm/2BM/ then seach for your data by year-month/PI last name
- 
+- set an end point on your computer (see `Globus EndPoint <https://www.globus.org/globus-connect-personal>`_) 
+- download the data!
+
+
 
 Raw Data Viewer 
 ---------------
