@@ -15,7 +15,7 @@ Manual
 ------
 **Note** This only applies if your data were stored on the APS data magement system.
 
-Please follow this steps:
+Please follow these steps:
 
 - login into Globus (with your personal globus credential)
 - go to "Collection/Search" and search for the aps data select aps#data
