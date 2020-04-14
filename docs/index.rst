@@ -1,6 +1,6 @@
-========
-2-BM Ops
-========
+=========
+2-BM Docs
+=========
 
 
 .. image:: source/img/project-logo.png
