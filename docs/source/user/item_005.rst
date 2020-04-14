@@ -19,8 +19,28 @@ to list of all available options::
 
 For more details refer to `2bm tomo <https://github.com/xray-imaging/2bm-tomo>`_.
 
+Bluesky
+-------
+
+.. contents:: 
+   :local:
+
+To operate 2-BM using bluesky (currently in beta test in 2-BM-B) type::
+
+    user2bmb@lyra$ use_bluesky.sh 2bmb
+
+Once in the ipython shell type::
+
+    RE(user_tomo_scan(), comment="my tomo fly scan", sample="wood stick")
+
+or::
+
+    RE(user_tomo_scan(acquire_time=0.1), comment="my tomo fly scan", sample="wood stick")
+    RE(user_tomo_scan(acquire_time=0.1, iteration=10), comment="my tomo fly scan", sample="wood stick")
+
+
 Raw Data Viewer 
----------------
+===============
 
 To view the tomographic raw data we suggest to install `Fiji <https://imagej.net/Fiji>`_ and add 
 the `HDF plugin <https://github.com/paulscherrerinstitute/ch.psi.imagej.hdf5>`_
