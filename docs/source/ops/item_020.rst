@@ -164,19 +164,3 @@ if in the tomoScan screen the PVs are not connected (white) you need to start th
 
     [user2bmb@arcturus]$ cd /home/beams/USER2BMB/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM
     [user2bmb@arcturus]$ ./start_IOC
-
-
-to linux machine::
-
-   /local/data/user_name/ 
-   
-first install `FDT <http://monalisa.cern.ch/FDT/>`_ on both machines then go to the linux 
-machine start the fdt server::
-
-    $ cd /local/data/fdt
-    $ java -jar fdt.jar
-
-then go to the windows machine from a dos prompt start the copy (client)::
-
-    $ cd C:\Users\se2admin\Desktop\FDT\
-    $ java -jar fdt.jar -c handyn -d /local/data/Dunand/ S:\data\2019-02\Dunand\test.h5
