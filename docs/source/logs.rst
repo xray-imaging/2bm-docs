@@ -8,4 +8,4 @@ This section contains beamline operation data collection logs.
    :glob:
    :maxdepth: 1
 
-   logs/item*
+   logs/log*
