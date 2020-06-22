@@ -1,42 +1,27 @@
-Check list
-==========
+Alignment
+=========
 
-At the beginning of a new user beamtime login into user2bmb@arcturus then::
+`Adjust <https://github.com/xray-imaging/adjust>`_ is a python script that automates all tomography instrument alignemt taks.
 
-    [user2bmb@arcturus]$ start_tomo 
+`Adjust <https://github.com/xray-imaging/adjust>`_  works in combination with a 0.5 mm `tungsten sphere <https://www.vxb.com/0-5mm-Tungsten-Carbide-One-0-0197-inch-Dia-p/0-5mmtungstenballs.htm>`_ that needs to be installed as a sample on top of the rotary stage making sure is in the field of view at least when the rotation axis is at 0 and 10 degrees.
 
-and check the user info screen:
+`Adjust <https://github.com/xray-imaging/adjust>`_'s funtions include automatic finding of:
 
-.. image:: ../img/medm_screen.png 
-   :width: 480px
-   :align: center
-   :alt: tomo_user
+- detector pixel size
+- scintillator focus location
+- rotation axis location
+- centering of the sample on the rotation axis
+- rotation axis pitch and roll
 
-make sure the user PV are updated correctly from the scheduling system if not hit the update button for instructions or::
+First step is to mesaure the image pixel size by running::
 
-    [user2bmb@arcturus]$ dmagic tag
+    user2bmb@pg10ge $ adjust resolution
+
+then::
+
+    user2bmb@pg10ge $ adjust focus
+    user2bmb@pg10ge $ adjust center
+    user2bmb@pg10ge $ adjust roll
+    user2bmb@pg10ge $ adjust pitch
 
 
-you can also enter manually the user last name/email address then:
-
-as user2bmb@arcturus::
-
-    [user2bmb@arcturus]$ bash
-    [user2bmb@arcturus]$ globus dirs
-    [user2bmb@arcturus]$ globus email --schedule
-
-as user2bmb@pg10ge::
-
-    [user2bmb@pg10ge]$ rm /home/user2bmb/tomo2bm.conf
-    [user2bmb@pg10ge]$ tomo init
-
-as tomo@mona3::
-
-    [tomo@mona3]$ bash
-    [tomo@mona3]$ auto_rec /local/data/YYYY-MM/PI_lastName/
-
-At the end of the user beamtime make a Globus copy between
-
-    [user2bmb@pg10ge]$  /local/data/YYYY-MM/PI_lastName/
-
-    and the same YYYY-MM/PI_lastName/ on  `petrel <https://app.globus.org/file-manager?origin_id=e133a81a-6d04-11e5-ba46-22000b92c6ec&origin_path=%2F2-BM%2F>`_.
