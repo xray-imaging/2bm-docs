@@ -19,7 +19,7 @@ Sample Alignment
    :align: center
    :alt: tomo_user
 
-Load the sample on the kinematic mount (in case of automatic alignemt use the `tungsten sphere <https://www.vxb.com/0-5mm-Tungsten-Carbide-One-0-0197-inch-Dia-p/0-5mmtungstenballs.htm>`_ as sample) then using:
+Load the sample on the kinematic mount (if using the automatic alignemt cli `Adjust <https://github.com/xray-imaging/adjust>`_use the `tungsten sphere <https://www.vxb.com/0-5mm-Tungsten-Carbide-One-0-0197-inch-Dia-p/0-5mmtungstenballs.htm>`_ as sample) then using:
 
 .. image:: ../img/tomo_admin.png 
    :width: 720px
@@ -33,19 +33,28 @@ move the sample up/down by adjusting Tomo_Sam_Y in the positive/negative directi
 Automatic
 ---------
 
-A fully automated alignment procedure has been added to the standard `tomography scan script <https://github.com/xray-imaging/2bm-tomo>`_ . All basic tasks and functionality can be extracted from `alignment sphere <https://github.com/xray-imaging/2bm-tomo/blob/master/tomo2bm/sphere.py>`_.
+`Adjust <https://github.com/xray-imaging/adjust>`_ is a python script that automates all tomography instrument alignemt taks.
 
-We use a 0.5 mm diameter `tungsten sphere <https://www.vxb.com/0-5mm-Tungsten-Carbide-One-0-0197-inch-Dia-p/0-5mmtungstenballs.htm>`_ as reference sample.
+`Adjust <https://github.com/xray-imaging/adjust>`_  works in combination with a 0.5 mm `tungsten sphere <https://www.vxb.com/0-5mm-Tungsten-Carbide-One-0-0197-inch-Dia-p/0-5mmtungstenballs.htm>`_ that needs to be installed as a sample on top of the rotary stage making sure is in the field of view at least when the rotation axis is at 0 and 10 degrees.
 
-The code finds automatically the pixel size, focuses the scintillator, then finds rotation axis location and moves it to the center of the field of view, adjusts the X-Z stages on top of the rotary to bring the sample on top of the rotation axis and finally finds/adjusts the rotation axis pitch and roll. The sequence of commands are::
+`Adjust <https://github.com/xray-imaging/adjust>`_'s funtions include automatic finding of:
 
-   user2bmb@pg10ge $ tomo adjust --resolution 
-   user2bmb@pg10ge $ tomo adjust --focus 
-   user2bmb@pg10ge $ tomo adjust --center --ask
-   user2bmb@pg10ge $ tomo adjust --pitch 
-   user2bmb@pg10ge $ tomo adjust --roll 
+- detector pixel size
+- scintillator focus location
+- rotation axis location
+- centering of the sample on the rotation axis
+- rotation axis pitch and roll
 
-the optional **--ask** is for confirmation before moving the rotation axis location. 
+First step is to mesaure the image pixel size by running::
+
+    user2bmb@pg10ge $ adjust resolution
+
+then::
+
+    user2bmb@pg10ge $ adjust focus
+    user2bmb@pg10ge $ adjust center
+    user2bmb@pg10ge $ adjust roll
+    user2bmb@pg10ge $ adjust pitch
 
 Manual
 ------
