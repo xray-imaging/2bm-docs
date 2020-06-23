@@ -1,10 +1,10 @@
-TomoScan testing
-================
+TomoScan
+========
 
 .. contents:: 
    :local:
 
-start the tomo medm screen as usual::
+start the tomo medm screen::
 
    [user2bmb@arcturus]$ start_tomo
 
@@ -14,20 +14,33 @@ start the tomo medm screen as usual::
    :align: center
    :alt: fastTomo
 
-TomoScan IOC and python server
-------------------------------
+medm screen
+-----------
 
-You can access tomoScan IOC medm screen by clicking on the blue icon on the top left corner.
+You can access `tomoScan <https://tomoscan.readthedocs.io/en/latest/index.html>`_ medm screen by clicking on the blue icon on the top right corner.
 
 .. image:: ../img/tomoScan.png
    :width: 480px
    :align: center
    :alt: tomoScan
 
-The tomoScan IOC allows to configure and collect a single tomographic data. 
+The tomoScan allows to configure and collect a single tomographic data. 
 
-tomoscan-cli
-------------
+Python/Epics servers
+--------------------
+
+If in the tomoScan screen the Python server is not running (status is stopped) you can start it with::
+
+    [user2bmb@pg10ge]$ cd ~/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM
+    [user2bmb@pg10ge]$ python -i start_tomoscan.py
+
+if in the tomoScan screen the PVs are not connected (white) you need to start the tomoScan IOC with::
+
+    [user2bmb@arcturus]$ cd /home/beams/USER2BMB/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM
+    [user2bmb@arcturus]$ ./start_IOC
+
+cli
+---
 
 ::
 
@@ -150,17 +163,3 @@ To reset the tomoscan-cli status::
 	[user2bmb@pg10ge]$ tomoscan init
 
 after deleting the tomoscan.conf file if already exists.
-
-
-Troubleshooting
----------------
-
-If in the tomoScan screen the Python server is not running (status is stopped) you can start it with::
-
-    [user2bmb@pg10ge]$ cd ~/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM
-    [user2bmb@pg10ge]$ python -i start_tomoscan.py
-
-if in the tomoScan screen the PVs are not connected (white) you need to start the tomoScan IOC with::
-
-    [user2bmb@arcturus]$ cd /home/beams/USER2BMB/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM
-    [user2bmb@arcturus]$ ./start_IOC
