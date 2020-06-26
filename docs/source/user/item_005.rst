@@ -1,23 +1,43 @@
 Data collection
 ===============
 
-The tomography scans are managed by the `2bm tomo <https://github.com/xray-imaging/2bm-tomo>`_ python library. Please refer to 
-`2bm tomo <https://github.com/xray-imaging/2bm-tomo>`_ for details.
+The tomography scans are managed by `tomoScan <https://tomoscan.readthedocs.io/en/latest/index.html>`_. Please refer to `tomoScan <https://tomoscan.readthedocs.io/en/latest/index.html>`_ for details.
 
-To run a tomographic scan::
+To configure a single tomographic scan enter the acquistion parameters at:
 
-    [user2bmb@arcturus,42,~]$ tomo scan
+.. image:: ../img/tomoScan.png
+   :width: 480px
+   :align: center
+   :alt: tomoScan
 
-from the command line. To get correct results, you may need to set specific
-options, for example to collect 10 tomographic dataset at 10 vertical positions separated by 1 mm::
 
-    [user2bmb@arcturus,42,~]$ tomo scan --scan-type vertical --vertical-scan-start 0 --vertical-scan-end 10 --vertical-scan-step-size 1
+To run a single scan with the parameters set in the tomoScan screen press the gree **Start Scan** button. To collect the same from the command line interface::
 
-to list of all available options::
+    [user2bmb@arcturus,42,~]$ tomoscan single
 
-    [user2bmb@arcturus,42,~]$ tomo scan -h
+tomoscan supports also vertical, horizontal and mosaic tomographic scans with::
 
-For more details refer to `2bm tomo <https://github.com/xray-imaging/2bm-tomo>`_.
+    [user2bmb@pg10ge]$ tomoscan vertical
+    [user2bmb@pg10ge]$ tomoscan horizontal
+    [user2bmb@pg10ge]$ tomoscan mosaic
+
+to run a vertical scan::
+
+    $ [user2bmb@pg10ge]$ tomoscan vertical --vertical-start 0 --vertical-step-size 0.1 --vertical-steps 2
+
+    2020-05-29 16:54:03,354 - vertical scan start
+    2020-05-29 16:54:03,356 - vertical positions (mm): [0.  0.1]
+    2020-05-29 16:54:03,358 - SampleInY stage start position: 0.000 mm
+    2020-05-29 16:54:03,362 - single scan start
+    2020-05-29 16:54:51,653 - single scan time: 0.805 minutes
+    2020-05-29 16:54:51,654 - SampleInY stage start position: 0.100 mm
+    2020-05-29 16:54:51,658 - single scan start
+    2020-05-29 16:55:47,607 - single scan time: 0.932 minutes
+    2020-05-29 16:55:47,607 - vertical scan time: 1.738 minutes
+    2020-05-29 16:55:47,608 - vertical scan end
+
+
+please check the `command line manual  <https://tomoscan.readthedocs.io/en/latest/demo.html#using-the-tomoscan-cli>`_ for more details. 
 
 Bluesky
 -------
