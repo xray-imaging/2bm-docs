@@ -20,3 +20,10 @@ or you can directly stop/start with::
     [user2bmb@arcturus]$ ./2bmS1.sh start
     [user2bmb@arcturus]$ ./2bmS1.sh stop
 
+
+.. warning:: Make sure you are in a cshell and not in a bash when running the above commands.
+
+To start the 2bmS1 console::
+
+    [user2bmb@arcturus]$ cd /net/s2dserv/xorApps/epics/synApps_5_8/ioc/2bmS1/iocBoot/ioc2bmS1Linux
+    [user2bmb@arcturus]$ ../../bin/linux-x86_64/2bmS1 st.cmd
