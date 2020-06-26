@@ -24,7 +24,7 @@ You can access `tomoScan <https://tomoscan.readthedocs.io/en/latest/index.html>`
    :align: center
    :alt: tomoScan
 
-The tomoScan allows to configure and collect a single tomographic data. 
+The tomoScan allows to configure and collect a single tomographic dataset. 
 
 Python/Epics servers
 --------------------
