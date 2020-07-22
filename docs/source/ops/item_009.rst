@@ -1,9 +1,7 @@
 Logs
 ====
 
-To generate user logs table to be published `here <https://docs2bm.readthedocs.io/en/latest/source/logs.html>`_  use
- `meta5 <https://github.com/xray-imaging/metah5>`_ to generate a table in rst format. This table is created 
- extracting information from the raw hdf tomography data. 
+To generate user logs table to be published `here <https://docs2bm.readthedocs.io/en/latest/source/logs.html>`_ use `meta5 <https://github.com/xray-imaging/metah5>`_ to generate a table in rst format. This table is created extracting information from the raw hdf tomography data.
 
 To view the table::
 
