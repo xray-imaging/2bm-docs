@@ -16,12 +16,8 @@ to create the table::
     2020-07-22 13:00:09,504 -   verbose          True
     ./log_2020-06.rst
 
-The table is stored in the ./log_2020-06.rst to publish this on the web::
+The table is stored in the /log_yyyy-mm.rst to publish this on the web::
 
-    user2bmb@pg10ge:/local/data/2020-06/pasha_test$ cp log_2020-06.rst /local/user2bmb/conda/2bm-docs/docs/source/logs/
-    user2bmb@pg10ge:/local/user2bmb/conda/2bm-docs$ cd /local/user2bmb/conda/2bm-docs/
-    user2bmb@pg10ge:/local/user2bmb/conda/2bm-docs$ git add -u  
-    user2bmb@pg10ge:/local/user2bmb/conda/2bm-docs$ git commit -m "added 2020-06 samples to the log"
-    user2bmb@pg10ge:/local/user2bmb/conda/2bm-docs$ git push origin master
+    user2bmb@pg10ge:/local/data/2020-06/pasha_test$ metah5 docs --h5-name /local/data/2020-07/Stock/ --doc-dir /local/user2bmb/conda/2bm-docs/docs/source/logs/
 
 The new log will be published in the  `beamline doc <https://docs2bm.readthedocs.io/en/latest/source/logs.html>`_ 
