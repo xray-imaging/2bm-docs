@@ -26,11 +26,16 @@ FLIR
 .. contents:: 
    :local:
 
-To start/stop the area detector IOC for the FLIR Oryx camera login into user2bmb@pg10ge then type::
+To start/stop the area detector IOC for the FLIR Oryx (model 10GS 51S5) camera login into user2bmb@pg10ge then type::
 
     [user2bmb@pg10ge]$ ~/2bmbOryx.sh -h
     Usage: 2bmbOryx.sh {start|stop|restart|status|console|run|medm}
 
+*Manuals*
+
+`Installation Guide <https://anl.box.com/s/7pe793z5x9cspayqimscavzqhdcc9og7>`_
+
+`Technical Reference <https://anl.box.com/s/iyysb20lkr9uwbbefy3s0n2pkq3lyktq>`_
 
 List
 ----
