@@ -1,7 +1,7 @@
 Reference
 =========
 
-Here you can find links to  2-BM technical reference material like drawings, harware manuals etc.
+Here you can find links to  2-BM technical reference material like drawings, hardware manuals etc.
 
 Multi-layer
 -----------
