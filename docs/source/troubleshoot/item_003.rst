@@ -36,3 +36,13 @@ If the area detector fails to boot even after a camera power cycle, it means tha
 then restart areadetector with::
 
     user2bmb@pg10ge$ ~/2bmbOryx.sh start
+
+
+.. warning:: If the camera is not performing at the max speed (when set at 8-bit should run at 160 fps) but only runs at a lower speed (~95 fps or so) check the settings for the ISP Enable parameter is set to No. 
+
+.. image:: ../img/camera_IspEnable.png 
+   :width: 240px
+   :align: center
+   :alt: tomo_user
+
+This is located in the Camera-specific features/Features #2 screen of the ADSpinnaker.adl screen.
