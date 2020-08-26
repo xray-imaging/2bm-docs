@@ -1,6 +1,9 @@
 Data collection
 ===============
 
+TomoScan
+--------
+
 The tomography scans are managed by `tomoScan <https://tomoscan.readthedocs.io/en/latest/index.html>`_. Please refer to `tomoScan <https://tomoscan.readthedocs.io/en/latest/index.html>`_ for details.
 
 To configure a single tomographic scan enter the acquistion parameters at:
