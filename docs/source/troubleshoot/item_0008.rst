@@ -1,0 +1,13 @@
+No Machine reboot
+=================
+
+.. contents:: 
+   :local:
+
+If you need to reboot the NX server on handyn::
+
+    $ tomo@handyn /usr/sbin/reboot
+    $ tomo@handyn /usr/NX/bin/nxserver --restart
+
+
+
