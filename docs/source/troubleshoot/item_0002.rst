@@ -46,3 +46,16 @@ then restart areadetector with::
    :alt: tomo_user
 
 This is located in the Camera-specific features/Features #2 screen of the ADSpinnaker.adl screen.
+
+Point Grey
+----------
+
+The area detector IOC controlling the Point Grey camera run on the linux machine named lyra. To check the area detector status::
+
+    [user2bmb@lyra]$ 2bmbPG3 status 
+
+To stop/stop area detector use ::
+
+    user2bmb@pg10ge$ ~/2bmbOryx.sh start
+    user2bmb@pg10ge$ ~/2bmbOryx.sh stop
+
