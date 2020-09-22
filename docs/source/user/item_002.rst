@@ -60,7 +60,7 @@ These are the model/part number of the detectors in use at 2-BM.
 FLIR
 ----
 
-::
+To use the Flir Oryx installed at 2-BM-A and connected to pg10ge::
 
   [user2bmb@pg10ge]$ start_tomo
 
@@ -101,7 +101,7 @@ FLIR Manuals
 Point Grey
 ----------
 
-To use the Point Grey GS3-U3-23S6M-C::
+To use the Point Grey GS3-U3-23S6M-C installed at 2-BM-B and connected to lyra::
 
   [user2bmb@lyra]$ start_mona
 
