@@ -1,45 +1,6 @@
 Detector
 ========
 
-Select the detector to use from:
-
-.. image:: ../img/item_002.png 
-   :width: 128px
-   :align: center
-   :alt: tomo_user
-
-For FLIR Oryx the control screen is:
-
-.. image:: ../img/item_003.png 
-   :width: 720px
-   :align: center
-   :alt: tomo_user
-
-To collect an image press Acquire Start.
-
-Startup
--------
-
-FLIR
-~~~~
-
-.. contents:: 
-   :local:
-
-To start/stop the area detector IOC for the FLIR Oryx (model 10GS 51S5) camera login into user2bmb@pg10ge then type::
-
-    [user2bmb@pg10ge]$ ~/2bmbOryx.sh -h
-    Usage: 2bmbOryx.sh {start|stop|restart|status|console|run|medm}
-
-FLIR Manuals
-~~~~~~~~~~~~
-
-- `Installation Guide <https://anl.box.com/s/7pe793z5x9cspayqimscavzqhdcc9og7>`_
-- `Technical Reference <https://anl.box.com/s/iyysb20lkr9uwbbefy3s0n2pkq3lyktq>`_
-
-List
-----
-
 .. contents:: 
    :local:
 
@@ -93,3 +54,76 @@ These are the model/part number of the detectors in use at 2-BM.
 
 
 () Only applies to detector with on board memory, transfer speed to on boad memory. 
+
+
+
+FLIR
+----
+
+::
+
+  [user2bmb@pg10ge]$ start_tomo
+
+then select FLIR Oryx from:
+
+.. image:: ../img/item_002.png 
+   :width: 128px
+   :align: center
+   :alt: tomo_user
+
+
+to obtain the FLIR Oryx areadetector main control screen:
+
+.. image:: ../img/item_003.png 
+   :width: 720px
+   :align: center
+   :alt: tomo_user
+
+To collect an image press Acquire Start.
+
+Startup
+~~~~~~~
+
+.. contents:: 
+   :local:
+
+To start/stop the area detector IOC for the FLIR Oryx (model 10GS 51S5) camera login into user2bmb@pg10ge then type::
+
+    [user2bmb@pg10ge]$ ~/2bmbOryx.sh -h
+    Usage: 2bmbOryx.sh {start|stop|restart|status|console|run|medm}
+
+FLIR Manuals
+~~~~~~~~~~~~
+
+- `Installation Guide <https://anl.box.com/s/7pe793z5x9cspayqimscavzqhdcc9og7>`_
+- `Technical Reference <https://anl.box.com/s/iyysb20lkr9uwbbefy3s0n2pkq3lyktq>`_
+
+Point Grey
+----------
+
+To use the Point Grey GS3-U3-23S6M-C::
+
+  [user2bmb@lyra]$ start_mona
+
+then select MONA/User/detectors/Point Grey camera (PG3) to obtain the Point Grey areadetector main control screen:
+
+.. image:: ../img/item_007.png 
+   :width: 720px
+   :align: center
+   :alt: tomo_user
+
+To collect an image press Acquire Start.
+
+Startup
+~~~~~~~
+
+.. contents:: 
+   :local:
+
+To start/stop the areadetector IOC for the Point Grey (model GS3-U3-23S6M-C) camera login into user2bmb@lyra then type::
+
+    [user2bmb@lyra]$ 2bmbPG3 
+     Usage: 2bmbPG3.sh {start|stop|restart|status|console|run}
+    [user2bmb@lyra]$ 2bmbPG3 status 
+    [user2bmb@lyra]$ 2bmbPG3 start 
+
