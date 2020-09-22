@@ -10,5 +10,6 @@ If you need to reboot the NX server on handyn::
     $ tomo@handyn /usr/NX/bin/nxserver --restart
 
 or::
+
     $ tomo@handyn pkill -9 -u tomo
 
