@@ -6,7 +6,7 @@ Sample
 
 
 Mounting
-========
+--------
 
 Samples are mounted on a `custom tip <https://anl.app.box.com/folder/123584924093>`_ as shown below:
 
