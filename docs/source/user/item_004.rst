@@ -15,7 +15,7 @@ Samples are mounted on a `custom tip <https://anl.app.box.com/folder/12358492409
    :align: center
    :alt: tomo_user
 
-this is mounted on the rotary stage using a `KBT25 <http://www.thorlabs.com/thorProduct.cfm?partNumber=KBT25/M>`_/`KBB25 <http://www.thorlabs.com/thorProduct.cfm?partNumber=KBB25/M>`_ pair.
+this is mounted on the rotary stage using a `KBT25 <http://www.thorlabs.com/thorProduct.cfm?partNumber=KBT25/M>`_/`KBB25 <http://www.thorlabs.com/thorProduct.cfm?partNumber=KBB25/M>`_ pair. New `KBT25T kinematic <http://www.thorlabs.com/thorProduct.cfm?partNumber=KBT25T/M>`_ could also be used.
 
 Alignment
 ---------
