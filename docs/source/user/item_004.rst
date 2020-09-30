@@ -1,10 +1,24 @@
-Sample Alignment
-================
-
-
+Sample
+======
 
 .. contents:: 
    :local:
+
+
+Mounting
+========
+
+Samples are mounted on a `custom tip <https://anl.app.box.com/folder/123584924093>`_ as shown below:
+
+.. image:: ../img/sample_kinematic.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user
+
+this is mounted on the rotary stage using a `KBT25 <http://www.thorlabs.com/thorProduct.cfm?partNumber=KBT25/M>`_/`KBB25 <http://www.thorlabs.com/thorProduct.cfm?partNumber=KBB25/M>`_ pair.
+
+Alignment
+---------
 
 | In order to align the sample on the center of rotation of the rotary stage 4 motorized axis are needed:
 |
@@ -31,7 +45,7 @@ move the sample up/down by adjusting Tomo_Sam_Y in the positive/negative directi
 
 
 Automatic
----------
+~~~~~~~~~
 
 `Adjust <https://github.com/xray-imaging/adjust>`_ is a python script that automates all tomography instrument alignemt taks.
 
@@ -56,8 +70,8 @@ then::
     user2bmb@pg10ge $ adjust roll
     user2bmb@pg10ge $ adjust pitch
 
-Manual
-------
+Manual 
+~~~~~~
 
 To center the sample on the rotation axis move the rotary stage Tomo_Rot at 0\ :sup:`o` then by adjusting the motor called "Tomo@0deg" (which is the sample stage on top of the rotary stage moving in the X director when the rotary stage at 0\ :sup:`o`) move the sample towards the center of the field of view. Finally move the Tomo_Rot at 180\ :sup:`o` then by adjusting the motor called "Tomo@1800deg" (which is the sample stage on top of the rotary stage moving in the X director when the rotary stage at 180\ :sup:`o`) move again the sample towards the center. The same process is described in the 4 steps below:
 
