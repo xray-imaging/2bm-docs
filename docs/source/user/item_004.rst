@@ -11,7 +11,7 @@ Mounting
 Samples are mounted on a `custom tip <https://anl.app.box.com/folder/123584924093>`_ as shown below:
 
 .. image:: ../img/sample_kinematic.png 
-   :width: 480px
+   :width: 140px
    :align: center
    :alt: tomo_user
 
