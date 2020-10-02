@@ -1,14 +1,15 @@
-Detector restart
-================
+Detectors
+=========
 
 .. contents:: 
    :local:
 
+Here we list detector specific information userful for troubleshooting and configure areadetector.
+
 Flir
 ----
 
-The area detector IOC controlling the FLIR camera run on the linux machine named pg10ge.
-To check the area detector status::
+The area detector IOC controlling the FLIR camera run on the linux machine named pg10ge. To check the area detector status::
 
     user2bmb@pg10ge$ 2bmbOryx.sh status
 
@@ -45,6 +46,19 @@ then restart areadetector with::
 
 This is located in the Camera-specific features/Features #2 screen of the ADSpinnaker.adl screen.
 
+Circular Buffer
+~~~~~~~~~~~~~~~
+
+The circular buffer plug-in is used in streaming mode to store 'past' images (taken before the capture starts) so that the recording includes data ahead of the event that triggered the data saving. The maximum number of frames buffered in the NDPluginCircularBuff plugin can be increased (within the available computer memory) by editing::
+
+    # The maximum number of frames buffered in the NDPluginCircularBuff plugin
+    epicsEnvSet("CBUFFS", "1500")
+
+in the st.cmd.base file located in /net/s2dserv/xorApps/PreBuilts/areaDetector-R3-10/ADSpinnaker-R3-0/iocs/spinnakerIOC/iocBoot/iocSpinnaker::
+
+    user2bmb@pg10ge$ cd /net/s2dserv/xorApps/PreBuilts/areaDetector-R3-10/ADSpinnaker-R3-0/iocs/spinnakerIOC/iocBoot/iocSpinnaker
+    user2bmb@pg10ge$ sublime st.cmd.base
+
 Point Grey
 ----------
 
@@ -56,4 +70,3 @@ To stop/stop area detector use ::
 
     user2bmb@pg10ge$ 2bmbPG3 start
     user2bmb@pg10ge$ 2bmbPG3 stop
-
