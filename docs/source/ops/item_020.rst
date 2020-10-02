@@ -31,12 +31,12 @@ Python/Epics servers
 
 If in the tomoScan screen the Python server is not running (status is stopped) you can start it with::
 
-    [user2bmb@pg10ge]$ cd ~/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM
+    [user2bmb@pg10ge]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM
     [user2bmb@pg10ge]$ python -i start_tomoscan.py
 
 if in the tomoScan screen the PVs are not connected (white) you need to start the tomoScan IOC with::
 
-    [user2bmb@arcturus]$ cd /home/beams/USER2BMB/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM
+    [user2bmb@arcturus]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM
     [user2bmb@arcturus]$ ./start_IOC
 
 cli
