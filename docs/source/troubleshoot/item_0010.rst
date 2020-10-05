@@ -13,6 +13,6 @@ reads  46.5 degree on the motor dial. To assure the user coordinate reads zero
 degree when the motor physical dial is at zero set the offset as shown in the image below.
 
 .. image:: ../img/rotary.png 
-   :width: 240px
+   :width: 480px
    :align: center
    :alt: tomo_user
