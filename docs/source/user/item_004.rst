@@ -33,7 +33,7 @@ Alignment
    :align: center
    :alt: tomo_user
 
-Load the sample on the kinematic mount (if using the automatic alignemt cli `Adjust <https://github.com/xray-imaging/adjust>`_use the `tungsten sphere <https://www.vxb.com/0-5mm-Tungsten-Carbide-One-0-0197-inch-Dia-p/0-5mmtungstenballs.htm>`_ as sample) then using:
+Load the sample on the kinematic mount (if using the automatic alignemt cli `Adjust <https://github.com/xray-imaging/adjust>`_ use the `tungsten sphere <https://www.vxb.com/0-5mm-Tungsten-Carbide-One-0-0197-inch-Dia-p/0-5mmtungstenballs.htm>`_ as sample) then using:
 
 .. image:: ../img/tomo_admin.png 
    :width: 720px
