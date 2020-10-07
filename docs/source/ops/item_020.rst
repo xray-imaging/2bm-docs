@@ -36,8 +36,8 @@ If in the tomoScan screen the Python server is not running (status is stopped) y
 
 if in the tomoScan screen the PVs are not connected (white) you need to start the tomoScan IOC with::
 
-    [user2bmb@arcturus]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM
-    [user2bmb@arcturus]$ ./start_IOC
+    [user2bmb@pg10ge]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM
+    [user2bmb@pg10ge]$ ./start_IOC
 
 cli
 ---
