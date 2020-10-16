@@ -18,6 +18,7 @@ pg10ge
 
 Log in as user2bmb@pg10ge::
 
+    [user2bmb@pg10ge]$ bash
     [user2bmb@pg10ge]$ cd  ~/Software/globusconnectpersonal-3.1.2
     [user2bmb@pg10ge]$ ./globusconnectpersonal -status
     [user2bmb@pg10ge]$ ./globusconnectpersonal -stop
