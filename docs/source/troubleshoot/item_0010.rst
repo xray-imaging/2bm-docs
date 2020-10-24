@@ -16,3 +16,6 @@ degree when the motor physical dial is at zero set the offset as shown in the im
    :width: 480px
    :align: center
    :alt: tomo_user
+
+
+.. warning:: If the rotary stage stops responding to a move command check that the torque is enabled and that there is sufficient airflow to the stage. If the stage is still not responding issue a Home command by pressing HomR or HomF button in the motor debug medm screen.
