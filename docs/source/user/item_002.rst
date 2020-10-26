@@ -67,7 +67,7 @@ To use the Flir Oryx installed at 2-BM-A and connected to pg10ge::
 then select Detector from:
 
 .. image:: ../img/fast_tomo_user.png 
-   :width: 128px
+   :width: 720px
    :align: center
    :alt: tomo_user
 
