@@ -64,9 +64,9 @@ To use the Flir Oryx installed at 2-BM-A and connected to pg10ge::
 
   [user2bmb@pg10ge]$ start_tomo
 
-then select FLIR Oryx from:
+then select Detector from:
 
-.. image:: ../img/item_002.png 
+.. image:: ../img/fast_tomo_user.png 
    :width: 128px
    :align: center
    :alt: tomo_user
@@ -74,7 +74,7 @@ then select FLIR Oryx from:
 
 to obtain the FLIR Oryx areadetector main control screen:
 
-.. image:: ../img/item_003.png 
+.. image:: ../img/flir_main.png 
    :width: 720px
    :align: center
    :alt: tomo_user

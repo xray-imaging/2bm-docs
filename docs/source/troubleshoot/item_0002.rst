@@ -21,7 +21,7 @@ To stop/restart area detector use ::
 
 To power cycle the camera unplug the power supply:
 
-.. image:: ../img/camera.png 
+.. image:: ../img/flir_power.png 
    :width: 240px
    :align: center
    :alt: tomo_user
@@ -37,14 +37,26 @@ then restart areadetector with::
     user2bmb@pg10ge$ ~/2bmbOryx.sh start
 
 
-.. warning:: If the camera is not performing at the max speed (when set at 8-bit should run at 160 fps) but only runs at a lower speed (~95 fps or so) check the settings for the ISP Enable parameter is set to No. 
+.. warning:: If the camera is not performing at the max speed (when set at 8-bit should run at 160 fps) but only runs at a lower speed (~95 fps or even lower) check the settings for the ISP Enable parameter is set to No. Also increase the DeviceLinkThroughputLimit up to the same value as DeviceLinkSpeed. 
 
-.. image:: ../img/camera_IspEnable.png 
+
+.. image:: ../img/flir_full2.png 
    :width: 240px
    :align: center
    :alt: tomo_user
 
-This is located in the Camera-specific features/Features #2 screen of the ADSpinnaker.adl screen.
+.. image:: ../img/flir_IspEnable.png 
+   :width: 240px
+   :align: center
+   :alt: tomo_user
+
+.. image:: ../img/flir_DeviceLink.png 
+   :width: 240px
+   :align: center
+   :alt: tomo_user
+
+
+These are located in the Camera-specific features/Features #2 screen of the ADSpinnaker.adl screen. Check also the `github issue <https://github.com/areaDetector/ADSpinnaker/issues/4>`_ for more details.
 
 Circular Buffer
 ~~~~~~~~~~~~~~~

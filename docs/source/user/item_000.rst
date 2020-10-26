@@ -8,7 +8,7 @@ To start the tomography control user interface::
 
     [user2bmb@arcturus,42,~]$ start_tomo
 
-.. image:: ../img/item_001.png 
+.. image:: ../img/fast_tomo_user.png 
    :width: 640px
    :align: center
    :alt: tomo_user
