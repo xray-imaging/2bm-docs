@@ -33,9 +33,10 @@ optional arguments:
   -h, --help     show this help message and exit
   --config FILE  File name of configuration
 
-Commands:
-  
+Commands::
+
     init         Create configuration file
+    status       Show metah5 status
     show         Show meta data extracted from --h5-name
     docs         Create in --doc-dir an rst file compatible with
  
