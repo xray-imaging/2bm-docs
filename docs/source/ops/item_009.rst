@@ -20,6 +20,7 @@ To publish the table for data stored by tomo@handyn::
     2020-10-28 19:31:41,004 -   verbose          True
     /local/tomo/conda/2bm-docs/docs/source/logs/log_2020-10.rst
     tomo@handyn$ cd /local/tomo/conda/2bm-docs/
+    tomo@handyn$ git pull
     tomo@handyn$ git add -u
     tomo@handyn$ git commit -m "adding 2020-10/Peng to the log"
     tomo@handyn$ git push origin master
