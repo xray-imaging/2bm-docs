@@ -1,24 +1,30 @@
 Logs
 ====
 
-To generate user logs table to be published `here <https://docs2bm.readthedocs.io/en/latest/source/logs.html>`_ use `meta5 <https://github.com/xray-imaging/metah5>`_ to generate a table in rst format. This table is created extracting information from the raw hdf tomography data.
+To generate user logs table to be published `here <https://docs2bm.readthedocs.io/en/latest/source/logs.html>`_ use `meta5 <https://github.com/xray-imaging/metah5>`_ to generate a table in rst format. 
 
-To view the table::
+metah5 creates this table automatically by extracting information from the raw hdf tomography data.
 
-    user2bmb@pg10ge:/local/data/2020-06/pasha_test$ metah5 show
 
-to create the table::
+To view the table for data stored by tomo@handyn::
 
-    user2bmb@pg10ge:/local/data/2020-06/pasha_test$ metah5 docs
-    astropy module not found
-    2020-07-22 13:00:09,503 - General
-    2020-07-22 13:00:09,503 -   config           /home/user2bmb/metah5.conf
-    2020-07-22 13:00:09,504 -   verbose          True
-    ./log_2020-06.rst
+    tomo@handyn$ bash
+    tomo@handyn$ metah5 show --h5-name /local/data/2020-10/Peng/
 
-The table is stored in the /log_yyyy-mm.rst to publish this on the web::
+To publish the table for data stored by tomo@handyn::
 
-    user2bmb@pg10ge:/local/data/2020-06/pasha_test$ metah5 docs --h5-name /local/data/2020-07/Stock/ --doc-dir /local/user2bmb/conda/2bm-docs/docs/source/logs/
+    tomo@handyn$ bash
+    tomo@handyn$ metah5 docs --h5-name /local/data/2020-10/Peng/
+    2020-10-28 19:31:41,004 - General
+    2020-10-28 19:31:41,004 -   config           /home/beams/TOMO/metah5.conf
+    2020-10-28 19:31:41,004 -   verbose          True
+    /local/tomo/conda/2bm-docs/docs/source/logs/log_2020-10.rst
+    tomo@handyn$ cd /local/tomo/conda/2bm-docs/
+    tomo@handyn$ git add -u
+    tomo@handyn$ git commit -m "adding 2020-10/Peng to the log"
+    tomo@handyn$ git push origin master
+
+The new table will be published at  `beamline doc <https://docs2bm.readthedocs.io/en/latest/source/logs.html>`_ 
 
 For help::
 
@@ -35,4 +41,4 @@ Commands:
     show         Show meta data extracted from --h5-name
     docs         Create in --doc-dir an rst file compatible with
  
-The new log will be published in the  `beamline doc <https://docs2bm.readthedocs.io/en/latest/source/logs.html>`_ 
+
