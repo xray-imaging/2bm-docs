@@ -6,10 +6,12 @@ No Machine reboot
 
 If you need to reboot the NX server on handyn::
 
-    $ tomo@handyn /usr/sbin/reboot
-    $ tomo@handyn /usr/NX/bin/nxserver --restart
+    tomo@handyn$ sudo /usr/NX/bin/nxserver --restart
+    
+The same has been also enabled for::
 
-or::
-
-    $ tomo@handyn pkill -9 -u tomo
+    user2bmb@arcturus$ sudo /usr/NX/bin/nxserver --restart
+    usr32idc@txmone$ sudo /usr/NX/bin/nxserver --restart
+    usr32idc@txmtwo$ sudo /usr/NX/bin/nxserver --restart
+    fast@merlot$ sudo /usr/NX/bin/nxserver --restart
 
