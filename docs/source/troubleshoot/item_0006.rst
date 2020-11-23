@@ -1,14 +1,19 @@
-Linux Workspace
-===============
+Linux Workstation
+=================
 
 .. contents:: 
    :local:
+
+
+Mouse
+-----
 
 If you need to make the mouse larger on a RedHat linux machine::
 
     $ gsettings set org.gnome.desktop.interface cursor-size 48
 
-
+Workspace
+---------
 
 To change to 5 worskpaces::
 
@@ -18,3 +23,12 @@ To change to 5 worskpaces::
 To change their names::
 
 	$ /usr/bin/gsettings set org.gnome.desktop.wm.preferences workspace-names "['Com', 'Vienna', 'Test1', 'Test2','Test3']"
+
+Reboot
+------
+
+Currently these machine/username have permission to reboot from the terminal::
+
+    user2bmb@lyra $ sudo /usr/bin/reboot
+    user2bmb@pg10ge $ sudo /usr/bin/reboot
+
