@@ -30,8 +30,8 @@ then::
     user2bmb@pg10ge $ adjust pitch
 
 
-Swivel Stages
-~~~~~~~~~~~~~
+Sample motor stack
+------------------
 
 | The sample motor stack consists of:
 |
@@ -42,6 +42,9 @@ Swivel Stages
 | • **Sample Y** (vertical motion)
 | • **Sample X** (horizontal motion perpendicular to the beam)
 
+
+Swivel Stages
+~~~~~~~~~~~~~
 
 we have different sets of swivel stages:
 
@@ -67,6 +70,10 @@ we have different sets of swivel stages:
 .. |00002| image:: ../img/kohzu_00002.png
     :width: 20pt
     :height: 20pt
+
+
+Rotary Stages
+~~~~~~~~~~~~~
 
 
 
