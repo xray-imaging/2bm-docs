@@ -4,7 +4,7 @@ Data collection
 TomoScan
 --------
 
-The tomography scans are managed by `tomoScan <https://tomoscan.readthedocs.io/en/latest/index.html>`_. Please refer to `tomoScan <https://tomoscan.readthedocs.io/en/latest/index.html>`_ for details.
+The tomography scans are managed by `tomoScan <https://tomoscan.readthedocs.io/en/latest/index.html>`_. Please refer to the `tomoScan <https://tomoscan.readthedocs.io/en/latest/index.html>`_ documentation for details.
 
 To configure a single tomographic scan enter the acquistion parameters at:
 
@@ -16,7 +16,7 @@ To configure a single tomographic scan enter the acquistion parameters at:
 
 To run a single scan with the parameters set in the tomoScan screen press the gree **Start Scan** button. To collect the same from the command line interface::
 
-    [user2bmb@arcturus,42,~]$ tomoscan single
+    [user2bmb@pg10ge]$ tomoscan single
 
 tomoscan supports also vertical, horizontal and mosaic tomographic scans with::
 
