@@ -31,5 +31,8 @@ Also you can configure webcam preset position with:
    :alt: webCamPreset
 
 
-
+.. image:: ../img/webCamPresetPos.png
+   :width: 480px
+   :align: center
+   :alt: webCamPresetPos
 
