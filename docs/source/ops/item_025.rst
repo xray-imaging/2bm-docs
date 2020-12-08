@@ -22,3 +22,14 @@ New webcams are accessible from::
    :width: 480px
    :align: center
    :alt: webCamNtp
+
+Also you can configure webcam preset position with:
+
+.. image:: ../img/webCamPreset.png
+   :width: 480px
+   :align: center
+   :alt: webCamPreset
+
+
+
+
