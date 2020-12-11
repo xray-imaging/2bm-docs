@@ -28,8 +28,8 @@ Once connected you have full control of the tomography system via the usual user
    :align: center
    :alt: tomo_user
 
-For enable users for remote access plase see
+For enable users for remote access see
 
-https://wiki-ext.aps.anl.gov/remoteaccess/index.php/Main_Page
-https://forge.xray.aps.anl.gov
-https://delos.aps.anl.gov
+- https://wiki-ext.aps.anl.gov/remoteaccess/index.php/Main_Page
+- https://forge.xray.aps.anl.gov
+- https://delos.aps.anl.gov
