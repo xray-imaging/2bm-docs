@@ -23,3 +23,7 @@ and press start at:
    :alt: tomo_user 
 
 
+To open the hdf files saved by the detector we use:
+
+- fiji: https://imagej.net/Fiji 
+- hdf: plugin from https://github.com/paulscherrerinstitute/ch.psi.imagej.hdf5
