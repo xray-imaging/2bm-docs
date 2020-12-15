@@ -30,4 +30,4 @@ To open the hdf files saved by the detector use:
 - fiji: https://imagej.net/Fiji 
 - hdf: plugin from https://github.com/paulscherrerinstitute/ch.psi.imagej.hdf5
 - hdfview https://support.hdfgroup.org/products/java/hdfview/
-- argos (https://github.com/titusjan/argos)
+- argos https://github.com/titusjan/argos
