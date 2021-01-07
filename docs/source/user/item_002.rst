@@ -168,7 +168,7 @@ Adimec
 ------
 
 To use the Quartz quad CoaXPress Q-12A180 CMV12000 installed at 2-BM-A and connected to chiwawa-113, 
-then start the Adimec areadetector main control screen::
+start the Adimec areadetector main control screen::
 
    [user2bmb@chiwawa-113]$ cd /local/epics/areaDetector-3-2/ADCoaxLink/iocs/coaxLinkIOC/iocBoot/iocCoaxLink
    [user2bmb@chiwawa-113]$ ./Start_Adimec_Display.sh
