@@ -31,8 +31,7 @@ Here are few examples:
 
 Below we list of all the camera, lens and scintillator screens options available at 2-BM.
 
-Cameras
--------
+
 .. contents:: 
    :local:
 
@@ -43,7 +42,7 @@ These are the model/part number of the cameras in use at 2-BM:
 .. _camera_00003:  https://www.ptgrey.com/grasshopper3-50-mp-mono-usb3-vision-sony-pregius-imx250         
 .. _camera_00004:  http://www.pco.de/fileadmin/user_upload/pco-product_sheets/pco.dimax_hs_data_sheet.pdf       
 .. _camera_00005:  https://www.pco.de/scmos-cameras/pcoedge-42/       
-.. _camera_00006:  http://www.adimec.com/en/Service_Menu/Industrial_camera_products/High_performance_cameras_for_the_machine_vision_applications/QUARTZ_series_High_speed_CMOS_global_shutter_cameras/Quartz_quad_CoaXPress_12_Megapixels_187fps   
+.. _camera_00006:  https://www.adimec.com/cameras/machine-vision-cameras/quartz-series/q-12a180/   
 .. _camera_00007:  https://www.ptgrey.com/oryx-50-mp-mono-10gige-sony-imx250         
 
 .. |d00001| image:: ../img/dimax_01.png
@@ -66,23 +65,23 @@ These are the model/part number of the cameras in use at 2-BM:
    :alt: flir
 
 
-+-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------+-----------------------------+
-|                   Camera                                    | pixels (HxV) | pixels size (μm) |   bit   | fps        |      Manual        | Part number           |       Images                |
-+=============================================================+==============+==================+=========+============+====================+=======================+=============================+
-| Grasshopper3 9.1 MP Mono USB3 Vision (Sony ICX814)          | 3376 x 2704  |       3.69       | 14      | 9          |     camera_00001_  | GS3-U3-91S6M-C        |                             |
-+-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------+-----------------------------+
-| Grasshopper3 2.3 MP Mono USB3 Vision (Sony Pregius IMX174)  | 1920 x 1200  |       5.86       | 10      | 163        |     camera_00002_  | GS3-U3-23S6M-C        |                             |
-+-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------+-----------------------------+
-| Grasshopper3 5.0 MP Mono USB3 Vision (Sony Pregius IMX250)  | 2448 x 2048  |       3.45       | 10      | 75         |     camera_00003_  | GS3-U3-51S5M-C        |                             |
-+-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------+-----------------------------+
-| PCO DIMAX HS4                                               | 2000 x 2000  |      11          | 12      | 100 (2277) |     camera_00004_  | camera link           |  |d00001| |d00002| |d00003| |
-+-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------+-----------------------------+
-| PCO EDGE 4.2                                                | 2048 x 2048  |       6.5        | 16      | 100        |     camera_00005_  | camera link           |                             |
-+-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------+-----------------------------+
-| Adimec 12 MP                                                | 4000 x 3000  |       5.5        | 8       | 187        |     camera_00006_  | Quartz quad CoaXPress |                             |
-+-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------+-----------------------------+
-| Oryx 5.0 MP Mono 10GigE                                     | 2448 x 2048  |       3.45       | 8-12    | 162        |     camera_00007_  | ORX-10G-51S5M-C       |           |d00004|          |
-+-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------+-----------------------------+
++-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+
+|                   Camera                                    | pixels (HxV) | pixels size (μm) |   bit   | fps        |      Manual        | Part number                   Images    |                             |
++=============================================================+==============+==================+=========+============+====================+=========================================+=============================+
+| Grasshopper3 9.1 MP Mono USB3 Vision (Sony ICX814)          | 3376 x 2704  |       3.69       | 14      | 9          |     camera_00001_  | GS3-U3-91S6M-C                          |                             |
++-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+
+| Grasshopper3 2.3 MP Mono USB3 Vision (Sony Pregius IMX174)  | 1920 x 1200  |       5.86       | 10      | 163        |     camera_00002_  | GS3-U3-23S6M-C                          |                             |
++-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+
+| Grasshopper3 5.0 MP Mono USB3 Vision (Sony Pregius IMX250)  | 2448 x 2048  |       3.45       | 10      | 75         |     camera_00003_  | GS3-U3-51S5M-C                          |                             |
++-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+
+| PCO DIMAX HS4                                               | 2000 x 2000  |      11          | 12      | 100 (2277) |     camera_00004_  | camera link                             |  |d00001| |d00002| |d00003| |
++-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+
+| PCO EDGE 4.2                                                | 2048 x 2048  |       6.5        | 16      | 100        |     camera_00005_  | camera link                             |                             |
++-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+
+| Adimec 12 MP                                                | 4000 x 3000  |       5.5        | 8       | 187        |     camera_00006_  | Quartz quad CoaXPress Q-12A180 CMV12000 |                             |
++-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+
+| Oryx 5.0 MP Mono 10GigE                                     | 2448 x 2048  |       3.45       | 8-12    | 162        |     camera_00007_  | ORX-10G-51S5M-C                         |           |d00004|          |
++-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+
 
 
 () Only applies to detector with on board memory, transfer speed to on boad memory. 
@@ -90,7 +89,7 @@ These are the model/part number of the cameras in use at 2-BM:
 
 
 FLIR
-~~~~
+----
 
 To use the Flir Oryx installed at 2-BM-A and connected to pg10ge::
 
@@ -124,14 +123,14 @@ To start/stop the area detector IOC for the FLIR Oryx (model 10GS 51S5) camera l
     [user2bmb@pg10ge]$ ~/2bmbOryx.sh -h
     Usage: 2bmbOryx.sh {start|stop|restart|status|console|run|medm}
 
-FLIR Manuals
-~~~~~~~~~~~~
+Manuals
+~~~~~~~
 
-- `Installation Guide <https://anl.box.com/s/7pe793z5x9cspayqimscavzqhdcc9og7>`_
-- `Technical Reference <https://anl.box.com/s/iyysb20lkr9uwbbefy3s0n2pkq3lyktq>`_
+- `FLIR Installation Guide <https://anl.box.com/s/7pe793z5x9cspayqimscavzqhdcc9og7>`_
+- `FLIR Technical Reference <https://anl.box.com/s/iyysb20lkr9uwbbefy3s0n2pkq3lyktq>`_
 
 Point Grey
-~~~~~~~~~~
+----------
 
 To use the Point Grey GS3-U3-23S6M-C installed at 2-BM-B and connected to lyra::
 
@@ -158,6 +157,45 @@ To start/stop the areadetector IOC for the Point Grey (model GS3-U3-23S6M-C) cam
      Usage: 2bmbPG3.sh {start|stop|restart|status|console|run}
     [user2bmb@lyra]$ 2bmbPG3 status 
     [user2bmb@lyra]$ 2bmbPG3 start 
+
+Manuals
+~~~~~~~
+
+- `PG Installation Guide <https://anl.box.com/s/ds559pqv1rsq8fmxdavyjycio4n3a7e0>`_
+- `PG Technical Reference <https://anl.box.com/s/52w064y82yura524d9fkz27yst39597v>`_
+
+Adimec
+------
+
+To use the Quartz quad CoaXPress Q-12A180 CMV12000 installed at 2-BM-A and connected to chiwawa-113, 
+then start the Adimec areadetector main control screen::
+
+   [user2bmb@chiwawa-113]$ cd /local/epics/areaDetector-3-2/ADCoaxLink/iocs/coaxLinkIOC/iocBoot/iocCoaxLink
+   [user2bmb@chiwawa-113]$ ./Start_Adimec_Display.sh
+
+.. image:: ../img/adimec.png 
+   :width: 720px
+   :align: center
+   :alt: tomo_user
+
+Startup
+~~~~~~~
+
+.. contents:: 
+   :local:
+
+To start/stop the areadetector IOC for the  Quartz quad CoaXPress Q-12A180 CMV12000  camera login into user2bmb@chiwawa-113 then type::
+
+   [user2bmb@chiwawa-113]$ cd /local/epics/areaDetector-3-2/ADCoaxLink/iocs/coaxLinkIOC/iocBoot/iocCoaxLink
+   [user2bmb@chiwawa-113]$ ./Start_Adimec.sh
+
+To collect an image press Acquire Start.
+
+Manuals
+~~~~~~~
+
+- `Adimec Installation Guide <https://anl.box.com/s/zyyt72lhttnhksgnwi2f02p8wbsoz9r7>`_
+- `Adimec Technical Reference <https://anl.box.com/s/zyyt72lhttnhksgnwi2f02p8wbsoz9r7>`_
 
 Lenses
 ------
