@@ -66,19 +66,21 @@ dark and flat images are broadcasted using `PVaccess`_ and can be retrieved as E
 
 All TomoScanStream functionalies can be controlled from:
 
-.. image:: ../img/tomoStream.png
+.. image:: ../img/tomoScan_2BM_stream.png
     :width: 70%
     :align: center
 
 Streaming data reconstruction
 -----------------------------
 
-The projection, dark and flat image broadcast provided by `tomoScanStream`_ can be used to reconstruct in real-time 3 orthogonal slices. This task is accomplished by `tomoStream`_
+The projection, dark and flat image broadcast provided by `tomoScanStream`_ can be used to reconstruct in real-time 3 orthogonal slices. This task is accomplished by `tomoStream`_.
 
 **Streaming data reconstruction** features are:
 
 - Streaming reconstruction of 3 (X-Y-Z) ortho-slices through the sample
+
 - On demand adjustment of the
+
     - X Y Z ortho-slice positions
     - reconstruction rotation center
     - reconstruction filter
