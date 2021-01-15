@@ -7,8 +7,8 @@
 
 
 
-Streaming
-=========
+TomoStream
+==========
 
 There are 2 major components supporting streaming at 2-BM:
 
@@ -19,21 +19,21 @@ There are 2 major components supporting streaming at 2-BM:
 Startup
 --------
 
-To start streaming data collection and streaming data reconstruction for experiments run :doc:`tomostream_start.sh`:
+To start streaming data collection and streaming data reconstruction run tomostream_start.sh,
 
-in 2-BM-A
+for experiments in 2-BM-A:
 
 ::
 
     [tomo@handyn]$ ~/tomostream_start.sh
 
-in 2-BM-B:
+for experiments in 2-BM-B:
 
 ::
 
     [user2bmb@arcturus]$ ~/tomostream_start.sh
 
-The streaming data collection and streaming data reconstruction startup steps executed by :doc:`tomostream_start.sh` are described in details below.
+The streaming data collection and streaming data reconstruction startup steps executed by :doc:`tomostream_start.sh` for experiments in 2-BM-A are described in detail below.
 
 
 Streaming data collection
