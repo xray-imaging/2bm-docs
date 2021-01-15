@@ -5,6 +5,8 @@
 .. _PVaccess: https://epics-controls.org/resources-and-support/documents/pvaccess/
 .. _Data Exchange: https://dxfile.readthedocs.io/en/latest/source/xraytomo.html
 
+
+
 Streaming
 =========
 
@@ -12,6 +14,26 @@ There are 2 major components supporting streaming at 2-BM:
 
 - Streaming data collection
 - Streaming data reconstruction
+
+
+Startup
+--------
+
+To start streaming data collection and streaming data reconstruction for experiments run :doc:`tomostream_start.sh`:
+
+in 2-BM-A
+
+::
+
+    [tomo@handyn]$ ~/tomostream_start.sh
+
+in 2-BM-B:
+
+::
+
+    [user2bmb@arcturus]$ ~/tomostream_start.sh
+
+The streaming data collection and streaming data reconstruction startup steps executed by :doc:`tomostream_start.sh` are described in details below.
 
 
 Streaming data collection
@@ -162,3 +184,4 @@ The PVA name broadcasting the recontruction can be set in the tomoStream/Epics P
     :align: center
 
 While the sample is rotating is possible to optimize instrument (alignment, focus, sample to detector distance etc.) and  beamline (energy etc.) conditions and monitor the effect live on the 3 orthogonal slices. It is also possible to automatically trigger data capturing based on events occurring in the sample and its environment as a result of segmentation or machine learning.
+
