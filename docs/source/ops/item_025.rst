@@ -14,6 +14,7 @@ New webcams are accessible from::
      2-BM-B: xxx.xx.113.162
     32-ID-B: xxx.xx.102.71
     32-ID-C: xxx.xx.102.90
+    32-ID-C: xxx.xx.102.88
 
 .. warning:: use ntp1.xray.aps.anl.gov (164.54.100.129) or ntp2.xray.aps.anl.gov (164.54.100.155) the set the camera ntp server. See below the webcam NTP configuration page.
 
