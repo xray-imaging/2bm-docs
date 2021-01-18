@@ -1,23 +1,93 @@
+.. _tomoScan: https://tomoscan.readthedocs.io/en/latest/index.html
+.. _tomoScan_2bm: https://tomoscan.readthedocs.io/en/latest/api/tomoscan_2bm.html
+
 TomoScan
 ========
 
 .. contents:: 
    :local:
 
-start the tomo medm screen::
-
-   [user2bmb@arcturus]$ start_tomo
+There are 2 installation of tomoScan at 2-BM to support tomography in the A and B stations. 
 
 
-.. image:: ../img/fastTomo.png 
-   :width: 480px
+Startup
+-------
+
+For experiments in 2-BM-A:
+
+::
+
+    [tomo@handyn]$ ~/tomoscan_start.sh
+
+for experiments in 2-BM-B:
+
+::
+
+    [user2bmb@arcturus]$ ~/tomoscan_start.sh
+
+
+:doc:`a_tomoscan_start.sh` and :doc:`b_tomoscan_start.sh` for scripts content.
+
+The tomoscan startup steps executed by :doc:`a_tomoscan_start.sh` for experiments in 2-BM-A are described in detail below.
+
+
+TomoScan data collection
+------------------------
+
+start the tomography main medm screen::
+
+   [user2bmb@arcturus]$ start_tomo_adm
+
+
+.. image:: ../img/tomo_admin.png 
+   :width: 720px
    :align: center
-   :alt: fastTomo
+   :alt: tomo_admin
 
-medm screen
------------
 
-You can access `tomoScan <https://tomoscan.readthedocs.io/en/latest/index.html>`_ medm screen by clicking on the blue icon on the top right corner.
+Support for tomography data collection is provided by `tomoScan_2bm`_ a `tomoScan`_ derived classes to implement the data collection at 2-BM. To run `tomoScan`_:
+
+
+Start area detector
+~~~~~~~~~~~~~~~~~~~
+
+- EPICS IOC
+
+::
+
+    [user2bmb@pg10ge]$ 2bmbOryx start
+
+
+- medm screen
+
+::
+
+    [user2bmb@pg10ge]$ 2bmbOryx medm
+
+Start tomoScan
+~~~~~~~~~~~~~~
+
+- EPICS IOC
+
+::
+
+    [user2bmb@pg10ge]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM/
+    [user2bmb@pg10ge]$ ./start_IOC
+
+- tomoscan_2bm python server
+
+::
+
+    [user2bmb@pg10ge]$ bash
+    [user2bmb@pg10ge]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM/
+    [user2bmb@pg10ge]$ python -i start_tomoscan.py
+
+- medm screen
+
+::
+
+    [user2bmb@pg10ge]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM/
+    [user2bmb@pg10ge]$ ./start_medm
 
 .. image:: ../img/tomoScan.png
    :width: 480px
@@ -26,21 +96,8 @@ You can access `tomoScan <https://tomoscan.readthedocs.io/en/latest/index.html>`
 
 The tomoScan allows to configure and collect a single tomographic dataset. 
 
-Python/Epics servers
---------------------
-
-If in the tomoScan screen the Python server is not running (status is stopped) you can start it with::
-
-    [user2bmb@pg10ge]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM
-    [user2bmb@pg10ge]$ python -i start_tomoscan.py
-
-if in the tomoScan screen the PVs are not connected (white) you need to start the tomoScan IOC with::
-
-    [user2bmb@pg10ge]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM
-    [user2bmb@pg10ge]$ ./start_IOC
-
-cli
----
+Command-line-interface
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 

@@ -33,7 +33,10 @@ for experiments in 2-BM-B:
 
     [user2bmb@arcturus]$ ~/tomostream_start.sh
 
-The streaming data collection and streaming data reconstruction startup steps executed by :doc:`tomostream_start.sh` for experiments in 2-BM-A are described in detail below.
+
+:doc:`a_tomostream_start.sh` and :doc:`b_tomostream_start.sh` for scripts content.
+
+The streaming data collection and streaming data reconstruction startup steps executed by :doc:`b_tomostream_start.sh` for experiments in 2-BM-B are described in detail below.
 
 
 Streaming data collection

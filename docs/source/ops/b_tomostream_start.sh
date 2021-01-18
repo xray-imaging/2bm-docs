@@ -8,6 +8,8 @@ sleep 12;\
 caput 2bmbPG1:cam1:Acquire 1\
 csh'" 
 
+sleep 10
+
 gnome-terminal --tab --title "ADetector UI" -- bash -c "ssh -t user2bmb@lyra \
 '/net/s2dserv/xorApps/PreBuilts/areaDetector-R3-10/ADSpinnaker-R3-1/iocs/spinnakerIOC/iocBoot/ioc2bmbSP1/softioc/2bmbPG1.sh medm; csh'" 
 
@@ -44,5 +46,8 @@ gnome-terminal --tab --title "tomoStream UI" -- bash -c "cd /local/tomo/epics/sy
 ./start_medm; \
 bash" 
 
+# gnome-terminal --tab --title "tomo UI" -- bash -c "ssh -t user2bmb@arcturus \
+# './start_tomo_adm; \
+# csh'" 
 
 
