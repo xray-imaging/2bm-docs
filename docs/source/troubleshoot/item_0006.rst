@@ -29,6 +29,6 @@ Reboot
 
 Currently these machine/username have permission to reboot from the terminal::
 
-    user2bmb@lyra $ sudo /usr/bin/reboot
+    user2bmb@lyra $ sudo /usr/sbin/reboot
     user2bmb@pg10ge $ sudo /usr/sbin/reboot
 
