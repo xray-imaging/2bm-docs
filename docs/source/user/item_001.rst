@@ -1,6 +1,8 @@
 Computing
 =========
 
+Here are the computers supporting detector or data analysis at 2-BM:
+
 +-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
 | Station   | Name         |      Model        |  Product No.    |    Labels                |        Manual       |
 +-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
@@ -10,6 +12,9 @@ Computing
 +-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
 | 2-BM-B    | handyn       |  HP Z820          |     LJ452AV     |  `handyn label`_         |     `handyn SM`_    |
 +-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
+
+
+For each machine part list at purchase, enter the serial numeber in the `HP support <https://support.hp.com/us-en>`_ web page.
 
 .. _pg10ge label: https://anl.box.com/s/oslaky958be3vyifda2xyq4tv0v9v7pz
 .. _pg10ge SM: https://anl.box.com/s/m1u8o62wbr27n26iotfnbhgpncwsapcq
