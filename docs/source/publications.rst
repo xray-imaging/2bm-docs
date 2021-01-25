@@ -8,9 +8,7 @@ Credits
 
 TO BE COMPLETED:
 
-We kindly request that you cite the following article :cite:`de2016nanoscale` related to the **2-BM**
-
-If you have been using **TomoPy** for the 3D reconstructions, please cite :cite:`gursoy2014tomopy`
+If you have been using **TomoPy** for the 3D reconstructions, please cite :cite:`Gursoy:14a`
 
 .. bibliography:: bibtex/cite.bib
    :style: plain
