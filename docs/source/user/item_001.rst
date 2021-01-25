@@ -14,7 +14,7 @@ Here are the computers supporting detector or data analysis at 2-BM:
 +-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
 
 
-For each machine part list at purchase, enter the serial numeber in the `HP support <https://partsurfer.hp.com/Search.aspx>`_ web page.
+For each machine part list at purchase and for the list of supported hardware enter the serial numeber in the `HP support <https://partsurfer.hp.com/Search.aspx>`_ web page.
 
 .. _pg10ge label: https://anl.box.com/s/oslaky958be3vyifda2xyq4tv0v9v7pz
 .. _pg10ge SM: https://anl.box.com/s/m1u8o62wbr27n26iotfnbhgpncwsapcq
