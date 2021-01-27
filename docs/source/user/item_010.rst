@@ -10,7 +10,7 @@ Single Objective
 ~~~~~~~~~~~~~~~~~
 
 .. image:: ../img/optique_peter_single.png 
-   :width: 140px
+   :width: 720px
    :align: center
    :alt: tomo_user
 
@@ -25,7 +25,7 @@ Triple Objective
 ~~~~~~~~~~~~~~~~
 
 .. image:: ../img/optique_peter_triple.png 
-   :width: 140px
+   :width: 720px
    :align: center
    :alt: tomo_user
 
