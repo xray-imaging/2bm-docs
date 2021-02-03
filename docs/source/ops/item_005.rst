@@ -1,16 +1,24 @@
-GIT
-===
+FDT data transfer
+=================
 
 .. contents:: 
    :local:
 
-The git commands to update, commit and push your local repository are:: 
+To copy data from windows from:: 
 
-   $ git status
-   $ git add -u
-   $ git add new_files
-   $ git commit -m "my commit comment"
-   $ git push origin master
+   S:\data\2019-02\user_name\test.h5 
 
-then go to the github repository your fork originated from and create a pull request, then merge it.
+to linux machine::
 
+   /local/data/user_name/ 
+   
+first install `FDT <http://monalisa.cern.ch/FDT/>`_ on both machines then go to the linux 
+machine start the fdt server::
+
+    $ cd /local/data/fdt
+    $ java -jar fdt.jar
+
+then go to the windows machine from a dos prompt start the copy (client)::
+
+    $ cd C:\Users\se2admin\Desktop\FDT\
+    $ java -jar fdt.jar -c handyn -d /local/data/Dunand/ S:\data\2019-02\Dunand\test.h5

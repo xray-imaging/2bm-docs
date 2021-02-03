@@ -34,17 +34,6 @@ The tomoscan startup steps executed by :doc:`a_tomoscan_start.sh` for experiment
 TomoScan data collection
 ------------------------
 
-start the tomography main medm screen::
-
-   [user2bmb@arcturus]$ start_tomo_adm
-
-
-.. image:: ../img/tomo_admin.png 
-   :width: 720px
-   :align: center
-   :alt: tomo_admin
-
-
 Support for tomography data collection is provided by `tomoScan_2bm`_ a `tomoScan`_ derived classes to implement the data collection at 2-BM. To run `tomoScan`_:
 
 
