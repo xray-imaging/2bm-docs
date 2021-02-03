@@ -1,24 +1,40 @@
-FDT data transfer
-=================
+EPICS startup
+=============
 
-.. contents:: 
-   :local:
+beamline
+--------
 
-To copy data from windows from:: 
+To start the main beamline control screens::
 
-   S:\data\2019-02\user_name\test.h5 
+   [user2bmb@arcturus]$ start_epics
 
-to linux machine::
+.. image:: ../img/2bma_beamline.png 
+   :width: 720px
+   :align: center
+   :alt: 2bma_beamline
 
-   /local/data/user_name/ 
-   
-first install `FDT <http://monalisa.cern.ch/FDT/>`_ on both machines then go to the linux 
-machine start the fdt server::
+.. image:: ../img/2bmb_beamline.png 
+   :width: 720px
+   :align: center
+   :alt: 2bmb_beamline
 
-    $ cd /local/data/fdt
-    $ java -jar fdt.jar
+tomography
+----------
 
-then go to the windows machine from a dos prompt start the copy (client)::
+To start the main tomography control screens for 2-BM-A or 2-BM-B for scanning or streaming data collection select in the main beamline control screens the corresponding screen for user, admin, tomoscan, tomoscan 2-BM:
 
-    $ cd C:\Users\se2admin\Desktop\FDT\
-    $ java -jar fdt.jar -c handyn -d /local/data/Dunand/ S:\data\2019-02\Dunand\test.h5
+.. image:: ../img/tomo_01.png 
+   :width: 128px
+   :align: center
+   :alt: tomo_01
+
+.. image:: ../img/tomo_02.png 
+   :width: 128px
+   :align: center
+   :alt: tomo_02
+
+.. image:: ../img/tomo_03.png 
+   :width: 128px
+   :align: center
+   :alt: tomo_03
+
