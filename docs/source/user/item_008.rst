@@ -2,7 +2,7 @@ Remote access
 =============
 
 Remote access to beamline control computers is granted to users having a valid badge number and an active/scheduled proposal. 
-To connect to 2-BM main control system please go to https://delos.aps.anl.gov and login using as user name d+badge numner 
+To connect to 2-BM main control system please go to https://delos.aps.anl.gov and login using as user name d+badge number 
 and the password you use to submit your APS prosal, then select "ARCTURUS, WS, Red Hat Enterprise Linux Workstation".
 
 
