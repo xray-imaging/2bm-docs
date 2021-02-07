@@ -86,7 +86,7 @@ Start tomoScanStream
     [user2bmb@lyra]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScanStream_2BMB/
     [user2bmb@lyra]$ ./start_medm
 
-.. image:: ../img/tomoScan_2BM_stream.png
+.. image:: ../img/tomoScanStream.png
     :width: 70%
     :align: center
 
