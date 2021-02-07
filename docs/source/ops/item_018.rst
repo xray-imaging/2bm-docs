@@ -42,7 +42,7 @@ The streaming data collection and streaming data reconstruction startup steps ex
 Streaming data collection
 -------------------------
 
-Support for streaming data collection is provided by `tomoScanStream`_ a `tomoScan`_ derived classes to implement the streaming data collection. To run `tomoScanStream`_:
+Support for streaming data collection is provided by `tomoScanStream`_ a `tomoScan`_ derived classes to implement the streaming data collection. To run `tomoScanStream`_ in 2-BM-B:
 
 Start area detector
 ~~~~~~~~~~~~~~~~~~~
@@ -61,14 +61,14 @@ Start area detector
 
     [user2bmb@lyra]$ 2bmbPG1 medm
 
-Start tomoScan
-~~~~~~~~~~~~~~
+Start tomoScanStream
+~~~~~~~~~~~~~~~~~~~~
 
 - EPICS IOC
 
 ::
 
-    [user2bmb@lyra]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM/
+    [user2bmb@lyra]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScanStream_2BMB/
     [user2bmb@lyra]$ ./start_IOC
 
 - tomoscan_stream python server
@@ -76,41 +76,31 @@ Start tomoScan
 ::
 
     [user2bmb@lyra]$ bash
-    [user2bmb@lyra]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM/
+    [user2bmb@lyra]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScanStream_2BMB/
     [user2bmb@lyra]$ python -i start_tomoscan_stream.py
 
 - medm screen
 
 ::
 
-    [user2bmb@lyra]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM/
+    [user2bmb@lyra]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScanStream_2BMB/
     [user2bmb@lyra]$ ./start_medm
-
-.. image:: ../img/tomoScan.png
-    :width: 70%
-    :align: center
-
-Streaming data collection features are:
-
-- On-demand retake of dark-flat field images
-- On-demand data capturing with saving in a standard `Data Exchange`_ hdf5file
-- Set a number of projectons ("Pre count") collected before a triggered data capturing event to be also saved in the same hdf5 file
-
-and can be controlled from:
 
 .. image:: ../img/tomoScan_2BM_stream.png
     :width: 70%
     :align: center
 
-accessible by selecting "Stream" on the tomoScan/Beamline-specific display
+Streaming data collection features can be controlled from the Streaming Control section and includes:
 
-.. image:: ../img/tomoScan_2BM.png
-    :width: 70%
-    :align: center
+- On-demand data capturing with saving in a standard `Data Exchange`_ hdf5file
+- Set a number of projectons ("Pre count") collected before a triggered data capturing event to be also saved in the same hdf5 file
+- binning data streaming
 
-When collecting data in streaming mode, projections, dark and flat images are broadcasted using `PVaccess`_ and can be retrieved as EPICS PVs. Projections are streamed by the detector PVA1 plugin while dark and flat are streamed by tomoScan with a dark/flat PVA prefix configurable under tomoScan/Beamline-specific/Other PVs screen:  
+ dark-flat field images can be re-taken on-demand at any time during data collection by selecting **Now** next to the Collect flat (dark) fields. 
 
-.. image:: ../img/tomoScan_2BM_otherpvs.png
+When collecting data in streaming mode, projections, dark and flat images are broadcasted using `PVaccess`_ and can be retrieved as EPICS PVs. Projections are streamed by the detector PVA1 plugin while dark and flat are streamed by tomoScanStream with a dark/flat PVA prefix configurable under tomoScan/Epics PV names PVs screen:  
+
+.. image:: ../img/tomoScanStreamEPICS_PVs.png
     :width: 70%
     :align: center
 

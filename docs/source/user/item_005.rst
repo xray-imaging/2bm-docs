@@ -64,7 +64,7 @@ dark and flat images are broadcasted using `PVaccess`_ and can be retrieved as E
 - On-demand data capturing with saving in a standard `Data Exchange`_ hdf5file
 - Set a number of projectons ("Pre count") collected before a triggered data capturing event to be also saved in the same hdf5 file
 
-All TomoScanStream functionalies can be controlled from:
+All TomoScanStream functionalies can be controlled from the Streaming Control section of:
 
 .. image:: ../img/tomoScan_2BM_stream.png
     :width: 70%
