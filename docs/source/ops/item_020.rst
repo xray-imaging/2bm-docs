@@ -34,7 +34,7 @@ The tomoscan startup steps executed by :doc:`a_tomoscan_start.sh` for experiment
 TomoScan data collection
 ------------------------
 
-Support for tomography data collection is provided by `tomoScan_2bm`_ a `tomoScan`_ derived classes to implement the data collection at 2-BM. To run `tomoScan`_:
+Support for tomography data collection is provided by `tomoScan_2bm`_ a `tomoScan`_ derived classes to implement the data collection at 2-BM. To run `tomoScan`_ in 2-BM-A:
 
 
 Start area detector
@@ -60,7 +60,7 @@ Start tomoScan
 
 ::
 
-    [user2bmb@pg10ge]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM/
+    [user2bmb@pg10ge]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BMA/
     [user2bmb@pg10ge]$ ./start_IOC
 
 - tomoscan_2bm python server
@@ -68,14 +68,14 @@ Start tomoScan
 ::
 
     [user2bmb@pg10ge]$ bash
-    [user2bmb@pg10ge]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM/
+    [user2bmb@pg10ge]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BMA/
     [user2bmb@pg10ge]$ python -i start_tomoscan.py
 
 - medm screen
 
 ::
 
-    [user2bmb@pg10ge]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BM/
+    [user2bmb@pg10ge]$ cd /local/user2bmb/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BMA/
     [user2bmb@pg10ge]$ ./start_medm
 
 .. image:: ../img/tomoScan.png
