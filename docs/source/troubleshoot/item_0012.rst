@@ -1,0 +1,20 @@
+Shutters
+========
+
+2-BM has two x-ray shutters: 
+
+- Front End shutter upstream of 2-BM-A
+- Mono shutter upstream of 2-BM-B
+
+If you are not able to open the 2-BM-A or 2-BM-B shutters check the following:
+
+- Shutter permit is enabled
+- To open the B shutter: A and B stations are searched
+- To open the A shutter: A station is searched
+
+If you still cannot open the shutters check that the Equipment Protection System (EPS) is clear of errors. The EPS most frequent trips are caused by:
+
+- Low He flow caused by low He pressure
+- Vacuum bump casued by filter A moving with A shutter open
+- Mirror high temperature caused by A slits too wide vertically or mirror to high in the beam
+
