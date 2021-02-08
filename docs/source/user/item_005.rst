@@ -66,7 +66,7 @@ dark and flat images are broadcasted using `PVaccess`_ and can be retrieved as E
 
 All TomoScanStream functionalies can be controlled from the Streaming Control section of:
 
-.. image:: ../img/tomoScan_2BM_stream.png
+.. image:: ../img/tomoScanStream.png
     :width: 70%
     :align: center
 
