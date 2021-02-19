@@ -1,8 +1,43 @@
 Rotary stage
 ============
 
-.. contents:: 
-   :local:
+we have different sets of rotary stages:
+
++-----------+--------------------+--------------------------------+-------------------+----------------+----------------------------+------------------+------------------------+--------------------------------------------------------+
+| Station   | Descriptiom        |      Ensemble Settings         | Model             |  Image         | Controller                 |    Speed (rpm)   |      Load axial (kg)   |    Info                                                | 
++-----------+--------------------+--------------------------------+-------------------+----------------+----------------------------+------------------+------------------------+--------------------------------------------------------+
+| 2-BM      | spindle            |             -                  | ABS2000-1000AS-RU | |00003|        | ENSEMBLEHLE10-40-A-MXH (*) |         6000     |            18          |  `box link 0004`_, `box link 0002`_, `order 0004`_     |
++-----------+--------------------+--------------------------------+-------------------+----------------+----------------------------+------------------+------------------------+--------------------------------------------------------+
+| 2-BM-A    | fast tomo          |     `Ensemble Settings`_       | ABS250MP-M-AS     | |00004|        | ENSEMBLEHLE10-40-A-MXH (*) |          500     |            66          |  `box link 0004`_, `box link 0003`_, `order 0005`_     |
++-----------+--------------------+--------------------------------+-------------------+----------------+----------------------------+------------------+------------------------+--------------------------------------------------------+
+| 2-BM-B    | mona tomo          |     `Ensemble Settings`_       | ABRS-150MP-M-AS   | |00004|        | ENSEMBLEHLE10-40-A-MXH (*) |          500     |            8           |  `box link 0004`_, `order 0006`_                       |
++-----------+--------------------+--------------------------------+-------------------+----------------+----------------------------+------------------+------------------------+--------------------------------------------------------+
+
+(*) replaced with ENSEMBLEML10-40-IO-MXH
+
+
+Ensemble Settings
+-----------------
+
+Here you can found the `Ensemble Settings`_ currently in use at 2-BM-A and 2-BM-B stations
+
+
+.. _box link 0002: https://anl.box.com/s/1ffp00cn1gjkyyelnufp0kef336t4jg9
+.. _box link 0003: https://anl.box.com/s/2z5zr200vut71zv07ozsudxqhzvgnv5k
+.. _box link 0004: https://anl.box.com/s/i2gkeq8qcu10lvjovbvk1ldl2a4ug57o
+.. _order 0004: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F2-235109
+.. _order 0005: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=E8-198024
+.. _order 0006: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=E8-078092
+.. _Ensemble Settings: https://anl.app.box.com/s/serp2nlyzk0ljvpqczc3btm7ikn9pvlj
+
+.. |00003| image:: ../img/aerotech_00001.png
+    :width: 20pt
+    :height: 20pt
+
+.. |00004| image:: ../img/aerotech_00002.png
+    :width: 20pt
+    :height: 20pt
+
 
 Aerotech in 2-BM-A
 ------------------
@@ -19,3 +54,5 @@ degree when the motor physical dial is at zero set the offset as shown in the im
 
 
 .. warning:: If the rotary stage stops responding to a move command check that the torque is enabled and that there is sufficient airflow to the stage. If the stage is still not responding issue a Home command by pressing HomR or HomF button in the motor debug medm screen.
+
+
