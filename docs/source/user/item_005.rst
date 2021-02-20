@@ -48,6 +48,11 @@ to run a vertical scan::
     2020-05-29 16:55:47,608 - vertical scan end
 
 
+to run a series of 4 times 4 vertical scans starting from different locations (eg. 0, 10, 20, 30 and 4)::
+
+    [user2bmb@pg10ge]$ for k in {0..40..10}; do tomoscan vertical --vertical-start $k --vertical-step-size 1.3 --vertical-steps 4 --sleep-steps 4 --sleep-time 0 --sleep
+
+
 please check the `command line manual  <https://tomoscan.readthedocs.io/en/latest/demo.html#using-the-tomoscan-cli>`_ for more details. 
 
 
