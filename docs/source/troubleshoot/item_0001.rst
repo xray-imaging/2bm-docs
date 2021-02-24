@@ -27,7 +27,7 @@ To power cycle the camera unplug the power supply:
    :alt: tomo_user
 
 
-If the area detector fails to boot even after a camera power cycle, it means that the last auto save file (auto_setting.sav) is corrupted or that the network adaper the camera is connected to needs a reboot. To recover from the first you need to replace the corrupted auto save with a good one, for the second rebott the linux machine (pg10ge). 
+.. warning:: If the area detector fails to boot even after a camera power cycle, it means that the last auto save file (auto_setting.sav) is corrupted or that the network adaper the camera is connected to needs a reboot. To recover from the first you need to replace the corrupted auto save with a good one, if this is not avaialble just delete all autosave files. For recovering from the the network adaper issue reboot the linux machine (pg10ge) with user2bmb@pg10ge $ sudo /usr/sbin/reboot. 
 
 
     user2bmb@pg10ge$ 2bmbOryx.sh stop
