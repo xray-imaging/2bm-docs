@@ -16,10 +16,27 @@ we have different sets of rotary stages:
 (*) replaced with ENSEMBLEML10-40-IO-MXH
 
 
-Ensemble Settings
------------------
+Ensemble
+--------
 
-Here you can found the `Ensemble Settings`_ currently in use at 2-BM-A and 2-BM-B stations
+The Ensemble Parameter Setup currently in use at 2-BM-A and 2-BM-B stations can found at `Ensemble Settings`_
+
++--------------------------------+--------------------------+-----------------------+-----------------+
+|                                |       ABRS150MP          |         ABRS250MP     |       Units     |
++--------------------------------+--------------------------+-----------------------+-----------------+
+| Fundamental Encoder Resolution |       3600               |              11840    |     lines/rev   |
++--------------------------------+--------------------------+-----------------------+-----------------+
+| Encoder scale factor           |        148               |                 45    |                 |
++--------------------------------+--------------------------+-----------------------+-----------------+
+| Encoder pulses per revolution  |     532800               |             532800    |     pulses/rev  |
++--------------------------------+--------------------------+-----------------------+-----------------+
+| Encoder resolution             |     0.000675675675676    |  0.000675675675676    |     deg/pulse   |
++--------------------------------+--------------------------+-----------------------+-----------------+
+
+PSO
+---
+
+Details on the Position Synchronized Output (PSO) are in the `Aerotech Manual`_ 
 
 
 .. _box link 0002: https://anl.box.com/s/1ffp00cn1gjkyyelnufp0kef336t4jg9
@@ -29,6 +46,7 @@ Here you can found the `Ensemble Settings`_ currently in use at 2-BM-A and 2-BM-
 .. _order 0005: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=E8-198024
 .. _order 0006: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=E8-078092
 .. _Ensemble Settings: https://anl.app.box.com/s/serp2nlyzk0ljvpqczc3btm7ikn9pvlj
+.. _Aerotech Manual: https://anl.box.com/s/l43qkqlhy21f4a8wetmrqbeqz9c7am72
 
 .. |00003| image:: ../img/aerotech_00001.png
     :width: 20pt
@@ -54,5 +72,3 @@ degree when the motor physical dial is at zero set the offset as shown in the im
 
 
 .. warning:: If the rotary stage stops responding to a move command check that the torque is enabled and that there is sufficient airflow to the stage. If the stage is still not responding issue a Home command by pressing HomR or HomF button in the motor debug medm screen.
-
-
