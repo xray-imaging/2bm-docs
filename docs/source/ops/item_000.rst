@@ -89,7 +89,10 @@ we have different sets of rotary stages:
 (*) replaced with ENSEMBLEML10-40-IO-MXH
 
 
-**Ensemble Parameter Setup**
+Ensemble
+~~~~~~~~
+
+The Ensemble Parameter Setup currently in use at 2-BM-A and 2-BM-B stations can found at `Ensemble Settings`_
 
 +--------------------------------+--------------------------+-----------------------+-----------------+
 |                                |       ABRS150MP          |         ABRS250MP     |       Units     |
@@ -103,6 +106,10 @@ we have different sets of rotary stages:
 | Encoder resolution             |     0.000675675675676    |  0.000675675675676    |     deg/pulse   |
 +--------------------------------+--------------------------+-----------------------+-----------------+
 
+PSO
+~~~
+
+Details on the Position Synchronized Output (PSO) are in the `Aerotech Manual`_ 
 
 .. _box link 0002: https://anl.box.com/s/1ffp00cn1gjkyyelnufp0kef336t4jg9
 .. _box link 0003: https://anl.box.com/s/2z5zr200vut71zv07ozsudxqhzvgnv5k
@@ -110,6 +117,8 @@ we have different sets of rotary stages:
 .. _order 0004: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F2-235109
 .. _order 0005: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=E8-198024
 .. _order 0006: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=E8-078092
+.. _Ensemble Settings: https://anl.app.box.com/s/serp2nlyzk0ljvpqczc3btm7ikn9pvlj
+.. _Aerotech Manual: https://anl.box.com/s/l43qkqlhy21f4a8wetmrqbeqz9c7am72
 
 .. |00003| image:: ../img/aerotech_00001.png
     :width: 20pt
