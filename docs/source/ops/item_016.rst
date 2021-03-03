@@ -63,7 +63,7 @@ for help::
 
     energy -h
 
-More detailed istructions are here the `energy cli <https://github.com/xray-imaging/2bm-ops>`_
+More detailed instructions are here the `energy cli <https://github.com/xray-imaging/2bm-ops>`_
 
 Technical infomation about the DMM are available at the links below:
 
