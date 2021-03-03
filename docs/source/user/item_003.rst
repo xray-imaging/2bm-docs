@@ -226,6 +226,7 @@ Scintillators
 .. _crytur_order_01: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F3-119046
 .. _crytur_order_02: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F1-153126
 
+
 +-------------+------------------+-----------------+----------------+---------------------------+-------------------------+
 |    Source   |       Type       |  Thickness (μm) |   Size (mm)    |  Specification            |     Order Ref.          |
 +=============+==================+=================+================+===========================+=========================+
@@ -251,6 +252,33 @@ Scintillators
 +-------------+------------------+-----------------+----------------+---------------------------+-------------------------+
 | Crytur      |     LuAG:Ce      |         50      |     25.5       |          -                |   crytur_order_02_      |
 +-------------+------------------+-----------------+----------------+---------------------------+-------------------------+
+
+Below are the emission spectrum plots of common scintillator screens:
+
+.. image:: ../img/scintillator_qe_01.png
+   :width: 320px
+   :align: center
+   :alt: tomo_user 
+
+.. image:: ../img/scintillator_qe_02.png
+   :width: 320px
+   :align: center
+   :alt: tomo_user 
+
+
+CCD Lens calculator
+-------------------
+
+To calculate the pixel size / resolution for an arbitrary lens/scintillator/detector combination you can use the `CCD Lens calculator`_ to obtain the following:
+
+
+.. image:: ../img/CCD_Lenses_calculator.png
+   :width: 320px
+   :align: center
+   :alt: tomo_user 
+
+
+.. _CCD Lens calculator: https://anl.box.com/s/800n760yv7dx1332yt2rk1znstpa7wtq
 
 
 Visualization
