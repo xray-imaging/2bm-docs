@@ -68,11 +68,11 @@ More detailed instructions are here the `energy cli <https://github.com/xray-ima
 Technical infomation about the DMM are available at the links below:
 
 
-+-----------+--------------+-------------------+---------------------------------------------------------+
-| Station   | Descriptiom  |   Images          |   Info                                                  | 
-+-----------+--------------+-------------------+---------------------------------------------------------+
-| 2-BM-A    |     DMM      | |00001|, |00002|  | `drawings`_, `crystals specs`_, `documentation folder`_ |
-+-----------+--------------+-------------------+---------------------------------------------------------+
++-----------+--------------+-------------------+------------------------------------------------------------------------+
+| Station   | Descriptiom  |   Images          |   Info                                                                 | 
++-----------+--------------+-------------------+------------------------------------------------------------------------+
+| 2-BM-A    |     DMM      | |00001|, |00002|  | `drawings1`_, `drawings2`_, `crystals specs`_, `documentation folder`_ |
++-----------+--------------+-------------------+------------------------------------------------------------------------+
 
 
 .. |00001| image:: ../img/dmm_01.png 
@@ -83,7 +83,8 @@ Technical infomation about the DMM are available at the links below:
     :width: 20pt
     :height: 20pt
 
-.. _drawings: https://anl.box.com/s/0sa7gjm3nbmacwjknxth0k98y21sa7iy
+.. _drawings1: https://anl.box.com/s/0whx6hy3lcqllocolhee8kq72y0f4wnn
+.. _drawings2: https://anl.box.com/s/0sa7gjm3nbmacwjknxth0k98y21sa7iy
 .. _crystals specs: https://anl.box.com/s/4o7fewu63rwm2tj0l9ezr79ccjozyn77
 .. _documentation folder: https://anl.box.com/s/w1eg4cxw43715bnzk8jcg3hd64rdnsdl
 
