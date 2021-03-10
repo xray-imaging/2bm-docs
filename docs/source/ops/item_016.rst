@@ -88,3 +88,8 @@ Technical infomation about the DMM are available at the links below:
 .. _crystals specs: https://anl.box.com/s/4o7fewu63rwm2tj0l9ezr79ccjozyn77
 .. _documentation folder: https://anl.box.com/s/w1eg4cxw43715bnzk8jcg3hd64rdnsdl
 
+
+Baem-Sample Distance
+--------------------
+
+The distance between the table and the scintillator center (current setup) at 2-BM-B is 415 mm
