@@ -10,7 +10,7 @@ If you have been using **TomoPy** for the 3D reconstructions, please cite :cite:
    :style: plain
    :labelprefix: A
 
-If using data from `tomobank <https://tomobank.readthedocs.io>`_ or `data exchange <https://dxchange.readthedocs.io/>`_tools, please cite:
+If using data from `tomobank <https://tomobank.readthedocs.io>`_ or `data exchange <https://dxchange.readthedocs.io/>`_ tools, please cite:
 
 
 .. bibliography:: bibtex/ref.bib
