@@ -14,22 +14,22 @@ These are the model/part number of the cameras in use at 2-BM:
 .. _camera_00007:  https://www.ptgrey.com/oryx-50-mp-mono-10gige-sony-imx250         
 
 .. |d00001| image:: ../img/dimax_01.png
-   :width: 20px
+   :width: 50px
    :alt: dimax_01
 
 
 .. |d00002| image:: ../img/dimax_02.png
-   :width: 20px
+   :width: 50px
    :alt: dimax_02
 
 
 .. |d00003| image:: ../img/dimax_03.png
-   :width: 20px
+   :width: 50px
    :alt: dimax_03
 
 
 .. |d00004| image:: ../img/flir.png
-   :width: 20px
+   :width: 50px
    :alt: flir
 
 
