@@ -35,4 +35,5 @@ Triple Objective
    :alt: tomo_user
 
 
-- `Ref triple <https://anl.box.com/s/8j9pkf96bkrijataekvnpjfmw89wzfdk>`_
+- `Manuals <https://anl.app.box.com/folder/138012188876>`_
+- `Specs <https://anl.box.com/s/8j9pkf96bkrijataekvnpjfmw89wzfdk>`_
