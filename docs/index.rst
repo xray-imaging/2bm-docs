@@ -21,7 +21,6 @@ Content
    source/overview
    source/user
    source/ops
-   source/logs
    source/troubleshoot
    source/contacts
    source/publications
