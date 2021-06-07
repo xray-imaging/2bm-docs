@@ -65,10 +65,22 @@ so when asking the motor to home (by pressing HomR or HomF buttons) the home pos
 reads  46.5 degree on the motor dial. To assure the user coordinate reads zero 
 degree when the motor physical dial is at zero set the offset as shown in the image below.
 
-.. image:: ../img/rotary.png 
+.. image:: ../img/rotary_a.png 
    :width: 480px
    :align: center
    :alt: tomo_user
 
+Aerotech in 2-BM-B
+------------------
 
+There is a 163.3 degree offset between the rotary stage home and the pthysical dial 
+so when asking the motor to home (by pressing HomR or HomF buttons) the home position 
+reads  163.3 degree on the motor dial. To assure the user coordinate reads zero 
+degree when the motor physical dial is at zero set the offset as shown in the image below.
+
+.. image:: ../img/rotary_b.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user
+   
 .. warning:: If the rotary stage stops responding to a move command check that the torque is enabled and that there is sufficient airflow to the stage. If the stage is still not responding issue a Home command by pressing HomR or HomF button in the motor debug medm screen.
