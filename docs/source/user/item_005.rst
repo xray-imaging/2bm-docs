@@ -133,10 +133,4 @@ or::
     RE(user_tomo_scan(acquire_time=0.1, iteration=10), comment="my tomo fly scan", sample="wood stick")
 
 
-Raw Data Viewer 
-===============
 
-To view the tomographic raw data we suggest to install `Fiji <https://imagej.net/Fiji>`_ and add `this HDF plugin <https://github.com/paulscherrerinstitute/ch.psi.imagej.hdf5>`_.
-
-Other options are `hdfview <https://support.hdfgroup.org/products/java/hdfview/>`_ or 
-`argos <https://github.com/titusjan/argos>`_.
