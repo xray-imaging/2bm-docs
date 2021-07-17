@@ -9,6 +9,8 @@ Reconstruction
 
 To manually reconstruct a data set, use the `tomopy cli <https://github.com/tomography/tomopy-cli>`_. 
 
+    [tomo@handyn]$ tomopy recon --file-name /local/data/YYYY-MM/PI_lastName/file.h5 
+
 To automatically find the center for all data sets in a directory use::
 
     [tomo@handyn]$ tomopy find_center --file-name /local/data/2021-02/Stock/180/
