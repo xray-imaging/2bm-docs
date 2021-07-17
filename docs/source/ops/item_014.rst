@@ -30,9 +30,9 @@ After inspecting the reconstructed slices, you can adjust the center by editing 
 
 To do a try reconstrution on a 0-360 deg data set run::
 
-    [tomo@handyn]$ tomopy recon --reconstruction-type try --rotation-axis-auto manual --gridrec-padding True --remove-stripe-method fw --fw-pad True  --file-type double_fov --rotation-axis 30 --center-search-width 25 --file-name /local/data/2021-06/Stock/360/ca9036_b_127.h5
+    [tomo@handyn]$ tomopy recon --reconstruction-type try --rotation-axis-auto manual --gridrec-padding True --remove-stripe-method fw --fw-pad True  --file-type double_fov --rotation-axis 50 --center-search-width 45 --file-name /local/data/2021-02/Stock/360/01_010.h5
 
 
 once the center is selected run the full reconstruction with::
 
-    [tomo@handyn]$ tomopy recon --reconstruction-type full --rotation-axis-auto manual --gridrec-padding True --remove-stripe-method fw --fw-pad True  --nsino-per-chunk 128 --file-type double_fov   --file-name /local/data/2021-06/Stock/360/ca9036_b_127.h5 --rotation-axis 30.0
+    [tomo@handyn]$ tomopy recon --reconstruction-type full --rotation-axis-auto manual --gridrec-padding True --remove-stripe-method fw --fw-pad True  --nsino-per-chunk 128 --file-type double_fov   --file-name /local/data/2021-02/Stock/360/01_010.h5 --rotation-axis 30.0
