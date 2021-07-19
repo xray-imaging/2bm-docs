@@ -17,7 +17,7 @@ To run a user PV adptate::
     [user2bmb@arcturus]$ dmagic show
     [user2bmb@arcturus]$ dmagic tag
 
-you can also enter manually the user last name/email address then you can create standard (YYYY_MM/pi_last_name) user folders on petrel with:
+you can also enter manually the user last name/email address/YYYY-MM.
 
 Data management and sharing with users is manged by `Globus <https://dmagic.readthedocs.io/en/latest/index.html>`_. The Globus servers available at Argonnne are petrel#tomography and aps#data both accessible from the `Globus portal <https://www.globus.org/>`_.
 
@@ -51,3 +51,4 @@ If using the aps#tomography::
 
 For more details see the `DM instruction <https://confluence.aps.anl.gov/display/DMGT/2-BM+Deployment>`_.
 
+Petrel#tomography status is avaialble `here <https://virtualhelpdesk.cels.anl.gov/blog/>`_.
