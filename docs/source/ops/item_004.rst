@@ -45,6 +45,7 @@ and the same YYYY-MM/PI_lastName/ on  `petrel <https://app.globus.org/file-manag
 
 If using the aps#tomography::
 
+    [user2bmb@arcturus]$ bash
     [user2bmb@arcturus]$ source /home/dm_bm/etc/dm.setup.sh
     [user2bmb@arcturus]$ dm-station-gui
 
