@@ -21,5 +21,5 @@ After your data are reconstructed you can visualize using `Dragonfly <https://ww
 
 Login at the beamline Linux machine and then type::
 
-	[tomo@handyn]$ cd /local/usertxm/software/dragonfly
+	[tomo@handyn]$ cd /local/tomo/software/dragonfly
 	[tomo@handyn]$ ./Dragonfly
