@@ -34,6 +34,12 @@ Furnace
 .. _Pavel Shevchenko: mail to:  pshevchenko@anl.gov
 .. _Alex Deriy: mail to: deriy@anl.gov
 
+The furnaces use a Eurotherm temperature controller. To access the MEDM screen select Eurotherm on:
+
+.. image:: ../img/eurotherm.png
+    :width: 512pt
+    :height: 300pt
+
 Pressure
 --------
 
