@@ -6,6 +6,16 @@ Detectors
 
 Here we list detector specific information userful for troubleshooting and configure areadetector.
 
+HDF Plugin error
+----------------
+
+In same situation the HDF plugin for areadetector will fail to save with error=3. If this happens these steps will clear the error:
+
+- go to the hdf plugin screen and delete the XML File name "TomoScanLayout.xml"
+- select save and take few images => error is gone
+- re-enter TomoScanLayout.xml in the file name field
+
+
 Flir
 ----
 
