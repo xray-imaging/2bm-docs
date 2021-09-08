@@ -1,9 +1,6 @@
 Detectors
 =========
 
-.. contents:: 
-   :local:
-
 Here we list detector specific information userful for troubleshooting and configure areadetector.
 
 HDF Plugin error
