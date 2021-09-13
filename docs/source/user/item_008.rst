@@ -1,35 +1,23 @@
-Remote access
-=============
+Proximity sensors
+================+
 
-Remote access to beamline control computers is granted to users having a valid badge number and an active/scheduled proposal. 
-To connect to 2-BM main control system please go to https://delos.aps.anl.gov and login using as user name d+badge number 
-and the password you use to submit your APS prosal, then select "ARCTURUS, WS, Red Hat Enterprise Linux Workstation".
+While performing experiment at the APS you are required to use a Wearable Proximity Device.
 
 
-.. image:: ../img/delos_001.png 
+.. image:: ../img/proximity_sensor.png 
    :width: 140px
    :align: center
    :alt: tomo_user
 
-.. image:: ../img/delos_002.png 
-   :width: 140px
-   :align: center
-   :alt: tomo_user
+For more information check:
 
-.. image:: ../img/delos_003.png 
-   :width: 140px
-   :align: center
-   :alt: tomo_user
+https://anl.us2.list-manage.com/track/click?u=12b0bf5a3c2bf2e87f5cab8a4&id=045c7d99c9&e=ca7c1f2ce9
 
-Once connected you have full control of the tomography system via the usual user interface:
+For Kiosk locations:
 
-.. image:: ../img/delos_004.png 
-   :width: 140px
-   :align: center
-   :alt: tomo_user
+https://anl.box.com/s/977bgwx4bd9f9ea6kz5qg466f4k4j8xk
 
-For enable users for remote access see
+Training slide deck:
 
-- https://wiki-ext.aps.anl.gov/remoteaccess/index.php/Main_Page
-- https://forge.xray.aps.anl.gov
-- https://delos.aps.anl.gov
+https://anl.box.com/s/rq9xs5lb5g7gjcgborx37yzx4ak2g3ta
+
