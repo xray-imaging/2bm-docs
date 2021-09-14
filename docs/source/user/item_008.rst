@@ -1,11 +1,11 @@
 Proximity sensors
-================+
+=================
 
 While performing experiment at the APS you are required to use a Wearable Proximity Device.
 
 
 .. image:: ../img/proximity_sensor.png 
-   :width: 140px
+   :width: 256px
    :align: center
    :alt: tomo_user
 
