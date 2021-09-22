@@ -21,7 +21,9 @@ and open the user info screen:
 and make sure the user PV are updated correctly from the scheduling system if not hit the update button or manually enter the user last name/email address then::
 
     [user2bmb@arcturus]$ bash
-
+    [user2bmb@arcturus]$ conda activate dm
+    [user2bmb@arcturus]$ source /home/dm_bm/etc/dm.setup.sh
+    
 to create YYYY-MM/PI_last_name directories on data collection and data analysis computers::
 
     [user2bmb@arcturus]$ globus dirs
