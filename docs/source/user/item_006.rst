@@ -10,8 +10,12 @@ Manual
 ~~~~~~
 
 To manually reconstruct a data set, use the `tomopy cli <https://github.com/tomography/tomopy-cli>`_. 
+::
 
-For help::
+    [tomo@handyn,~]$ bash
+    [tomo@handyn,~]$ conda activate tomopy
+
+then for help::
 
     [tomo@handyn,~]$ tomopy recon -h
 
