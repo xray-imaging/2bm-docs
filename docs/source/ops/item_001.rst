@@ -15,6 +15,7 @@ and check the user info screen:
 make sure the user PV are updated correctly from the scheduling system if not hit the update button for instructions or::
 
     [user2bmb@arcturus]$ bash
+    [user2bmb@arcturus]$ conda activate dm
     [user2bmb@arcturus]$ source /home/dm_bm/etc/dm.setup.sh
     [user2bmb@arcturus]$ dmagic show
     [user2bmb@arcturus]$ dmagic tag
