@@ -1,6 +1,9 @@
 Computing
 =========
 
+Detector
+--------
+
 Here are the computers supporting detector or data analysis at 2-BM:
 
 +-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
@@ -10,11 +13,8 @@ Here are the computers supporting detector or data analysis at 2-BM:
 +-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
 | 2-BM-B    | lyra         |  HP EliteDesk 800 | P4K18UT#ABA     |  `lyra label`_           |     `lyra SM`_      |
 +-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
-| 2-BM-B    | handyn       |  HP Z820          |     LJ452AV     |  `handyn label`_         |     `handyn SM`_    |
-+-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
 
-
-For each machine part list at purchase and for the list of supported hardware enter the serial numeber in the `HP support <https://partsurfer.hp.com/Search.aspx>`_ web page.
+For each machine part list at purchase time and for the list of supported hardware enter the serial numeber in the `HP support <https://partsurfer.hp.com/Search.aspx>`_ web page.
 
 .. _pg10ge label: https://anl.box.com/s/oslaky958be3vyifda2xyq4tv0v9v7pz
 .. _pg10ge SM: https://anl.box.com/s/m1u8o62wbr27n26iotfnbhgpncwsapcq
@@ -22,5 +22,25 @@ For each machine part list at purchase and for the list of supported hardware en
 .. _lyra SM: https://anl.box.com/s/dv0ub0gdjhs7q3h50ehgro6gaesbxcjf
 .. _handyn label: https://anl.box.com/s/2kdy0yaz57nfodyv31k4etp83sqckb0x
 .. _handyn SM: https://anl.box.com/s/itwhcp9xr7xocl1djilyd5yqf8un6yjt
+.. _cluster: https://anl.box.com/s/cwqbvet2qv8239nhrof0qemyohd0jho3
 
+Analisys
+--------
+
++-----------+--------------+---------------------------------+----------------------+
+| Station   | Name         |      Model                      |         Manual       |
++-----------+--------------+---------------------------------+----------------------+
+| 2-BM      | tomo         |  Supermicro 740GP-TNRT cluster  |      `cluster`_      |
++-----------+--------------+---------------------------------+----------------------+
+
+
+
+Visulaization
+-------------
+
++-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
+| Station   | Name         |      Model        |  Product No.    |    Serial No.            |        Manual       |
++-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
+| 2-BM-B    | handyn       |  HP Z820          |     LJ452AV     |  `handyn label`_         |     `handyn SM`_    |
++-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
 
