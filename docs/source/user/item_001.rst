@@ -22,16 +22,23 @@ For each machine part list at purchase time and for the list of supported hardwa
 .. _lyra SM: https://anl.box.com/s/dv0ub0gdjhs7q3h50ehgro6gaesbxcjf
 .. _handyn label: https://anl.box.com/s/2kdy0yaz57nfodyv31k4etp83sqckb0x
 .. _handyn SM: https://anl.box.com/s/itwhcp9xr7xocl1djilyd5yqf8un6yjt
-.. _cluster: https://anl.box.com/s/cwqbvet2qv8239nhrof0qemyohd0jho3
+.. _cluster_folder: https://anl.box.com/s/cwqbvet2qv8239nhrof0qemyohd0jho3
+.. _cluster: https://anl.box.com/s/uysvb5ujnlugmd16r2f6o10fem9rjgvr
+.. _disk_array: https://anl.box.com/s/zzyvv7w80ltwbtf09zrjiqiw7ak6i7ge
+.. _cluster_quote: https://anl.box.com/s/j7wz6li4afoq2gs5g8feehmmz8q7whuy
+.. _disk_array_quote: https://anl.box.com/s/sbft8cbt2xcpzuuvikixr82dn9jf6zog
+
 
 Analisys
 --------
 
-+-----------+--------------+---------------------------------+----------------------+
-| Station   | Name         |      Model                      |         Manual       |
-+-----------+--------------+---------------------------------+----------------------+
-| 2-BM      | tomo         |  Supermicro 740GP-TNRT cluster  |      `cluster`_      |
-+-----------+--------------+---------------------------------+----------------------+
++-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
+| Station   | Name         | Product       | Part list       |      Model                      |      Quote           |
++-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
+| 2-BM      | tomo 1-2     | MNJ15421064   | `cluster`_      |  Supermicro 740GP-TNRT cluster  | `cluster_quote`_     |
++-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
+| 2-BM      | disk array   | MNJ15508749   | `disk_array`_   |  SYS-220U-TNR Storage           | `disk_array_quote`_  |
++-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
 
 
 
