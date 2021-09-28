@@ -31,3 +31,7 @@ Triple Objective
 
 `Reference documentation <https://anl.box.com/s/ppb53bvkusbzvnx3j5ezgjsic4yetz81>`_
 
+EPICS suppoort
+--------------
+
+EPICS support for the Optique Peter system is provvided by `mctOpticsApp <https://mctoptics.readthedocs.io/en/latest/mctOpticsApp.html#medm-files>`_.
