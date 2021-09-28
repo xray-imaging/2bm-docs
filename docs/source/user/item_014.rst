@@ -17,9 +17,21 @@ Dragonfly
 ~~~~~~~~~
 
 
-After your data are reconstructed you can visualize using `Dragonfly <https://www.theobjects.com/dragonfly/index.html>`_
+After your data are reconstructed you can visualize using `Dragonfly <https://www.theobjects.com/dragonfly/index.html>`_.
 
 Login at the beamline Linux machine and then type::
 
 	[tomo@handyn]$ cd /local/tomo/software/dragonfly
 	[tomo@handyn]$ ./Dragonfly
+
+
+Avizo
+~~~~~
+
+
+After your data are reconstructed you can visualize using Avizo.
+
+Login at the beamline Linux machine and then type::
+
+	[tomo@handyn]$ cd /local/AmiraAvizo3D/2021.1/bin/
+	[tomo@handyn]$ ./Avizo3D
