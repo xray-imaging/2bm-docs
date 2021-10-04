@@ -54,3 +54,10 @@ then you can run reconstrutions with::
 
 More detailed instruction are at `tomopy cli <https://github.com/tomography/tomopy-cli>`_.
 
+
+Mosaic
+------
+
+For samples larger than the filed of view we collect multiple data sets consisiting of overlapping tiles to form a mosaic.
+To reconstruct these type of data please use `mosaic <https://github.com/xray-imaging/mosaic>`_  command-line-interface for mosaic tomography data processing.
+An example of a mosaic dataset can be found on `tomobank <file:///Users/decarlo/conda/tomobank/docs/_build/html/source/data/docs.data.tomosaic.html#foam>`_ 
