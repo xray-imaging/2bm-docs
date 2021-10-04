@@ -35,3 +35,7 @@ EPICS suppoort
 --------------
 
 EPICS support for the Optique Peter system is provvided by `mctOpticsApp <https://mctoptics.readthedocs.io/en/latest/mctOpticsApp.html#medm-files>`_.
+
+.. image:: ../img/mctOptics.png
+    :width: 75%
+    :align: center
