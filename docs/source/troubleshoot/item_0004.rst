@@ -10,8 +10,17 @@ hadyn
 
 Log in as tomo@handyn::
 
-    [tomo@handyn,~]$ cd ~/Software/globusconnectpersonal-2.3.5/
+    [tomo@handyn,~]$ cd ~/Software/globusconnectpersonal-3.1.5/
     [tomo@handyn,~]$ ./globusconnect
+
+mona3
+~~~~~
+
+Log in as tomo@mona3::
+
+    [tomo@mona3,~]$ cd ~/Software/globusconnectpersonal-3.1.5/
+    [tomo@mona3,~]$ ./globusconnectpersonal -start -dir ~/.globusonline_mona3 -restrict-paths /local/data
+
 
 pg10ge
 ~~~~~~
