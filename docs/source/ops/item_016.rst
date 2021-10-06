@@ -93,3 +93,11 @@ Beam-Sample Distance
 --------------------
 
 The distance between the table and the scintillator center (current setup) at 2-BM-B is 415 mm
+
+
+Slits Drawings
+--------------
+
+The slits at 2-BM are standard APS L3-20. Technical as-built drawings are available `here <https://anl.box.com/s/sgmoux6db8tsx71pvifzkf2ajopfidqx>`_.
+
+
