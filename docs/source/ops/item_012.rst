@@ -10,8 +10,10 @@ Triple Objective
    :alt: tomo_user
 
 
-1. `Manuals <https://anl.app.box.com/folder/138012188876>`_
-2. `Specs <https://anl.box.com/s/8j9pkf96bkrijataekvnpjfmw89wzfdk>`_
+1. `Test Report <https://anl.box.com/s/y14sqiekd4tofg4617b3vgf4ll2og41p>`_
+2. `User manual <https://anl.box.com/s/fnfh2okx1wx9n3a1h2k02r9odlqpxf5z>`_
+3. `Manuals <https://anl.app.box.com/folder/138012188876>`_
+4. `Specs <https://anl.box.com/s/8j9pkf96bkrijataekvnpjfmw89wzfdk>`_
 
 +--------+------------+---------------------+
 |  lens  | objective  |   motor position    |
