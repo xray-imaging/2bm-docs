@@ -14,9 +14,9 @@ These are the linear stages available at 2-BM:
 | 2-BM-B    | mechanical   | PRO 225SL-1200-ES19357   |      1200              | |00004| |                            |                                  |
 +-----------+--------------+--------------------------+------------------------+---------+----------------------------+----------------------------------+
 
-Start IOC for PRO 225SL-1200-ES19357:
+Start IOC for PRO 225SL-1200-ES19357 (moving the Optique Peter system in Z):
 
-[user2bmb@arcturus,~]$ 2bmbAero start
+[user2bmb@arcturus,~]$ 2bmbAERO start
 
 
 .. _box link 0001: https://anl.box.com/s/ni1rtky64dj7iskozxkvmoc3uuvhg2be
