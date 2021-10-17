@@ -60,13 +60,13 @@ For experiments in 2-BM-A:
 
 ::
 
-    [tomo@handyn]$ ~/tomoscan_start.sh
+    [user2bmb@arcturus]$ ~/tomoscan_start_A.sh
 
 for experiments in 2-BM-B:
 
 ::
 
-    [user2bmb@arcturus]$ ~/tomoscan_start.sh
+    [user2bmb@arcturus]$ ~/tomoscan_start_B.sh
 
 
 :doc:`a_tomoscan_start.sh` and :doc:`b_tomoscan_start.sh` for scripts content.
