@@ -58,14 +58,16 @@ Pressure
 | Vindum VP-12K dual-piston Pump |   120 °C     | up to 12,000 psi  | |p00003| | Yes                                        | `Mark Rivers`_          |  `web link p0003`_        |  1   |
 +--------------------------------+--------------+-------------------+----------+--------------------------------------------+-------------------------+---------------------------+------+
 
-To run the Teledyne 1000D Syringe Pump at 2-BM::
+Epics support for the pumps: https://github.com/epics-modules/SyringePump. Note: modbus version should be R3-2 (or higher). To run the Teledyne 1000D Syringe Pump at 2-BM::
 
-    [user2bmb@lyra,478,~]$ 2bmbSP 
-        Usage: 2bmbSP.sh {start|stop|restart|status|console|run|medm|caqtdm}
 
+    [user2bmb@arcturus,478,~]$ cd ~/epics/synApps/support/syringepump/iocBoot/iocISCO 
+        
 ::
 
-    [user2bmb@lyra,478,~]$ 2bmbSP medm 
+    [user2bmb@arcturus,478,~]$ ./start_IOC 
+    
+    [user2bmb@arcturus,478,~]$ ./start_medm
 
 opens the pump control screen:
 
