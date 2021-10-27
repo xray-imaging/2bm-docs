@@ -32,3 +32,12 @@ Log in as user2bmb@pg10ge::
     [user2bmb@pg10ge]$ ./globusconnectpersonal -status
     [user2bmb@pg10ge]$ ./globusconnectpersonal -stop
     [user2bmb@pg10ge]$ ./globusconnect -start  -restrict-paths r/local/data/ &
+
+tomo1
+~~~~~
+Log in as tomo@tomo1::
+    
+    cd /home/beams/TOMO/Software/globusconnectpersonal-3.1.5
+    nohup ./globusconnectpersonal -restrict-paths /data/ -dir $HOME/.globusonline_tomo1/ -start &
+    
+terminal can be closed
