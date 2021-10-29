@@ -172,7 +172,7 @@ Adimec
 ------
 
 To use the Quartz quad CoaXPress Q-12A180 CMV12000 installed at 2-BM-A and connected to chiwawa-113, 
-start the Adimec areadetector main control screen::
+start the Adimec areadetector main control screen
 
 Old version::
 
