@@ -188,7 +188,7 @@ Old version::
 
 New version::
 
-  [user2bmb@chiwawa-113]$ cd /net/s2dserv/xorApps/PreBuilts/areaDetector-R3-10/ADCoaxLink/iocs/coaxLinkIOC/iocBoot/iocCoaxLink/softioc/Adimec.sh
+  [user2bmb@chiwawa-113]$ cd /net/s2dserv/xorApps/PreBuilts/areaDetector-R3-10/ADCoaxLink/iocs/coaxLinkIOC/iocBoot/iocCoaxLink/softioc/
   [user2bmb@chiwawa-113]$ ./Adimec.sh
     Usage: Adimec.sh {start|stop|restart|status|console|run|medm|caqtdm}
     Additional options:
