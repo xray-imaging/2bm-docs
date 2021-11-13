@@ -60,7 +60,7 @@ Details on the Position Synchronized Output (PSO) are in the `Aerotech Manual`_
 Aerotech in 2-BM-A
 ------------------
 
-There is a 46.5 degree offset between the rotary stage home and the pthysical dial 
+There is a 47.09 degree offset between the rotary stage home and the pthysical dial 
 so when asking the motor to home (by pressing HomR or HomF buttons) the home position 
 reads  46.5 degree on the motor dial. To assure the user coordinate reads zero 
 degree when the motor physical dial is at zero set the offset as shown in the image below.
