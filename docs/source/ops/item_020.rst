@@ -1,6 +1,7 @@
 .. _Slack GUP: https://github.com/xray-imaging/slack-gup
 .. _share instructions: https://github.com/xray-imaging/slack-gup#share
 .. _Slack bot: https://github.com/xray-imaging/slack-bot
+.. _pv logger: https://github.com/xray-imaging/pv
 
 Slack
 =====
@@ -84,13 +85,36 @@ To start the slack bot server:
     $ slackbot start --beamline 2-bm --channel-name automated
       Bolt app is running!
 
-use:
+usage:
 
 .. image:: ../img/slack_bot_help.png
     :width: 60%
     :align: center
 
 .. image:: ../img/slack_bot_ring.png
+    :width: 60%
+    :align: center
+
+
+pv logger
+---------
+
+`pv logger`_ provides an EPICS PV logger with slack support
+
+setup:
+
+::
+
+    (slack) usertxm@txmtwo $ pv set --pv-list "2bma:TomoScan:Energy, 2bma:TomoScan:EnergyMode"
+
+
+usage:
+
+.. image:: ../img/pv_log.png
+    :width: 60%
+    :align: center
+
+.. image:: ../img/pv_slack.png
     :width: 60%
     :align: center
 
