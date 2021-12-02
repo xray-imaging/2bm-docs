@@ -42,17 +42,53 @@ auto_rec runs tomopy recon for each newly transferred data set with the followin
 At your home institution
 ------------------------
 
-Install the following::
+Install the following:
 
-    Conda: https://www.anaconda.com/download/
-    tomopy: https://tomopy.readthedocs.io/en/latest/
-    tomopy-cli: https://github.com/tomography/tomopy-cli
+1. Download and install `anaconda python <https://www.anaconda.com/download/>`_ for your operative system.
+2. Create a conda environment:
+    
+::
 
-then you can run reconstrutions with::
+    $ conda create -n tomopy python=3.9
+
+3. Activate the newly created conda environment:
+
+::
+
+    $ conda activate tomopy
+
+
+4. Install `tomopy <https://tomopy.readthedocs.io/en/latest/>`_:
+
+::
+
+    $ conda install --channel conda-forge tomopy
+
+
+5. Install `dxchange <https://dxchange.readthedocs.io/en/latest/>`_:
+
+::
+
+    $ conda install -c conda-forge dxchange
+
+6. Install `tomopy cli <https://tomopycli.readthedocs.io/en/latest/>`_:
+
+::
+
+    $ git clone https://github.com/tomography/tomopy-cli.git
+    $ cd tomopy-cli
+    $ python setup.py install
+
+7. Install `tomopy cli dependecy <https://github.com/tomography/tomopy-cli/blob/master/requirements.txt>`_:
+
+::
+
+    pip install opencv-python
+
+
+To run a reconstuction you can now run::
 
     $ tomopy recon --file-name /data/file.h5
-
-More detailed instruction are at `tomopy cli <https://github.com/tomography/tomopy-cli>`_.
 
 
 Mosaic
