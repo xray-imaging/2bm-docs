@@ -26,9 +26,29 @@ Please follow these steps:
 - download the data!
 
 
+InfiniBand connection
+---------------------
+
+Machines tomodata1, tomo1, and tomo2 are conencted via Mellanox Technologies MT28908 Family [ConnectX-6] rate: 100 Gb/s (4X EDR). For testing data transfer speed:
+
+on tomo1 run a server as::
+
+  sudo /bin/iperf3 -s -B 117.17.1.51 
+
+on tomo2 run a client as::
+
+  sudo /bin/iperf3 -c 117.17.1.51 -B 117.17.1.52
+
+
 
 Raw Data Viewer 
 ---------------
+
+To view the tomographic raw data we suggest to install `Fiji <https://imagej.net/Fiji>`_ and add 
+the `HDF plugin <https://github.com/paulscherrerinstitute/ch.psi.imagej.hdf5>`_
+
+Other options are `hdfview <https://support.hdfgroup.org/products/java/hdfview/>`_ or 
+`argos <https://github.com/titusjan/argos>`_
 
 To view the tomographic raw data we suggest to install `Fiji <https://imagej.net/Fiji>`_ and add 
 the `HDF plugin <https://github.com/paulscherrerinstitute/ch.psi.imagej.hdf5>`_
