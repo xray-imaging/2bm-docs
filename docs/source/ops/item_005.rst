@@ -1,40 +1,17 @@
-EPICS startup
+Energy change
 =============
 
-beamline
---------
+The beamline x-ray energy change is managed by the `energy cli <https://github.com/xray-imaging/2bm-ops>`_ python library. 
 
-To start the main beamline control screens::
 
-   [user2bmb@arcturus]$ start_epics
+Login into user2bmb@arcturus then::
 
-.. image:: ../img/2bma_beamline.png 
-   :width: 720px
-   :align: center
-   :alt: 2bma_beamline
+    [user2bmb@arcturus,42,~]$ bash
+    [user2bmb@arcturus,42,~]$ conda activate ops
+    [user2bmb@arcturus,42,~]$ energy set --mode Mono --energy-value 20
 
-.. image:: ../img/2bmb_beamline.png 
-   :width: 720px
-   :align: center
-   :alt: 2bmb_beamline
+for help::
 
-tomography
-----------
+    energy -h
 
-To start the main tomography control screens for 2-BM-A or 2-BM-B for scanning or streaming data collection select in the main beamline control screens the corresponding screen for user, admin, tomoscan, tomoscan 2-BM:
-
-.. image:: ../img/tomo_01.png 
-   :width: 128px
-   :align: center
-   :alt: tomo_01
-
-.. image:: ../img/tomo_02.png 
-   :width: 128px
-   :align: center
-   :alt: tomo_02
-
-.. image:: ../img/tomo_03.png 
-   :width: 128px
-   :align: center
-   :alt: tomo_03
-
+More detailed istructions are here the `energy cli <https://github.com/xray-imaging/2bm-ops>`_
