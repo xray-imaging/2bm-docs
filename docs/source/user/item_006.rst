@@ -9,7 +9,7 @@ Your raw data are automatically copied from the detector to the analysis compute
 Manual
 ~~~~~~
 
-To manually reconstruct a data set, use the `tomopy cli <https://github.com/tomography/tomopy-cli>`_. 
+To manually reconstruct a data set, use the `tomopy cli tool <https://github.com/tomography/tomopy-cli>`_. 
 ::
 
     [tomo@handyn,~]$ bash
@@ -22,8 +22,6 @@ then for help::
 To do a test reconstruction type::
 
     [tomo@handyn,~]$ tomopy recon --file-name /local/data/YYYY-MM/PI_lastName/file.h5 
-
-More detailed instruction are at `tomopy cli <https://github.com/tomography/tomopy-cli>`_.
 
 
 Automatic
