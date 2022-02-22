@@ -1,36 +1,13 @@
-Computing
-=========
+Data Analisys
+=============
 
-Detector
---------
-
-Here are the computers supporting detector or data analysis at 2-BM:
-
-+-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
-| Station   | Name         |      Model        |  Product No.    |    Serial No.            |        Manual       |
-+-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
-| 2-BM-A    | pg10ge       |  HP Z8 G4         | 3GF37UT#ABA     |  `pg10ge label`_         |     `pg10ge SM`_    |
-+-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
-| 2-BM-B    | lyra         |  HP EliteDesk 800 | P4K18UT#ABA     |  `lyra label`_           |     `lyra SM`_      |
-+-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
-
-For each machine part list at purchase time and for the list of supported hardware enter the serial numeber in the `HP support <https://partsurfer.hp.com/Search.aspx>`_ web page.
-
-.. _pg10ge label: https://anl.box.com/s/oslaky958be3vyifda2xyq4tv0v9v7pz
-.. _pg10ge SM: https://anl.box.com/s/m1u8o62wbr27n26iotfnbhgpncwsapcq
-.. _lyra label: https://anl.box.com/s/lrjiwsfzwbe51gueb6vpyinqav86qx6o
-.. _lyra SM: https://anl.box.com/s/dv0ub0gdjhs7q3h50ehgro6gaesbxcjf
-.. _handyn label: https://anl.box.com/s/2kdy0yaz57nfodyv31k4etp83sqckb0x
-.. _handyn SM: https://anl.box.com/s/itwhcp9xr7xocl1djilyd5yqf8un6yjt
 .. _cluster_folder: https://anl.box.com/s/cwqbvet2qv8239nhrof0qemyohd0jho3
 .. _cluster: https://anl.box.com/s/uysvb5ujnlugmd16r2f6o10fem9rjgvr
 .. _disk_array: https://anl.box.com/s/zzyvv7w80ltwbtf09zrjiqiw7ak6i7ge
 .. _cluster_quote: https://anl.box.com/s/j7wz6li4afoq2gs5g8feehmmz8q7whuy
 .. _disk_array_quote: https://anl.box.com/s/sbft8cbt2xcpzuuvikixr82dn9jf6zog
 
-
-Analisys
---------
+The micro tomography computing infrastructure located at 2-BM:
 
 +-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
 | Station   | Name         | Product       | Part list       |      Model                      |      Quote           |
@@ -41,13 +18,99 @@ Analisys
 +-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
 
 
+At the APS
+----------
 
-Visulaization
--------------
+Your raw data are automatically copied from the detector to the analysis computer (handyn in this example) under the folder /local/data/YYYY-MM/PI_lastName. 
 
-+-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
-| Station   | Name         |      Model        |  Product No.    |    Serial No.            |        Manual       |
-+-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
-| 2-BM-B    | handyn       |  HP Z820          |     LJ452AV     |  `handyn label`_         |     `handyn SM`_    |
-+-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
+Manual
+~~~~~~
 
+To manually reconstruct a data set, use the `tomopy cli tool <https://github.com/tomography/tomopy-cli>`_. 
+::
+
+    [tomo@tomo1,~]$ bash
+    [tomo@tomo1,~]$ conda activate tomopy
+
+then for help::
+
+    [tomo@tomo1,~]$ tomopy recon -h
+
+To do a test reconstruction type::
+
+    [tomo@tomo1,~]$ tomopy recon --file-name /local/data/YYYY-MM/PI_lastName/file.h5 
+
+
+Automatic
+~~~~~~~~~
+
+To setup a reconstruction to start automatically type::
+
+    [tomo@tomo1,~]$ bash
+    [tomo@tomo1,~]$ auto_rec /local/data/YYYY-MM/PI_lastName/
+
+auto_rec runs tomopy recon for each newly transferred data set with the following options::
+
+    tomopy recon --reconstruction-type try --file-name /local/data/YYYY-MM/PI_lastName/data.h5
+
+.. _handyn label: https://anl.box.com/s/2kdy0yaz57nfodyv31k4etp83sqckb0x
+.. _handyn SM: https://anl.box.com/s/itwhcp9xr7xocl1djilyd5yqf8un6yjt
+
+
+At your home institution
+------------------------
+
+Install the following:
+
+1. Download and install `anaconda python <https://www.anaconda.com/download/>`_ for your operative system.
+2. Create a conda environment:
+    
+::
+
+    $ conda create -n tomopy python=3.9
+
+3. Activate the newly created conda environment:
+
+::
+
+    $ conda activate tomopy
+
+
+4. Install `tomopy <https://tomopy.readthedocs.io/en/latest/>`_:
+
+::
+
+    $ conda install --channel conda-forge tomopy
+
+
+5. Install `dxchange <https://dxchange.readthedocs.io/en/latest/>`_:
+
+::
+
+    $ conda install -c conda-forge dxchange
+
+6. Install `tomopy cli <https://tomopycli.readthedocs.io/en/latest/>`_:
+
+::
+
+    $ git clone https://github.com/tomography/tomopy-cli.git
+    $ cd tomopy-cli
+    $ python setup.py install
+
+7. Install `tomopy cli dependecy <https://github.com/tomography/tomopy-cli/blob/master/requirements.txt>`_:
+
+::
+
+    pip install opencv-python
+
+
+To run a reconstuction you can now run::
+
+    $ tomopy recon --file-name /data/file.h5
+
+
+Mosaic
+------
+
+For samples larger than the field of view we collect multiple data sets consisiting of overlapping tiles to form a mosaic.
+To reconstruct these type of data please use `tile <https://tile.readthedocs.io/en/latest/>`_  command-line-interface for mosaic tomography data processing.
