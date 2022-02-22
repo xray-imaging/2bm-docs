@@ -1,4 +1,4 @@
-Baemline Control
+Beamline Control
 ================
 
 All beamline components and detectors are controlled using `EPICS <https://epics-controls.org/>`_ and `areaDetector <https://areadetector.github.io/master/index.html>`_.
