@@ -1,7 +1,10 @@
 Alignment
 =========
 
-`Adjust <https://github.com/xray-imaging/adjust>`_ is a python script that automates all tomography instrument alignemt taks.
+Single
+------
+
+For a single tomography data collection, the python script `Adjust <https://github.com/xray-imaging/adjust>`_ fully automates all tomography instrument alignemt taks.
 
 .. image:: ../img/tomo_refs.png 
    :width: 480px
@@ -12,11 +15,11 @@ Alignment
 
 `Adjust <https://github.com/xray-imaging/adjust>`_'s funtions include automatic finding of:
 
-- detector pixel size
-- scintillator focus location
-- rotation axis location
-- centering of the sample on the rotation axis
-- rotation axis pitch and roll
+#. detector pixel size
+#. scintillator focus location
+#. rotation axis location
+#. centering of the sample on the rotation axis
+#. rotation axis pitch and roll
 
 First step is to mesaure the image pixel size by running::
 
@@ -29,18 +32,40 @@ then::
     user2bmb@pg10ge $ adjust roll
     user2bmb@pg10ge $ adjust pitch
 
+Mosaic
+------
+
+For mosaic tomography data collection, the horizonal translation stage (X) needs to precisely align so that during the X translation the sample does not move up or down. This can be accomplished by the `following steps <https://anl.box.com/s/7ltz0oyxbxmo5ufy5s0tnlhwx0qh75wu>`_ :
+
+
+
+.. image:: ../img/mosaic_align_01.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user
+
+.. image:: ../img/mosaic_align_02.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user
+
+.. image:: ../img/mosaic_align_03.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user
+
 
 Sample motor stack
 ------------------
 
-| The sample motor stack consists of:
-|
-| • **Sample top X** (horizontal motion above the rotary stage)
-| • **Sample top Z** (horizontal motion normal to "sample top X" above the rotary stage)
-| • **Sample Y** (vertical motion)
-| • **Sample Swivel Stage** (2 axes roll and pitch motion)
-| • **Sample Y** (vertical motion)
-| • **Sample X** (horizontal motion perpendicular to the beam)
+The sample motor stack consists of:
+
+#. **Sample top X** (horizontal motion above the rotary stage)
+#. **Sample top Z** (horizontal motion normal to "sample top X" above the rotary stage)
+#. **Sample Y** (vertical motion)
+#. **Sample Swivel Stage** (2 axes roll and pitch motion)
+#. **Sample Y** (vertical motion)
+#. **Sample X** (horizontal motion perpendicular to the beam)
 
 
 Swivel Stages
