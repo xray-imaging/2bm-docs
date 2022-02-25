@@ -54,6 +54,11 @@ For mosaic tomography data collection, the horizonal translation stage (X) needs
    :align: center
    :alt: tomo_user
 
+.. image:: ../img/mosaic_align_04.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user
+
 
 Sample motor stack
 ------------------
