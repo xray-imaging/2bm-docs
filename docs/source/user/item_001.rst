@@ -97,6 +97,8 @@ Install the following:
     $ cd tomopy-cli
     $ python setup.py install
 
+For Windows installation of tomopy-cli watch `this video <https://anl.box.com/s/182dsmpnxx25o2xsy6n1ozgj8rx5omjg>`_.
+
 7. Install `tomopy cli dependecy <https://github.com/tomography/tomopy-cli/blob/master/requirements.txt>`_:
 
 ::
