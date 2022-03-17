@@ -14,13 +14,25 @@ To generate user logs to be published on google slides we developed `tomolog <ht
 To view the table for data stored by tomo@handyn::
 
     tomo@handyn$ bash
-    tomo@handyn$ conda activate google
-    tomo@handyn$ tomolog run --file-name /data/2022-02/Salcedo/ --rec-type rec
+    (base)   tomo@handyn$ conda activate google
+    (googlr) tomo@handyn$ tomolog run --file-name /data/2022-02/Salcedo/ --rec-type rec
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --config FILE  File name of configuration file
+
+Commands::
+
+    init         Create configuration file
+    run          Run data logging to google slides
+    status       Show the tomolog status
+
 
 To access/view experiment meta data we developed `meta <https://github.com/xray-imaging/meta>`_ 
 
-For run meta::
+To run meta::
 
+    tomo@handyn$ bash
     (base) tomo@handyn ~ $ conda activate meta
     (meta) tomo@handyn ~ $ meta show --file-name /local/data/base_file_name_001.h5 
 
@@ -33,6 +45,5 @@ Commands::
     init         Create configuration file
     status       Show meta status
     show         Show meta data extracted from -fname-name
-    docs         Create in --doc-dir an rst file compatible with
- 
+    docs         Create in --doc-dir an rst file compatible with sphinx/readthedocs containing the DataExchange hdf file meta data
 
