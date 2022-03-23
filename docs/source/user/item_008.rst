@@ -6,6 +6,11 @@ Environment
 
 The 2-BM microCT instrument has been designed to accomodate different kind of *in situ* cells.
 
+Battery cell
+~~~~~~~~~~~~
+
+to be completed
+
 Furnace
 ~~~~~~~
 
@@ -42,6 +47,42 @@ The furnaces use a Eurotherm temperature controller. To access the MEDM screen s
 .. image:: ../img/eurotherm.png
     :width: 512pt
     :height: 300pt
+
+
+Load
+~~~~
+
++--------------------------------+-----------------+--------------+--------------------------------------+---------------+-------------------------+---------------------------+
+| Type                           |    Model        |  Load Range  |  Image                               | Commercial    | Contact                 |  Info                     |
++--------------------------------+-----------------+--------------+--------------------------------------+---------------+-------------------------+---------------------------+
+| Load cell                      |    Custom       |    600 N     | |l00001|                             |   No          | `Pavel Shevchenko`_     |                           |
++--------------------------------+-----------------+--------------+--------------------------------------+---------------+-------------------------+---------------------------+
+| Controller                     |   Int. 9820     |  |l00002|    |  |l00003| |l00004|                   | Yes           | `Pavel Shevchenko`_     |  `box link l0001`_        |
++--------------------------------+-----------------+--------------+--------------------------------------+---------------+-------------------------+---------------------------+
+
+
+
+.. _box link l0001: https://anl.box.com/s/w6xg68hrdd1cauapl5jcx29ngpaump1u
+
+
+.. |l00001| image:: ../img/load_00001.png
+    :width: 20pt
+    :height: 20pt
+
+.. |l00002| image:: ../img/load_00002.png
+    :width: 20pt
+    :height: 20pt
+
+.. |l00003| image:: ../img/load_00003.png
+    :width: 20pt
+    :height: 20pt
+
+.. |l00004| image:: ../img/load_00003.png
+    :width: 20pt
+    :height: 20pt
+
+.. _Pavel Shevchenko: mail to:  pshevchenko@anl.gov
+
 
 Pressure
 ~~~~~~~~
@@ -94,14 +135,6 @@ opens the pump control screen:
 
 .. _Pavel Shevchenko: mail to:  pshevchenko@anl.gov
 .. _Mark Rivers: mail to:  rivers@cars.uchicago.edu
-
-
-
-Battery cell
-~~~~~~~~~~~~
-
-to be completed
-
 
 Mounting
 --------
