@@ -28,7 +28,7 @@ These are the model/part number of the cameras in use at 2-BM:
 .. _camera_00004:  http://www.pco.de/fileadmin/user_upload/pco-product_sheets/pco.dimax_hs_data_sheet.pdf       
 .. _camera_00005:  https://www.pco.de/scmos-cameras/pcoedge-42/       
 .. _camera_00006:  https://www.adimec.com/cameras/machine-vision-cameras/quartz-series/q-12a180/   
-.. _camera_00007:  https://www.ptgrey.com/oryx-50-mp-mono-10gige-sony-imx250         
+.. _camera_00007:  https://www.flir.com/products/oryx-10gige/?vertical=machine-vision&segment=iis         
 
 .. _camera_order_00001: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F6-109062
 .. _camera_order_00002: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F8-219026
