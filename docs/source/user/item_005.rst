@@ -226,7 +226,7 @@ Startup
 
 To start/stop the areadetector IOC for the  Quartz quad CoaXPress Q-12A180 CMV12000  camera login into user2bmb@chiwawa-113 then type::
 
-  [user2bmb@chiwawa-113]$ cd /net/s2dserv/xorApps/PreBuilts/areaDetector-R3-10/ADCoaxLink/iocs/coaxLinkIOC/iocBoot/iocCoaxLink/softioc/Adimec.sh
+  [user2bmb@chiwawa-113]$ cd /net/s2dserv/xorApps/PreBuilts/areaDetector-R3-10/ADCoaxLink/iocs/coaxLinkIOC/iocBoot/iocCoaxLink/softioc/
   [user2bmb@chiwawa-113]$ ./Adimec.sh
     Usage: Adimec.sh {start|stop|restart|status|console|run|medm|caqtdm}
     Additional options:
