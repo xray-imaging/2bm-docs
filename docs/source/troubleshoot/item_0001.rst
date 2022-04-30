@@ -11,7 +11,7 @@ In same situation the HDF plugin for areadetector will fail to save with error=3
 1. go to the hdf plugin screen and delete the XML File name "TomoScanLayout.xml"
 2. select save and set the camera in continous data collection mode, taking images now should not show any error is gone
 3. keep the camera running, go to the hdf plugin screen and an incorrect XML File name name e.g. "TomoScanLayout.xm"
-3. enter the correct file name TomoScanLayout.xml
+4. enter the correct file name TomoScanLayout.xml
 
 
 Flir
