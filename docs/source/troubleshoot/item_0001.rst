@@ -8,6 +8,7 @@ HDF Plugin error
 
 In same situation the HDF plugin for areadetector will fail to save with error=3. If this happens these steps will clear the error:
 
+0. make sure TomoScan is runnung. This is because the source of the attribute "HDF5FrameLocation" is "$(TS)HDF5Location" which is used by the hdf layout file as <global name="detector_data_destination" ndattribute="HDF5FrameLocation" />          
 1. go to the hdf plugin screen and delete the XML File name "TomoScanLayout.xml"
 2. select save and set the camera in continous data collection mode, taking images now should not show any error is gone
 3. keep the camera running, go to the hdf plugin screen and an incorrect XML File name name e.g. "TomoScanLayout.xm"
