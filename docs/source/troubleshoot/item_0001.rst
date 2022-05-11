@@ -35,6 +35,7 @@ To power cycle the camera unplug the power supply:
    :align: center
    :alt: tomo_user
 
+.. warning:: If you need to reboot pg10ge keep the FLIR camera on. If you need to power cycle the camera and reboot pg10ge: 1. Turn off the camera. 2 Turn on the camera. 3. Reboot pg10ge. 
 
 .. warning:: If the area detector fails to boot even after a camera power cycle, it means that the last auto save file (auto_setting.sav) is corrupted or that the network adaper the camera is connected to needs a reboot. To recover from the first you need to replace the corrupted auto save with a good one, if this is not avaialble just delete all autosave files. For recovering from the the network adaper issue reboot the linux machine (pg10ge) with user2bmb@pg10ge $ sudo /usr/sbin/reboot. 
 
