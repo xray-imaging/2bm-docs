@@ -26,12 +26,12 @@ Flir
 
 The area detector IOC controlling the FLIR camera run on the linux machine named pg10ge. To check the area detector status::
 
-    user2bmb@pg10ge$ 2bmbOryx.sh status
+    user2bmb@pg10ge$ 2bmSP2.sh status
 
 To stop/restart area detector use ::
 
-    user2bmb@pg10ge$ 2bmbOryx.sh start
-    user2bmb@pg10ge$ 2bmbOryx.sh stop
+    user2bmb@pg10ge$ 2bmSP2.sh start
+    user2bmb@pg10ge$ 2bmSP2.sh stop
 
 
 To power cycle the camera unplug the power supply:
@@ -47,11 +47,11 @@ To power cycle the camera unplug the power supply:
 
 To stop areadetector::
 
-    user2bmb@pg10ge$ 2bmbOryx.sh stop
+    user2bmb@pg10ge$ 2bmSP2.sh stop
 
 then restart areadetector with::
 
-    user2bmb@pg10ge$ ~/2bmbOryx.sh start
+    user2bmb@pg10ge$ ~/2bmSP2.sh start
 
 
 .. warning:: If the camera is not performing at the max speed (when set at 8-bit should run at 160 fps) but only runs at a lower speed (~95 fps or even lower) check the settings for the ISP Enable parameter is set to No. Also increase the DeviceLinkThroughputLimit up to the same value as DeviceLinkSpeed. 
