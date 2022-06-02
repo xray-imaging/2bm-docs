@@ -142,8 +142,8 @@ Startup
 
 To start/stop the area detector IOC for the FLIR Oryx (model 10GS 51S5) camera login into user2bmb@pg10ge then type::
 
-    [user2bmb@pg10ge]$ ~/2bmbOryx.sh -h
-    Usage: 2bmbOryx.sh {start|stop|restart|status|console|run|medm}
+    [user2bmb@pg10ge]$ ~/2bmSP2.sh -h
+    Usage: 2bmSP2.sh {start|stop|restart|status|console|run|medm}
 
 Manuals
 ~~~~~~~

@@ -85,14 +85,14 @@ Support for tomography data collection is provided by `tomoScan_2bm`_ a `tomoSca
 
 ::
 
-    [user2bmb@pg10ge]$ 2bmbOryx start
+    [user2bmb@pg10ge]$ 2bmSP2 start
 
 
 - medm screen
 
 ::
 
-    [user2bmb@pg10ge]$ 2bmbOryx medm
+    [user2bmb@pg10ge]$ 2bmSP2 medm
 
 **Start tomoScan**
 
@@ -293,15 +293,18 @@ Support for streaming data collection is provided by `tomoScanStream`_ a `tomoSc
 
 ::
 
-    [user2bmb@lyra]$ 2bmbPG1 start
-    [user2bmb@lyra]$ 2bmbPG1 console
+    [user2bmb@lyra]$ 2bmbSP2 start
+    [user2bmb@lyra]$ 2bmbSP2 console
 
 
 - medm screen
 
 ::
 
-    [user2bmb@lyra]$ 2bmbPG1 medm
+    [user2bmb@lyra]$ 2bmbSP2 medm
+
+Note: the IOC prefix for [user2bmb@lyra]$ 2bmbSP2 start is 2bmbSP1:
+
 
 **Start tomoScanStream**
 
@@ -352,7 +355,7 @@ Using the dark/flat Stream Prefix above, the PVs for data and flat are:
     2bmb:TomoScanStream:flat
     2bmb:TomoScanStream:dark
 
-These PVs together with the projection PV (in this case **2bmbPG1:Pva1:**) will be passed as input to the tomography streaming reconstruction tool `tomoStream`_.
+These PVs together with the projection PV (in this case **2bmbSP1:Pva1:**) will be passed as input to the tomography streaming reconstruction tool `tomoStream`_.
 
 **Streaming data reconstruction**
 
