@@ -274,8 +274,10 @@ The purchase record can be found at lens_order_00001_, lens_order_00002_, lens_o
 Scintillators
 -------------
 
-.. _esrf_specs: https://anl.box.com/s/0q3bc124x4ai5pnkt01vmbimduwnubee
-.. _esrf_order: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F6-161076
+.. _esrf1_specs: https://anl.box.com/s/0q3bc124x4ai5pnkt01vmbimduwnubee
+.. _esrf1_order: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F6-161076
+.. _esrf2_specs: https://anl.box.com/s/wo4ph36t29hw88dkt8ip1rfmunl31nnq
+.. _esrf2_order: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=G2-069073
 .. _marketech_order: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F6-161075
 .. _crytur_order_01: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F3-119046
 .. _crytur_order_02: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F1-153126
@@ -284,13 +286,19 @@ Scintillators
 +-------------+------------------+-----------------+----------------+---------------------------+-------------------------+
 |    Source   |       Type       |  Thickness (μm) |   Size (mm)    |  Specification            |     Order Ref.          |
 +=============+==================+=================+================+===========================+=========================+
-|     ESRF    |        GGG       |         2       |     8 x 8      |     esrf_specs_           |   esrf_order_           |
+|     ESRF    |        GGG       |         2       |     8 x 8      |     esrf1_specs_          |   esrf1_order_          |
 +-------------+------------------+-----------------+----------------+---------------------------+-------------------------+
-|     ESRF    |        GGG       |         5       |     8 x 8      |     esrf_specs_           |   esrf_order_           |
+|     ESRF    |        GGG       |         5       |     8 x 8      |     esrf1_specs_          |   esrf1_order_          |
 +-------------+------------------+-----------------+----------------+---------------------------+-------------------------+
-|     ESRF    |        GGG       |        23       |     8 x 8      |     esrf_specs_           |   esrf_order_           |
+|     ESRF    |        GGG       |        23       |     8 x 8      |     esrf1_specs_          |   esrf1_order_          |
 +-------------+------------------+-----------------+----------------+---------------------------+-------------------------+
-|     ESRF    |      LOS:Tb      |         6       |     8 x 8      |     esrf_specs_           |   esrf_order_           |
+|     ESRF    |      LOS:Tb      |         6       |     8 x 8      |     esrf1_specs_          |   esrf1_order_          |
++-------------+------------------+-----------------+----------------+---------------------------+-------------------------+
+|     ESRF    |      GGG:Eu      |        17       |     8 x 8      |     esrf2_specs_          |   esrf2_order_          |
++-------------+------------------+-----------------+----------------+---------------------------+-------------------------+
+|     ESRF    |      GGG:Eu      |        21       |     8 x 8      |     esrf2_specs_          |   esrf2_order_          |
++-------------+------------------+-----------------+----------------+---------------------------+-------------------------+
+|     ESRF    |      GGG:Eu      |        25       |     8 x 8      |     esrf2_specs_          |   esrf2_order_          |
 +-------------+------------------+-----------------+----------------+---------------------------+-------------------------+
 | Marketech   |     LuAG:Ce      |        100      |     25.4       |          -                |   marketech_order_      |
 +-------------+------------------+-----------------+----------------+---------------------------+-------------------------+
