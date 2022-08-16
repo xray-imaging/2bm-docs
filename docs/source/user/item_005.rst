@@ -28,11 +28,13 @@ These are the model/part number of the cameras in use at 2-BM:
 .. _camera_00004:  http://www.pco.de/fileadmin/user_upload/pco-product_sheets/pco.dimax_hs_data_sheet.pdf       
 .. _camera_00005:  https://www.pco.de/scmos-cameras/pcoedge-42/       
 .. _camera_00006:  https://www.adimec.com/cameras/machine-vision-cameras/quartz-series/q-12a180/   
-.. _camera_00007:  https://www.flir.com/products/oryx-10gige/?vertical=machine-vision&segment=iis         
+.. _camera_00007:  https://www.flir.com/products/oryx-10gige/?model=ORX-10GS-51S5M-C&vertical=machine+vision&segment=iis
+.. _camera_00008:  https://www.flir.com/products/oryx-10gige/?model=DEV-ORX-310S9M&vertical=machine+vision&segment=iis
 
 .. _camera_order_00001: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F6-109062
 .. _camera_order_00002: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F8-219026
 .. _camera_order_00003: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F6-161074
+.. _camera_order_00004: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=G2-175013
 
 .. |d00001| image:: ../img/dimax_01.png
    :width: 50px
@@ -57,6 +59,11 @@ These are the model/part number of the cameras in use at 2-BM:
    :width: 50px
    :alt: flir
 
+.. |d00006| image:: ../img/flir_2.png
+   :width: 50px
+   :alt: flir
+
+
 +-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
 |                   Camera                                    | pixels (HxV) | pixels size (μm) |   bit   | fps        |      Manual        | Part number                             |        Images               |          Purchase orider      |
 +=============================================================+==============+==================+=========+============+====================+=========================================+=============================+===============================+
@@ -73,6 +80,8 @@ These are the model/part number of the cameras in use at 2-BM:
 | Adimec 12 MP (*)                                            | 4000 x 3000  |       5.5        | 8       | 187        |     camera_00006_  | Quartz quad CoaXPress Q-12A180 CMV12000 |                             |   camera_order_00003_         |
 +-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
 | Oryx 5.0 MP Mono 10GigE                                     | 2448 x 2048  |       3.45       | 8-12    | 162        |     camera_00007_  | ORX-10G-51S5M-C                         |   |d00004| |d00005|         |   camera_order_00002_         |
++-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
+| Oryx 31.0 MP Mono 10GigE                                    | 6464 x 4852  |       3.45       | 8-12    | 26         |     camera_00008_  | ORX-10G-310S9M                          |   |d00006|                  |   camera_order_00004_         |
 +-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
 
 (*) used with Euresys Quad-G3 CXP framegrabber
@@ -113,19 +122,25 @@ Different combinations of camera, lens and scintillator screensare are possible 
 FLIR
 ----
 
-To use the Flir Oryx installed at 2-BM-A and connected to pg10ge::
+To use the Flir Oryx camera ORX-10G-51S5M installed at 2-BM-B and connected to pg10ge::
 
-  [user2bmb@pg10ge]$ start_tomo
+  [user2bmb@parcturus]$ start_epics
 
-then select Detector from:
+then select Scan/Admin from:
 
-.. image:: ../img/fast_tomo_user.png 
+.. image:: ../img/start_epics.png 
    :width: 720px
    :align: center
    :alt: tomo_user
 
 
-to obtain the FLIR Oryx areadetector main control screen:
+to obtain the FLIR Oryx areadetector main control in the mct_main screen select:
+
+
+.. image:: ../img/mct_main.png 
+   :width: 720px
+   :align: center
+   :alt: tomo_user
 
 .. image:: ../img/flir_main.png 
    :width: 720px
@@ -142,8 +157,8 @@ Startup
 
 To start/stop the area detector IOC for the FLIR Oryx (model 10GS 51S5) camera login into user2bmb@pg10ge then type::
 
-    [user2bmb@pg10ge]$ ~/2bmSP2.sh -h
-    Usage: 2bmSP2.sh {start|stop|restart|status|console|run|medm}
+    [user2bmb@pg10ge]$ 2bmbOryx -h
+    Usage: 2bmbSpinnaker.sh {start|stop|restart|status|console|run|medm|caqtdm}
 
 Manuals
 ~~~~~~~
