@@ -63,6 +63,8 @@ These are the model/part number of the cameras in use at 2-BM:
    :width: 50px
    :alt: flir
 
+Cameras
+=======
 
 +-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
 |                   Camera                                    | pixels (HxV) | pixels size (μm) |   bit   | fps        |      Manual        | Part number                             |        Images               |          Purchase orider      |
