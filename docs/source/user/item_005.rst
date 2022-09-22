@@ -64,7 +64,7 @@ These are the model/part number of the cameras in use at 2-BM:
    :alt: flir
 
 Cameras
-=======
+-------
 
 +-------------------------------------------------------------+--------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
 |                   Camera                                    | pixels (HxV) | pixels size (μm) |   bit   | fps        |      Manual        | Part number                             |        Images               |          Purchase orider      |
@@ -122,7 +122,7 @@ Different combinations of camera, lens and scintillator screensare are possible 
 
 
 FLIR
-----
+^^^^
 
 To use the Flir Oryx camera ORX-10G-51S5M installed at 2-BM-B and connected to pg10ge::
 
@@ -332,6 +332,17 @@ Scintillators
 | Crytur      |     LuAG:Ce      |         50      |     25.5       |          -                |   crytur_order_02_      |
 +-------------+------------------+-----------------+----------------+---------------------------+-------------------------+
 
+
+Crytur cleaning crystal surfaces
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. use a mixture of HCl:HNO3 =3:2, (to remove Al coatings use NaOH)
+2. rins in DI water
+
+
+Scintillator emissions
+^^^^^^^^^^^^^^^^^^^^^^
+
 Below are the emission spectrum plots of common scintillator screens:
 
 .. image:: ../img/scintillator_qe_01.png
@@ -343,6 +354,27 @@ Below are the emission spectrum plots of common scintillator screens:
    :width: 320px
    :align: center
    :alt: tomo_user 
+
+.. image:: ../img/scintillator_qe_03.png
+   :width: 320px
+   :align: center
+   :alt: tomo_user 
+
+.. image:: ../img/scintillator_qe_04.png
+   :width: 320px
+   :align: center
+   :alt: tomo_user 
+
+.. image:: ../img/scintillator_qe_05.png
+   :width: 320px
+   :align: center
+   :alt: tomo_user 
+
+.. image:: ../img/scintillator_qe_06.png
+   :width: 320px
+   :align: center
+   :alt: tomo_user 
+
 
 
 CCD Lens calculator
@@ -389,7 +421,7 @@ and press start at:
 
 To open the hdf files saved by the detector use:
 
-- fiji: https://imagej.net/Fiji 
-- hdf: plugin from https://github.com/paulscherrerinstitute/ch.psi.imagej.hdf5
-- hdfview https://support.hdfgroup.org/products/java/hdfview/
-- argos https://github.com/titusjan/argos
+1. fiji: https://imagej.net/Fiji 
+2. hdf: plugin from https://github.com/paulscherrerinstitute/ch.psi.imagej.hdf5
+3. hdfview https://support.hdfgroup.org/products/java/hdfview/
+4. argos https://github.com/titusjan/argos
