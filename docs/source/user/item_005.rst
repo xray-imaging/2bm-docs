@@ -169,7 +169,7 @@ Manuals
 - `FLIR Technical Reference <https://anl.box.com/s/iyysb20lkr9uwbbefy3s0n2pkq3lyktq>`_
 
 Point Grey
-----------
+^^^^^^^^^^
 
 To use the Point Grey GS3-U3-23S6M-C installed at 2-BM-B and connected to lyra::
 
@@ -204,7 +204,7 @@ Manuals
 - `PG Technical Reference <https://anl.box.com/s/52w064y82yura524d9fkz27yst39597v>`_
 
 Adimec
-------
+^^^^^^
 
 To use the Quartz quad CoaXPress Q-12A180 CMV12000 installed at 2-BM-A and connected to chiwawa-113, 
 start the Adimec areadetector main control screen
