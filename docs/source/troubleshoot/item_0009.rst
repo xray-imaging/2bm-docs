@@ -1,19 +1,15 @@
-No Machine reboot
-=================
+Network
+=======
 
-.. contents:: 
-   :local:
+InfiniBand connection
+---------------------
 
-If you need to reboot the NX server on handyn::
+Machines tomodata1, tomo1, and tomo2 are conencted via Mellanox Technologies MT28908 Family [ConnectX-6] rate: 100 Gb/s (4X EDR). For testing data transfer speed:
 
-    tomo@handyn$ sudo /usr/NX/bin/nxserver --restart
-    
-The same has been also enabled for::
+on tomo@tomo1 run a server as::
 
-    user2bmb@arcturus$ sudo /usr/NX/bin/nxserver --restart
-    tomo@handyn$ sudo /usr/NX/bin/nxserver --restart
-    usr32idc@txmone$ sudo /usr/NX/bin/nxserver --restart
-    usr32idc@txmtwo$ sudo /usr/NX/bin/nxserver --restart
-    fast@merlot$ sudo /usr/NX/bin/nxserver --restart
+  sudo /bin/iperf3 -s -B 117.17.1.51 
 
+on tomo@tomo2 run a client as::
 
+  sudo /bin/iperf3 -c 117.17.1.51 -B 117.17.1.52
