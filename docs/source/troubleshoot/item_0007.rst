@@ -1,12 +1,11 @@
-Make the mouse larger
-=====================
+Iperf
+=====
 
 .. contents:: 
    :local:
 
-If you need to make the mouse larger on a RedHat linux machine::
+To test speed between tomo1 and pg10ge::
 
-    $ gsettings set org.gnome.desktop.interface cursor-size 48
-
-
+    (base) user2bmb@pg10ge ~ $iperf3 -s -B 164.54.113.119
+    (base) user2bmb@tomo1 ~ $iperf3 -c 164.54.113.119 -B 164.54.113.128
 

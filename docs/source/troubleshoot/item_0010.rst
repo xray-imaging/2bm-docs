@@ -1,5 +1,19 @@
-Reset user pwd
-==============
+No Machine reboot
+=================
 
-If you need to reset the GUP user password, please follow `this instructions <https://beam.aps.anl.gov/pls/apsweb/CHANGE_MY_APS_WEB_PASSWORD_PKG.START_PAGE>`_.
+.. contents:: 
+   :local:
+
+If you need to reboot the NX server on handyn::
+
+    tomo@handyn$ sudo /usr/NX/bin/nxserver --restart
+    
+The same has been also enabled for::
+
+    user2bmb@arcturus$ sudo /usr/NX/bin/nxserver --restart
+    tomo@handyn$ sudo /usr/NX/bin/nxserver --restart
+    usr32idc@txmone$ sudo /usr/NX/bin/nxserver --restart
+    usr32idc@txmtwo$ sudo /usr/NX/bin/nxserver --restart
+    fast@merlot$ sudo /usr/NX/bin/nxserver --restart
+
 

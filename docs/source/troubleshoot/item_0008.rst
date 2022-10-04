@@ -1,15 +1,12 @@
-Network
-=======
+Make the mouse larger
+=====================
 
-InfiniBand connection
----------------------
+.. contents:: 
+   :local:
 
-Machines tomodata1, tomo1, and tomo2 are conencted via Mellanox Technologies MT28908 Family [ConnectX-6] rate: 100 Gb/s (4X EDR). For testing data transfer speed:
+If you need to make the mouse larger on a RedHat linux machine::
 
-on tomo@tomo1 run a server as::
+    $ gsettings set org.gnome.desktop.interface cursor-size 48
 
-  sudo /bin/iperf3 -s -B 117.17.1.51 
 
-on tomo@tomo2 run a client as::
 
-  sudo /bin/iperf3 -c 117.17.1.51 -B 117.17.1.52
