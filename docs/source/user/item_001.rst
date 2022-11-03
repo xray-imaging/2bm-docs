@@ -44,14 +44,31 @@ To do a test reconstruction type::
 Automatic
 ~~~~~~~~~
 
-To setup a reconstruction to start automatically type::
+To setup a reconstruction to start and publish automatically the results on a google slide with `tomolog <https://tomologcli.readthedocs.io/en/latest/index.html>`_, 
+edit the --presentation-url in tomorec_log to match an new google slide url
+
+::
 
     [tomo@tomo1,~]$ bash
-    [tomo@tomo1,~]$ auto_rec /local/data/YYYY-MM/PI_lastName/
+    [tomo@tomo1,~]$ conda activate tomocupy
+    (tomocupy) [tomo@tomo1,~]$ more ~/bin/tomorec_log
+    #!/usr/bin/bash
+    tomocupy recon --file-name $1 --remove-stripe-method fw --reconstruction-type full --rotation-axis-auto auto --find-center-end-row 1500
+    tomolog run --presentation-url https://docs.google.com/presentation/d/1YuxMttfW8w2sfwbaw634R3_LgPIsaHblz4Lrsjzn6ufQ/edit?usp=sharing --file-name $1 --beamline 2-bm --zoom [1,2,4]
 
-auto_rec runs tomopy recon for each newly transferred data set with the following options::
+then type::
 
-    tomopy recon --reconstruction-type try --file-name /local/data/YYYY-MM/PI_lastName/data.h5
+    (tomocupy) [tomo@tomo1,~]$ auto_rec /local/data/YYYY-MM/PI_lastName/
+
+any new raw dataset uploade in /local/data/YYYY-MM/PI_lastName/ will be automatically reconstructed and results will be published on a google slide using `tomolog <https://tomologcli.readthedocs.io/en/latest/index.html>`_.
+
+
+.. image:: ../img/tomolog_01.png 
+   :width: 512px
+   :align: center
+   :alt: tomo_01
+
+
 
 .. _handyn label: https://anl.box.com/s/2kdy0yaz57nfodyv31k4etp83sqckb0x
 .. _handyn SM: https://anl.box.com/s/itwhcp9xr7xocl1djilyd5yqf8un6yjt
