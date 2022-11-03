@@ -51,7 +51,7 @@ edit the --presentation-url in tomorec_log to match an new google slide url
 
     [tomo@tomo1,~]$ bash
     [tomo@tomo1,~]$ conda activate tomocupy
-    (tomocupy) [tomo@tomo1,~]$ more ~/bin/tomorec_log
+    (tomocupy) [tomo@tomo1,~]$ sublime ~/bin/tomorec_log
     #!/usr/bin/bash
     tomocupy recon --file-name $1 --remove-stripe-method fw --reconstruction-type full --rotation-axis-auto auto --find-center-end-row 1500
     tomolog run --presentation-url https://docs.google.com/presentation/d/1YuxMttfW8w2sfwbaw634R3_LgPIsaHblz4Lrsjzn6ufQ/edit?usp=sharing --file-name $1 --beamline 2-bm --zoom [1,2,4]
