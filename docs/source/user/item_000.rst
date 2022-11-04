@@ -28,46 +28,55 @@ tomography
 
 To start the main tomography control screens for 2-BM-A or 2-BM-B for scanning or streaming data collection select in the main beamline control screens the corresponding screen for user, admin, tomoscan, tomoscan 2-BM:
 
-.. image:: ../img/tomo_01.png 
+.. image:: ../img/tomo_00.png 
    :width: 128px
+   :align: center
+   :alt: tomo_00
+
+User interface:
+
+.. image:: ../img/tomo_01.png 
+   :width: 512px
    :align: center
    :alt: tomo_01
 
+Admin interface:
+
 .. image:: ../img/tomo_02.png 
-   :width: 128px
+   :width: 512px
    :align: center
    :alt: tomo_02
 
-.. figure:: ../img/tomo_04.png 
-   :width: 720px
+Main tomography control screen
+
+.. figure:: ../img/tomo_03.png 
+   :width: 512px
    :align: center
    :alt: tomo_02
    
-   Main tomography control screen
-
 
 To start tomoScanStream:
 
-.. image:: ../img/tomo_03.png 
+.. image:: ../img/tomo_04.png 
    :width: 128px
    :align: center
    :alt: tomo_03
+
+Main tomoScanStream control screen
 
 .. figure:: ../img/tomo_05.png 
    :width: 340px
    :align: center
    :alt: tomo_02
 
-   Main tomoScanStream control screen
 
-To start tomoStream, i.e. the real time reconstruction control stream:
+Main tomoStream control screen to control the real time reconstruction:
+
 
 .. figure:: ../img/tomo_06.png 
    :width: 340px
    :align: center
    :alt: tomo_02   
-
-   Main tomoScanStream control screen
 
 
 If some of the above screen contains whirte fields, it means that the corresponding EPICS IOC is not running. To check/start/stop any IOC associated with tomograhy use the ioc_start user interface:
