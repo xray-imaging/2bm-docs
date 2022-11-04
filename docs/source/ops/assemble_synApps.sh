@@ -32,7 +32,7 @@ then
 echo "Using default configuration"
 
 # EPICS_BASE=/APSshare/epics/extensions-base/3.14.12.3-ext1
-EPICS_BASE=/home/beams/USER2BMB/epics-test/epics-base
+EPICS_BASE=/home/beams/USER2BMB/epics/epics-base
 
 # The name of the synApps directory can be customized
 #!SYNAPPS_DIR=synApps_X_X
