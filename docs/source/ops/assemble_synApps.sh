@@ -32,7 +32,7 @@ then
 echo "Using default configuration"
 
 # EPICS_BASE=/APSshare/epics/extensions-base/3.14.12.3-ext1
-EPICS_BASE=/home/beams/USER2BMB/epics/epics-base
+EPICS_BASE=/home/beams/USER2BMB/epics-test/epics-base
 
 # The name of the synApps directory can be customized
 #!SYNAPPS_DIR=synApps_X_X
@@ -41,7 +41,7 @@ SUPPORT=R6-1
 #!CONFIGURE=R6-1
 CONFIGURE=master
 UTILS=R6-1
-DOCUMENTATION=R6-1
+# DOCUMENTATION=R6-1
 
 # ALLENBRADLEY=2.3
 # ALIVE=R1-1-1
@@ -67,7 +67,7 @@ DEVIOCSTATS=3.1.16
 # LUA=R2-0
 # MCA=R7-8
 # MEASCOMP=R2-3
-MODBUS=R3-2
+# MODBUS=R3-2
 # MOTOR=R7-1
 # OPTICS=R2-13-3
 # QUADEM=R9-2-1
@@ -80,7 +80,7 @@ SSCAN=R2-11-5
 # VAC=R1-9
 # VME=R2-9-2
 # YOKOGAWA_DAS=R2-0-1
-XXX=R6-1
+# XXX=R6-1
 fi
 
 
