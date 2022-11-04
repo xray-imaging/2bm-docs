@@ -95,9 +95,7 @@ configure/RELEASE check all modules are listed::
     BUSY=$(SUPPORT)/busy-R1-7-2
     CALC=$(SUPPORT)/calc-R3-7-3
     DEVIOCSTATS=$(SUPPORT)/iocStats-3-1-16
-    MODBUS=$(SUPPORT)/modbus-R3-2
     SSCAN=$(SUPPORT)/sscan-R2-11-5
-    XXX=$(SUPPORT)/xxx-R6-1
     AREA_DETECTOR=$(SUPPORT)/areaDetector-master
     ADCORE=$(AREA_DETECTOR)/ADCore
     ADSUPPORT=$(AREA_DETECTOR)/ADSupport
