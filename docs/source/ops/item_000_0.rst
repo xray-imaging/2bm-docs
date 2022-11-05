@@ -90,16 +90,16 @@ In the support folder verify that all modules are present in the Makefile::
 
 configure/RELEASE check all modules are listed::
 
-    ASYN=$(SUPPORT)/asyn-R4-37
-    AUTOSAVE=$(SUPPORT)/autosave-R5-10
-    BUSY=$(SUPPORT)/busy-R1-7-2
-    CALC=$(SUPPORT)/calc-R3-7-3
+    ASYN=$(SUPPORT)/asyn-R4-42
+    AUTOSAVE=$(SUPPORT)/autosave-R5-10-2
+    BUSY=$(SUPPORT)/busy-R1-7-3
+    CALC=$(SUPPORT)/calc-R3-7-4
     DEVIOCSTATS=$(SUPPORT)/iocStats-3-1-16
     SSCAN=$(SUPPORT)/sscan-R2-11-5
-    AREA_DETECTOR=$(SUPPORT)/areaDetector-master
+    AREA_DETECTOR=$(SUPPORT)/areaDetector-R3-11
     ADCORE=$(AREA_DETECTOR)/ADCore
     ADSUPPORT=$(AREA_DETECTOR)/ADSupport
-    SNCSEQ=$(SUPPORT)/seq-2-2-6
+    SNCSEQ=$(SUPPORT)/seq-2-2-9
 
 asyn configure/RELEASE comment out IPAC and SBCEQ::
 
