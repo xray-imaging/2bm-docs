@@ -264,3 +264,15 @@ edit the start_epics file as follows:
 
     ../../bin/linux-x86_64/ADAravisApp st.cmd.Oryx_51S5
 
+Start ADAravis
+~~~~~~~~~~~~~~
+
+::
+
+    ./start_epics
+
+
+.. image:: ../img/ADAravis_00.png 
+   :width: 512px
+   :align: center
+   :alt: ADSim_00
