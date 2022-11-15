@@ -191,47 +191,76 @@ in the
     if [[ $AREA_DETECTOR ]]
         then 
 
-section, the run :download:`assemble_synApps.sh <assemble_synApps.sh>` again and build ADGenICam:
+section, the run :download:`assemble_synApps.sh <assemble_synApps.sh>` again and build ADGenICam
 
 ::
+
     $ cd ~/epics/synApps/support/areaDetector-R3-11/ADGenICam
     $ make -sj
 
 then install the `aravis <https://github.com/AravisProject/aravis>`_ following the `area detector documentation <https://areadetector.github.io/master/ADGenICam/ADGenICam.html#adgenicam-installing-aravis>`_ in the ADAravis directory, i.e. aravis-8_0_1 is located in:
 
 ::
+
     ~/epics/synApps/support/areaDetector-R3-11/ADAravis
 
 
 edit
 ::
+
     ~/epics/synApps/support/areaDetector-R3-11/ADAravis/Makefile
 
 to add
 ::
+
     DIRS := $(DIRS) aravis-8_0_1
 
 then build ADAravis:
 ::
+
     cd /epics/synApps/support/areaDetector-R3-11/ADAravis/
     make -sj
 
 Testing ADAravis
 ----------------
 
-
-Edit in areaDetector-R3-11/ADAravis/iocs/aravisIOC/iocBoot/iocAravis the st.cmd file of the camera model connected to your computer this line:
 ::
+
+    cd areaDetector-R3-11/ADAravis/iocs/aravisIOC/iocBoot/iocAravis
+
+and edit this line:
+
+::
+
     # Name of camera as reported by arv-tool
     epicsEnvSet("CAMERA_NAME", "FLIR-Oryx ORX-10G-51S5M-18011754")
 
-with the output of the arv-tool:
+of the st.cmd.Oryx_51S5 file to add the camera information obtained by the output of the arv-tool:
 
 ::
+
     # Name of camera as reported by arv-tool
     epicsEnvSet("CAMERA_NAME", "FLIR-Oryx ORX-10G-51S5M-19173710")
     epicsEnvSet("CAMERA_ID", "FLIR-Oryx ORX-10G-51S5M-19173710")
     epicsEnvSet("CAMERA_INFO", "FLIR-Oryx ORX-10G-51S5M-19173710 (169.254.0.51)")
 
+edit the start_epics file as follows:
 
+::
+
+    #!/bin/csh
+    setenv EPICS_APP_AD /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-11/ADCore
+    setenv EPICS_APP_ADGENICAM /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-11/ADGenICam
+    setenv EPICS_APP_ADARAVIS /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-11/ADAravis
+    #####################
+    # prepare MEDM path
+    #
+    if (! ${?EPICS_DISPLAY_PATH}) setenv EPICS_DISPLAY_PATH '.'
+    setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_ADARAVIS/aravisApp/op/adl
+    setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_ADGENICAM/GenICamApp/op/adl
+    setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_AD/ADApp/op/adl
+
+    medm -x -macro "P=13ARV1:, R=cam1:, C=FLIR-Oryx-ORX-10G-310S9M" ../../../../aravisApp/op/adl/ADAravis.adl &
+
+    ../../bin/linux-x86_64/ADAravisApp st.cmd.Oryx_51S5
 
