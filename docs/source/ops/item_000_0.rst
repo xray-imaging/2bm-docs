@@ -305,35 +305,40 @@ section, the run :download:`assemble_synApps.sh <assemble_synApps.sh>` again and
     $ cd ~/epics/synApps/support/areaDetector-R3-11/ADGenICam
     $ make -sj
 
-then install the `Spinnaker SDK <https://www.flir.com/products/spinnaker-sdk/>`_ must be downloaded and installed on the Windows or Linux machine prior to running the IOC because it installs the necessary drivers. in the ADSpinnaker directory, i.e. aravis-8_0_1 is located in:
+then install the `Spinnaker SDK <https://www.flir.com/products/spinnaker-sdk/>`_ must be downloaded and installed on the Windows or Linux machine prior to running the IOC because it installs the necessary drivers. 
+
+to create the envPath file edit:
 
 ::
 
-    ~/epics/synApps/support/areaDetector-R3-11/ADSpinnaker
+    ~/epics/synApps/support/areaDetector-R3-11/ADSpinnaker/iocs/spinnakerIOC/iocBoot/iocSpinnaker
 
+and replace
 
-edit
 ::
 
-    ~/epics/synApps/support/areaDetector-R3-11/ADSpinnaker/Makefile
+    ARCH = linux-x86_64-ub18
 
-to add
+with:
+
 ::
 
-    DIRS := $(DIRS) aravis-8_0_1
+    ARCH = linux-x86_64
 
 then build ADSpinnaker:
+
 ::
 
     cd /epics/synApps/support/areaDetector-R3-11/ADSpinnaker/
     make -sj
+
 
 Testing ADSpinnaker
 ----------------~~~
 
 ::
 
-    cd areaDetector-R3-11/ADSpinnaker/iocs/aravisIOC/iocBoot/iocAravis
+    cd areaDetector-R3-11/ADSpinnaker/iocs/spinnakerIOC/iocBoot/iocSpinnaker
 
 and edit this line:
 
@@ -346,9 +351,8 @@ of the st.cmd.Oryx_51S5 file to add the camera information obtained by the outpu
 
 ::
 
-    # Name of camera as reported by arv-tool
-    epicsEnvSet("CAMERA_NAME", "FLIR-Oryx ORX-10G-51S5M-19173710")
-    epicsEnvSet("CAMERA_ID", "FLIR-Oryx ORX-10G-51S5M-19173710")
+    # Use this line for a specific camera by serial number, in this case a BlackFlyS GigE
+    epicsEnvSet("CAMERA_ID", "19173710")  # 2-BM-B 2bmbSP1:
     epicsEnvSet("CAMERA_INFO", "FLIR-Oryx ORX-10G-51S5M-19173710 (169.254.0.51)")
 
 edit the start_epics file as follows:
@@ -363,13 +367,13 @@ edit the start_epics file as follows:
     # prepare MEDM path
     #
     if (! ${?EPICS_DISPLAY_PATH}) setenv EPICS_DISPLAY_PATH '.'
-    setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_ADSpinnaker/aravisApp/op/adl
+    setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_ADSpinnaker/spinnakerApp/op/adl
     setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_ADGENICAM/GenICamApp/op/adl
     setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_AD/ADApp/op/adl
 
-    medm -x -macro "P=13ARV1:, R=cam1:, C=FLIR-Oryx-ORX-10G-310S9M" ../../../../aravisApp/op/adl/ADSpinnaker.adl &
+    medm -x -macro "P=13SP1:, R=cam1:, C=FLIR-Oryx-ORX-10G-310S9M" ../../../../spinnakerApp/op/adl/ADSpinnaker.adl &
 
-    ../../bin/linux-x86_64/ADSpinnakerApp st.cmd.Oryx_51S5
+    ../../bin/linux-x86_64/spinnakerApp st.cmd.oryx_51S5
 
 Start ADSpinnaker
 ~~~~~~~~~~~~~~~~~
