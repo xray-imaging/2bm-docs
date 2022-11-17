@@ -334,7 +334,7 @@ then build ADSpinnaker:
 
 
 Testing ADSpinnaker
-----------------~~~
+-------------------
 
 ::
 
