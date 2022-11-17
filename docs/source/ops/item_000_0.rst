@@ -276,3 +276,110 @@ Start ADAravis
    :width: 512px
    :align: center
    :alt: ADSim_00
+
+
+===================
+Install ADSpinnaker
+===================
+
+Detailed instructions are at the `areadetector doc page <https://areadetector.github.io/master/ADSpinnaker/ADSpinnaker.html>`_.
+
+Make sure the :download:`assemble_synApps.sh <assemble_synApps.sh>` script includes:
+
+::
+
+    git submodule update ADSpinnaker
+    git submodule update ADGenICam
+
+in the
+
+::
+
+    if [[ $AREA_DETECTOR ]]
+        then 
+
+section, the run :download:`assemble_synApps.sh <assemble_synApps.sh>` again and build ADGenICam
+
+::
+
+    $ cd ~/epics/synApps/support/areaDetector-R3-11/ADGenICam
+    $ make -sj
+
+then install the `Spinnaker SDK <https://www.flir.com/products/spinnaker-sdk/>`_ must be downloaded and installed on the Windows or Linux machine prior to running the IOC because it installs the necessary drivers. in the ADSpinnaker directory, i.e. aravis-8_0_1 is located in:
+
+::
+
+    ~/epics/synApps/support/areaDetector-R3-11/ADSpinnaker
+
+
+edit
+::
+
+    ~/epics/synApps/support/areaDetector-R3-11/ADSpinnaker/Makefile
+
+to add
+::
+
+    DIRS := $(DIRS) aravis-8_0_1
+
+then build ADSpinnaker:
+::
+
+    cd /epics/synApps/support/areaDetector-R3-11/ADSpinnaker/
+    make -sj
+
+Testing ADSpinnaker
+----------------~~~
+
+::
+
+    cd areaDetector-R3-11/ADSpinnaker/iocs/aravisIOC/iocBoot/iocAravis
+
+and edit this line:
+
+::
+
+    # Name of camera as reported by arv-tool
+    epicsEnvSet("CAMERA_NAME", "FLIR-Oryx ORX-10G-51S5M-18011754")
+
+of the st.cmd.Oryx_51S5 file to add the camera information obtained by the output of the arv-tool:
+
+::
+
+    # Name of camera as reported by arv-tool
+    epicsEnvSet("CAMERA_NAME", "FLIR-Oryx ORX-10G-51S5M-19173710")
+    epicsEnvSet("CAMERA_ID", "FLIR-Oryx ORX-10G-51S5M-19173710")
+    epicsEnvSet("CAMERA_INFO", "FLIR-Oryx ORX-10G-51S5M-19173710 (169.254.0.51)")
+
+edit the start_epics file as follows:
+
+::
+
+    #!/bin/csh
+    setenv EPICS_APP_AD /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-11/ADCore
+    setenv EPICS_APP_ADGENICAM /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-11/ADGenICam
+    setenv EPICS_APP_ADSpinnaker /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-11/ADSpinnaker
+    #####################
+    # prepare MEDM path
+    #
+    if (! ${?EPICS_DISPLAY_PATH}) setenv EPICS_DISPLAY_PATH '.'
+    setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_ADSpinnaker/aravisApp/op/adl
+    setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_ADGENICAM/GenICamApp/op/adl
+    setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_AD/ADApp/op/adl
+
+    medm -x -macro "P=13ARV1:, R=cam1:, C=FLIR-Oryx-ORX-10G-310S9M" ../../../../aravisApp/op/adl/ADSpinnaker.adl &
+
+    ../../bin/linux-x86_64/ADSpinnakerApp st.cmd.Oryx_51S5
+
+Start ADSpinnaker
+~~~~~~~~~~~~~~~~~
+
+::
+
+    ./start_epics
+
+
+.. image:: ../img/ADSpinnaker_00.png 
+   :width: 512px
+   :align: center
+   :alt: ADSim_00
