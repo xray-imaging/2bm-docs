@@ -17,7 +17,7 @@ Build EPICS base
     $ cd epics
     
 
-- Download EPICS base latest release, i.e. 7.0.3.1., from https://github.com/epics-base/epics-base::
+- Download EPICS base latest release from https://github.com/epics-base/epics-base::
 
     $ git clone https://github.com/epics-base/epics-base.git
     $ cd epics-base
