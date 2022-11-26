@@ -42,11 +42,32 @@ Furnace
 .. _Pavel Shevchenko: mail to:  pshevchenko@anl.gov
 .. _Alex Deriy: mail to: deriy@anl.gov
 
-The furnaces use a Eurotherm temperature controller. To access the MEDM screen select Eurotherm on:
+The furnaces use a Eurotherm temperature controller. To start the Eurotherm epics IOC and medm screens for the two controllers:
 
-.. image:: ../img/eurotherm.png
+.. image:: ../img/eurotherm_01.png
     :width: 512pt
-    :height: 300pt
+
+Eurotherm 1 (left controller):
+
+::
+
+    [user2bmb@arcturus] $ /net/s2dserv/xorApps/epics/synApps_6_2_1/ioc/2bmEuroTherm/iocBoot/ioc2bmEuroTherm1/softioc/2bmEuroTherm1.sh run
+    [user2bmb@arcturus] $ /net/s2dserv/xorApps/epics/synApps_6_2_1/ioc/2bmEuroTherm/iocBoot/ioc2bmEuroTherm1/softioc/2bmEuroTherm1.sh medm
+
+.. image:: ../img/eurotherm_02.png
+    :width: 256pt
+
+
+Eurotherm 2 (right controller):
+
+::
+
+    [user2bmb@arcturus] $ /net/s2dserv/xorApps/epics/synApps_6_2_1/ioc/2bmEuroTherm/iocBoot/ioc2bmEuroTherm2/softioc/2bmEuroTherm2.sh run
+    [user2bmb@arcturus] $ /net/s2dserv/xorApps/epics/synApps_6_2_1/ioc/2bmEuroTherm/iocBoot/ioc2bmEuroTherm2/softioc/2bmEuroTherm2.sh medm
+
+
+.. image:: ../img/eurotherm_03.png
+    :width: 256pt
 
 
 Load
