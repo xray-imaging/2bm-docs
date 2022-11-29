@@ -1,17 +1,14 @@
 Data Download
 =============
 
-Automatic
----------
-
 At the beginning of the beamtime all users listed in the proposal receive an email with a direct link and instructions on how to download data from the APS.
 
 Data sets are distributed using a `Globus <https://www.globus.org>`_, to use it you need to create a `Globus Account <https://docs.globus.org/how-to/get-started/>`_  and set up your computer as 
 a `Globus EndPoint <https://www.globus.org/globus-connect-personal>`_.
 
 
-Manual
-------
+Step-by-step instructions
+-------------------------
 **Note** This only applies if your data were stored on the APS data magement system.
 
 Please follow these steps:
