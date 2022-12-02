@@ -1,11 +1,6 @@
 FDT data transfer
 =================
 
-.. contents:: 
-   :local:
-
-
-
 Linux to Linux
 --------------
 
