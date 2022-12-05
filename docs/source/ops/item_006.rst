@@ -1,8 +1,16 @@
 FDT data transfer
 =================
 
+
+`Fast Data Transfer <https://fast-data-transfer.github.io>`_ is an open source application for efficient data transfers capable of 
+reading and writing at disk speed over wide area networks (with standard TCP)
+
 Linux to Linux
 --------------
+
+At the APS FDT in available at /APSshare/bin/fdt.jar, in the example below replace /APSshare/bin/ with the folder 
+where you installed fdt.jar.
+
 
 To copy data from the data collection machine (pg10ge) to the data analysis machine (tomo1):
 
