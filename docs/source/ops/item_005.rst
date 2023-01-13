@@ -1,7 +1,7 @@
 Energy change
 =============
 
-The beamline x-ray energy change is managed by the `energy cli <https://github.com/xray-imaging/2bm-ops>`_ python library. 
+The beamline x-ray energy change is managed by the `energy cli <https://github.com/xray-imaging/energy>`_ python library. 
 
 
 Login into user2bmb@arcturus then::
@@ -14,4 +14,4 @@ for help::
 
     energy -h
 
-More detailed istructions are here the `energy cli <https://github.com/xray-imaging/2bm-ops>`_
+More detailed istructions are here the `energy cli <https://github.com/xray-imaging/energy>`_
