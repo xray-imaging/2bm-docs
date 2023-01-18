@@ -63,7 +63,7 @@ Upload data from tomo1:/data to voyager::
     (base) [user2bmb@handyn]$ source /home/dm_bm/etc/dm.setup.sh
     (base) [user2bmb@handyn]$ dm-station-gui
 
-do to Uploads and presss Start New:
+and presss Start New:
 
 .. image:: ../img/dm_01.png 
    :width: 480px
@@ -87,5 +87,5 @@ Select the GUP associated with the data set or Continue Manually if there is no 
    :alt: dm
 
 
-then enter in the Data Directory or single file path the location of the user data on tomo1 as /data/ ...; adjust
+then enter in the Data Directory or single file path the location of the data on tomo1 as /data/ ...; adjust
 the Name and Storage Root Path, then press start upload.
