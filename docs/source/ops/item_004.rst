@@ -52,3 +52,40 @@ If using the aps#tomography::
 For more details see the `DM instruction <https://confluence.aps.anl.gov/display/DMGT/2-BM+Deployment>`_.
 
 Petrel#tomography status is avaialble `here <https://virtualhelpdesk.cels.anl.gov/blog/>`_.
+
+
+Example
+-------
+
+Upload data from tomo1:/data to voyager::
+
+    (base) [user2bmb@handyn]$ bash
+    (base) [user2bmb@handyn]$ source /home/dm_bm/etc/dm.setup.sh
+    (base) [user2bmb@handyn]$ dm-station-gui
+
+do to Uploads and presss Start New:
+
+.. image:: ../img/dm_01.png 
+   :width: 480px
+   :align: center
+   :alt: dm
+
+then select Add Experiment
+
+.. image:: ../img/dm_02.png 
+   :width: 480px
+   :align: center
+   :alt: dm
+
+
+Select the GUP associated with the data set or Continue Manually if there is no GUP (e.g. internal time):
+
+
+.. image:: ../img/dm_04.png 
+   :width: 480px
+   :align: center
+   :alt: dm
+
+
+then enter in the Data Directory or single file path the location of the user data on tomo1 as /data/ ...; adjust
+the Name and Storage Root Path, then press start upload.
