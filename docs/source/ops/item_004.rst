@@ -80,12 +80,23 @@ then select Add Experiment
 
 Select the GUP associated with the data set or Continue Manually if there is no GUP (e.g. internal time):
 
+.. image:: ../img/dm_03.png 
+   :width: 480px
+   :align: center
+   :alt: dm
+
+
+Set the experiment Name, Dates, Type, Storage Root Path etc., then press Save
 
 .. image:: ../img/dm_04.png 
    :width: 480px
    :align: center
    :alt: dm
 
+Once the experiment is created you can enter in the Data Directory or single file path the location of the data on tomo1 as /data/ ...
 
-then enter in the Data Directory or single file path the location of the data on tomo1 as /data/ ...; adjust
-the Name and Storage Root Path, then press start upload.
+.. image:: ../img/dm_05.png 
+   :width: 480px
+   :align: center
+   :alt: dm
+
