@@ -11,7 +11,6 @@ The following computers are in use at 2-BM:
 .. _cluster_quote: https://anl.box.com/s/j7wz6li4afoq2gs5g8feehmmz8q7whuy
 .. _disk_array_quote: https://anl.box.com/s/sbft8cbt2xcpzuuvikixr82dn9jf6zog
 
-The micro tomography computing infrastructure located at 2-BM:
 
 Data Analysis and Storage
 -------------------------
@@ -42,3 +41,37 @@ For each machine part list at purchase time and for the list of supported hardwa
 .. _pg10ge SM: https://anl.box.com/s/m1u8o62wbr27n26iotfnbhgpncwsapcq
 .. _lyra label: https://anl.box.com/s/lrjiwsfzwbe51gueb6vpyinqav86qx6o
 .. _lyra SM: https://anl.box.com/s/dv0ub0gdjhs7q3h50ehgro6gaesbxcjf
+
+
+Data Visualization
+------------------
+
+The default computer is **handyn** where the following software is installed:
+
+Raw Data
+~~~~~~~~
+
+To view the tomographic raw data we suggest to install `Fiji <https://imagej.net/Fiji>`_ and add 
+the `HDF plugin <https://github.com/paulscherrerinstitute/ch.psi.imagej.hdf5>`_
+
+Other options are `hdfview <https://support.hdfgroup.org/products/java/hdfview/>`_ or 
+`argos <https://github.com/titusjan/argos>`_
+
+To view the tomographic raw data we suggest to install `Fiji <https://imagej.net/Fiji>`_ and add 
+the `HDF plugin <https://github.com/paulscherrerinstitute/ch.psi.imagej.hdf5>`_
+
+Other options are `hdfview <https://support.hdfgroup.org/products/java/hdfview/>`_ or 
+`argos <https://github.com/titusjan/argos>`_
+
+
+Dragonfly
+~~~~~~~~~
+
+
+After your data are reconstructed you can visualize using `Dragonfly <https://www.theobjects.com/dragonfly/index.html>`_.
+
+Login at the beamline Linux machine and then type::
+
+    [tomo@handyn]$ cd /local/tomo/software/dragonfly
+    [tomo@handyn]$ ./Dragonfly
+
