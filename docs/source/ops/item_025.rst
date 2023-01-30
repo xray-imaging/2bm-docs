@@ -1,56 +1,9 @@
-Web Cam
-=======
+Continuous rotation
+===================
 
-.. contents:: 
-   :local:
+You can set multiple rotation tomographic data sets to be collected continuously by simply setting a larger number of angles 
+in the  `tomoScan control screen <https://tomoscan.readthedocs.io/en/latest/tomoScanApp.html#medm-files>`_. For example to collect 100 (0-180) data sets 
+with 1,500 projections each you just need to set the number of projections to 150,000 and angle step to 0.12. The resulting stop angle will be 17,999.880 degree.
 
-To access the old beamline web cam ssh to the beamline then open web browser and use IP address::
-
-    XXX.XX.143.19
-
-New webcams are accessible from::
-
-     2-BM-A: xxx.xx.113.137
-     2-BM-B: xxx.xx.113.162
-    32-ID-B: xxx.xx.102.71
-    32-ID-B: xxx.xx.102.89
-    32-ID-C: xxx.xx.102.90
-    32-ID-C: xxx.xx.102.88
-
-
-Multi screen
-------------
-
-You can dispay multiple cameras on the same web page by configurting:
-
-.. image:: ../img/webCamMultiple.png
-   :width: 480px
-   :align: center
-   :alt: webCamMultiple
-
-
-Time Zone
----------
-
-.. warning:: factorty default time zone is Osaka, Japan. Change these and use ntp1.xray.aps.anl.gov (164.54.100.129) or ntp2.xray.aps.anl.gov (164.54.100.155) the set the camera ntp server to synchronize with the APS time server. See below the webcam NTP configuration page.
-
-
-.. image:: ../img/webCamNtp.png
-   :width: 480px
-   :align: center
-   :alt: webCamNtp
-
-Also you can configure webcam preset position with:
-
-.. image:: ../img/webCamPreset.png
-   :width: 480px
-   :align: center
-   :alt: webCamPreset
-
-
-.. image:: ../img/webCamPresetPos.png
-   :width: 480px
-   :align: center
-   :alt: webCamPresetPos
-
+.. warning:: because of variable type and memory allocation in the hardware controlling the fly scan there is a limitation on the maximum number of angular positions at which you can trigger the collection of an image (this is set at 2-BM-A at 400,000). Also, the angle step must be selected so that the resulting stop angle is less than 65,283 degree (181 full rotations). This is because the controller can only count +/- 2^31 encoder counts from the zero point and with the ABR250 a range of +/- 2^31-1 encoder pulses at 0.0000304 deg/pulse corresponds to +/- 65,283 deg.
 

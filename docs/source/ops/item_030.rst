@@ -1,16 +1,10 @@
-Windows 
-=======
+Cross crosshair
+===============
 
-.. contents:: 
-   :local:
+While running TomoScan you can enable the crosshair on the detector image by setting up the plug-in as shown in the image below:
 
-There are few windows machines at the beamline running specific software. These are reachable via remote access with::
+.. image:: ../img/crosshair.png 
+   :width: 480px
+   :align: center
+   :alt: tomo_user
 
-  [user2bmb@arcturus,41,~]$ remote_Sec2LT06
-  [user2bmb@arcturus,41,~]$ remote_postulate
-  [user2bmb@arcturus,41,~]$ remote_turan
-
-
-or directly with::
-
-  xfreerdp -u username -d domain -g 1900x1000 computername
