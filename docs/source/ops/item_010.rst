@@ -387,3 +387,44 @@ Start ADSpinnaker
    :width: 512px
    :align: center
    :alt: ADSim_00
+
+
+====================================
+Configure NIC on 10gbit FLIR cameras
+====================================
+
+
+
+1. Prerequisites:
+
+    64GB memory
+    Cat 6A cable
+    Intel X550T2 ETHERNET CONVERGED Network Adapter X550-T2
+
+2. Enable jumbo packet
+3. Disable DHCP and set a fixed IP address on the Ethernet port connecting to the FLIR
+4. Increase the receive buffer size (MTU ~ 9000)
+5. Increase the Network parameters in the kernel
+6. Set the NIC tx queue length
+
+1. is available from Sorcium as Part#: 3E9073
+
+2. 3. and 4. are documented at:
+
+     FLIR doc: https://www.flir.com/support-center/iis/machine-vision/knowledge-base/lost-ethernet-data-packets-on-linux-systems/
+
+4. is documented both at flir doc and in the areadetector doc:
+
+    FLIR doc: https://www.flir.com/support-center/iis/machine-vision/knowledge-base/lost-ethernet-data-packets-on-linux-systems/
+
+    areadetector doc: https://areadetector.github.io/master/ADGenICam/ADGenICam.html#linux-usb-and-gige-system-settings
+
+5. edit /etc/sysctl.conf and add:
+
+    net.core.rmem_default=26214400
+    net.core.rmem_max=268435456 
+
+6. edit /etc/rc.local and add:
+
+    #NIC camera settings and  10GB nic settings  In this example the camera is attached to  ens1f1    
+    /usr/sbin/ifconfig ens1f1 txqueuelen 3000
