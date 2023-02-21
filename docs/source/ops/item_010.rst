@@ -427,4 +427,4 @@ Configure NIC on 10gbit FLIR cameras
 6. edit /etc/rc.local and add:
 
     #NIC camera settings and  10GB nic settings  In this example the camera is attached to  ens1f1    
-    /usr/sbin/ifconfig ens1f1 txqueuelen 3000
+    /usr/sbin/ifconfig ens1f1 txqueuelen 3000 (this is hardware specific . i.e. this card  supports up to 4096, some max out at about 512 etc.)
