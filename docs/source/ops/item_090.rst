@@ -28,6 +28,28 @@ Source
 |  Flux at 19.5 keV                       |  1.12x10^13 |    /sec/0.1%BW/mrad(H) | 
 +-----------------------------------------+-------------+------------------------+
 
+
+Steering correction
+~~~~~~~~~~~~~~~~~~~
+
+To adjust the beam position Vertical Angle or Vertical Position reported in the BMP control screen:
+
+.. image:: ../img/bmp_00.png 
+   :width: 720px
+   :align: center
+   :alt: bpm
+
+use the `APS steering request <https://ops.aps.anl.gov/Internal/Reference/Test2/steeringqueue.php>`_ web page.
+
+
+.. image:: ../img/bmp_01.png 
+   :width: 720px
+   :align: center
+   :alt: bpm
+
+
+.. warning:: the APS steering request web page shows the green request a steering button only on the beamline authrized computer. 
+
 Filters
 -------
 
