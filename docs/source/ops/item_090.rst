@@ -34,7 +34,7 @@ Steering correction
 
 To adjust the beam position Vertical Angle or Vertical Position reported in the BMP control screen:
 
-.. image:: ../img/bmp_00.png 
+.. image:: ../img/bpm_00.png 
    :width: 720px
    :align: center
    :alt: bpm
@@ -42,13 +42,13 @@ To adjust the beam position Vertical Angle or Vertical Position reported in the 
 use the `APS steering request <https://ops.aps.anl.gov/Internal/Reference/Test2/steeringqueue.php>`_ web page.
 
 
-.. image:: ../img/bmp_01.png 
+.. image:: ../img/bpm_01.png 
    :width: 720px
    :align: center
    :alt: bpm
 
 
-.. warning:: the APS steering request web page shows the green request a steering button only on the beamline authrized computer. 
+.. warning:: The APS steering request web page shows the green request a steering button only on the beamline authorized computer. 
 
 Filters
 -------
