@@ -5,6 +5,7 @@ The following computers are in use in the Imaging Group:
 
 .. _cluster_folder: https://anl.box.com/s/cwqbvet2qv8239nhrof0qemyohd0jho3
 .. _cluster: https://anl.box.com/s/uysvb5ujnlugmd16r2f6o10fem9rjgvr
+.. _cluster_01: https://anl.box.com/s/oc9g49r6an1lcwh0d5gzisno6ef5yni1
 .. _cluster_02: https://anl.box.com/s/7onv5ju2rt42w15uz689pbuslfelpvz9
 .. _disk_array: https://anl.box.com/s/zzyvv7w80ltwbtf09zrjiqiw7ak6i7ge
 .. _cluster_quote: https://anl.box.com/s/j7wz6li4afoq2gs5g8feehmmz8q7whuy
@@ -22,7 +23,7 @@ Data Analysis and Storage
 +-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
 | 2-BM      | tomo 1-2     | MNJ15421064   | `cluster`_      |  Supermicro 740GP-TNRT node     | `cluster_quote`_     |
 +-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
-| 2-BM      | tomo 3       | MNJ15421064   | `cluster`_      |  Supermicro 740GP-TNRT node     | `cluster_quote_01`_  |
+| 2-BM      | tomo 3       | MNJ15421064   | `cluster_01`_   |  Supermicro 740GP-TNRT node     | `cluster_quote_01`_  |
 +-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
 | 2-BM      | tomo 4-5     | MNJ16235754   | `cluster_02`_   |  Supermicro 220GQ-TNAR+ node    | `cluster_quote_02`_  |
 +-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
