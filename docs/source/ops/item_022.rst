@@ -1,27 +1,33 @@
 Computing 
 =========
 
-The following computers are in use at 2-BM:
-
-
+The following computers are in use in the Imaging Group:
 
 .. _cluster_folder: https://anl.box.com/s/cwqbvet2qv8239nhrof0qemyohd0jho3
 .. _cluster: https://anl.box.com/s/uysvb5ujnlugmd16r2f6o10fem9rjgvr
+.. _cluster_02: https://anl.box.com/s/7onv5ju2rt42w15uz689pbuslfelpvz9
 .. _disk_array: https://anl.box.com/s/zzyvv7w80ltwbtf09zrjiqiw7ak6i7ge
 .. _cluster_quote: https://anl.box.com/s/j7wz6li4afoq2gs5g8feehmmz8q7whuy
+.. _cluster_quote_01: https://anl.box.com/s/06nkozbmkhu5qsi61njcgm1qs3ug8pcg
+.. _cluster_quote_02: https://anl.box.com/s/hz9l2whlju2a81tyr4k9e07ukc8m4zkn
 .. _disk_array_quote: https://anl.box.com/s/sbft8cbt2xcpzuuvikixr82dn9jf6zog
 
 
 Data Analysis and Storage
 -------------------------
 
-+-----------------------------------------+--------------+---------------+-----------------+---------------------------------+----------------------+
-| Task                                    | Name         | Product       | Part list       |      Model                      |      Quote           |
-+-----------------------------------------+--------------+---------------+-----------------+---------------------------------+----------------------+
-| Tomo Recon                              | tomo 1-2     | MNJ15421064   | `cluster`_      |  Supermicro 740GP-TNRT cluster  | `cluster_quote`_     |
-+-----------------------------------------+--------------+---------------+-----------------+---------------------------------+----------------------+
-| Data Storage                            | disk array   | MNJ15508749   | `disk_array`_   |  SYS-220U-TNR Storage           | `disk_array_quote`_  |
-+-----------------------------------------+--------------+---------------+-----------------+---------------------------------+----------------------+
+
++-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
+| Station   | Name         | Product       | Part list       |      Model                      |      Quote           |
++-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
+| 2-BM      | tomo 1-2     | MNJ15421064   | `cluster`_      |  Supermicro 740GP-TNRT node     | `cluster_quote`_     |
++-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
+| 2-BM      | tomo 3       | MNJ15421064   | `cluster`_      |  Supermicro 740GP-TNRT node     | `cluster_quote_01`_  |
++-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
+| 2-BM      | tomo 4-5     | MNJ16235754   | `cluster_02`_   |  Supermicro 220GQ-TNAR+ node    | `cluster_quote_02`_  |
++-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
+| 2-BM      | disk array   | MNJ15508749   | `disk_array`_   |  SYS-220U-TNR Storage           | `disk_array_quote`_  |
++-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
 
 
 Data Collection
