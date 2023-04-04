@@ -100,3 +100,14 @@ Once the experiment is created you can enter in the Data Directory or single fil
    :align: center
    :alt: dm
 
+
+To delete files already uploaded to voyager you can use:
+
+::
+
+    (base) [user2bmb@handyn]$ dmadmin@s32iddm> dm-delete-files --experiment 2023-03-Xu --path-pattern LCO15v18b_232_rec
+
+There are 75 files that match specified criteria. If you continue:
+  1) Experiment files will be removed from storage.
+  2) Experiment files will be removed from the catalog.
+Proceed (yes|no)? [no]: yes
