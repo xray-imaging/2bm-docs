@@ -262,6 +262,15 @@ Manuals
 - `Adimec Installation Guide <https://anl.box.com/s/zyyt72lhttnhksgnwi2f02p8wbsoz9r7>`_
 - `Adimec Technical Reference <https://anl.box.com/s/zyyt72lhttnhksgnwi2f02p8wbsoz9r7>`_
 
+
+VieWorks
+^^^^^^^^
+   (base) usertxm@txmthree ~ $ conda create -n egrabber python=3.9   
+   (base) usertxm@txmthree ~/egrabber $ conda activate egrabber
+   (egrabber) usertxm@txmthree ~/egrabber $ pip install harvesters
+   (egrabber) usertxm@txmthree ~/egrabber $ conda install -c conda-forge tifffile
+   (egrabber) usertxm@txmthree ~/egrabber $ python A3_Hardware_Trigger_v1.3.6_BM_async.py   
+
 Lenses
 ------
 
