@@ -265,6 +265,9 @@ Manuals
 
 VieWorks
 ^^^^^^^^
+
+Test at txmthree::
+
    (base) usertxm@txmthree ~ $ conda create -n egrabber python=3.9   
    (base) usertxm@txmthree ~/egrabber $ conda activate egrabber
    (egrabber) usertxm@txmthree ~/egrabber $ pip install harvesters
