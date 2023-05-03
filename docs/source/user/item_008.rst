@@ -263,8 +263,8 @@ Manuals
 - `Adimec Technical Reference <https://anl.box.com/s/zyyt72lhttnhksgnwi2f02p8wbsoz9r7>`_
 
 
-VieWorks
-^^^^^^^^
+VieWorks 604MP
+^^^^^^^^^^^^^^
 
 Test at txmthree::
 
