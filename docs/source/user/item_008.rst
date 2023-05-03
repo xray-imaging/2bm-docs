@@ -277,7 +277,12 @@ Test at txmthree::
 Camera browser::
 
    (egrabber) usertxm@txmthree ~/egrabber $ /opt/euresys/egrabber/bin/x86_64/genicam-browser
-   
+
+.. image:: ../img/vieworks.png
+   :width: 320px
+   :align: center
+   :alt: tomo_user 
+
 Lenses
 ------
 
