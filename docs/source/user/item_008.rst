@@ -274,6 +274,10 @@ Test at txmthree::
    (egrabber) usertxm@txmthree ~/egrabber $ conda install -c conda-forge tifffile
    (egrabber) usertxm@txmthree ~/egrabber $ python A3_Hardware_Trigger_v1.3.6_BM_async.py   
 
+Camera browser::
+
+   (egrabber) usertxm@txmthree ~/egrabber $ /opt/euresys/egrabber/bin/x86_64/genicam-browser
+   
 Lenses
 ------
 
