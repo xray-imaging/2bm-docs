@@ -62,6 +62,15 @@ Filters
 Mirror
 ------
 
+The pre-APS-U `mirror <https://anl.box.com/s/nyvibklz6ckkm148aoo02ht3e0bowxs9>`_ was a flat mirror with two coatings: 
+
+.. image:: ../img/mirror_01.png 
+   :width: 240px
+   :align: center
+   :alt: mirror
+
+
+
 +-------------+----------------------+
 | Coating     | Nominal angle (mrad) |
 +-------------+----------------------+
@@ -69,6 +78,9 @@ Mirror
 +-------------+----------------------+
 | Pt          |      2.657           |
 +-------------+----------------------+
+
+This mirror and mirror tank will be replaced as specified in the `Mirror Retrofit <https://anl.box.com/s/m3m0j77m081az932ae4lqrbz4lgebw4u>`_ document.
+
 
 DMM Multi-layer
 ---------------
