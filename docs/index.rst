@@ -18,6 +18,7 @@ Content
    :maxdepth: 1
 
    source/about
+   source/apsu
    source/overview
    source/user
    source/ops
