@@ -79,7 +79,12 @@ The pre-APS-U `mirror <https://anl.box.com/s/nyvibklz6ckkm148aoo02ht3e0bowxs9>`_
 | Pt          |      2.657           |
 +-------------+----------------------+
 
-This mirror and mirror tank will be replaced as specified in the `Mirror Retrofit <https://anl.box.com/s/m3m0j77m081az932ae4lqrbz4lgebw4u>`_ document.
+Mirror reference documents:
+
+The original mirror installed at 2-BM (M1) will be replaced post APS-U with a new mirror (APS-U-M1) below we capture all associated docuemnts.
+
+    #. M1 to APS-U-M1 `Retrofit <https://anl.box.com/s/m3m0j77m081az932ae4lqrbz4lgebw4u>`_
+    #. `Metrology <https://anl.box.com/s/2ki5fhawdckqkdjkzxjrudjmqkpllpkc>`_ on the original M1
 
 
 DMM Multi-layer
