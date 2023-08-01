@@ -106,7 +106,7 @@ asyn configure/RELEASE comment out IPAC and SBCEQ::
     #IPAC=$(SUPPORT)/ipac-2-15
     #SNCSEQ=$(SUPPORT)/seq-2-2-5
 
-asyn support/configure/CONFIG_SITE un-comment TIRPC=YES (for RH8 only)::
+asyn support/asyn-R4-42/configure/CONFIG_SITE un-comment TIRPC=YES (for RH8 only)::
 
     TIRPC=YES
 
