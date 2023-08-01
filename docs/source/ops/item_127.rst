@@ -9,6 +9,6 @@ if ssh-copy-id gives an error::
 
 	ERROR: No identities found
 
-it meeans you need to generate a new ssh key first with::
+it means you need to generate a new ssh key first with::
 
 	[user2bmb@arcturus] $ ssh-keygen -t rsa
