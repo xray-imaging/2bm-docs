@@ -14,10 +14,10 @@ Step-by-step instructions
 Please follow these steps:
 
 #. login into Globus (with your personal globus credential)
-#. go to "Collection/Search" and search for the aps data select aps#data
-#. login in the the APS data management system using the same badge number/password combination that use to access the APS poroposal system but put a "d" in front of the badge number
+#. go to "Collection/Search" and search for the aps data by selecting APS:DM plus the beamline (e.g. APS:DM:32ID)
+#. login in the the APS data management system using the same badge number/password combination that use to access the APS poroposal system
 #. if you forgot your password you can reset it `here <https://beam.aps.anl.gov/pls/apsweb/forgot_password.start_process>`_
-#. go to /gdata/dm/2BM/ then seach for your data by PI_last_name-year-month/
+#. go to / then seach for your data by PI_last_name-year-month/
 #. set an end point on your computer (see `Globus EndPoint <https://www.globus.org/globus-connect-personal>`_) 
 #. download the data!
 
