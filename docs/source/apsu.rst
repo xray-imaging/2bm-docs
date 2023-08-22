@@ -32,3 +32,6 @@ Based on the above electron trajectory, the radiation fan as seen by the beamlin
    :alt: project
 
 The SR extraction port limits the available radiation to a 5.4 mrad fan. 
+
+
+More details `2BM APSU <https://anl.box.com/s/oejex1kf2n6c4vwcgy75vzyzkqkvvbj5>`_
