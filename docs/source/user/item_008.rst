@@ -206,6 +206,8 @@ Manuals
 Adimec
 ^^^^^^
 
+The Quartz quad CoaXPress Q-12A180 CMV12000 installed at 2-BM-A is connected to chiwawa-113You’re using a Euresys Quad-G3 CXP framegrabber. Adimec cameras are usable with all Genicam compliant framegrabbers and their GUI software. The Euresys software called EGrabber avaialble at `download <https://www.euresys.com/en/Support/Download-area?Series=105d06c5-6ad9-42ff-b7ce-622585ce607f>`_.
+
 To use the Quartz quad CoaXPress Q-12A180 CMV12000 installed at 2-BM-A and connected to chiwawa-113, 
 start the Adimec areadetector main control screen
 
