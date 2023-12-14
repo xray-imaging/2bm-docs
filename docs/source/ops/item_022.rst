@@ -3,7 +3,6 @@ Computing
 
 
 
-
 The following computers are in use in the Imaging Group:
 
 .. _cluster_folder: https://anl.box.com/s/cwqbvet2qv8239nhrof0qemyohd0jho3
@@ -17,11 +16,8 @@ The following computers are in use in the Imaging Group:
 .. _disk_array_quote: https://anl.box.com/s/sbft8cbt2xcpzuuvikixr82dn9jf6zog
 
 
-
-
 IT standard IOC platforms
 -------------------------
-
 
 Recommeded computers for Rack Mount/IOC replacement, SSF/Mini/IOC and Workstation/NX can be ordered following the instruction 
 provided `here <https://anl.box.com/s/iw6hpbnl09htihvp25eiek2kxs54iwsd>`_.
@@ -29,7 +25,6 @@ provided `here <https://anl.box.com/s/iw6hpbnl09htihvp25eiek2kxs54iwsd>`_.
 
 Data Analysis and Storage
 -------------------------
-
 
 +-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
 | Station   | Name         | Product       | Part list       |      Model                      |      Quote           |
