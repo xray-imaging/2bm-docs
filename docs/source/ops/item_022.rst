@@ -1,6 +1,9 @@
 Computing 
 =========
 
+
+
+
 The following computers are in use in the Imaging Group:
 
 .. _cluster_folder: https://anl.box.com/s/cwqbvet2qv8239nhrof0qemyohd0jho3
@@ -12,6 +15,16 @@ The following computers are in use in the Imaging Group:
 .. _cluster_quote_01: https://anl.box.com/s/06nkozbmkhu5qsi61njcgm1qs3ug8pcg
 .. _cluster_quote_02: https://anl.box.com/s/hz9l2whlju2a81tyr4k9e07ukc8m4zkn
 .. _disk_array_quote: https://anl.box.com/s/sbft8cbt2xcpzuuvikixr82dn9jf6zog
+
+
+
+
+IT standard IOC platforms
+-------------------------
+
+
+Recommeded computers for Rack Mount/IOC replacement, SSF/Mini/IOC and Workstation/NX can be ordered following the instruction 
+provided `here <https://anl.box.com/s/iw6hpbnl09htihvp25eiek2kxs54iwsd>`_.
 
 
 Data Analysis and Storage
@@ -81,4 +94,5 @@ Login at the beamline Linux machine and then type::
 
     [tomo@handyn]$ cd /local/tomo/software/dragonfly
     [tomo@handyn]$ ./Dragonfly
+
 
