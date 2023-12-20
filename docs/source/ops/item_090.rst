@@ -81,7 +81,9 @@ The pre-APS-U `mirror <https://anl.box.com/s/nyvibklz6ckkm148aoo02ht3e0bowxs9>`_
 
 Mirror reference documents:
 
-The original mirror installed at 2-BM (M1) will be replaced post APS-U with a new mirror (APS-U-M1) below we capture all associated docuemnts.
+The mirror installed at 2-BM (M1) has been recoaded and put back in service post APS-U. The disassembly process is documented by `these photos <https://anl.box.com/s/1qicl7o2mo9byuadmc0gs12g0s33v6ww>`_
+
+In a second phase the original mirror installed at 2-BM (M1) will be replaced with a new mirror (APS-U-M1) below we capture all associated docuemnts:
 
     #. M1 to APS-U-M1 `Retrofit <https://anl.box.com/s/m3m0j77m081az932ae4lqrbz4lgebw4u>`_
     #. `Metrology <https://anl.box.com/s/2ki5fhawdckqkdjkzxjrudjmqkpllpkc>`_ on the original M1
