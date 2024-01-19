@@ -9,7 +9,12 @@
    :alt: project
 
 
-Manual and troubleshoting information to operate the APS beamline 2-BM
+Manual and troubleshoting information to operate the APS beamline 2-BM.
+
+To subscribe to the 2-BM mailing list please go to the `list info <https://lists.anl.gov/mailman/listinfo/2-bm>`_ page. Once subscribed you can email the list at: 2-bm@anl.gov.
+
+Mailing list administrators can configure the mailing list `here <https://lists.anl.gov/mailman/admin/2-bm>`_.
+
 
 Content
 -------
