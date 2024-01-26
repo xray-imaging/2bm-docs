@@ -9,12 +9,13 @@ The following computers are in use in the Imaging Group:
 .. _cluster: https://anl.box.com/s/uysvb5ujnlugmd16r2f6o10fem9rjgvr
 .. _cluster_01: https://anl.box.com/s/oc9g49r6an1lcwh0d5gzisno6ef5yni1
 .. _cluster_02: https://anl.box.com/s/7onv5ju2rt42w15uz689pbuslfelpvz9
-.. _disk_array: https://anl.box.com/s/zzyvv7w80ltwbtf09zrjiqiw7ak6i7ge
 .. _cluster_quote: https://anl.box.com/s/j7wz6li4afoq2gs5g8feehmmz8q7whuy
 .. _cluster_quote_01: https://anl.box.com/s/06nkozbmkhu5qsi61njcgm1qs3ug8pcg
 .. _cluster_quote_02: https://anl.box.com/s/hz9l2whlju2a81tyr4k9e07ukc8m4zkn
-.. _disk_array_quote: https://anl.box.com/s/sbft8cbt2xcpzuuvikixr82dn9jf6zog
-
+.. _disk_array_01: https://anl.box.com/s/zzyvv7w80ltwbtf09zrjiqiw7ak6i7ge
+.. _disk_array_quote_01: https://anl.box.com/s/sbft8cbt2xcpzuuvikixr82dn9jf6zog
+.. _disk_array_02: https://anl.box.com/s/d8b1xb6e99e6vggqv5dd9z02luefo7hw
+.. _disk_array_quote_02: https://anl.box.com/s/o1sh7nfxzqhcb6qef19f9s7ogavobv0g
 
 IT standard IOC platforms
 -------------------------
@@ -26,17 +27,19 @@ provided `here <https://anl.box.com/s/iw6hpbnl09htihvp25eiek2kxs54iwsd>`_.
 Data Analysis and Storage
 -------------------------
 
-+-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
-| Station   | Name         | Product       | Part list       |      Model                      |      Quote           |
-+-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
-| 2-BM      | tomo 1-2     | MNJ15421064   | `cluster`_      |  Supermicro 740GP-TNRT node     | `cluster_quote`_     |
-+-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
-| 2-BM      | tomo 3       | MNJ15421064   | `cluster_01`_   |  Supermicro 740GP-TNRT node     | `cluster_quote_01`_  |
-+-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
-| 2-BM      | tomo 4-5     | MNJ16235754   | `cluster_02`_   |  Supermicro 220GQ-TNAR+ node    | `cluster_quote_02`_  |
-+-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
-| 2-BM      | disk array   | MNJ15508749   | `disk_array`_   |  SYS-220U-TNR Storage           | `disk_array_quote`_  |
-+-----------+--------------+---------------+-----------------+---------------------------------+----------------------+
++-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
+| Station   | Name         | Product       | Part list         |      Model                      |      Quote             |
++-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
+| 2-BM      | tomo 1-2     | MNJ15421064   | `cluster`_        |  Supermicro 740GP-TNRT node     | `cluster_quote`_       |
++-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
+| 2-BM      | tomo 3       | MNJ15421064   | `cluster_01`_     |  Supermicro 740GP-TNRT node     | `cluster_quote_01`_    |
++-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
+| 2-BM      | tomo 4-5     | MNJ16235754   | `cluster_02`_     |  Supermicro 220GQ-TNAR+ node    | `cluster_quote_02`_    |
++-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
+| 2-BM      | tomodata1    | MNJ15508749   | `disk_array_01`_  |  SYS-220U-TNR Storage           | `disk_array_quote_01`_ |
++-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
+| 2-BM      | tomodata2    | MNJ18897861   | `disk_array_02`_  |  SYS-220U-TNR Storage           | `disk_array_quote_02`_ |
++-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
 
 
 Data Collection
