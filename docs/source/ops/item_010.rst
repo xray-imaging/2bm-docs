@@ -1,7 +1,6 @@
 AreaDetector
 ============
 
-
 ==================
 Install directions
 ==================
@@ -13,115 +12,64 @@ Build EPICS base
 
 ::
 
-    $ mkdir ~/epics
-    $ cd epics
+    $ mkdir ~/epics-ad
+    $ cd epics-ad
     
 
 - Download EPICS base latest release from https://github.com/epics-base/epics-base::
 
     $ git clone https://github.com/epics-base/epics-base.git
     $ cd epics-base
+    $ git submodule init
+    $ git submodule update
+    $ make distclean (do this in case there was an OS update)
     $ make -sj
 
 
 Build ADSimDetector
 -------------------
 
-Copy in ~/epics :download:`assemble_synApps.sh <assemble_synApps.sh>` making sure
+- Download in ~/epics-ad `assemble_synApps <https://github.com/EPICS-synApps/assemble_synApps/blob/18fff37055bb78bc40a87d3818777adda83c69f9/assemble_synApps>`_.sh
+- Edit the assemble_synApps.sh script to include only::
+  
+    $modules{'ASYN'} = 'R4-44-2';
+    $modules{'AUTOSAVE'} = 'R5-11';
+    $modules{'AREA_DETECTOR'} = 'R3-12-1';
+    $modules{'AREA_DETECTOR_SUBMODULES'} = 'ADSimDetector'; # Space-separated #. list of extra submodules to check out
+    $modules{'BUSY'} = 'R1-7-4';
+    $modules{'CALC'} = 'R3-7-5';
+    $modules{'DEVIOCSTATS'} = '3.1.16';
+    $modules{'SSCAN'} = 'R2-11-6';
+    $modules{'SNCSEQ'} = 'R2-2-9';
+    $modules{'XXX'} = 'R6-3';
 
-::
+You can comment out all of the other modules (ALLENBRADLEY, ALIVE, etc.)
 
-    EPICS_BASE=/home/beams/USER2BMB/epics/epics-base
+- Run::
 
-points to your epics-base location.
+    $ cd ~/epics-ad
+    $ ./assemble_synApps.sh --dir=synApps --base=/home/beams/FAST/epics-ad/epics-base
 
-then::
+- This will create a synApps/support directory::
 
-    $ chmod +x assemble_synApps
-    $ ./assemble_synApps
-
-In the support folder verify that all modules are present in the Makefile::
-
-    $ cd support
-    $ vi Makefile
-
-::
-
-    ###### Support Modules ######
-
-    MODULE_LIST =  ALLEN_BRADLEY 
-    MODULE_LIST += ALIVE 
-    MODULE_LIST += AREA_DETECTOR
-    MODULE_LIST += ASYN 
-    MODULE_LIST += AUTOSAVE 
-    MODULE_LIST += BUSY
-    MODULE_LIST += CALC 
-    MODULE_LIST += CAMAC
-    MODULE_LIST += CAPUTRECORDER
-    MODULE_LIST += DAC128V 
-    MODULE_LIST += DELAYGEN
-    MODULE_LIST += DEVIOCSTATS
-    MODULE_LIST += DXP 
-    MODULE_LIST += DXPSITORO 
-    MODULE_LIST += ETHERIP 
-    MODULE_LIST += IPAC 
-    MODULE_LIST += IP 
-    MODULE_LIST += IP330 
-    MODULE_LIST += IPUNIDIG 
-    MODULE_LIST += LOVE 
-    MODULE_LIST += LUA 
-    MODULE_LIST += MCA 
-    MODULE_LIST += MEASCOMP 
-    MODULE_LIST += MODBUS 
-    MODULE_LIST += MOTOR
-    MODULE_LIST += OPTICS 
-    MODULE_LIST += QUADEM 
-    MODULE_LIST += SNCSEQ
-    MODULE_LIST += SOFTGLUE 
-    MODULE_LIST += SOFTGLUEZYNQ 
-    MODULE_LIST += SSCAN 
-    MODULE_LIST += STD 
-    MODULE_LIST += STREAM 
-    MODULE_LIST += VAC 
-    MODULE_LIST += VME 
-    MODULE_LIST += XXX
-    MODULE_LIST += YOKOGAWA_DAS 
-    MODULE_LIST += IOCSTATS
-
-configure/RELEASE check all modules are listed::
-
-    ASYN=$(SUPPORT)/asyn-R4-42
-    AUTOSAVE=$(SUPPORT)/autosave-R5-10-2
-    BUSY=$(SUPPORT)/busy-R1-7-3
-    CALC=$(SUPPORT)/calc-R3-7-4
-    DEVIOCSTATS=$(SUPPORT)/iocStats-3-1-16
-    SSCAN=$(SUPPORT)/sscan-R2-11-5
-    AREA_DETECTOR=$(SUPPORT)/areaDetector-R3-11
-    ADCORE=$(AREA_DETECTOR)/ADCore
-    ADSUPPORT=$(AREA_DETECTOR)/ADSupport
-    SNCSEQ=$(SUPPORT)/seq-2-2-9
-
-asyn configure/RELEASE comment out IPAC and SBCEQ::
-
-    #IPAC=$(SUPPORT)/ipac-2-15
-    #SNCSEQ=$(SUPPORT)/seq-2-2-5
-
-asyn support/asyn-R4-42/configure/CONFIG_SITE un-comment TIRPC=YES (for RH8 only)::
-
-    TIRPC=YES
+    $ cd synApps/support/
 
 Build with::
 
+    $ make release
     $ make -sj
+
 
 Testing ADSimDetector
 ---------------------
 
 ::
 
-    cd ~/epics/synApps/support/areaDetector-master/ADSimDetector/iocs/simDetectorIOC/iocBoot/iocSimDetector
+    cd ~/epics-ad/synApps/support/areaDetector-R3-12-1/ADSimDetector/iocs/simDetectorIOC/iocBoot/iocSimDetector
 
-rename envPaths as envPaths.linux
+rename envPaths as envPaths.linux::
+
+    mv envPaths envPaths.linux
 
 edit st.cmd.linux from::
 
@@ -141,8 +89,8 @@ edit start_epics from::
 to::
 
     #!/bin/csh
-    setenv EPICS_APP_AD /home/beams/USER2BMB/epics-ad/synApps/support/areaDetector-master/ADCore
-    setenv EPICS_APP_ADSIM /home/beams/USER2BMB/epics-ad/synApps/support/areaDetector-master/ADSimDetector
+    setenv EPICS_APP_AD /home/beams/FAST/epics-ad/synApps/support/areaDetector-R3-12-1/ADCore
+    setenv EPICS_APP_ADSIM /home/beams/FAST/epics-ad/synApps/support/areaDetector-R3-12-1/ADSimDetector
     #####################
     # prepare MEDM path
     #
@@ -195,20 +143,20 @@ section, the run :download:`assemble_synApps.sh <assemble_synApps.sh>` again and
 
 ::
 
-    $ cd ~/epics/synApps/support/areaDetector-R3-11/ADGenICam
+    $ cd ~/epics-ad/synApps/support/areaDetector-R3-12-1/ADGenICam
     $ make -sj
 
 then install the `aravis <https://github.com/AravisProject/aravis>`_ following the `area detector documentation <https://areadetector.github.io/master/ADGenICam/ADGenICam.html#adgenicam-installing-aravis>`_ in the ADAravis directory, i.e. aravis-8_0_1 is located in:
 
 ::
 
-    ~/epics/synApps/support/areaDetector-R3-11/ADAravis
+    ~/epics-ad/synApps/support/areaDetector-R3-12-1/ADAravis
 
 
 edit
 ::
 
-    ~/epics/synApps/support/areaDetector-R3-11/ADAravis/Makefile
+    ~/epics-ad/synApps/support/areaDetector-R3-12-1/ADAravis/Makefile
 
 to add
 ::
@@ -218,7 +166,7 @@ to add
 then build ADAravis:
 ::
 
-    cd /epics/synApps/support/areaDetector-R3-11/ADAravis/
+    cd /epics-ad/synApps/support/areaDetector-R3-12-1/ADAravis/
     make -sj
 
 Testing ADAravis
@@ -249,9 +197,9 @@ edit the start_epics file as follows:
 ::
 
     #!/bin/csh
-    setenv EPICS_APP_AD /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-11/ADCore
-    setenv EPICS_APP_ADGENICAM /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-11/ADGenICam
-    setenv EPICS_APP_ADARAVIS /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-11/ADAravis
+    setenv EPICS_APP_AD /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-12-1/ADCore
+    setenv EPICS_APP_ADGENICAM /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-12-1/ADGenICam
+    setenv EPICS_APP_ADARAVIS /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-12-1/ADAravis
     #####################
     # prepare MEDM path
     #
@@ -302,7 +250,7 @@ section, the run :download:`assemble_synApps.sh <assemble_synApps.sh>` again and
 
 ::
 
-    $ cd ~/epics/synApps/support/areaDetector-R3-11/ADGenICam
+    $ cd ~/epics-ad/synApps/support/areaDetector-R3-12-1/ADGenICam
     $ make -sj
 
 then install the `Spinnaker SDK <https://www.flir.com/products/spinnaker-sdk/>`_ must be downloaded and installed on the Windows or Linux machine prior to running the IOC because it installs the necessary drivers. 
@@ -311,7 +259,7 @@ to create the envPath file edit:
 
 ::
 
-    ~/epics/synApps/support/areaDetector-R3-11/ADSpinnaker/iocs/spinnakerIOC/iocBoot/iocSpinnaker
+    ~/epics-ad/synApps/support/areaDetector-R3-12-1/ADSpinnaker/iocs/spinnakerIOC/iocBoot/iocSpinnaker
 
 and replace
 
@@ -329,7 +277,7 @@ then build ADSpinnaker:
 
 ::
 
-    cd /epics/synApps/support/areaDetector-R3-11/ADSpinnaker/
+    cd /epics-ad/synApps/support/areaDetector-R3-12-1/ADSpinnaker/
     make -sj
 
 
@@ -360,9 +308,9 @@ edit the start_epics file as follows:
 ::
 
     #!/bin/csh
-    setenv EPICS_APP_AD /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-11/ADCore
-    setenv EPICS_APP_ADGENICAM /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-11/ADGenICam
-    setenv EPICS_APP_ADSpinnaker /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-11/ADSpinnaker
+    setenv EPICS_APP_AD /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-12-1/ADCore
+    setenv EPICS_APP_ADGENICAM /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-12-1/ADGenICam
+    setenv EPICS_APP_ADSpinnaker /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-12-1/ADSpinnaker
     #####################
     # prepare MEDM path
     #
