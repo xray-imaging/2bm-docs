@@ -49,7 +49,7 @@ To use a module::
     $ HDFView
 
 
-To add permanently module to the shell add in ~/.chrc::
+To add permanently module to the shell add in ~/.cshrc::
 
     module use --append /home/beams/TOMO/Modules/modulefiles/
     module load HDFView/3.3.1
