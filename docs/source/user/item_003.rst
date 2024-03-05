@@ -22,3 +22,4 @@ Please follow these steps:
 #. download the data!
 
 
+For more information check the `APS data management documentation <the https://git.aps.anl.gov/DM/dm-docs/-/wikis/DM/HowTos/Getting-Data-From-Globus>`_
