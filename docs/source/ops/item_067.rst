@@ -55,3 +55,4 @@ To add permanently module to the shell add in ~/.cshrc::
     module load HDFView/3.3.1
 
 
+For more example see `NCSU <https://hpc.ncsu.edu/Documents/user_modules.php>`_ and `PU <https://researchcomputing.princeton.edu/support/knowledge-base/custom-modules>`_
