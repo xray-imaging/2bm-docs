@@ -2,7 +2,7 @@ Module
 ======
 
 Adding
-======
+------
 
 To add a software package, i.e. HDFView, as a new module::
 
@@ -35,14 +35,14 @@ Check your new module is available with::
     HDFView/3.3.1
 
 Loading
-=======
+-------
 
 To load a module::
 
     module load HDFView/3.3.1
 
 Using
-=====
+-----
 
 To use a module::
 
