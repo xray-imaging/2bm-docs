@@ -2,7 +2,7 @@ Module
 ======
 
 Adding
-======
+------
 
 To add a software package, i.e. HDFView, as a new module::
 
@@ -35,14 +35,14 @@ Check your new module is available with::
     HDFView/3.3.1
 
 Loading
-=======
+-------
 
 To load a module::
 
     module load HDFView/3.3.1
 
 Using
-=====
+-----
 
 To use a module::
 
@@ -55,3 +55,4 @@ To add permanently module to the shell add in ~/.cshrc::
     module load HDFView/3.3.1
 
 
+For more example see `NCSU <https://hpc.ncsu.edu/Documents/user_modules.php>`_ and `PU <https://researchcomputing.princeton.edu/support/knowledge-base/custom-modules>`_
