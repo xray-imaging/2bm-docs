@@ -51,6 +51,8 @@ You can comment out all of the other modules (ALLENBRADLEY, ALIVE, etc.)
     $ cd ~/epics-ad
     $ ./assemble_synApps.sh --dir=synApps --base=/home/beams/FAST/epics-ad/epics-base
 
+.. warning:: replace  */home/beams/FAST/* with the path of your home directory
+
 - This will create a synApps/support directory::
 
     $ cd synApps/support/
@@ -100,6 +102,8 @@ to::
     setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_AD/ADApp/op/adl
     medm -x -macro "P=13SIM1:, R=cam1:" ../../../../simDetectorApp/op/adl/simDetector.adl &
     ../../bin/linux-x86_64/simDetectorApp st.cmd.linux
+
+.. warning:: replace  */home/beams/FAST/* with the path of your home directory
 
 Start ADSimDetector
 ~~~~~~~~~~~~~~~~~~~
