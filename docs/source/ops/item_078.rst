@@ -10,7 +10,7 @@ The create an animated poster that runs on a TV monitor using its USB input:
 
     ffmpeg -i video.mov -vf “transpose=1,scale=1920:1080” -vcodec h264 poster_rot_1920x1080.mp4
 
-#. Copy the mp4 file to usb memory stick, plug it into the TV, and open the native TV player.
+#. Copy the mp4 file to a dedicated folder in a usb memory stick (you can put multiple video in the same folder, plug it into the TV, and open the native TV player.
 
 
 .. |00100| image:: ../img/poster_01.png 
