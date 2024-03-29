@@ -3,7 +3,7 @@ Poster
 
 The create an animated poster that runs on a TV monitor using its USB input:
 
-#. In the presentation, set that your video as always playing in the presenting mode. Open the slide in presenting mode and record the region containing your slide. On mac recording is Cmd+Shift+5. This will create a file video.mov. One can also cut video by adding options -s, -to, e.g. -ss 0:00:01 -to 0:05:04, change the frame rate, or crop it, see `ffmpeg manual <https://ffmpeg.org/ffmpeg.html>`_ for details.
+#. In the PowerPoint poster presentation, set your video as always playing in the presenting mode. Open the slide in presenting mode and record the region containing your slide. On mac recording is Cmd+Shift+5. This will create a file video.mov. One can also cut video by adding options -s, -to, e.g. -ss 0:00:01 -to 0:05:04, change the frame rate, or crop it, see `ffmpeg manual <https://ffmpeg.org/ffmpeg.html>`_ for details.
 
 
 #. Convert video.mov to mp4 with setting codec h264, rotating by 90°, and scaling to 1920x1080 using ffmpeg (can be installed through anaconda with ``conda install ffmpeg`` or `downloading the executables <https://ffmpeg.org/download.html>`_): ::
