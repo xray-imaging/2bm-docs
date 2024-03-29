@@ -15,13 +15,19 @@ The create an animated poster that runs on a TV monitor using its USB input:
 
 .. |00100| image:: ../img/poster_01.png 
     :width: 20pt
+.. |00200| image:: ../img/poster_02.png 
+    :width: 20pt
 
 .. _video_01: https://anl.box.com/s/245ibsd1kd7mr6l21ugmimmrqo0l6uk6
 .. _pptx_01: https://anl.box.com/s/752agswhjpvt3d0k0rpp9iiezwpc7ah9
+.. _video_02: https://anl.box.com/s/35rr26jg3aspt99c0uz55ujrckmft52b
+.. _pptx_02: https://anl.box.com/s/3ex7s2cqiwltybavfx7mktizuxgh36in
 
 +--------------------+-------------------+----------+----------------+
 |  Current Posters   |   Video download  |   Image  |     PowerPoint |
 +====================+===================+==========+================+
 |  2-BM MICRO CT     |   video_01_       |  |00100| |    pptx_01_    |
++--------------------+-------------------+----------+----------------+
+|  Additive Man.     |   video_02_       |  |00200| |    pptx_02_    |
 +--------------------+-------------------+----------+----------------+
 
