@@ -104,7 +104,7 @@ Once the experiment is created you can enter in the Data Directory or single fil
 Delete
 ------
 
-To delete files already uploaded to voyager use:
+To delete a folder of data already uploaded to voyager use:
 
 ::
 
@@ -116,3 +116,27 @@ To delete files already uploaded to voyager use:
       2) Experiment files will be removed from the catalog.
 
     Proceed (yes|no)? [no]: yes
+
+
+To delete a subset of files use ``.*``, for example to delete all tiff contained in the rkd10_024_rec folder:
+
+::
+
+    (base) [user2bmb@handyn]$ dm-delete-files --experiment test-delete-rec --path-pattern rkd10_024_rec/.*.tiff
+
+    There are 1852 files that match specified criteria. If you continue: 
+      1) Experiment files will be removed from storage.
+      2) Experiment files will be removed from the catalog.
+
+    Proceed (yes|no)? [no]:
+
+to apply this to all _rec folders:
+
+::
+
+    dm-delete-files --experiment Stock-2020-11 --path-pattern .*_rec/.*.tiff
+    There are 154085 files that match specified criteria. If you continue: 
+      1) Experiment files will be removed from storage.
+      2) Experiment files will be removed from the catalog.
+
+    Proceed (yes|no)? [no]: 
