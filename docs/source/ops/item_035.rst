@@ -139,4 +139,10 @@ to apply this to all _rec folders:
       1) Experiment files will be removed from storage.
       2) Experiment files will be removed from the catalog.
 
+The dm-delete-files is recursive, so to delete all ``*.tiff`` files part of an experiment, in all subfolder: 
+
+::
+
+dm-delete-files --experiment Parejiya-2022-04 --path-pattern /.*.tiff
+
     Proceed (yes|no)? [no]: 
