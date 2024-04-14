@@ -144,3 +144,9 @@ The dm-delete-files is recursive, so to delete all ``*.tiff`` files part of an e
 ::
 
     dm-delete-files --experiment Parejiya-2022-04 --path-pattern /.*.tiff
+
+or to delete all ``recon_*.tiff`` files part of an experiment, in all subfolder: 
+
+::
+
+    dm-delete-files --experiment Drummond-2022-09 --path-pattern /recon_.*.tiff
