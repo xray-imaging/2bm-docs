@@ -7,6 +7,7 @@ The following computers are in use in the Imaging Group:
 
 .. _cluster_folder: https://anl.box.com/s/cwqbvet2qv8239nhrof0qemyohd0jho3
 .. _cluster: https://anl.box.com/s/uysvb5ujnlugmd16r2f6o10fem9rjgvr
+.. _cluster_ram: https://anl.box.com/s/yc762ty9lv4s8rxa4fqdwdgpuw8tlv8f
 .. _cluster_01: https://anl.box.com/s/oc9g49r6an1lcwh0d5gzisno6ef5yni1
 .. _cluster_02: https://anl.box.com/s/7onv5ju2rt42w15uz689pbuslfelpvz9
 .. _cluster_quote: https://anl.box.com/s/j7wz6li4afoq2gs5g8feehmmz8q7whuy
@@ -34,6 +35,8 @@ Data Analysis and Storage
 | Station   | Name         | Product       | Part list         |      Model                      |      Quote             |
 +-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
 | 2-BM      | tomo 1-2     | MNJ15421064   | `cluster`_        |  Supermicro 740GP-TNRT node     | `cluster_quote`_       |
++-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
+| 2-BM      | tomo 1-2     | MNJ15590206   | `cluster_ram`_    |  16x 128GB MEM-DR412L-SL01-ER32 | `cluster_ram`_         |
 +-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
 | 2-BM      | tomo 3       | MNJ15421064   | `cluster_01`_     |  Supermicro 740GP-TNRT node     | `cluster_quote_01`_    |
 +-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
