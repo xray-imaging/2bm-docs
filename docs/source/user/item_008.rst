@@ -32,6 +32,7 @@ These are the model/part number of the cameras in use at 2-BM:
 .. _camera_00008:  https://www.flir.com/products/oryx-10gige/?model=DEV-ORX-310S9M&vertical=machine+vision&segment=iis
 .. _camera_00009:  https://vision.vieworks.com/en/camera/area_scan/VNP_series
 .. _camera_00010:  https://anl.box.com/s/89t8lg9ncm5s4kikwctvdbd0ch517xgx
+.. _camera_00011:  https://www.photometrics.com/products/kinetix-family/kinetix
 
 .. _camera_order_00001: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F6-109062
 .. _camera_order_00002: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F8-219026
@@ -39,6 +40,7 @@ These are the model/part number of the cameras in use at 2-BM:
 .. _camera_order_00004: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=G2-175013
 
 .. _camera_quote_00001: https://anl.box.com/s/6yv344apeox44m5salxmj4tfmdtvdov4
+.. _camera_quote_00002: https://anl.box.com/s/u2msg1ln3w3483cmpi2jna3mdmtinhm0
 
 .. |d00001| image:: ../img/dimax_01.png
    :width: 50px
@@ -91,7 +93,9 @@ Cameras
 +-------------------------------------------------------------+---------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
 | Viewworks VNP-604MX-M6H00 (SONY IMX411) (\*\*\*\*)          | 14192 × 10640 |       3.76       | 11-16   | 6.2        |     camera_00009_  | VNP-604MX-M6H00                         |                             |                               |
 +-------------------------------------------------------------+---------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
-| pco.edge 10 BI CLHS   (\*\*\*\*\*)                          |  4432 ×  2368 |       4.6        | 16.     | 120        |     camera_00010_  | 10 BI CLHS                              |                             |    camera_quote_00001_        |
+| pco.edge 10 BI CLHS   (\*\*\*\*\*)                          |  4432 ×  2368 |       4.6        | 16      | 120        |     camera_00010_  | 10 BI CLHS                              |                             |    camera_quote_00001_        |
++-------------------------------------------------------------+---------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
+| Teledyne Kinetix 10                                         |  3200 x 3200  |       6.5        | 8-12-16 | 498        |     camera_00011_  | O1_KINETIX_10MP_PCIE                    |                             |    camera_quote_00002_        |
 +-------------------------------------------------------------+---------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
 
 
