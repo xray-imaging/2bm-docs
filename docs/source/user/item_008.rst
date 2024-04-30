@@ -31,11 +31,14 @@ These are the model/part number of the cameras in use at 2-BM:
 .. _camera_00007:  https://www.flir.com/products/oryx-10gige/?model=ORX-10GS-51S5M-C&vertical=machine+vision&segment=iis
 .. _camera_00008:  https://www.flir.com/products/oryx-10gige/?model=DEV-ORX-310S9M&vertical=machine+vision&segment=iis
 .. _camera_00009:  https://vision.vieworks.com/en/camera/area_scan/VNP_series
+.. _camera_00010:  https://anl.box.com/s/89t8lg9ncm5s4kikwctvdbd0ch517xgx
 
 .. _camera_order_00001: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F6-109062
 .. _camera_order_00002: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F8-219026
 .. _camera_order_00003: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F6-161074
 .. _camera_order_00004: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=G2-175013
+
+.. _camera_quote_00001: https://anl.box.com/s/6yv344apeox44m5salxmj4tfmdtvdov4
 
 .. |d00001| image:: ../img/dimax_01.png
    :width: 50px
@@ -86,7 +89,9 @@ Cameras
 +-------------------------------------------------------------+---------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
 | Oryx 31.0 MP Mono 10GigE (\*\*)                             |  6464 x 4852  |       3.45       | 8-12    | 26         |     camera_00008_  | ORX-10G-310S9M                          |   |d00006|                  |   camera_order_00004_         |
 +-------------------------------------------------------------+---------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
-| Viewworks VNP-604MX-M6H00 (SONY IMX411) (\*\*\*)            | 14192 × 10640 |       3.76       | 11-16   | 6.2         |    camera_00009_  | VNP-604MX-M6H00                         |                             |                               |
+| Viewworks VNP-604MX-M6H00 (SONY IMX411) (\*\*\*)            | 14192 × 10640 |       3.76       | 11-16   | 6.2        |     camera_00009_  | VNP-604MX-M6H00                         |                             |                               |
++-------------------------------------------------------------+---------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
+| pco.edge 10 BI CLHS   (\*\*\*\*).                           |  4432 ×  2368 |       4.6        | 16.     | 120        |     camera_00010_  | 10 BI CLHS                              |                             |    camera_quote_00001_        |
 +-------------------------------------------------------------+---------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
 
 (\*)    use Euresys Quad-G3 CXP framegrabber
@@ -95,6 +100,7 @@ Cameras
 
 (\*\*\*)  use Euresys Coaxlink Quad CXP-12 framegrabber
   
+(\*\*\*\*) use CLHS FOL PCIe board
 
 fps () Only applies to detector with on board memory, transfer speed to on boad memory. 
 
