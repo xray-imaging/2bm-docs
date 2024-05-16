@@ -12,9 +12,10 @@ Data ownership and local storage location is managed by `Dmagic <https://dmagic.
 
 To run a user PV adptate::
 
-    [user2bmb@arcturus]$ bash
-    [user2bmb@arcturus]$ dmagic show
-    [user2bmb@arcturus]$ dmagic tag
+    (base) [user2bmb@arcturus]$ bash
+    (base) [user2bmb@arcturus]$ conda activate dm
+    (dm) [user2bmb@arcturus]$ dmagic show
+    (dm) [user2bmb@arcturus]$ dmagic tag
 
 you can also enter manually the user last name/email address/YYYY-MM.
 
@@ -26,7 +27,7 @@ To upload data from tomo1:/data to voyager::
 
     (base) [user2bmb@handyn]$ bash
     (base) [user2bmb@handyn]$ source /home/dm_bm/etc/dm.setup.sh
-    (base) [user2bmb@handyn]$ dm-station-gui
+    (dm-user) [user2bmb@handyn]$ dm-station-gui
 
 and presss Start New:
 
