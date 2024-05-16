@@ -107,7 +107,7 @@ Cameras
 
 (\*\*\*\*)  use Euresys Coaxlink Quad CXP-12 framegrabber
   
-(\*\*\*\*\*) use CLHS FOL PCIe board
+(\*\*\*\*\*) use Kaya Instrument Komodo II Camera Link
 
 fps () Only applies to detector with on board memory, transfer speed to on boad memory. 
 
