@@ -130,3 +130,25 @@ To restore an experiment, e.g. Finfrock-2022-12, from voyager to tomodata1:/data
 
 
 For more details see the `DM instruction <https://confluence.aps.anl.gov/display/DMGT/2-BM+Deployment>`_.
+
+Search
+------
+
+To search for an experiment containing in its name Pete
+
+::
+
+    (base) tomo@tomodata1 ~ $ source /home/dm_bm/etc/dm.setup.sh
+    (dm-user) tomo@tomodata1 ~ $ dm-list-experiments | grep Pete
+    id=8862 name=Peters-2022-03 experimentTypeId=30 experimentStationId=21 startDate=2022-03-04 00:00:00-06:00 endDate=2022-03-07 00:00:00-06:00 
+    id=11275 name=Peteres-2022-11 experimentTypeId=30 experimentStationId=21 startDate=2022-11-28 00:00:00-06:00 endDate=2022-12-01 00:00:00-06:00 
+    to see the files within an experiment
+
+::
+
+    (base) tomo@tomodata1 ~ $ source /home/dm_bm/etc/dm.setup.sh
+    (dm-user) tomo@tomodata1 ~ $ dm-list-experiment-files --experiment=Peters-2022-03 | grep Peters | head -10
+    id=625daab87f44b25ba39bfdb7 fileName=C4_Zn_01_10keV_980.h5 experimentFilePath=Peters/C4_Zn_01_10keV_980.h5 fileSize=272374112 md5Sum=516bb84b52e5b8d2347aea847fd94a50 
+    id=625daabb7f44b25ba39bfdb8 fileName=C4_Zn_03_10keV_try2_977.h5 experimentFilePath=Peters/C4_Zn_03_10keV_try2_977.h5 fileSize=171670144 md5Sum=4f8f374f72cea16f5a8325ea44a83338 
+    id=625daabd7f44b25ba39bfdb9 fileName=C4_Zn_03_10keV_try2_975.h5 experimentFilePath=Peters/C4_Zn_03_10keV_try2_975.h5 fileSize=226080308 md5Sum=21a3f1a5c7e292b0f43cabc96aaa16b7 
+
