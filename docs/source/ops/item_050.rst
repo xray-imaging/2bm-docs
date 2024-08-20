@@ -71,6 +71,7 @@ clone the repository using the --mirror option:
 
 ::
 
+   $ cd ..
    $ git clone --mirror https://github.com/decarlof/holotomocupy_bq.git
    $ java -jar ~/Downloads/bfg-1.14.0.jar -D "*.tiff" holotomocupy_bq.git/
    Using repo : /Users/decarlo/conda/holotomocupy_bq.git
@@ -147,6 +148,7 @@ clone the repository using the --mirror option:
 
    BFG run is complete! When ready, run: git reflog expire --expire=now --all && git gc --prune=now --aggressive
 
+
 ::
 
    $ cd holotomocupy_bq.git/
@@ -158,7 +160,7 @@ The repository on github is now clear of all .tiff files from its history. You c
 
 ::
 
-   $ git clone https://github.com/decarlof/holotomocupy_bq_without_tiff.git
+   $ git clone https://github.com/decarlof/holotomocupy_bq.git holotomocupy_bq_cleaned
 
 and delete the old holotomocupy_bq folder.
 
