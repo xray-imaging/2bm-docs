@@ -17,8 +17,11 @@ The following computers are in use in the Imaging Group:
 .. _disk_array_quote_01: https://anl.box.com/s/sbft8cbt2xcpzuuvikixr82dn9jf6zog
 .. _disk_array_02: https://anl.box.com/s/d8b1xb6e99e6vggqv5dd9z02luefo7hw
 .. _disk_array_quote_02: https://anl.box.com/s/o1sh7nfxzqhcb6qef19f9s7ogavobv0g
+.. _disk_array_03: https://anl.box.com/s/2qssygdx83qkwo8up448khrzd26fm08p
+.. _disk_array_quote_03: https://anl.box.com/s/bd2i81zg4kcgecp4kd8740udf2fqwii7
 .. _eberlight_01: https://anl.box.com/s/njzf1ya4vlryd6bc3a61fn54g4nkol7o
 .. _eberlight_02: https://anl.box.com/s/cd77y9uwtesx2cfo60q69ekt1ua9wrc4
+
 
 
 IT standard IOC platforms
@@ -45,6 +48,8 @@ Data Analysis and Storage
 | 2-BM      | tomodata1    | MNJ15508749   | `disk_array_01`_  |  SYS-220U-TNR Storage           | `disk_array_quote_01`_ |
 +-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
 | 2-BM      | tomodata2    | MNJ18897861   | `disk_array_02`_  |  SYS-220U-TNR Storage           | `disk_array_quote_02`_ |
++-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
+| 2-BM      | tomodata3    | MNJ18897861   | `disk_array_03`_  |  SYS-220U-TNR Storage           | `disk_array_quote_03`_ |
 +-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
 | eBERlight | eberproc1-2  | MNJ16187026   | `eberlight_01`_   |  Supermicro 740GP-TNRT node     | `eberlight_02`_        |
 +-----------+--------------+---------------+-------------------+---------------------------------+------------------------+
