@@ -23,6 +23,7 @@ Content
    source/user
    source/ops
    source/troubleshoot
+   source/safety
    source/contacts
    source/publications
 
