@@ -28,7 +28,7 @@ to create YYYY-MM/PI_last_name directories on data collection and data analysis 
 
     [user2bmb@arcturus]$ globus dirs
 
-to send a notification email to the experiment PI with the Globus link from where to downalod the data::
+to send a notification email to the experiment PI with the Globus link from where to download the data::
 
     [user2bmb@arcturus]$ globus email
 
