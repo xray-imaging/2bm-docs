@@ -131,6 +131,40 @@ To restore an experiment, e.g. Finfrock-2022-12, from voyager to tomodata1:/data
 
 For more details see the `DM instruction <https://confluence.aps.anl.gov/display/DMGT/2-BM+Deployment>`_.
 
+To resotore an experiment, e.g. Finfrock-2023-03, from tape to its original location on voyager
+
+.. image:: ../img/voyager_on_globus.png 
+   :width: 200px
+   :align: center
+   :alt: dm
+
+
+::
+
+    (base) [user2bmb@handyn]$ source /home/dm_bm/etc/dm.setup.sh
+    (dm-user) [user2bmb@handyn]$ dm-restore-experiment --experiment Finfrock-2023-03
+
+Add users
+---------
+
+To grant a user read access to a datasets
+
+::
+
+    (base) [user2bmb@handyn]$ source /home/dm_bm/etc/dm.setup.sh
+    (dm-user) [user2bmb@handyn]$ dm-add-user-experiment-role --experiment expName --username d<badge> --role User
+
+You can find the d<badge> with
+
+::
+ 
+    (dm-user) dmadmin@s2bmdm> dm-list-users | grep -i decarlo
+
+dm-add-user-experiment-role --experiment  McDowell-2023-03 --username d240474 --role User
+dm-add-user-experiment-role --experiment  Finfrock-2022-12 --username d240474 --role User
+dm-add-user-experiment-role --experiment  Finfrock-2023-03 --username d240474 --role User
+
+
 Search
 ------
 
