@@ -16,7 +16,7 @@ Tomographic reconstruction with tomocupy-cli
 
 Basic Fiji (ImageJ) usage
 --------------------------------------------
-`Video 4 basic_imageJ_usage_c.mov <https://anl.box.com/s/95wdfkdajt4dqns2tbehzaoiaz3jzluk>`_
+`Video 4 <https://anl.box.com/s/95wdfkdajt4dqns2tbehzaoiaz3jzluk>`_
 
 
 
