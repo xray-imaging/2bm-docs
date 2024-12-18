@@ -128,7 +128,7 @@ Start ADSimDetector
 Install ADAravis
 ================
 
-Detailed instructions are `here <https://areadetector.github.io/master/ADAravis/ADAravis.html>`_.
+Detailed instructions are `here <https://areadetector.github.io/areaDetector/ADAravis/ADAravis.html>`_.
 
 Make sure the :download:`assemble_synApps.sh <assemble_synApps.sh>` script includes:
 
@@ -151,7 +151,7 @@ section, the run :download:`assemble_synApps.sh <assemble_synApps.sh>` again and
     $ cd ~/epics-ad/synApps/support/areaDetector-R3-12-1/ADGenICam
     $ make -sj
 
-then install the `aravis <https://github.com/AravisProject/aravis>`_ following the `area detector documentation <https://areadetector.github.io/master/ADGenICam/ADGenICam.html#adgenicam-installing-aravis>`_ in the ADAravis directory, i.e. aravis-8_0_1 is located in:
+then install the `aravis <https://github.com/AravisProject/aravis>`_ following the `area detector documentation <https://areadetector.github.io/areaDetector/ADGenICam/ADGenICam.html#installing-aravis>`_ in the ADAravis directory, i.e. aravis-8_0_1 is located in:
 
 ::
 
@@ -235,7 +235,7 @@ Start ADAravis
 Install ADSpinnaker
 ===================
 
-Detailed instructions are at the `areadetector doc page <https://areadetector.github.io/master/ADSpinnaker/ADSpinnaker.html>`_.
+Detailed instructions are at the `areadetector doc page <https://areadetector.github.io/areaDetector/ADSpinnaker/ADSpinnaker.html>`_.
 
 Make sure the :download:`assemble_synApps.sh <assemble_synApps.sh>` script includes:
 
@@ -345,7 +345,6 @@ Start ADSpinnaker
 ====================================
 Configure NIC on 10gbit FLIR cameras
 ====================================
-
 
 
 1. Prerequisites:
