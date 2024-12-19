@@ -306,6 +306,43 @@ Start ADSpinnaker
    :align: center
    :alt: ADSim_00
 
+========
+arv-tool
+========
+
+The arv-tool is part of the Aravis library, typically used for managing and controlling GenICam-compliant cameras. You can extract the camera's XML description file, which contains details about the camera's features and configuration, using the following steps:
+
+::
+
+    git clone https://github.com/AravisProject/aravis.git
+    cd aravis
+
+to configure and build it install meson or ninja with::
+
+    pip install --user meson ninja
+
+Adding  ~/.local/bin to your PATH to access them by adding in your .bashrc::
+
+    export PATH=$HOME/.local/bin:$PATH
+
+then build aravis with::
+
+    meson setup builddir --prefix=$HOME/aravis-install
+    cd builddir
+    meson compile
+    meson install
+
+Add the local installation directory to your environment variables::
+
+    export PATH=$HOME/aravis-install/bin:$PATH
+    export LD_LIBRARY_PATH=$HOME/aravis-install/lib:$LD_LIBRARY_PATH
+    export PKG_CONFIG_PATH=$HOME/aravis-install/lib/pkgconfig:$PKG_CONFIG_PATH
+    export GI_TYPELIB_PATH=$HOME/aravis-install/lib/girepository-1.0:$GI_TYPELIB_PATH
+
+then find information about any camera connected to the comuter with::
+
+    arv-tool-0.10 --list
+
 
 ====================================
 Configure NIC on 10gbit FLIR cameras
