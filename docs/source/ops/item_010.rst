@@ -145,7 +145,7 @@ then run `assemble_synApps <https://github.com/EPICS-synApps/assemble_synApps/bl
 
 .. warning:: replace  */home/beams/FAST/* with the path of your home directory
 
- and build ADGenICam
+and build ADGenICam
 
 ::
 
