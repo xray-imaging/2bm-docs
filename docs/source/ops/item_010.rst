@@ -130,21 +130,22 @@ Install ADAravis
 
 Detailed instructions are `here <https://areadetector.github.io/areaDetector/ADAravis/ADAravis.html>`_.
 
-Make sure the :download:`assemble_synApps.sh <assemble_synApps.sh>` script includes:
+Make sure the `assemble_synApps <https://github.com/EPICS-synApps/assemble_synApps/blob/18fff37055bb78bc40a87d3818777adda83c69f9/assemble_synApps>`_.sh script includes:
 
 ::
 
-    git submodule update ADAravis
-    git submodule update ADGenICam
+    $modules{'AREA_DETECTOR_SUBMODULES'} = 'ADAravis ADGenICam'; # Space-separated list of extra 
 
-in the
+then run `assemble_synApps <https://github.com/EPICS-synApps/assemble_synApps/blob/18fff37055bb78bc40a87d3818777adda83c69f9/assemble_synApps>`_.sh 
 
 ::
 
-    if [[ $AREA_DETECTOR ]]
-        then 
+    $ cd ~/epics-ad
+    $ ./assemble_synApps.sh --dir=synApps --base=/home/beams/FAST/epics-ad/epics-base
 
-section, the run :download:`assemble_synApps.sh <assemble_synApps.sh>` again and build ADGenICam
+.. warning:: replace  */home/beams/FAST/* with the path of your home directory
+
+ and build ADGenICam
 
 ::
 
@@ -237,21 +238,24 @@ Install ADSpinnaker
 
 Detailed instructions are at the `areadetector doc page <https://areadetector.github.io/areaDetector/ADSpinnaker/ADSpinnaker.html>`_.
 
-Make sure the :download:`assemble_synApps.sh <assemble_synApps.sh>` script includes:
+Make sure the `assemble_synApps <https://github.com/EPICS-synApps/assemble_synApps/blob/18fff37055bb78bc40a87d3818777adda83c69f9/assemble_synApps>`_.sh script includes:
 
 ::
 
-    git submodule update ADSpinnaker
-    git submodule update ADGenICam
+    $modules{'AREA_DETECTOR_SUBMODULES'} = 'ADSpinnaker ADGenICam'; # Space-separated list of 
 
-in the
+
+then run `assemble_synApps <https://github.com/EPICS-synApps/assemble_synApps/blob/18fff37055bb78bc40a87d3818777adda83c69f9/assemble_synApps>`_.sh
 
 ::
 
-    if [[ $AREA_DETECTOR ]]
-        then 
+    $ cd ~/epics-ad
+    $ ./assemble_synApps.sh --dir=synApps --base=/home/beams/FAST/epics-ad/epics-base
 
-section, the run :download:`assemble_synApps.sh <assemble_synApps.sh>` again and build ADGenICam
+.. warning:: replace  */home/beams/FAST/* with the path of your home directory
+
+
+and build ADGenICam
 
 ::
 
