@@ -27,6 +27,7 @@ Build EPICS base
 
 .. warning:: if you get a *configure/os/CONFIG.rhel9-x86_64.Common: No such file or directory* error issue this in your csh termimal: $ **setenv EPICS_HOST_ARCH linux-x86_64**
 
+
 Build ADSimDetector
 -------------------
 
@@ -145,6 +146,8 @@ then run `assemble_synApps <https://github.com/EPICS-synApps/assemble_synApps/bl
 
 .. warning:: replace  */home/beams/FAST/* with the path of your home directory
 
+.. warning:: if you get a  *make: No rule to make target ...  Stop* error issue this in your csh termimal: $ **setenv EPICS_HOST_ARCH linux-x86_64**
+
 and build ADGenICam
 
 ::
@@ -254,6 +257,7 @@ then run `assemble_synApps <https://github.com/EPICS-synApps/assemble_synApps/bl
 
 .. warning:: replace  */home/beams/FAST/* with the path of your home directory
 
+.. warning:: if you get a  *make: No rule to make target ...  Stop* error issue this in your csh termimal: $ **setenv EPICS_HOST_ARCH linux-x86_64**
 
 and build ADGenICam
 
