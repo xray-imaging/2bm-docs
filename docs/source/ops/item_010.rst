@@ -155,28 +155,7 @@ and build ADGenICam
     $ cd ~/epics-ad/synApps/support/areaDetector-R3-12-1/ADGenICam
     $ make -sj
 
-then install the `aravis <https://github.com/AravisProject/aravis>`_ following the `area detector documentation <https://areadetector.github.io/areaDetector/ADGenICam/ADGenICam.html#installing-aravis>`_ in the ADAravis directory, i.e. aravis-8_0_1 is located in:
-
-::
-
-    ~/epics-ad/synApps/support/areaDetector-R3-12-1/ADAravis
-
-
-edit
-::
-
-    ~/epics-ad/synApps/support/areaDetector-R3-12-1/ADAravis/Makefile
-
-to add
-::
-
-    DIRS := $(DIRS) aravis-8_0_1
-
-then build ADAravis:
-::
-
-    cd /epics-ad/synApps/support/areaDetector-R3-12-1/ADAravis/
-    make -sj
+todo: add instruction on envPaths etc.
 
 Testing ADAravis
 ----------------
@@ -206,9 +185,9 @@ edit the start_epics file as follows:
 ::
 
     #!/bin/csh
-    setenv EPICS_APP_AD /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-12-1/ADCore
-    setenv EPICS_APP_ADGENICAM /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-12-1/ADGenICam
-    setenv EPICS_APP_ADARAVIS /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-12-1/ADAravis
+    setenv EPICS_APP_AD /home/beams/FAST/epics-ad/synApps//support/areaDetector-R3-12-1/ADCore
+    setenv EPICS_APP_ADGENICAM /home/beams/FAST/epics-ad/synApps//support/areaDetector-R3-12-1/ADGenICam
+    setenv EPICS_APP_ADARAVIS /home/beams/FAST/epics-ad/synApps//support/areaDetector-R3-12-1/ADAravis
     #####################
     # prepare MEDM path
     #
@@ -220,6 +199,8 @@ edit the start_epics file as follows:
     medm -x -macro "P=13ARV1:, R=cam1:, C=FLIR-Oryx-ORX-10G-310S9M" ../../../../aravisApp/op/adl/ADAravis.adl &
 
     ../../bin/linux-x86_64/ADAravisApp st.cmd.Oryx_51S5
+
+.. warning:: replace  */home/beams/FAST/* with the path of your home directory
 
 Start ADAravis
 ~~~~~~~~~~~~~~
@@ -268,31 +249,7 @@ and build ADGenICam
 
 then install the `Spinnaker SDK <https://www.flir.com/products/spinnaker-sdk/>`_ must be downloaded and installed on the Windows or Linux machine prior to running the IOC because it installs the necessary drivers. 
 
-to create the envPath file edit:
-
-::
-
-    ~/epics-ad/synApps/support/areaDetector-R3-12-1/ADSpinnaker/iocs/spinnakerIOC/iocBoot/iocSpinnaker
-
-and replace
-
-::
-
-    ARCH = linux-x86_64-ub18
-
-with:
-
-::
-
-    ARCH = linux-x86_64
-
-then build ADSpinnaker:
-
-::
-
-    cd /epics-ad/synApps/support/areaDetector-R3-12-1/ADSpinnaker/
-    make -sj
-
+todo: add instruction on envPaths etc.
 
 Testing ADSpinnaker
 -------------------
@@ -321,9 +278,9 @@ edit the start_epics file as follows:
 ::
 
     #!/bin/csh
-    setenv EPICS_APP_AD /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-12-1/ADCore
-    setenv EPICS_APP_ADGENICAM /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-12-1/ADGenICam
-    setenv EPICS_APP_ADSpinnaker /home/beams/USER2BMB/epics-test/synApps/support/areaDetector-R3-12-1/ADSpinnaker
+    setenv EPICS_APP_AD /home/beams/FAST/epics-ad/synApps//support/areaDetector-R3-12-1/ADCore
+    setenv EPICS_APP_ADGENICAM /home/beams/FAST/epics-ad/synApps//support/areaDetector-R3-12-1/ADGenICam
+    setenv EPICS_APP_ADSpinnaker /home/beams/FAST/epics-ad/synApps//support/areaDetector-R3-12-1/ADSpinnaker
     #####################
     # prepare MEDM path
     #
