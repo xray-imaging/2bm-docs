@@ -118,8 +118,8 @@ or to delete all ``recon_*.tiff`` files part of an experiment, in all subfolder:
 
     (dm-user) [user2bmb@handyn]$ dm-delete-files --experiment Drummond-2022-09 --path-pattern /recon_.*.tiff
 
-Restore
--------
+Download
+--------
 
 To restore an experiment, e.g. Finfrock-2022-12, from voyager to tomodata1:/data/
 
@@ -131,7 +131,10 @@ To restore an experiment, e.g. Finfrock-2022-12, from voyager to tomodata1:/data
 
 For more details see the `DM instruction <https://confluence.aps.anl.gov/display/DMGT/2-BM+Deployment>`_.
 
-To resotore an experiment, e.g. Finfrock-2023-03, from tape to its original location on voyager
+Restore
+-------
+
+To restore an experiment, e.g. Finfrock-2023-03, from tape to its original location on voyager
 
 .. image:: ../img/voyager_on_globus.png 
    :width: 200px
