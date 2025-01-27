@@ -344,6 +344,8 @@ then find information about any camera connected to the comuter with::
     arv-tool-0.10 --list
 
 
+The arv-tool is used to download from the camera the XML file tha will be used to automatically create the camera EPICS data base the MEDM scrrens. Please look at the areadetector documentation `here <https://areadetector.github.io/areaDetector/ADGenICam/ADGenICam.html#downloading-the-xml-file>`_ for more details.
+
 ====================================
 Configure NIC on 10gbit FLIR cameras
 ====================================
