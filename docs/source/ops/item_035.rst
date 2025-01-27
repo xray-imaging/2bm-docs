@@ -121,7 +121,7 @@ or to delete all ``recon_*.tiff`` files part of an experiment, in all subfolder:
 Download
 --------
 
-To restore an experiment, e.g. Finfrock-2022-12, from voyager to tomodata1:/data/
+To download an experiment, e.g. Finfrock-2022-12, from voyager to tomodata1:/data/
 
 ::
 
