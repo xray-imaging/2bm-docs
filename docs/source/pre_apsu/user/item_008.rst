@@ -12,6 +12,8 @@ These are the computers supporting detectors at 2-BM:
 +-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
 | 2-BM-B    | lyra         |  HP EliteDesk 800 | P4K18UT#ABA     |  `lyra label`_           |     `lyra SM`_      |
 +-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
+| 2-BM-B    | tomdet       |  Super Micro      |                 |  `tomdet label`_         |                     |
++-----------+--------------+-------------------+-----------------+--------------------------+---------------------+
 
 For each machine part list at purchase time and for the list of supported hardware enter the serial numeber in the `HP support <https://partsurfer.hp.com/Search.aspx>`_ web page.
 
@@ -19,6 +21,7 @@ For each machine part list at purchase time and for the list of supported hardwa
 .. _pg10ge SM: https://anl.box.com/s/m1u8o62wbr27n26iotfnbhgpncwsapcq
 .. _lyra label: https://anl.box.com/s/lrjiwsfzwbe51gueb6vpyinqav86qx6o
 .. _lyra SM: https://anl.box.com/s/dv0ub0gdjhs7q3h50ehgro6gaesbxcjf
+.. _tomdet label: https://anl.box.com/s/b6qqmbplxsbxjbpmfkdb8ayrzabo9w4x
 
 These are the model/part number of the cameras in use at 2-BM:
 
@@ -139,10 +142,11 @@ Different combinations of camera, lens and scintillator screensare are possible 
 +-------------+-------------+---------------------------------+-----------+-----------------------------+----------------------------+------------------------+
 
 
-FLIR
+Oryx
 ^^^^
+31 Mpixel or the 
 
-To use the Flir Oryx camera ORX-10G-51S5M installed at 2-BM-B and connected to pg10ge::
+To use the Flir Oryx camera ORX-10G-310S9M  or ORX-10G-51S5M installed at 2-BM-B and connected to tomdet::
 
   [user2bmb@parcturus]$ start_epics
 
@@ -175,10 +179,18 @@ Startup
 .. contents:: 
    :local:
 
-To start/stop the area detector IOC for the FLIR Oryx (model 10GS 51S5) camera login into user2bmb@pg10ge then type::
+To start/stop the area detector IOC for the FLIR Oryx camera ORX-10G-310S9M  or ORX-10G-51S5M cameras login into 2bmb@tomdet then type::
 
-    [user2bmb@pg10ge]$ 2bmbOryx -h
-    Usage: 2bmbSpinnaker.sh {start|stop|restart|status|console|run|medm|caqtdm}
+    [2bmb@tomdet]$ bash
+    (base) 2bmb@tomdet ~ $ 2bmbOryx5mp
+    Usage: 2bmSP1.pl {caqtdm|console|edm|imagej|medm|phoebus|remote|restart|run|start|status|stop|usage}
+
+::
+
+    [2bmb@tomdet]$ bash
+    (base) 2bmb@tomdet ~ $ 2bmbOryx31mp
+    Usage: 2bmSP1.pl {caqtdm|console|edm|imagej|medm|phoebus|remote|restart|run|start|status|stop|usage}
+
 
 Manuals
 ~~~~~~~
