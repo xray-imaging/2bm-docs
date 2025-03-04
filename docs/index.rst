@@ -19,12 +19,9 @@ Content
 
    source/about
    source/apsu
-   source/overview
-   source/user
+   source/manual
    source/ops
-   source/troubleshoot
-   source/safety
-   source/contacts
+   source/pre_apsu/pre_apsu
    source/publications
 
 Contribute
