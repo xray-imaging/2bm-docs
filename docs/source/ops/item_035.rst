@@ -131,8 +131,8 @@ To download an experiment, e.g. Finfrock-2022-12, from voyager to tomodata1:/dat
 
 For more details see the `DM instruction <https://git.aps.anl.gov/DM/dm-docs/-/wikis/DM/Deployments/2-BM-Deployment>`_.
 
-Restore
--------
+Tape Restore
+------------
 
 To restore an experiment, e.g. Finfrock-2023-03, from tape to its original location on voyager
 
@@ -160,6 +160,18 @@ or with:
 ::
 
    (dm-user) [user2bmb@handyn]$ dm-get-archive-task --id 0293f99b-c724-402f-af94-1f2606499d96 --display-keys ALL
+
+
+Tape archive
+------------
+
+To archive an experiment, e.g. Finfrock-2023-03, from voyager to tape:
+
+::
+
+    (base) [user2bmb@handyn]$ source /home/dm_bm/etc/dm.setup.sh
+    (dm-user) [user2bmb@handyn]$ dm-archive-experiment --experiment Finfrock-2023-03
+
 
 Add users
 ---------
