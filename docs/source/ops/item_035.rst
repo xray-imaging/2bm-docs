@@ -12,10 +12,10 @@ Data ownership and local storage location is managed by `Dmagic <https://dmagic.
 
 To run a user PV adptate::
 
-    (base) [user2bmb@arcturus]$ bash
-    (base) [user2bmb@arcturus]$ conda activate dm
-    (dm) [user2bmb@arcturus]$ dmagic show
-    (dm) [user2bmb@arcturus]$ dmagic tag
+    (base) [2bmb@arcturus]$ bash
+    (base) [2bmb@arcturus]$ conda activate dm
+    (dm) [2bmb@arcturus]$ dmagic show
+    (dm) [2bmb@arcturus]$ dmagic tag
 
 you can also enter manually the user last name/email address/YYYY-MM.
 
@@ -25,9 +25,9 @@ Upload
 
 To upload data from tomo1:/data to voyager::
 
-    (base) [user2bmb@handyn]$ bash
-    (base) [user2bmb@handyn]$ source /home/dm_bm/etc/dm.setup.sh
-    (dm-user) [user2bmb@handyn]$ dm-station-gui
+    (base) [2bmb@arcturus]$ bash
+    (base) [2bmb@arcturus]$ source /home/dm_bm/etc/dm.setup.sh
+    (dm-user) [2bmb@arcturus]$ dm-station-gui
 
 and presss Start New:
 
@@ -74,8 +74,8 @@ To delete a folder of data already uploaded to voyager use:
 
 ::
 
-    (base) [user2bmb@handyn]$ source /home/dm_bm/etc/dm.setup.sh
-    (dm-user) [user2bmb@handyn]$ dm-delete-files --experiment 2023-03-Xu --path-pattern LCO15v18b_232_rec
+    (base) [2bmb@arcturus]$ source /home/dm_bm/etc/dm.setup.sh
+    (dm-user) [2bmb@arcturus]$ dm-delete-files --experiment 2023-03-Xu --path-pattern LCO15v18b_232_rec
 
     There are 75 files that match specified criteria. If you continue:
 
@@ -89,7 +89,7 @@ To delete a subset of files use ``.*``, for example to delete all tiff contained
 
 ::
 
-    (dm-user) [user2bmb@handyn]$ dm-delete-files --experiment test-delete-rec --path-pattern rkd10_024_rec/.*.tiff
+    (dm-user) [2bmb@arcturus]$ dm-delete-files --experiment test-delete-rec --path-pattern rkd10_024_rec/.*.tiff
 
     There are 1852 files that match specified criteria. If you continue: 
       1) Experiment files will be removed from storage.
@@ -101,7 +101,7 @@ to apply this to all _rec folders:
 
 ::
 
-    (dm-user) [user2bmb@handyn]$ dm-delete-files --experiment Stock-2020-11 --path-pattern .*_rec/.*.tiff
+    (dm-user) [2bmb@arcturus]$ dm-delete-files --experiment Stock-2020-11 --path-pattern .*_rec/.*.tiff
     There are 154085 files that match specified criteria. If you continue: 
       1) Experiment files will be removed from storage.
       2) Experiment files will be removed from the catalog.
@@ -110,13 +110,13 @@ The dm-delete-files is recursive, so to delete all ``*.tiff`` files part of an e
 
 ::
 
-    (dm-user) [user2bmb@handyn]$ dm-delete-files --experiment Parejiya-2022-04 --path-pattern /.*.tiff
+    (dm-user) [2bmb@arcturus]$ dm-delete-files --experiment Parejiya-2022-04 --path-pattern /.*.tiff
 
 or to delete all ``recon_*.tiff`` files part of an experiment, in all subfolder: 
 
 ::
 
-    (dm-user) [user2bmb@handyn]$ dm-delete-files --experiment Drummond-2022-09 --path-pattern /recon_.*.tiff
+    (dm-user) [2bmb@arcturus]$ dm-delete-files --experiment Drummond-2022-09 --path-pattern /recon_.*.tiff
 
 Download
 --------
@@ -144,22 +144,22 @@ To restore an experiment, e.g. Finfrock-2023-03, from tape to its original locat
 
 ::
 
-    (base) [user2bmb@handyn]$ source /home/dm_bm/etc/dm.setup.sh
-    (dm-user) [user2bmb@handyn]$ dm-restore-experiment --experiment Finfrock-2023-03
+    (base) [2bmb@arcturus]$ source /home/dm_bm/etc/dm.setup.sh
+    (dm-user) [2bmb@arcturus]$ dm-restore-experiment --experiment Finfrock-2023-03
     id=0293f99b-c724-402f-af94-1f2606499d96 name=restoreArchive experimentName=Finfrock-2023-03 status=pending
 
 You can check the status of the restore process with:
 
 ::
 
-   (dm-user) [user2bmb@handyn]$ dm-restore-experiment --experiment Finfrock-2023-03
+   (dm-user) [2bmb@arcturus]$ dm-restore-experiment --experiment Finfrock-2023-03
    Unfinished archive task with id 0293f99b-c724-402f-af94-1f2606499d96 already exists for experiment Finfrock-2023-03
 
 or with:
 
 ::
 
-   (dm-user) [user2bmb@handyn]$ dm-get-archive-task --id 0293f99b-c724-402f-af94-1f2606499d96 --display-keys ALL
+   (dm-user) [2bmb@arcturus]$ dm-get-archive-task --id 0293f99b-c724-402f-af94-1f2606499d96 --display-keys ALL
 
 
 Tape archive
@@ -169,8 +169,8 @@ To archive an experiment, e.g. Finfrock-2023-03, from voyager to tape:
 
 ::
 
-    (base) [user2bmb@handyn]$ source /home/dm_bm/etc/dm.setup.sh
-    (dm-user) [user2bmb@handyn]$ dm-archive-experiment --experiment Finfrock-2023-03
+    (base) [2bmb@arcturus]$ source /home/dm_bm/etc/dm.setup.sh
+    (dm-user) [2bmb@arcturus]$ dm-archive-experiment --experiment Finfrock-2023-03
 
 
 Add users
@@ -180,8 +180,8 @@ To grant a user read access to a datasets
 
 ::
 
-    (base) [user2bmb@handyn]$ source /home/dm_bm/etc/dm.setup.sh
-    (dm-user) [user2bmb@handyn]$ dm-add-user-experiment-role --experiment expName --username d<badge> --role User
+    (base) [2bmb@arcturus]$ source /home/dm_bm/etc/dm.setup.sh
+    (dm-user) [2bmb@arcturus]$ dm-add-user-experiment-role --experiment expName --username d<badge> --role User
 
 You can find the d<badge> with
 
