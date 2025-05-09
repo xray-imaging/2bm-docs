@@ -3,12 +3,12 @@ Logs
 ====
 
 EPICS PV logging
-----------------
+================
 
 To log and beamline PV variable use one of the tools available a `2bm tools <https://github.com/xray-imaging/2bm-tools>`_.
 
 Experiment logging
-------------------
+==================
 
 Experiment meta data are stored automatically for each scan in the rwa data hdf file. 
 To access/view experiment meta data we developed `meta <https://github.com/xray-imaging/meta>`_ 
