@@ -1,7 +1,8 @@
+============
 AreaDetector
 ============
 
-==================
+
 Install directions
 ==================
 
@@ -125,7 +126,6 @@ Start ADSimDetector
    :alt: ADSim_01
 
 
-================
 Install ADAravis
 ================
 
@@ -216,7 +216,6 @@ Start ADAravis
    :alt: ADSim_00
 
 
-===================
 Install ADSpinnaker
 ===================
 
@@ -306,7 +305,6 @@ Start ADSpinnaker
    :align: center
    :alt: ADSim_00
 
-========
 arv-tool
 ========
 
@@ -346,7 +344,7 @@ then find information about any camera connected to the comuter with::
 
 The arv-tool is used to download from the camera the XML file tha will be used to automatically create the camera EPICS data base the MEDM scrrens. Please look at the areadetector documentation `here 2 <https://areadetector.github.io/areaDetector/ADGenICam/ADGenICam.html#downloading-the-xml-file>`_ for more details.
 
-====================================
+
 Configure NIC on 10gbit FLIR cameras
 ====================================
 
