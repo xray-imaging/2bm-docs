@@ -19,9 +19,9 @@ To run meta::
     (base) 2bm@tomdet ~ $ conda activate ops
     (ops)  2bm@tomdet ~ $ meta show --file-name /local/data/base_file_name_001.h5 
 
-optional arguments:
-  -h, --help     show this help message and exit
-  --config FILE  File name of configuration
+    optional arguments:
+      -h, --help     show this help message and exit
+      --config FILE  File name of configuration
 
 Commands::
 
