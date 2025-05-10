@@ -1,12 +1,10 @@
-==================
-Instrument Control
-==================
+
+Beamline control
+================
 
 All beamline components and detectors are controlled using `EPICS <https://epics-controls.org/>`_ and `areaDetector <https://areadetector.github.io/master/index.html>`_.
 Each device can be configure and controlled through a graphic user interface (GUI) or through a python script using `PyEpics <https://cars9.uchicago.edu/software/python/pyepics3/>`_.
 
-Beamline
-========
 
 To start the main 2-BM beamline control user interface::
 
@@ -32,8 +30,17 @@ or::
    :align: center
    :alt: tomo_01
 
-Tomography
-==========
+
+.. warning:: If some of the above screen contains white fields, it means that the corresponding EPICS IOC is not running. To check/start/stop any IOC associated with tomograhy use the ioc_start user interface:
+
+.. image:: ../img/tomo_07.png 
+   :width: 340px
+   :align: center
+   :alt: tomo_07   
+
+
+Tomography Control
+==================
 
 To start the main control screens for 2-BM-B for scanning, streaming data collection or real-time reconstruction select, in the main 2-BM-B beamline control screens, the corresponding screen for scan, stream or recon:
 
@@ -45,8 +52,8 @@ To start the main control screens for 2-BM-B for scanning, streaming data collec
 
 
 
-Main tomography control screen
-------------------------------
+TomoScan
+--------
 
 .. figure:: ../img/tomo_03.png 
    :width: 512px
@@ -55,9 +62,8 @@ Main tomography control screen
    
 
 
-
-Main tomoScanStream control screen
-----------------------------------
+TomoScanStream
+--------------
 
 .. figure:: ../img/tomo_05.png 
    :width: 340px
@@ -65,8 +71,8 @@ Main tomoScanStream control screen
    :alt: tomo_05
 
 
-Main tomoStream control screen
-------------------------------
+TomoStream
+----------
 
 .. figure:: ../img/tomo_06.png 
    :width: 340px
@@ -74,9 +80,3 @@ Main tomoStream control screen
    :alt: tomo_06   
 
 
-.. warning:: If some of the above screen contains white fields, it means that the corresponding EPICS IOC is not running. To check/start/stop any IOC associated with tomograhy use the ioc_start user interface:
-
-   .. image:: ../img/tomo_07.png 
-      :width: 340px
-      :align: center
-      :alt: tomo_07   
