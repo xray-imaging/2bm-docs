@@ -1,16 +1,21 @@
-================
-Beamline Control
-================
+==================
+Instrument Control
+==================
 
 All beamline components and detectors are controlled using `EPICS <https://epics-controls.org/>`_ and `areaDetector <https://areadetector.github.io/master/index.html>`_.
 Each device can be configure and controlled through a graphic user interface (GUI) or through a python script using `PyEpics <https://cars9.uchicago.edu/software/python/pyepics3/>`_.
 
-beamline
+Beamline
 ========
 
 To start the main 2-BM beamline control user interface::
 
     [2bmb@arcturus,42,~]$ start_epics
+
+or::
+
+    [2bmb@arcturus,42,~]$ start_tomo
+
 
 .. image:: ../img/2bma_beamline.png 
    :width: 720px
@@ -22,39 +27,23 @@ To start the main 2-BM beamline control user interface::
    :align: center
    :alt: 2bmb_beamline
 
-
+.. image:: ../img/tomo_02.png 
+   :width: 720px
+   :align: center
+   :alt: tomo_01
 
 Tomography
 ==========
 
-To start the main tomography control screens for 2-BM-B for scanning or streaming data collection select in the main beamline control screens the corresponding screen for user, admin, tomoscan, tomoscan 2-BM:
+To start the main control screens for 2-BM-B for scanning, streaming data collection or real-time reconstruction select, in the main 2-BM-B beamline control screens, the corresponding screen for scan, stream or recon:
+
 
 .. image:: ../img/tomo_00.png 
-   :width: 128px
-   :align: center
-   :alt: tomo_00
-
-You can also start the above directly with:
-
-::
-
-    [2bmb@arcturus,42,~]$ start_tomo
-
-User interface
---------------
-
-.. image:: ../img/tomo_01.png 
-   :width: 512px
+   :width: 256px
    :align: center
    :alt: tomo_01
 
-Admin interface
----------------
 
-.. image:: ../img/tomo_02.png 
-   :width: 512px
-   :align: center
-   :alt: tomo_02
 
 Main tomography control screen
 ------------------------------
@@ -65,14 +54,7 @@ Main tomography control screen
    :alt: tomo_031
    
 
-To start tomoScanStream
------------------------
 
-
-.. image:: ../img/tomo_04.png 
-   :width: 128px
-   :align: center
-   :alt: tomo_04
 
 Main tomoScanStream control screen
 ----------------------------------
