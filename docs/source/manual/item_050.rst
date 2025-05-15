@@ -14,9 +14,10 @@ The sample motor stack consists of:
 Rotary stage
 ============
 
+.. _box link 0001: https://anl.box.com/s/vw4rkyhfqwg7zlrerv1dhrtphfs86ndg
 .. _box link 0002: https://anl.box.com/s/1ffp00cn1gjkyyelnufp0kef336t4jg9
-.. _box link 0003: https://anl.box.com/s/2z5zr200vut71zv07ozsudxqhzvgnv5k
-.. _box link 0004: https://anl.box.com/s/i2gkeq8qcu10lvjovbvk1ldl2a4ug57o
+.. _box link 0003: https://anl.box.com/s/beje6d9h51ti1sukpd61ke7ow4qdqasj
+.. _box link 0004: https://anl.box.com/s/fcbrn0tv7jgrkxmreu4y54kj313q2grv
 .. _order 0004: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F2-235109
 .. _order 0005: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=E8-198024
 .. _order 0006: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=E8-078092
@@ -34,11 +35,11 @@ we have different sets of rotary stages:
 +---------------+-------------------------+-------------------------+--------------------+------------------------------------+----------------------+------------------------+--------------------------------------------------------+
 |   **Station** |      **Description**    |  **Model**              |    **Image**       |   **Controller**                   |  **Speed (rpm)**     |    **Load axial (kg)** |  **Info**                                              | 
 +---------------+-------------------------+-------------------------+--------------------+------------------------------------+----------------------+------------------------+--------------------------------------------------------+
-|     2-BM-B    |        tomo             |    ABS250MP-M-AS        |     |00004|        |     ENSEMBLEHLE10-40-A-MXH (*)     |          500         |            66          |  `box link 0004`_, `box link 0003`_, `order 0005`_     |
+|     2-BM-B    |        tomo             |    ABS250MP-M-AS        |     |00004|        |     ENSEMBLEHLE10-40-A-MXH (*)     |          500         |            66          |  `box link 0003`_, `box link 0004`_, `order 0005`_     |
 +---------------+-------------------------+-------------------------+--------------------+------------------------------------+----------------------+------------------------+--------------------------------------------------------+
-|     2-BM-B    |        fast tomo        |    ABRS-150MP-M-AS      |     |00004|        |     ENSEMBLEHLE10-40-A-MXH (*)     |          500         |            8           |  `box link 0004`_, `order 0006`_                       |
+|     2-BM-B    |        fast tomo        |    ABRS-150MP-M-AS      |     |00004|        |     ENSEMBLEHLE10-40-A-MXH (*)     |          500         |            8           |  `box link 0003`_, `box link 0004`_, `order 0006`_     |
 +---------------+-------------------------+-------------------------+--------------------+------------------------------------+----------------------+------------------------+--------------------------------------------------------+
-|     2-BM-B    |        spindle          |    ABS2000-1000AS-RU    |     |00003|        |     ENSEMBLEHLE10-40-A-MXH (*)     |         6000         |            18          |  `box link 0004`_, `box link 0002`_, `order 0004`_     |
+|     2-BM-B    |        spindle          |    ABS2000-1000AS-RU    |     |00003|        |     ENSEMBLEHLE10-40-A-MXH (*)     |         6000         |            18          |  `box link 0001`_, `box link 0002`_, `order 0004`_     |
 +---------------+-------------------------+-------------------------+--------------------+------------------------------------+----------------------+------------------------+--------------------------------------------------------+
 
 (*) replaced with ENSEMBLEML10-40-IO-MXH
