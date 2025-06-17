@@ -1,13 +1,15 @@
 Beamline Alignment
 ==================
 
-The first alignment to perform is to make sure the source white beam is centered on the beamline (50 mm x 3 mmm) (H x V) fix mask. To do this start the detector in 2-BM-A:
+White Beam
+----------
+
+The first alignment step is to ensure the source white beam is centered on the beamline (50 mm × 3 mm) (H × V) fixed mask. To do this, start the detector in 2-BM-A:
 
 ::
 
     (base) 2bmb@lyra ~ $ 2bmbOryx5MP medm
     (base) 2bmb@lyra ~ $ 2bmbOryx5MP run
-
 
 .. figure:: ../img/beamline_alignment_001.png
    :width: 720px
@@ -16,7 +18,7 @@ The first alignment to perform is to make sure the source white beam is centered
 
    2-BM-A areadetector control screen
 
-Start ImageJ 
+Start ImageJ: 
 
 ::
 
@@ -31,7 +33,6 @@ and configure the EPICS_NTNDA plug-in:
 
    ImageJ EPICS_NTNDA plug-in
 
-
 Lower M1 by setting Yaverage to -2 mm and Angle to 0 mrad. 
 
 .. figure:: ../img/beamline_alignment_003.png
@@ -41,8 +42,7 @@ Lower M1 by setting Yaverage to -2 mm and Angle to 0 mrad.
 
    2-BM-A M1 mirror control screen
 
-
-Lower the DMM by setting its 3 vertical stages (USY-OB, USY-IB and DSY) to -10 mm:
+Lower the DMM by setting its three vertical stages (USY-OB, USY-IB, and DSY) to -10 mm.
 
 .. figure:: ../img/beamline_alignment_004.png
    :width: 720px
@@ -60,9 +60,7 @@ Adjust the camera vertical position (2bma:m21) to see the white beam:
 
    White beam at 2-BM-A with 1 mm Al filter -- Exposure 0.004 s 20 mm glass filter
 
-
-Remove the 1 mm Al filter
-
+Remove the 1 mm Al filter.
 
 .. figure:: ../img/beamline_alignment_006.png
    :width: 720px
@@ -80,18 +78,21 @@ Plot a vertical line to show the white beam intesity
 
    White beam vertical intesity plot
 
-If the plot is not simmetric `ask the control room <https://ops.aps.anl.gov/Internal/Reference/Test2/instructions.html>`_ to steer the beam in 10 µrad steps.
+If the plot is not symmetric `ask the control room <https://ops.aps.anl.gov/Internal/Reference/Test2/instructions.html>`_ to steer the beam in 10 µrad steps.
 
-Put the mirror in by setting Yaverage to 0 mm and Angle to 0 mrad.
+Insert the mirror by setting Yaverage to 0 mm and Angle to 0 mrad.
 
 Recalibrate the mirror Yaverage and angle by adjusting:
 
-#. Yaverage until the mirror is cutting the white beam image in half
-#. The mirror angle until there is no reflection
+#. Yaverage until the mirror cuts the white beam image in half.
+#. The mirror angle until there is no reflection.
 
-Once 1. and 2. are met reset both Yaverage and angle to zero.
+Once steps 1 and 2 are completed, reset the mirror Yaverage and angle to zero.
 
-Adjust the mirror angle to 2.618 mrad (0.15 deg) and move the camera up until you see the pink beam:
+Pink beam
+---------
+
+Adjust the mirror angle to 2.618 mrad (0.15°) and move the camera up until you see the pink beam.
 
 .. figure:: ../img/beamline_alignment_008.png
    :width: 720px
@@ -100,11 +101,13 @@ Adjust the mirror angle to 2.618 mrad (0.15 deg) and move the camera up until yo
 
    Pink beam after steering -- Exposure 0.004 s 20 mm glass filter
 
-Adjust the camera vertical position until the image of the pink beam in centered and set the camera Y position to 0.
+Adjust the camera vertical position until the image of the pink beam is centered, and set the camera Y position to 0.
 
-Set the DMM 3 vertical stages (USY-OB, USY-IB and DSY) to 0 mm. 
-Set to 0 deg the DMM Upstream arm.
+Mono beam
+---------
 
+Set the DMM's three vertical stages (USY-OB, USY-IB, and DSY) to 0 mm.
+Set the DMM Upstream arm to 0°.
 
 .. figure:: ../img/beamline_alignment_009.png
    :width: 720px
@@ -113,19 +116,18 @@ Set to 0 deg the DMM Upstream arm.
 
    Pink beam cut in half by the first DMM crystal
 
-Recalibrate the DMM table high and the first crystal angle by adjusting:
+Recalibrate the DMM table height and the first crystal angle by adjusting:
 
-#. The DMM 3 vertical stages (USY-OB, USY-IB and DSY) until the first crystal is cutting the pink beam image in half
-#. The first crystal angle (DMM Upstream arm) until there is no reflection
+#. The three vertical stages (USY-OB, USY-IB, and DSY) until the first crystal cuts the pink beam image in half.
+#. The first crystal angle (DMM Upstream arm) until there is no reflection.
 
-Once 1. and 2. are met reset (USY-OB, USY-IB DSY) and DMM Upstream arm angle to zero.
-
+Once steps 1 and 2 are completed, reset USY-OB, USY-IB, DSY, and the DMM Upstream arm angle to zero.
 
 To recalibrate the second crystal angle:
 
-#. Move the DMM 3 vertical stages (USY-OB, USY-IB and DSY) down by 10 mm
-#. Move the DMM M2Y down until the second crystal cut in 1/2 the pink beam 
-#. Adjust the second crystal angle until there is no reflection
+#. Move the DMM vertical stages (USY-OB, USY-IB, and DSY) down by 10 mm.
+#. Move DMM M2Y down until the second crystal cuts the pink beam in half.
+#. Adjust the second crystal angle until there is no reflection.
 
 .. figure:: ../img/beamline_alignment_010.png
    :width: 720px
@@ -134,14 +136,14 @@ To recalibrate the second crystal angle:
 
    Pink beam cut in half by the second DMM crystal
 
-Once 1. 2. and 3. are met reset DMM M2Y to 10 mm and the second crystal angle (DMM Down stream arm) to 0.
+Once steps 1, 2, and 3 are completed, reset DMM M2Y to 10 mm and the second crystal angle (DMM Downstream arm) to 0.
 
-To find the DMM monocromatic beam, move the DMM in the beam (set USY-OB, USY-IB and DSY to 0) and set the DMM Upstream arm to 1.25 deg. The distance between the center of the first and second crystal is approximately 600 mm.
+To find the DMM monochromatic beam, move the DMM into the beam (set USY-OB, USY-IB, and DSY to 0) and set the DMM Upstream arm to 1.25°. The distance between the centers of the first and second crystal is approximately 600 mm.
 
 :math:`\tan(2 * 1.25) \times 600 = 26.196 mm`
 
-#. Move DMM M2Y to 26.196 mm
-#. Move the detector Y (2bma:m21) to 26.196 mm
+#. Move DMM M2Y to 26.196 mm.
+#. Move the detector Y (2bma:m21) to 26.196 mm.
 
 .. figure:: ../img/beamline_alignment_011.png
    :width: 720px
@@ -159,9 +161,7 @@ Adjust the detector Y (2bma:m21) until you see the DMM monochromatic beam:
 
    DMM monochromatic beam
 
-
-
-Maximize intensity and size by moving DMM downstream ARM and DMM M2Y only.
+Maximize intensity and size by adjusting only the DMM Downstream arm and DMM M2Y.
 
 .. figure:: ../img/beamline_alignment_013.png
    :width: 720px
@@ -178,7 +178,7 @@ Maximize intensity and size by moving DMM downstream ARM and DMM M2Y only.
    DMM position after monochromatic beam optimization 
 
 
-Reset the second crystal angle (DMM Down stream arm) to 1.25.
+Reset the second crystal angle (DMM Downstream arm) to 1.25°.
 
 .. figure:: ../img/beamline_alignment_015.png
    :width: 720px
@@ -187,5 +187,47 @@ Reset the second crystal angle (DMM Down stream arm) to 1.25.
 
    DMM position after monochromatic beam optimization and second crystal position reset
 
-Since the optimal DMM M2Y is at 26.046 mm instead of the calculated 26.196 mm it means the correct distance between the center of the first and second crystal is 596.56 mm.
+Since the optimal DMM M2Y is at 26.046 mm instead of the calculated 26.196 mm, the correct distance between the centers of the first and second crystal is 596.56 mm.
 
+Energy calibration
+------------------
+
+With the DMM in place, insert a Zr foil into the beam. To calibrate the energy, we will find the 18 keV Zr K-edge.
+
+For this energy scan, we determine that 1.33° corresponds to 18 keV.
+
+.. figure:: ../img/beamline_alignment_016.png
+   :width: 720px
+   :align: center
+   :alt: beamline_alignment_016
+
+   DDM angle at 1.31 deg
+
+
+.. figure:: ../img/beamline_alignment_017.png
+   :width: 720px
+   :align: center
+   :alt: beamline_alignment_017
+
+   DDM angle at 1.32 deg
+
+.. figure:: ../img/beamline_alignment_018.png
+   :width: 720px
+   :align: center
+   :alt: beamline_alignment_018
+
+   DDM angle at 1.33 deg
+
+.. figure:: ../img/beamline_alignment_019.png
+   :width: 720px
+   :align: center
+   :alt: beamline_alignment_019
+
+   DDM angle at 1.34 deg
+
+.. figure:: ../img/beamline_alignment_020.png
+   :width: 720px
+   :align: center
+   :alt: beamline_alignment_020
+
+   DDM angle at 1.35 deg
