@@ -115,18 +115,93 @@ EPICS support
 
    (base) 2bmb@arcturus ~ $ hexapod caqtdm
 
-.. image:: ../img/hexapod_01.png 
+.. figure:: ../img/hexapod_01.png 
    :width: 720px
    :align: center
    :alt: 2bma_beamline
 
+   Hexapod control screen
 
-.. image:: ../img/hexapod_02.png 
+.. figure:: ../img/hexapod_02.png 
    :width: 256px
    :align: center
    :alt: 2bma_beamline
 
-.. image:: ../img/hexapod_03.png 
+   Hexapod enable screen
+
+.. figure:: ../img/hexapod_03.png 
    :width: 720px
    :align: center
    :alt: 2bma_beamline
+
+   Hexapod motion control screen
+
+Drive Error Recover
+-------------------
+
+In some situations—such as when the hexapod is commanded to move far beyond its travel range—a controller error may be triggered, causing all axis controller drivers to disconnect. When this happens, the Enable/Fault indicator light, which is normally green, will turn off.
+
+
+.. figure:: ../img/hexapod_06.png 
+   :width: 720px
+   :align: center
+   :alt: 2bma_beamline
+
+   Hxapod controller. The arrow indicates the Enable/Fault status light.
+
+To recover from this situation, follow these steps:
+
+- Stop the EPICS IOC running the hexapod.
+
+.. figure:: ../img/hexapod_07.png 
+   :width: 360px
+   :align: center
+   :alt: 2bma_beamline
+
+   Hexapod EPICS IOC control
+
+- From the Tomo control screen, select PDU 1.
+
+.. figure:: ../img/PDU_01.png 
+   :width: 256px
+   :align: center
+   :alt: 2bma_beamline
+
+   PDU selector
+
+.. figure:: ../img/PDU_02.png 
+   :width: 360px
+   :align: center
+   :alt: 2bma_beamline
+
+   PDU web interface
+
+
+- Power cycle Outlet #5, labeled Hexapod.
+- Wait approximately 2 minutes, then start the Hexapod EPICS IOC.
+- Ensure the controller is enabled.
+
+
+After a few minutes, the hexapod will restart.
+
+.. warning:: After rebooting, the Hexapod Y stage does not correctly reset its dial position. Please follow the procedure below until a permanent fix is implemented.
+
+Upon reboot, all motions are homed correctly — meaning the dial position and encoder readback dial are both set to zero — except for the Y motion. In this case, the dial position is correctly set to zero (see red arrow), but the encoder readback dial is set at 350 (see green arrow in the figure).
+
+Attempting to move the Y axis in this state will result in a driver error.
+
+.. figure:: ../img/hexapod_08.png 
+   :width: 360px
+   :align: center
+   :alt: 2bma_beamline
+
+   Hexapod Y after controller reboot
+
+Solution: Manually set the Y axis dial to 350, as shown in the figure below:
+
+.. figure:: ../img/hexapod_09.png 
+   :width: 360px
+   :align: center
+   :alt: 2bma_beamline
+
+   Hexapod Y dial must be manually set to 350 after controller reboot.
