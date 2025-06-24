@@ -35,7 +35,8 @@ Mailing list
 
 To subscribe to the 2-BM mailing list send an e-mail to 2-bm-owner@lists.anl.gov. 
 
-Mailing list administrators can configure the mailing list `here <https://lists.anl.gov/mailman3/lists/2-bm.lists.anl.gov/>`_.
+Mailing list administrators can configure the mailing list `here <https://lists-web.anl.gov/mailman3/lists/2-bm.lists.anl.gov/>`_.
+
 
 Proposal System
 ---------------
