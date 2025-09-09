@@ -1,7 +1,6 @@
 FDT data transfer
 =================
 
-
 `Fast Data Transfer <https://fast-data-transfer.github.io>`_ is an open source application for efficient data transfers capable of 
 reading and writing at disk speed over wide area networks (with standard TCP)
 
@@ -49,7 +48,7 @@ To copy a directory between two linux computers, i.e. from tomodata1 to tomodata
 
 ::
 
-   [tomo@tomodata1]$ java -jar /APSshare/bin/fdt.jar -c {remote_server} -d {remote_dir} {local_fname}
+   [tomo@tomodata1]$ java -jar /APSshare/bin/fdt.jar -c {remote_server} -r -d {remote_dir} {local_fname}
 
 For example:
 ::
