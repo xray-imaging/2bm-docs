@@ -1,3 +1,4 @@
+=================
 FDT data transfer
 =================
 
@@ -5,14 +6,14 @@ FDT data transfer
 reading and writing at disk speed over wide area networks (with standard TCP)
 
 Linux to Linux
---------------
+==============
 
 At the APS FDT in available at /APSshare/bin/fdt.jar, in the example below replace /APSshare/bin/ with the folder 
 where you installed fdt.jar.
 
 
 File copy
-~~~~~~~~~
+---------
 
 To copy files from the data collection machine (pg10ge) to the data analysis machine (tomo1):
 
@@ -34,7 +35,7 @@ For example:
    [user2bmb@pg10ge]$ java -jar /APSshare/bin/fdt.jar -c tomo1 -d /data/2022-11/Kemner/ /local/data/2022-11/Kemner/*.h5
 
 Directory copy
-~~~~~~~~~~~~~~
+--------------
 
 To copy a directory between two linux computers, i.e. from tomodata1 to tomodata2:
 
@@ -56,7 +57,7 @@ For example:
    [tomo@tomodata1]$ java -jar /APSshare/bin/fdt.jar -c tomodata2 -r -d /data2/tomodata1_backup /data/Lu-2023-03/
 
 Verify transfer
-~~~~~~~~~~~~~~~
+---------------
 
 You can verify the folder size with:
 ::
@@ -70,7 +71,7 @@ and the number of files with:
 
 
 Windows to Linux
-----------------
+================
 
 To copy data from windows from:: 
 
