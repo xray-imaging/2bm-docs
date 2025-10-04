@@ -1,3 +1,4 @@
+===============
 Data Management
 ===============
 
@@ -21,7 +22,7 @@ you can also enter manually the user last name/email address/YYYY-MM.
 
 
 Upload
-------
+======
 
 To upload data from tomo1:/data to voyager::
 
@@ -68,7 +69,7 @@ Once the experiment is created you can enter in the Data Directory or single fil
 
 
 Delete
-------
+======
 
 To delete a folder of data already uploaded to voyager use:
 
@@ -119,7 +120,7 @@ or to delete all ``recon_*.tiff`` files part of an experiment, in all subfolder:
     (dm-user) [2bmb@arcturus]$ dm-delete-files --experiment Drummond-2022-09 --path-pattern /recon_.*.tiff
 
 Download
---------
+========
 
 To download an experiment, e.g. Finfrock-2022-12, from voyager to tomodata1:/data/
 
@@ -132,7 +133,7 @@ To download an experiment, e.g. Finfrock-2022-12, from voyager to tomodata1:/dat
 For more details see the `DM instruction <https://git.aps.anl.gov/DM/dm-docs/-/wikis/DM/Deployments/2-BM-Deployment>`_.
 
 Tape Restore
-------------
+============
 
 To restore an experiment, e.g. Finfrock-2023-03, from tape to its original location on voyager
 
@@ -163,7 +164,7 @@ or with:
 
 
 Tape archive
-------------
+============
 
 To archive an experiment, e.g. Finfrock-2023-03, from voyager to tape:
 
@@ -174,7 +175,7 @@ To archive an experiment, e.g. Finfrock-2023-03, from voyager to tape:
 
 
 Add users
----------
+=========
 
 To grant a user read access to a datasets
 
@@ -195,7 +196,7 @@ dm-add-user-experiment-role --experiment  Finfrock-2023-03 --username d240474 --
 
 
 Search
-------
+======
 
 To search for an experiment containing in its name Pete
 

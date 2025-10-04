@@ -1,8 +1,9 @@
+==================
 Beamline Alignment
 ==================
 
 White Beam
-----------
+==========
 
 The first alignment step is to ensure the source white beam is centered on the beamline (50 mm × 3 mm) (H × V) fixed mask. To do this, start the detector in 2-BM-A:
 
@@ -90,7 +91,7 @@ Recalibrate the mirror Yaverage and angle by adjusting:
 Once steps 1 and 2 are completed, reset the mirror Yaverage and angle to zero.
 
 Pink beam
----------
+=========
 
 Adjust the mirror angle to 2.618 mrad (0.15°) and move the camera up until you see the pink beam.
 
@@ -104,7 +105,7 @@ Adjust the mirror angle to 2.618 mrad (0.15°) and move the camera up until you 
 Adjust the camera vertical position until the image of the pink beam is centered, and set the camera Y position to 0.
 
 Mono beam
----------
+=========
 
 Set the DMM's three vertical stages (USY-OB, USY-IB, and DSY) to 0 mm.
 Set the DMM Upstream arm to 0°.
@@ -190,7 +191,7 @@ Reset the second crystal angle (DMM Downstream arm) to 1.25°.
 Since the optimal DMM M2Y is at 26.046 mm instead of the calculated 26.196 mm, the correct distance between the centers of the first and second crystal is 596.56 mm.
 
 Energy calibration
-------------------
+==================
 
 With the DMM in place, insert a Zr foil into the beam. To calibrate the energy, we will find the 18 keV Zr K-edge.
 
