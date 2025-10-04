@@ -1,4 +1,4 @@
-
+================
 Beamline control
 ================
 
@@ -39,6 +39,7 @@ or::
    :alt: tomo_07   
 
 
+==================
 Tomography Control
 ==================
 
@@ -53,7 +54,7 @@ To start the main control screens for 2-BM-B for scanning, streaming data collec
 
 
 TomoScan
---------
+========
 
 .. figure:: ../img/tomo_03.png 
    :width: 512px
@@ -63,7 +64,7 @@ TomoScan
 
 
 TomoScanStream
---------------
+==============
 
 .. figure:: ../img/tomo_05.png 
    :width: 340px
@@ -72,7 +73,7 @@ TomoScanStream
 
 
 TomoStream
-----------
+==========
 
 .. figure:: ../img/tomo_06.png 
    :width: 340px

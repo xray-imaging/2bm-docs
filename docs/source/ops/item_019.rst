@@ -1,3 +1,4 @@
+=========
 Detectors
 =========
 
@@ -24,7 +25,7 @@ For each machine part list at purchase time and for the list of supported hardwa
 .. _SYS 521E WR: https://www.supermicro.com/en/products/system/up/2u/sys-521e-wr
 
 Cameras
--------
+=======
 
 .. _camera_00001:  https://www.ptgrey.com/grasshopper3-91mp-mono-usb3-vision-sony-icx814-camera        
 .. _camera_00002:  https://www.ptgrey.com/grasshopper3-23-mp-mono-usb3-vision-sony-pregius-imx174-camera        

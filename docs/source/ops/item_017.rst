@@ -1,16 +1,17 @@
+=========
 Computing 
 =========
 
 The following computers are in use in the Imaging Group:
 
 IT standard IOC platforms
--------------------------
+=========================
 
 Recommeded computers for Rack Mount/IOC replacement, SSF/Mini/IOC and Workstation/NX can be ordered following the instruction 
 provided `here <https://anl.box.com/s/iw6hpbnl09htihvp25eiek2kxs54iwsd>`_.
 
 Data Analysis and Storage
--------------------------
+=========================
 
 .. _cluster_folder: https://anl.box.com/s/cwqbvet2qv8239nhrof0qemyohd0jho3
 .. _cluster: https://anl.box.com/s/uysvb5ujnlugmd16r2f6o10fem9rjgvr
@@ -54,7 +55,7 @@ Data Analysis and Storage
 
 
 Data Collection
----------------
+===============
 
 .. _pg10ge label: https://anl.box.com/s/oslaky958be3vyifda2xyq4tv0v9v7pz
 .. _pg10ge SM: https://anl.box.com/s/m1u8o62wbr27n26iotfnbhgpncwsapcq
