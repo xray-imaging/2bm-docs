@@ -10,9 +10,10 @@ To start the main 2-BM beamline control user interface::
 
     [2bmb@arcturus,42,~]$ start_epics
 
-or::
+or to access directly the admin screens for tomography in scan or stream mode::
 
-    [2bmb@arcturus,42,~]$ start_tomo
+    [2bmb@arcturus,42,~]$ start_tomo_scan
+    [2bmb@arcturus,42,~]$ start_tomo_stream
 
 
 .. image:: ../img/2bma_beamline.png 
