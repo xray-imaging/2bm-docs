@@ -55,6 +55,7 @@ Data Analysis and Storage
 | eBERlight | eberproc1-2        | MNJ16187026   | `eberlight_01`_   |  Supermicro 740GP-TNRT node               | `eberlight_02`_        |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
 
+Current memory configuration for tomo1-2-3-4-5 as well as disk arrays configuration for tomodata1-2-3 can be found in `this spreadsheet <https://anl.box.com/s/ywjtwzk6q9su93pizzbdk90q77g0doo7>`_.
 
 Data Collection
 ===============
