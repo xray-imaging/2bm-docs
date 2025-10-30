@@ -43,7 +43,7 @@ Lower M1 by setting Yaverage to -2 mm and Angle to 0 mrad.
 
    2-BM-A M1 mirror control screen
 
-Lower the DMM by setting its three vertical stages (USY-OB, USY-IB, and DSY) to -10 mm.
+Lower the DMM by setting its three vertical stages (USY-OB, USY-IB, and DSY) to -19 mm.
 
 .. figure:: ../img/beamline_alignment_004.png
    :width: 720px
@@ -89,6 +89,15 @@ Recalibrate the mirror Yaverage and angle by adjusting:
 #. The mirror angle until there is no reflection.
 
 Once steps 1 and 2 are completed, reset the mirror Yaverage and angle to zero.
+
+.. warning:: To better visualize the reflected beam, enable the Proc1 plugin. Then, in the Flat Field Normalization section, click Save Flat Field and Enable Flat Field.
+
+.. figure:: ../img/AD_proc1.png
+   :width: 720px
+   :align: center
+   :alt: AD_proc1
+
+
 
 Pink beam
 =========
