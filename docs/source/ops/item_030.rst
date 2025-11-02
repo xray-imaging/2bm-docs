@@ -2,6 +2,21 @@
 Logs
 ====
 
+Tomolog
+=======
+
+We use `tomolog <https://tomologcli.readthedocs.io/en/latest/index.html>`_ to publish tomography experiment data and meta data in a stack of Google slides. To run tomolog::
+
+    $ ssh 2bmb@tomo1
+    $ bash
+    $ (base) 2bmb@tomo1 $ conda activate tomolog
+
+.. warning:: Before running tomolog from a private network computer follow `this additional instructions <https://img.xray.aps.anl.gov/source/Networks.html#tomolog>`_ 
+
+then::
+
+    (tomolog) 2bmb@tomo1 $ tomolog run --file-name /data3/2BM/2025-08/Mittone/Brain_ethanol_mosaic_010.h5
+
 EPICS PV logging
 ================
 
