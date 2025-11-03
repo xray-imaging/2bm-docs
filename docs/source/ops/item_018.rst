@@ -126,8 +126,8 @@ To download an experiment, e.g. Finfrock-2022-12, from voyager to tomodata1:/dat
 
 ::
 
-    (base) tomo@tomodata1 ~ $ source /home/dm_bm/etc/dm.setup.sh
-    (dm-user) tomo@tomodata1 ~ $ dm-download --experiment Finfrock-2022-12 --destination-directory  /data/
+    (base) [2bmb@tomo1 ~]$ source /home/dm_bm/etc/dm.setup.sh
+    (dm-user) [2bmb@tomo1 ~]$ dm-download --experiment Finfrock-2022-12 --destination-directory /data/
 
 
 For more details see the `DM instruction <https://git.aps.anl.gov/DM/dm-docs/-/wikis/DM/Deployments/2-BM-Deployment>`_.
