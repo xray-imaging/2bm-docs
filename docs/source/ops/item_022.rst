@@ -147,14 +147,6 @@ Procedure
 
    - Repeat the procedure at another energy (e.g., 19 keV or 21 keV) to confirm linearity and consistency.
 
-Notes
------
-
-- Allow the crystal to reach thermal equilibrium before measurement.
-- Use small angular steps (≈ 1–2 µrad) for high precision.
-- Document environmental conditions (temperature, beam current, slit settings).
-- Average multiple scans to improve accuracy.
-
 
 
 
