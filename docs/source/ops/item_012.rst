@@ -199,45 +199,4 @@ Reset the second crystal angle (DMM Downstream arm) to 1.25°.
 
 Since the optimal DMM M2Y is at 26.046 mm instead of the calculated 26.196 mm, the correct distance between the centers of the first and second crystal is 596.56 mm.
 
-Energy calibration
-==================
-
-With the DMM in place, insert a Zr foil into the beam. To calibrate the energy, we will find the 18 keV Zr K-edge.
-
-For this energy scan, we determine that 1.33° corresponds to 18 keV.
-
-.. figure:: ../img/beamline_alignment_016.png
-   :width: 720px
-   :align: center
-   :alt: beamline_alignment_016
-
-   DDM angle at 1.31 deg
-
-
-.. figure:: ../img/beamline_alignment_017.png
-   :width: 720px
-   :align: center
-   :alt: beamline_alignment_017
-
-   DDM angle at 1.32 deg
-
-.. figure:: ../img/beamline_alignment_018.png
-   :width: 720px
-   :align: center
-   :alt: beamline_alignment_018
-
-   DDM angle at 1.33 deg
-
-.. figure:: ../img/beamline_alignment_019.png
-   :width: 720px
-   :align: center
-   :alt: beamline_alignment_019
-
-   DDM angle at 1.34 deg
-
-.. figure:: ../img/beamline_alignment_020.png
-   :width: 720px
-   :align: center
-   :alt: beamline_alignment_020
-
-   DDM angle at 1.35 deg
+See the `Energy calibration <https://docs2bm.readthedocs.io/en/latest/source/ops/item_022.html>`_ section to correctly associate the DMM arm angles with the corresponding energy.
