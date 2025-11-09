@@ -107,6 +107,12 @@ Procedure
    :align: center
    :alt: energy_cal_05
 
+You can run mdavis:
+
+::
+
+   (base) 2bmb@arcturus $ cd /APSshare/bin
+   (base) 2bmb@arcturus $ ./mdaviz
 
 6. **Calculate the True Energy**
 
