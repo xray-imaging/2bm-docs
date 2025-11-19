@@ -44,7 +44,7 @@ You will find the control screen under Jena NV100D
    :align: center
    :alt: jena_001
 
-   caqtdm to control the Jena NV100D
+   caqtdm to control the Jena NV100D. The units are Volts in open loop mode and µm in closed loop mode.
 
 
 .. figure:: ../img/jena_003.png
