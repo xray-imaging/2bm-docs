@@ -19,7 +19,7 @@ Network configuration:
 Device configuration:
 
 .. figure:: ../img/jena_002.png
-   :width: 720px
+   :width: 512px
    :align: center
    :alt: jena_000
 
@@ -31,7 +31,7 @@ The caqtdm with:
     [2bmb@arcturus]$ /net/s2dserv/xorApps/epics/synApps_6_3/ioc/JenaNV100D/iocBoot/iocJenaNV100D/softioc/JenaNV100D.pl caqtdm
 
 .. figure:: ../img/jena_000.png
-   :width: 720px
+   :width: 512px
    :align: center
    :alt: jena_000
 
@@ -40,7 +40,7 @@ The caqtdm with:
 You will find the control screen under Jena NV100D
 
 .. figure:: ../img/jena_001.png
-   :width: 720px
+   :width: 128px
    :align: center
    :alt: jena_001
 
@@ -48,7 +48,7 @@ You will find the control screen under Jena NV100D
 
 
 .. figure:: ../img/jena_003.png
-   :width: 720px
+   :width: 512px
    :align: center
    :alt: jena_001
 
