@@ -37,7 +37,7 @@ The caqtdm with:
 
    caqtdm main screen
 
-You will find the control screen under Motor 1-8
+You will find the control screen under Jena NV100D
 
 .. figure:: ../img/jena_001.png
    :width: 720px
@@ -47,4 +47,9 @@ You will find the control screen under Motor 1-8
    caqtdm to control the Jena NV100D
 
 
+.. figure:: ../img/jena_003.png
+   :width: 720px
+   :align: center
+   :alt: jena_001
 
+   caqtdm to control the Jena NV100D 
