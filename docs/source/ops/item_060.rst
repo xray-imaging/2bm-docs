@@ -2,12 +2,7 @@
 Softglue
 ========
 
-Start the epics IOC with:
-
-::
-
-   [2bmb@arcturus ~]$ /net/s2dserv/xorApps/epics/synApps_SG/ioc/2bmbMZ1/iocBoot/ioc2bmbMZ1
-   [2bmb@arcturus ~]$ ../../bin/rhel9-x86_64/GenLuaModules.pl st.cmd  
+The IOC runs directly on the MicroZed itself and starts automatically when booted.
 
 Start the medm or caqtdm with:
 
@@ -62,4 +57,15 @@ The location of the pulses is configurable by python using the `write_pso_array 
    >>> 
 
 
-the list of positions [0,2,4,6] is in encoder pulses.
+the list of positions [0,2,4,6] is in encoder pulses. 
+
+The screen for the new component is found by going to softGlueZynqMenu -> Development -> memPulseSeq:
+
+.. figure:: ../img/softglue_004.png
+   :width: 512px
+   :align: center
+   :alt: softglue_004
+
+   New component
+
+After the array is loaded with python, setting enable on memPulseSeq to 1 is what primes the component. So it will trigger based on the subsequent PSO pulses it receives. Setting enable back to 0 resets the component.  
