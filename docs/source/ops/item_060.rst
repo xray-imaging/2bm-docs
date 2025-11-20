@@ -2,11 +2,24 @@
 Softglue
 ========
 
-Start the caqtdm with:
+Start the epics IOC with:
 
 ::
 
-   [2bmb@arcturus ~]$ /net/s2dserv/xorApps/epics/synApps_6_3/ioc/JenaNV100D/iocBoot/iocJenaNV100D/softioc/JenaNV100D.pl caqtdm
+   [2bmb@arcturus ~]$ /net/s2dserv/xorApps/epics/synApps_SG/ioc/2bmbMZ1/iocBoot/ioc2bmbMZ1
+   [2bmb@arcturus ~]$ ../../bin/rhel9-x86_64/GenLuaModules.pl st.cmd  
+
+
+::
+
+   [2bmb@arcturus ~]$ cd /net/s2dserv/xorApps/epics/synApps_SG/ioc/2bmbMZ1/
+   [2bmb@arcturus ~]$ ./start_epics_2bmbMZ1
+or
+
+::
+
+   [2bmb@arcturus 2bmbMZ1]$ cd /net/s2dserv/xorApps/epics/synApps_SG/ioc/2bmbMZ1/
+   [2bmb@arcturus 2bmbMZ1]$ ./start_caQtDM_2bmbMZ1 &
 
 to get:
 
@@ -20,7 +33,7 @@ to get:
 then select softGlue/softGlueZynqMenu to get:
 
 .. figure:: ../img/softglue_002.png
-   :width: 360px
+   :width: 128px
    :align: center
    :alt: softglue_002
 
@@ -28,6 +41,12 @@ then select softGlue/softGlueZynqMenu to get:
 
 then select Collections/all softGlueZynq
 
+.. figure:: ../img/softglue_003.png
+   :width: 360px
+   :align: center
+   :alt: softglue_003
+
+   Softglue control
 
 The location of the pulses is configurable by python using the `write_pso_array <https://github.com/decarlof/interlaced/blob/main/macros_ILF.py>`_ function.
 
