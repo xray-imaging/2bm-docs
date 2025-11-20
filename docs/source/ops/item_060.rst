@@ -10,6 +10,7 @@ Start the medm or caqtdm with:
 
    [2bmb@arcturus ~]$ cd /net/s2dserv/xorApps/epics/synApps_SG/ioc/2bmbMZ1/
    [2bmb@arcturus ~]$ ./start_epics_2bmbMZ1
+
 or
 
 ::
