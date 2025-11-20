@@ -9,6 +9,7 @@ Start the epics IOC with:
    [2bmb@arcturus ~]$ /net/s2dserv/xorApps/epics/synApps_SG/ioc/2bmbMZ1/iocBoot/ioc2bmbMZ1
    [2bmb@arcturus ~]$ ../../bin/rhel9-x86_64/GenLuaModules.pl st.cmd  
 
+Start the medm or caqtdm with:
 
 ::
 
@@ -42,7 +43,7 @@ then select softGlue/softGlueZynqMenu to get:
 then select Collections/all softGlueZynq
 
 .. figure:: ../img/softglue_003.png
-   :width: 360px
+   :width: 512px
    :align: center
    :alt: softglue_003
 
