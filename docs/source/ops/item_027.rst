@@ -16,6 +16,25 @@ Network configuration:
    X 10.54.113.79
    Y 10.54.113.29
 
+
+You can access the medm control screen for both motors from the lower right corner of the mct_optics screen
+
+.. figure:: ../img/tomo_02.png
+   :width: 512px
+   :align: center
+   :alt: tomo_02
+
+   mct_optics control screen
+
+
+.. figure:: ../img/jena_005.png
+   :width: 512px
+   :align: center
+   :alt: jena_005
+
+   Jena DV100D medm screen
+
+
 Device configuration:
 
 .. figure:: ../img/jena_002.png
