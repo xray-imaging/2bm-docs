@@ -1,16 +1,17 @@
 =========
-Computing 
+Computing
 =========
 
-The following computers are in use in the Imaging Group:
+The following computers are in use in the Imaging Group.
 
 IT standard IOC platforms
 =========================
 
-Recommeded computers for Rack Mount/IOC replacement, SSF/Mini/IOC and Workstation/NX can be ordered following the instruction 
-provided `here <https://anl.box.com/s/iw6hpbnl09htihvp25eiek2kxs54iwsd>`_.
+Recommended rack-mount IOC, SSF/Mini/IOC, and workstation/NX platforms can
+be ordered following the instructions provided `here
+<https://anl.box.com/s/iw6hpbnl09htihvp25eiek2kxs54iwsd>`_.
 
-Data Analysis and Storage
+Data analysis and storage
 =========================
 
 .. _cluster_folder: https://anl.box.com/s/cwqbvet2qv8239nhrof0qemyohd0jho3
@@ -32,32 +33,34 @@ Data Analysis and Storage
 .. _eberlight_02: https://anl.box.com/s/cd77y9uwtesx2cfo60q69ekt1ua9wrc4
 
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
-| Station   | Name               | Product       | Part list         |      Model                                |      Quote             |
+| Station   | Name               | Product       | Part list         | Model                                     | Quote                  |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
-| 2-BM      | tomo 1-2           | MNJ15421064   | `cluster`_        |  Supermicro 740GP-TNRT node               | `cluster_quote`_       |
+| 2-BM      | tomo 1-2           | MNJ15421064   | `cluster`_        | Supermicro 740GP-TNRT node                | `cluster_quote`_       |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
-| 2-BM      | tomo 1-2  (RAM)    | MNJ15590206   | `cluster_ram`_    |  16x 128GB MEM-DR412L-SL01-ER32           | `cluster_ram`_         |
+| 2-BM      | tomo 1-2 (RAM)     | MNJ15590206   | `cluster_ram`_    | 16× 128GB MEM-DR412L-SL01-ER32            | `cluster_ram`_         |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
-| 2-BM      | tomo 3             | MNJ15421064   | `cluster_01`_     |  Supermicro 740GP-TNRT node               | `cluster_quote_01`_    |
+| 2-BM      | tomo 3             | MNJ15421064   | `cluster_01`_     | Supermicro 740GP-TNRT node                | `cluster_quote_01`_    |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
-| 2-BM      | tomo 4-5 (SXM-4)   | MNJ16235754   | `cluster_02`_     |  Supermicro 220GQ-TNAR+ node              | `cluster_quote_02`_    |
+| 2-BM      | tomo 4-5 (SXM-4)   | MNJ16235754   | `cluster_02`_     | Supermicro 220GQ-TNAR+ node               | `cluster_quote_02`_    |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
-| 2-BM      | tomodata1          | MNJ15508749   | `disk_array_01`_  |  SYS-220U-TNR Storage                     | `disk_array_quote_01`_ |
+| 2-BM      | tomodata1          | MNJ15508749   | `disk_array_01`_  | SYS-220U-TNR storage                      | `disk_array_quote_01`_ |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
-| 2-BM      | tomodata2          | MNJ18897861   | `disk_array_02`_  |  SYS-220U-TNR Storage                     | `disk_array_quote_02`_ |
+| 2-BM      | tomodata2          | MNJ18897861   | `disk_array_02`_  | SYS-220U-TNR storage                      | `disk_array_quote_02`_ |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
-| 2-BM      | tomodata3          | MNJ18897861   | `disk_array_03`_  |  SYS-220U-TNR Storage                     | `disk_array_quote_03`_ |
+| 2-BM      | tomodata3          | MNJ18897861   | `disk_array_03`_  | SYS-220U-TNR storage                      | `disk_array_quote_03`_ |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
-| 2-BM      | tomodata3 SSD      | MNJ21584605   | 12 x SSD 15TB     |  Solidigm P5316 15.36T NVMe PCIe4x4 QL    | `ssd_array_quote_03`_  |
+| 2-BM      | tomodata3 SSD      | MNJ21584605   | 12× SSD 15 TB     | Solidigm P5316 15.36T NVMe PCIe4x4 QLC    | `ssd_array_quote_03`_  |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
-| 2-BM      | tomdet             |               |                   |  Supermicro SYS-521E-WR                   |                        |
+| 2-BM      | tomdet             |               |                   | Supermicro SYS-521E-WR                    |                        |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
-| eBERlight | eberproc1-2        | MNJ16187026   | `eberlight_01`_   |  Supermicro 740GP-TNRT node               | `eberlight_02`_        |
+| eBERlight | eberproc1-2        | MNJ16187026   | `eberlight_01`_   | Supermicro 740GP-TNRT node                | `eberlight_02`_        |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
 
-Current memory configuration for tomo1-2-3-4-5 as well as disk arrays configuration for tomodata1-2-3 can be found in `this spreadsheet <https://anl.box.com/s/ywjtwzk6q9su93pizzbdk90q77g0doo7>`_.
+Current memory configuration for tomo1–5 and the disk-array configuration
+for tomodata1–3 are documented in `this spreadsheet
+<https://anl.box.com/s/ywjtwzk6q9su93pizzbdk90q77g0doo7>`_.
 
-Data Collection
+Data collection
 ===============
 
 .. _pg10ge label: https://anl.box.com/s/oslaky958be3vyifda2xyq4tv0v9v7pz
@@ -69,42 +72,40 @@ Data Collection
 .. _SYS 521E WR: https://www.supermicro.com/en/products/system/up/2u/sys-521e-wr
 .. _tomdet part list: https://anl.box.com/s/ypx1kn3ejyqpl934otd9kxug8gdjapxn
 
-These are the computers supporting detectors at 2-BM:
+Detector-control computers at 2-BM:
 
 +-----------+--------------+-------------------+-----------------+--------------------------+----------------------------------------+
-| Station   | Name         |      Model        |  Product No.    |    Serial No.            |        Manual                          |
+| Station   | Name         | Model             | Product No.     | Serial No.               | Manual                                 |
 +-----------+--------------+-------------------+-----------------+--------------------------+----------------------------------------+
-| 2-BM-A    | pg10ge       |  HP Z8 G4         | 3GF37UT#ABA     |  `pg10ge label`_         |     `pg10ge SM`_                       |
+| 2-BM-A    | pg10ge       | HP Z8 G4          | 3GF37UT#ABA     | `pg10ge label`_          | `pg10ge SM`_                           |
 +-----------+--------------+-------------------+-----------------+--------------------------+----------------------------------------+
-| 2-BM-B    | lyra         |  HP EliteDesk 800 | P4K18UT#ABA     |  `lyra label`_           |     `lyra SM`_                         |
+| 2-BM-B    | lyra         | HP EliteDesk 800  | P4K18UT#ABA     | `lyra label`_            | `lyra SM`_                             |
 +-----------+--------------+-------------------+-----------------+--------------------------+----------------------------------------+
-| 2-BM-B    | tomdet (*)   |  Super Micro      | `SYS 521E WR`_  |  `tomdet label`_         |     `tomdet part list`_ `tomdet SM`_   |
+| 2-BM-B    | tomdet (*)   | Supermicro        | `SYS 521E WR`_  | `tomdet label`_          | `tomdet part list`_ `tomdet SM`_       |
 +-----------+--------------+-------------------+-----------------+--------------------------+----------------------------------------+
 
-Compatible memory modules for Supermicro SYS-521E-WR (*) include:
+Compatible memory modules for Supermicro SYS-521E-WR (*):
 
 +-------------+------------+-----------------------+------------------------------------------------------+
-|   Type      |   Capacity |  Part Number          |  Description                                         |
+| Type        | Capacity   | Part Number           | Description                                          |
 +-------------+------------+-----------------------+------------------------------------------------------+
-|   DDR5-4800 |   16       |  MEM-DR516MB-ER48     |  16GB DDR5-4800 1RX8 (16Gb) RDIMM                    |
+| DDR5-4800   | 16 GB      | MEM-DR516MB-ER48      | 16GB DDR5-4800 1RX8 (16Gb) RDIMM                     |
 +-------------+------------+-----------------------+------------------------------------------------------+
-|   DDR5-4800 |   32       |  MEM-DR532MD-ER48     |  32GB DDR5-4800 2RX8 (16Gb) RDIMM                    |
+| DDR5-4800   | 32 GB      | MEM-DR532MD-ER48      | 32GB DDR5-4800 2RX8 (16Gb) RDIMM                     |
 +-------------+------------+-----------------------+------------------------------------------------------+
-|   DDR5-4800 |   64       |  MEM-DR564MC-ER48     |  64GB DDR5-4800 2RX4 (16Gb) RDIMM                    |
+| DDR5-4800   | 64 GB      | MEM-DR564MC-ER48      | 64GB DDR5-4800 2RX4 (16Gb) RDIMM                     |
 +-------------+------------+-----------------------+------------------------------------------------------+
-|   DDR5-4800 |   96       |  MEM-DR596NC-ER48     |  96GB DDR5-4800 2Rx4 LP (24Gb) ECC RDIMM             |
+| DDR5-4800   | 96 GB      | MEM-DR596NC-ER48      | 96GB DDR5-4800 2Rx4 LP (24Gb) ECC RDIMM              |
 +-------------+------------+-----------------------+------------------------------------------------------+
-|   DDR5-5600 |   16       |  MEM-DR516MB-ER56     |  16GB DDR5-5600 1RX8 ECC RDIMM                       |
+| DDR5-5600   | 16 GB      | MEM-DR516MB-ER56      | 16GB DDR5-5600 1RX8 ECC RDIMM                        |
 +-------------+------------+-----------------------+------------------------------------------------------+
-|   DDR5-5600 |   32       |  MEM-DR532MD-ER56     |  32GB DDR5-5600 2Rx8 ECC RDIMM                       |
+| DDR5-5600   | 32 GB      | MEM-DR532MD-ER56      | 32GB DDR5-5600 2Rx8 ECC RDIMM                        |
 +-------------+------------+-----------------------+------------------------------------------------------+
-|   DDR5-5600 |   64       |  MEM-DR564MC-ER56     |  64GB DDR5-5600 2Rx4 ECC RDIMM                       |
+| DDR5-5600   | 64 GB      | MEM-DR564MC-ER56      | 64GB DDR5-5600 2Rx4 ECC RDIMM                        |
 +-------------+------------+-----------------------+------------------------------------------------------+
-|   DDR5-5600 |   96       |  MEM-DR596NC-ER56     |  96GB DDR5-5600 2RX4 RDIMM	                          |
+| DDR5-5600   | 96 GB      | MEM-DR596NC-ER56      | 96GB DDR5-5600 2RX4 RDIMM                            |
 +-------------+------------+-----------------------+------------------------------------------------------+
-|   DDR5-5600 |   128      |  MEM-DR512PC-ER56     |  128GB DDR5-5600 2Rx4 LP(32Gb)ECC RDIMM,HF,RoHS      |
+| DDR5-5600   | 128 GB     | MEM-DR512PC-ER56      | 128GB DDR5-5600 2Rx4 LP (32Gb) ECC RDIMM, HF, RoHS   |
 +-------------+------------+-----------------------+------------------------------------------------------+
-|   DDR5-5600 |   128      |  MEM-DR512L-CL02-ER56 |  128GB DDR5-5600 2Rx4 (32Gb) ECC RDIMM,HF,RoHS       |
+| DDR5-5600   | 128 GB     | MEM-DR512L-CL02-ER56  | 128GB DDR5-5600 2Rx4 (32Gb) ECC RDIMM, HF, RoHS      |
 +-------------+------------+-----------------------+------------------------------------------------------+
-
-
