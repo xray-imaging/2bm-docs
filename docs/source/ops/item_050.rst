@@ -2,13 +2,12 @@
 Sample motor stack
 ==================
 
-
 The sample motor stack consists of:
 
-#. **Sample top X** (horizontal motion above the rotary stage)
-#. **Sample top Z** (horizontal motion orthogonal to "sample top X" above the rotary stage)
-#. **Rotary stage** (tomography rotation axis)
-#. **Hexapod** (6 axes x, y, z, roll, pitch and theta motion)
+#. **Sample top X** – horizontal motion above the rotary stage
+#. **Sample top Z** – horizontal motion orthogonal to Sample top X, above the rotary stage
+#. **Rotary stage** – tomography rotation axis
+#. **Hexapod** – six axes (x, y, z, roll, pitch, yaw)
 
 
 Rotary stage
@@ -23,52 +22,57 @@ Rotary stage
 .. _order 0006: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=E8-078092
 
 .. |00003| image:: ../img/aerotech_00001.png
-    :width: 20pt
-    :height: 20pt
+   :width: 20pt
+   :height: 20pt
 
 .. |00004| image:: ../img/aerotech_00002.png
-    :width: 20pt
-    :height: 20pt
+   :width: 20pt
+   :height: 20pt
 
-we have different sets of rotary stages:
+Rotary stages in use:
 
 +---------------+-------------------------+-------------------------+--------------------+------------------------------------+----------------------+------------------------+--------------------------------------------------------+
-|   **Station** |      **Description**    |  **Model**              |    **Image**       |   **Controller**                   |  **Speed (rpm)**     |    **Load axial (kg)** |  **Info**                                              | 
+| **Station**   | **Description**         | **Model**               | **Image**          | **Controller**                     | **Speed (rpm)**      | **Axial load (kg)**    | **Info**                                               |
 +---------------+-------------------------+-------------------------+--------------------+------------------------------------+----------------------+------------------------+--------------------------------------------------------+
-|     2-BM-B    |        tomo             |    ABS250MP-M-AS        |     |00004|        |     ENSEMBLEHLE10-40-A-MXH (*)     |          500         |            66          |  `box link 0003`_, `box link 0004`_, `order 0005`_     |
+| 2-BM-B        | tomo                    | ABS250MP-M-AS           | |00004|            | ENSEMBLEHLE10-40-A-MXH (*)         | 500                  | 66                     | `box link 0003`_, `box link 0004`_, `order 0005`_      |
 +---------------+-------------------------+-------------------------+--------------------+------------------------------------+----------------------+------------------------+--------------------------------------------------------+
-|     2-BM-B    |        fast tomo        |    ABRS-150MP-M-AS      |     |00004|        |     ENSEMBLEHLE10-40-A-MXH (*)     |          500         |            8           |  `box link 0003`_, `box link 0004`_, `order 0006`_     |
+| 2-BM-B        | fast tomo               | ABRS-150MP-M-AS         | |00004|            | ENSEMBLEHLE10-40-A-MXH (*)         | 500                  | 8                      | `box link 0003`_, `box link 0004`_, `order 0006`_      |
 +---------------+-------------------------+-------------------------+--------------------+------------------------------------+----------------------+------------------------+--------------------------------------------------------+
-|     2-BM-B    |        spindle          |    ABS2000-1000AS-RU    |     |00003|        |     ENSEMBLEHLE10-40-A-MXH (*)     |         6000         |            18          |  `box link 0001`_, `box link 0002`_, `order 0004`_     |
+| 2-BM-B        | spindle                 | ABS2000-1000AS-RU       | |00003|            | ENSEMBLEHLE10-40-A-MXH (*)         | 6000                 | 18                     | `box link 0001`_, `box link 0002`_, `order 0004`_      |
 +---------------+-------------------------+-------------------------+--------------------+------------------------------------+----------------------+------------------------+--------------------------------------------------------+
 
-(*) replaced with ENSEMBLEML10-40-IO-MXH
+(*) Replaced with ENSEMBLEML10-40-IO-MXH.
+
 
 Ensemble
 --------
 
 .. _Ensemble Settings: https://anl.app.box.com/s/serp2nlyzk0ljvpqczc3btm7ikn9pvlj
 
-The Ensemble Parameter Setup currently in use at 2-BM can found at `Ensemble Settings`_
+The Ensemble parameter setup currently in use at 2-BM is documented in
+`Ensemble Settings`_.
 
 +-------------------------------+----------------------+---------------------------+-----------------+
-|  **Parameter**                |       **ABRS250MP**  |     **ABRS150MP**         |     **Units**   |
+| **Parameter**                 | **ABRS250MP**        | **ABRS150MP**             | **Units**       |
 +-------------------------------+----------------------+---------------------------+-----------------+
-| Fundamental Encoder Resolution|              11840   |       3600                |     lines/rev   |
+| Fundamental encoder resolution| 11840                | 3600                      | lines/rev       |
 +-------------------------------+----------------------+---------------------------+-----------------+
-| Encoder scale factor          |                 45   |        148                |                 |
+| Encoder scale factor          | 45                   | 148                       |                 |
 +-------------------------------+----------------------+---------------------------+-----------------+
-| Encoder pulses per revolution |             532800   |     532800                |     pulses/rev  |
+| Encoder pulses per revolution | 532800               | 532800                    | pulses/rev      |
 +-------------------------------+----------------------+---------------------------+-----------------+
-| Encoder resolution            |  0.000675675675676   |     0.000675675675676     |     deg/pulse   |
+| Encoder resolution            | 0.000675675675676    | 0.000675675675676         | deg/pulse       |
 +-------------------------------+----------------------+---------------------------+-----------------+
+
 
 PSO
 ---
 
 .. _Aerotech Manual: https://anl.box.com/s/l43qkqlhy21f4a8wetmrqbeqz9c7am72
 
-Details on the Position Synchronized Output (PSO) are in the `Aerotech Manual`_ 
+Details on Position Synchronized Output (PSO) are provided in the
+`Aerotech Manual`_.
+
 
 Hexapod
 =======
@@ -85,16 +89,15 @@ Hexapod
 .. _usb2: https://anl.box.com/s/tlx227jpbvv3h7ix4gtihmrhd63pm52c
 .. _programming: https://anl.box.com/s/n3i9dgvs2py3b9leh4iupm5lzgrs7wwv
 
-Avaialble hexapods are:
+Available hexapods:
 
 +--------------+------------------+-------------------------+--------------------------------------+----------------------+----------------------------+------------------------+
-|  **Station** |    **Model**     |   **Data Sheet**        |           Images                     |**Hardware Manual**   |  **USB stick delived**     |    **Quote**           |
+| **Station**  | **Model**        | **Data sheet**          | **Images**                           | **Hardware manual**  | **USB stick delivered**    | **Quote**              |
 +--------------+------------------+-------------------------+--------------------------------------+----------------------+----------------------------+------------------------+
-|    2-BM      |   HEX300-230HL   |    `hex300_datasheet`_  |          |2-BM Hexapod|              | `hex300_hw_manual`_  |  `usb1`_, `usb2`_          | `hex300_quote`_        |
+| 2-BM         | HEX300-230HL     | `hex300_datasheet`_     | |2-BM Hexapod|                       | `hex300_hw_manual`_  | `usb1`_, `usb2`_           | `hex300_quote`_        |
 +--------------+------------------+-------------------------+--------------------------------------+----------------------+----------------------------+------------------------+
-|    7-BM      |   HEX500-350HL   |    `hex500_datasheet`_  |          |7-BM Hexapod|              | `hex500_hw_manual`_  |                            | `hex500_quote`_        |
+| 7-BM         | HEX500-350HL     | `hex500_datasheet`_     | |7-BM Hexapod|                       | `hex500_hw_manual`_  |                            | `hex500_quote`_        |
 +--------------+------------------+-------------------------+--------------------------------------+----------------------+----------------------------+------------------------+
-
 
 .. |2-BM Hexapod| image:: ../img/hexapod_04.png
    :width: 50px
@@ -104,104 +107,114 @@ Avaialble hexapods are:
    :width: 50px
    :alt: hexapod_04
 
+
 EPICS support
 -------------
 
-:: 
+Start the hexapod tools on ``arcturus``::
 
-   [2bmb@arcturus ~]$ bash
-   (base) 2bmb@arcturus ~ $ hexapod
-   Usage: 2bmHXP.pl {caqtdm|console|medm|phoebus|remote|restart|run|start|status|stop|usage}
+  [2bmb@arcturus ~]$ bash
+  (base) 2bmb@arcturus ~ $ hexapod
+  Usage: 2bmHXP.pl {caqtdm|console|medm|phoebus|remote|restart|run|start|status|stop|usage}
 
-   (base) 2bmb@arcturus ~ $ hexapod caqtdm
+Launch the caqtdm interface::
+
+  (base) 2bmb@arcturus ~ $ hexapod caqtdm
 
 .. figure:: ../img/hexapod_01.png 
    :width: 720px
    :align: center
-   :alt: 2bma_beamline
+   :alt: hexapod_control
 
    Hexapod control screen
 
 .. figure:: ../img/hexapod_02.png 
    :width: 256px
    :align: center
-   :alt: 2bma_beamline
+   :alt: hexapod_enable
 
    Hexapod enable screen
 
 .. figure:: ../img/hexapod_03.png 
    :width: 720px
    :align: center
-   :alt: 2bma_beamline
+   :alt: hexapod_motion
 
    Hexapod motion control screen
 
-Drive Error Recover
--------------------
 
-In some situations—such as when the hexapod is commanded to move far beyond its travel range—a controller error may be triggered, causing all axis controller drivers to disconnect. When this happens, the Enable/Fault indicator light, which is normally green, will turn off.
+Drive error recovery
+--------------------
 
+A controller error can occur if the hexapod is commanded beyond its travel
+range, causing all axis drivers to disconnect. In this case, the
+Enable/Fault indicator, normally green, turns off.
 
 .. figure:: ../img/hexapod_06.png 
    :width: 720px
    :align: center
-   :alt: 2bma_beamline
+   :alt: hexapod_controller
 
-   Hxapod controller. The arrow indicates the Enable/Fault status light.
+   Hexapod controller. The arrow indicates the Enable/Fault status light.
 
-To recover from this situation, follow these steps:
+To recover:
 
-- Stop the EPICS IOC running the hexapod.
+#. Stop the EPICS IOC controlling the hexapod.
 
-.. figure:: ../img/hexapod_07.png 
-   :width: 360px
-   :align: center
-   :alt: 2bma_beamline
+   .. figure:: ../img/hexapod_07.png 
+      :width: 360px
+      :align: center
+      :alt: hexapod_ioc_control
 
-   Hexapod EPICS IOC control
+      Hexapod EPICS IOC control
 
-- From the Tomo control screen, select PDU 1.
+#. From the Tomo control screen, select **PDU 1**.
 
-.. figure:: ../img/PDU_01.png 
-   :width: 256px
-   :align: center
-   :alt: 2bma_beamline
+   .. figure:: ../img/PDU_01.png 
+      :width: 256px
+      :align: center
+      :alt: pdu_selector
 
-   PDU selector
+      PDU selector
 
-.. figure:: ../img/PDU_02.png 
-   :width: 360px
-   :align: center
-   :alt: 2bma_beamline
+   .. figure:: ../img/PDU_02.png 
+      :width: 360px
+      :align: center
+      :alt: pdu_web_interface
 
-   PDU web interface
+      PDU web interface
 
-
-- Power cycle Outlet #5, labeled Hexapod.
-- Wait approximately 2 minutes, then start the Hexapod EPICS IOC.
-- Ensure the controller is enabled.
-
+#. Power-cycle outlet #5 (Hexapod).
+#. Wait approximately 2 minutes, then restart the Hexapod EPICS IOC.
+#. Verify that the controller is enabled.
 
 After a few minutes, the hexapod will restart.
 
-.. warning:: After rebooting, the Hexapod Y stage does not correctly reset its dial position. Please follow the procedure below until a permanent fix is implemented.
+.. warning::
 
-Upon reboot, all motions are homed correctly — meaning the dial position and encoder readback dial are both set to zero — except for the Y motion. In this case, the dial position is correctly set to zero (see red arrow), but the encoder readback dial is set at 350 (see green arrow in the figure).
+   After reboot, the hexapod Y stage does not correctly reset its dial
+   position. Follow the procedure below until a permanent fix is in place.
 
-Attempting to move the Y axis in this state will result in a driver error.
+After reboot, all motions home correctly (dial position and encoder
+readback both zero) **except** for Y. For Y:
+
+- Dial position is reset to zero (red arrow).
+- Encoder readback dial is at 350 (green arrow).
+
+Attempting to move Y in this state will trigger a drive error.
 
 .. figure:: ../img/hexapod_08.png 
    :width: 360px
    :align: center
-   :alt: 2bma_beamline
+   :alt: hexapod_y_after_reboot
 
    Hexapod Y after controller reboot
 
-Solution: Manually set the Y axis dial to 350, as shown in the figure below:
+Set the Y dial manually to 350, as shown below:
 
 .. figure:: ../img/hexapod_09.png 
    :width: 360px
    :align: center
-   :alt: 2bma_beamline
+   :alt: hexapod_y_dial
 
    Hexapod Y dial must be manually set to 350 after controller reboot.

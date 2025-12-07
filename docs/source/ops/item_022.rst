@@ -1,53 +1,60 @@
+.. _ops-energy-calibration:
+
 ==================
-Energy Calibration
+Energy calibration
 ==================
 
-X-ray Energy Calibration Using Channel-Cut Crystal
+X-ray energy calibration using channel-cut crystal
 ==================================================
 
-**Channel-cut crystal parameters:**
+Channel-cut crystal parameters
+------------------------------
 
 - Length: **36 mm**
 - Width: **3 mm**
 - Lattice spacing (2d): **3.84 Å**
 
+
 Purpose
 -------
 
-To accurately calibrate the monochromator energy using the known lattice spacing of the channel-cut crystal.
+Calibrate the monochromator energy using the known lattice spacing of the
+channel-cut crystal.
+
 
 Procedure
 ---------
 
-1. **Mount the Channel-Cut Crystal**
+1. Mount the channel-cut crystal
 
-- Secure the channel-cut crystal on the rotation stage in the x-ray beam path.
-- Align the crystal so that the incident beam fully illuminates the 3 mm width and the reflection geometry is symmetric and set the rotation angle to zero.
+   - Secure the channel-cut crystal on the rotation stage in the x-ray beam
+     path.
+   - Align the crystal so the incident beam fully illuminates the 3 mm width
+     and the reflection geometry is symmetric.
+   - Set the rotation angle to zero.
 
-.. figure:: ../img/energy_cal_00.png
-   :width: 720px
-   :align: center
-   :alt: energy_cal_00
+   .. figure:: ../img/energy_cal_00.png
+      :width: 720px
+      :align: center
+      :alt: energy_cal_00
 
-
-2. **Set Initial Conditions**
+2. Set initial conditions
 
    - Set the monochromator energy to approximately **20 keV**.
    - Compute the expected Bragg angle :math:`\theta` using Bragg’s law:
 
      .. math::
-
         E = \frac{12.3984}{2d \sin\theta} \quad [\text{keV}]
 
-     which can be rearranged as:
+     Rearranged:
 
      .. math::
-
         \theta = \arcsin\!\left(\frac{12.3984}{2d\,E}\right)
 
      where :math:`2d = 3.84\,\text{Å}` and :math:`E = 20\,\text{keV}`.
 
-   - For a 20 keV x-ray beam, the expected Bragg angle is approximately **9.29°**.
+   - For a 20 keV x-ray beam, the expected Bragg angle is approximately
+     **9.29°**.
 
    Example Python code to compute the expected angle:
 
@@ -63,66 +70,66 @@ Procedure
       # Compute Bragg angle (radians and degrees)
       theta_rad = np.arcsin(hc / (two_d * E_nom))
       theta_deg = np.degrees(theta_rad)
-
       print(f"Bragg angle at {E_nom} keV: {theta_deg:.6f}°")
 
-3. **Record the reflected x-ray**
+3. Record the reflected x-ray
 
-   - Rotate the crystal at the calculated Bragg angle until you find the reflection. 
-   - Select an ROI around the reflection using the ROI plugin fi area detector together with the Stat2 plugin to calculate the mean value.
+   - Rotate the crystal to the calculated Bragg angle and search for the
+     reflected beam.
+   - Select an ROI around the reflection using the ROI plugin in areaDetector.
+   - Use the Stat2 plugin to compute the mean intensity in the ROI.
 
-.. figure:: ../img/energy_cal_03.png
-   :width: 512px
-   :align: center
-   :alt: energy_cal_03
+   .. figure:: ../img/energy_cal_03.png
+      :width: 512px
+      :align: center
+      :alt: energy_cal_03
 
-.. figure:: ../img/energy_cal_04.png
-   :width: 512px
-   :align: center
-   :alt: energy_cal_04
+   .. figure:: ../img/energy_cal_04.png
+      :width: 512px
+      :align: center
+      :alt: energy_cal_04
 
+4. Perform rocking-curve scan
 
-4. **Perform Rocking Curve Scan**
+   - Perform a fine angular scan (rocking curve) around the calculated Bragg
+     angle to record reflected intensity versus angle.
 
-   - Perform a fine angular scan (rocking curve) around the calculated Bragg angle to record the reflected x-ray intensity versus angle.
+   .. figure:: ../img/energy_cal_01.png
+      :width: 512px
+      :align: center
+      :alt: energy_cal_01
 
- .. figure:: ../img/energy_cal_01.png
-   :width: 512px
-   :align: center
-   :alt: energy_cal_01
+   .. figure:: ../img/energy_cal_02.png
+      :width: 256px
+      :align: center
+      :alt: energy_cal_02
 
-.. figure:: ../img/energy_cal_02.png
-   :width: 256px
-   :align: center
-   :alt: energy_cal_02
-     
+5. Identify the peak position
 
-5. **Identify the Peak Position**
+   - Fit the rocking curve to determine the Bragg peak angle
+     :math:`\theta_B`.
+   - :math:`\theta_B` corresponds to the true Bragg condition at the
+     monochromator setting.
 
-   - Fit the rocking curve to find the precise Bragg peak angle :math:`\theta_B`.
-   - This corresponds to the true Bragg condition for that energy.
+   .. figure:: ../img/energy_cal_05.png
+      :width: 720px
+      :align: center
+      :alt: energy_cal_05
 
-.. figure:: ../img/energy_cal_05.png
-   :width: 720px
-   :align: center
-   :alt: energy_cal_05
+   To inspect and fit the data interactively, you can run **mdaviz**::
 
-You can run mdavis:
+     (base) 2bmb@arcturus $ cd /APSshare/bin
+     (base) 2bmb@arcturus $ ./mdaviz
 
-::
-
-   (base) 2bmb@arcturus $ cd /APSshare/bin
-   (base) 2bmb@arcturus $ ./mdaviz
-
-6. **Calculate the True Energy**
+6. Calculate the true energy
 
    - Compute the actual energy using Bragg’s law:
 
      .. math::
-
         E = \frac{12.3984}{2d \sin\theta_B} \quad [\text{keV}]
 
-   Example Python code to compute the true energy from the measured peak angle:
+   Example Python code to compute the true energy from the measured
+   peak angle:
 
    .. code-block:: python
 
@@ -133,7 +140,7 @@ You can run mdavis:
       E_nom = 20.0         # nominal energy in keV
       hc = 12.3984         # hc in keV·Å
 
-      # Example: replace this with your measured peak angle in degrees
+      # Example: replace with measured peak angle in degrees
       theta_B_deg = 9.2903
       theta_B_rad = np.radians(theta_B_deg)
 
@@ -144,26 +151,27 @@ You can run mdavis:
       print(f"Measured energy: {E_meas:.6f} keV")
       print(f"Offset from nominal: {offset_keV:.6f} keV")
 
-7. **Adjust Monochromator Calibration**
+7. Adjust monochromator calibration
 
-   - Compare the calculated true energy to the nominal monochromator value (20 keV).
-   - Apply an energy offset correction in the control software if necessary.
+   - Compare the calculated true energy to the nominal monochromator value
+     (e.g. 20 keV).
+   - Apply an energy-offset correction in the control software if required.
 
-8. **Verify Calibration**
+8. Verify calibration
 
-   - Repeat the procedure at another energy (e.g., 19 keV or 21 keV) to confirm linearity and consistency.
+   - Repeat the procedure at another energy (e.g. 19 keV or 21 keV) to
+     verify linearity and consistency of the calibration.
 
 
-
-Comparison of Calculated and Measured X-ray Energies
+Comparison of calculated and measured x-ray energies
 ====================================================
 
-The table below lists the calculated X-ray energies using a 24 Å W–B₄C multilayer period
-(first-order Bragg reflection) and compares them with the measured energies for various
-incident angles.
+The table below lists calculated x-ray energies using a 24 Å W–B\ :sub:`4`\ C
+multilayer period (first-order Bragg reflection) and compares them with
+measured energies for various incident angles.
 
 +------------------------+------------+--------------------+--------------------------+------------------------+
-| Angle (°)              | sin(θ)     | λ (Å) = 2d·sinθ   | Calculated Energy (keV)  | Measured Energy (keV)   |
+| Angle (°)              | sin(θ)     | λ (Å) = 2d·sinθ    | Calculated energy (keV)  | Measured energy (keV)  |
 +========================+============+====================+==========================+========================+
 | 1.1309999999999922     | 0.0197396  | 0.9475             | 13.09                    | 13.374                 |
 +------------------------+------------+--------------------+--------------------------+------------------------+
@@ -183,17 +191,18 @@ incident angles.
    Calculated energies are obtained from Bragg's law:
 
    .. math::
-
       E = \frac{12.3984193}{2 d \, \sin\theta} \;\text{[keV]}
 
-   where d = 24 Å is the multilayer period and \theta is the incident angle.
+   where :math:`d = 24\,\text{Å}` is the multilayer period and
+   :math:`\theta` is the incident angle.
 
 
-Incident Angle for Given X-ray Energies
+Incident angle for given x-ray energies
 =======================================
 
-The table below shows the incident angles θ (in degrees) for selected X-ray energies
-assuming a 24 Å W–B₄C multilayer and first-order Bragg reflection.
+The table below shows the incident angle :math:`\theta` (in degrees) for
+selected x-ray energies, assuming a 24 Å W–B\ :sub:`4`\ C multilayer and
+first-order Bragg reflection.
 
 +------------------+---------+
 | Energy (keV)     | Angle ° |
@@ -241,15 +250,13 @@ assuming a 24 Å W–B₄C multilayer and first-order Bragg reflection.
 | 33               | 0.426   |
 +------------------+---------+
 
-
 .. note::
 
-   Angles are in degrees (grazing incidence). Calculated using Bragg's law:
+   Angles are in degrees (grazing incidence). They are calculated using
+   Bragg's law:
 
    .. math::
-
       \theta = \arcsin\left(\frac{12.3984193}{2 d E}\right)
 
-   where d = 24 Å is the multilayer period and E is the desired X-ray energy in keV.
-
-
+   where :math:`d = 24\,\text{Å}` is the multilayer period and :math:`E`
+   is the desired x-ray energy in keV.

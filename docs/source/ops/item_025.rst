@@ -2,92 +2,91 @@
 FDT data transfer
 =================
 
-`Fast Data Transfer <https://fast-data-transfer.github.io>`_ is an open source application for efficient data transfers capable of 
-reading and writing at disk speed over wide area networks (with standard TCP)
+`Fast Data Transfer (FDT) <https://fast-data-transfer.github.io>`_ is an
+open-source application for high-throughput data transfer, capable of
+reading and writing at disk speed over wide-area networks (using standard
+TCP).
 
 Linux to Linux
 ==============
 
-At the APS FDT in available at /APSshare/bin/fdt.jar, in the example below replace /APSshare/bin/ with the folder 
-where you installed fdt.jar.
-
+At the APS, FDT is available as ``/APSshare/bin/fdt.jar``. In the examples
+below, replace ``/APSshare/bin/`` with the directory where
+``fdt.jar`` is installed.
 
 File copy
 ---------
 
-To copy files from the data collection machine (pg10ge) to the data analysis machine (tomo1):
+To copy files from the data-collection machine (``pg10ge``) to the
+data-analysis machine (``tomo1``):
 
-#. start the fdt server on tomo1:
+1. Start the FDT server on ``tomo1``::
 
-::
+     [tomo@tomo1]$ java -jar /APSshare/bin/fdt.jar -S
 
-   [tomo@tomo1]$ java -jar /APSshare/bin/fdt.jar -S
+2. Start the data transfer from ``pg10ge`` to ``tomo1``:
 
-#. start the data transfer from pg10ge to tomo1 using the following syntax:
+   Syntax::
 
-::
+     [user2bmb@pg10ge]$ java -jar /APSshare/bin/fdt.jar -c {remote_server} -d {remote_dir} {local_fname}
 
-   [user2bmb@pg10ge]$ java -jar /APSshare/bin/fdt.jar -c {remote_server} -d {remote_dir} {local_fname}
+   Example::
 
-For example:
-::
+     [user2bmb@pg10ge]$ java -jar /APSshare/bin/fdt.jar -c tomo1 -d /data/2022-11/Kemner/ /local/data/2022-11/Kemner/*.h5
 
-   [user2bmb@pg10ge]$ java -jar /APSshare/bin/fdt.jar -c tomo1 -d /data/2022-11/Kemner/ /local/data/2022-11/Kemner/*.h5
 
 Directory copy
 --------------
 
-To copy a directory between two linux computers, i.e. from tomodata1 to tomodata2:
+To copy an entire directory between two Linux computers, for example from
+``tomodata1`` to ``tomodata2``:
 
-#. start the fdt server on tomodata2:
+1. Start the FDT server on ``tomodata2``::
 
-::
+     [tomo@tomodata2]$ java -jar /APSshare/bin/fdt.jar -S
 
-   [tomo@tomodata2]$ java -jar /APSshare/bin/fdt.jar -S
+2. Start the data transfer from ``tomodata1`` to ``tomodata2``:
 
-#. start the data transfer from tomodata1 to tomodata2 using the following syntax:
+   Syntax (recursive copy)::
 
-::
+     [tomo@tomodata1]$ java -jar /APSshare/bin/fdt.jar -c {remote_server} -r -d {remote_dir} {local_fname}
 
-   [tomo@tomodata1]$ java -jar /APSshare/bin/fdt.jar -c {remote_server} -r -d {remote_dir} {local_fname}
+   Example::
 
-For example:
-::
+     [tomo@tomodata1]$ java -jar /APSshare/bin/fdt.jar -c tomodata2 -r -d /data2/tomodata1_backup /data/Lu-2023-03/
 
-   [tomo@tomodata1]$ java -jar /APSshare/bin/fdt.jar -c tomodata2 -r -d /data2/tomodata1_backup /data/Lu-2023-03/
 
 Verify transfer
 ---------------
 
-You can verify the folder size with:
-::
+Verify the total size of the transferred directory::
 
-    [tomo@tomodata2]$ du /data2/tomodata1_backup/Lu-2023-03/
+  [tomo@tomodata2]$ du /data2/tomodata1_backup/Lu-2023-03/
 
-and the number of files with:
-::
+Verify the number of files::
 
-    [tomo@tomodata2]$ find /data2/tomodata1_backup/Lu-2023-03/ -type f | wc -l
+  [tomo@tomodata2]$ find /data2/tomodata1_backup/Lu-2023-03/ -type f | wc -l
 
 
 Windows to Linux
 ================
 
-To copy data from windows from:: 
+To copy data from a Windows system, for example from::
 
-   S:\data\2019-02\user_name\test.h5 
+  S:\data\2019-02\user_name\test.h5 
 
-to linux machine::
+to a Linux path::
 
-   /local/data/user_name/ 
-   
-first install `FDT <http://monalisa.cern.ch/FDT/>`_ on both machines then go to the linux 
-machine start the fdt server::
+  /local/data/user_name/
 
-    $ cd /local/data/fdt
-    $ java -jar fdt.jar
+1. Install `FDT <http://monalisa.cern.ch/FDT/>`_ on both Windows and Linux.
 
-then go to the windows machine from a dos prompt start the copy (client)::
+2. On the Linux machine, start the FDT server::
 
-    $ cd C:\Users\se2admin\Desktop\FDT\
-    $ java -jar fdt.jar -c handyn -d /local/data/Dunand/ S:\data\2019-02\Dunand\test.h5
+     $ cd /local/data/fdt
+     $ java -jar fdt.jar
+
+3. On the Windows machine, from a Command Prompt, start the FDT client::
+
+     C:\> cd C:\Users\se2admin\Desktop\FDT\
+     C:\Users\se2admin\Desktop\FDT> java -jar fdt.jar -c handyn -d /local/data/Dunand/ S:\data\2019-02\Dunand\test.h5
