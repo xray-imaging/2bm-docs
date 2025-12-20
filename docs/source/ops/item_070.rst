@@ -7,7 +7,7 @@ Reference Measurement
 =====================
 
 This measurement was performed at the **Advanced Photon Source (APS)**, beamline
-**2-BM-A (Micro-tomography)**, as part of the **APS-U Commissioning** activities.
+**2-BM (Micro-tomography)**, as part of the **APS-U Commissioning** activities.
 The data analyzed here were collected **before** the APS air handler are turned off. 
 As such, this dataset serves primarily to **validate the vibration-analysis method** 
 and to establish a **reference measurement** of the vertical vibration level under 
@@ -36,10 +36,6 @@ was partitioned into two bands:
 
 * **25–35 Hz**: typically associated with the ventilation / mechanical lines.
 * **35–100 Hz**: to capture possible structural resonance modes.
-
-(Results for this specific run are not yet included here; the layout below is
-prepared for when the analysis is completed.)
-
 
 Instrument and Acquisition Metadata
 -----------------------------------
@@ -231,8 +227,8 @@ the reported values come from the **position-based method**:
 For this analysis, the script will typically be run with:
 
 * Sampling rate derived from acquisition:  
-  ``sampling_rate ≈ 1 / acquire_period ≈ 144.2 Hz``  
-  (consistent with the acquisition period from metadata).
+  ``sampling_rate ≈ 1 / acquire_period ≈ 99 Hz``  
+  (consistent with the acquisition period from the file name).
 
 * Frequency bands:
   
@@ -246,56 +242,66 @@ For this analysis, the script will typically be run with:
 Vibration Analysis Results
 --------------------------
 
-To be updated 
-
 Processing configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 (Example configuration; update with actual values for this run.)
 
+
 +-------------------------------------------+------------------------------------------------------+
 | Item                                      | Value                                                |
 +===========================================+======================================================+
 | Script                                    | ``vibration/frequency.py``                           |
-+-------------------------------------------+------------------------------------------------------+
++-------------------------------------------+------------------------------------------------------+ 
 | Input file                                | ``S01-AHU401_1000frms_99fps_001.h5``                 |
 +-------------------------------------------+------------------------------------------------------+
 | Dataset path                              | ``/exchange/data``                                   |
 +-------------------------------------------+------------------------------------------------------+
-| Sampling rate used                        | 99 Hz                                                |
+| Sampling rate used                        | 99.0 Hz (``dt = 0.010101010101010102 s``)            |
 +-------------------------------------------+------------------------------------------------------+
 | Frames loaded                             | 1000                                                 |
 +-------------------------------------------+------------------------------------------------------+
-| Frames used for analysis (position-based) | (e.g.) 600–800 (to be specified)                     |
+| Frames used for analysis (position-based) | 648                                                  |
 +-------------------------------------------+------------------------------------------------------+
 | Upsampling factor (phase correlation)     | 100                                                  |
 +-------------------------------------------+------------------------------------------------------+
-| Frequency resolution (FFT)                | Depends on frames used                               |
+| Frequency resolution (FFT)                | 0.15278 Hz                                           |
++-------------------------------------------+------------------------------------------------------+
+| Frequency bands analyzed                  | [25.0, 35.0] Hz and [35.0, 100.0] Hz                 |
 +-------------------------------------------+------------------------------------------------------+
 
 
 Dual-band vibration frequencies
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-(Placeholder layout; fill with actual peaks once processed.)
+The dual-band analysis was performed with the **position-based method**:
 
 +-------------------------------------------+-----------------+--------------------------------------------+
 | Frequency band                            | Peak frequency  | Interpretation                             |
 +===========================================+=================+============================================+
-| 25.0–35.0 Hz                              | TBD             | Dominant line in the "vent/line" band      |
+| 25.0–35.0 Hz                              | 29.944 Hz       | Dominant line in the "vent/line" band      |
 +-------------------------------------------+-----------------+--------------------------------------------+
-| 35.0–100.0 Hz                             | TBD             | Dominant structural/resonance component    |
+| 35.0–100.0 Hz                             | 46.139 Hz       | Dominant structural/resonance component    |
 +-------------------------------------------+-----------------+--------------------------------------------+
+
+(Values rounded to three decimal places as reported by the script.)
 
 
 Summary and Remarks
 -------------------
 
 * Under the given beamline and detector conditions (20 keV, LuAG scintillator,
-  2× objective, 2×2 binning, nominal 99 fps, acquire period ≈ 6.93 ms), this
-  run provides a **reference vibration baseline** with the APS air handlers
-  still operating.
+  2× objective, 2×2 binning, nominal 99 fps), the vertical image motion for
+  run ``S01-AHU401_1000frms_99fps_001.h5`` is dominated by frequency components
+  near **29.94 Hz** and **46.14 Hz**.
 
-* Once the air handlers are turned off and new datasets are collected, the same
-  analysis workflow can be applied and the results compared directly to this
-  baseline to quantify the reduction (or change) in vibration levels.
+* The **29.94 Hz** component lies in the 25–35 Hz band and is consistent with a
+  ventilation / mechanical line contribution.
+
+* The **46.14 Hz** component lies in the 35–100 Hz band and indicates a higher
+  frequency resonance, potentially associated with the detector mechanics,
+  sample stage, or beamline infrastructure.
+
+These values provide a quantitative baseline for comparison with future
+measurements that will be taken after the air handler is turned off, enabling
+assessment of the impact of HVAC-related vibrations on the imaging system.
