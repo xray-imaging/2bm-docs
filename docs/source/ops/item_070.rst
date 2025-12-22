@@ -428,7 +428,5 @@ between 08:00 and 13:00 (local time).
 
 .. warning:: 
 
-  The final two file name roots are incorrectly labeled as “S39-AHU403” and “S01-AHU401.” In reality, AHU401 in 
-  Sector 39 was turned off first, followed by AHU403 in Sector 01 at the end of the day. For this last measurement, 
-  two air handlers (Sectors 1 and 39), which are of different designs, will be turned off simultaneously. 
-  The MCR will flip only the S39 PV. Please treat this test the same as the others.
+  For the last measurement, two air handlers (Sectors 1 and 39), which are of different designs, were turned off simultaneously. 
+  The root file name for this last measurement is S39-AHU403. Please ignore the AH status for these two measurement.
