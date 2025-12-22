@@ -3,17 +3,17 @@ Vibration Frequency Measurement
 ===============================
 
 
-Reference Measurement
-=====================
+Baseline Measurement
+====================
 
-This measurement was performed at the **Advanced Photon Source (APS)**, beamline
-**2-BM (Micro-tomography)**, as part of the **APS-U Commissioning** activities.
-The data analyzed here were collected **before** the APS air handler are turned off. 
-As such, this dataset serves primarily to **validate the vibration-analysis method** 
-and to establish a **reference measurement** of the vertical vibration level under 
+This measurement was performed at the Advanced Photon Source (APS), beamline
+2-BM (Micro-tomography), as part of the vibration test activities.
+The data analyzed here were collected before the APS air handler are turned off. 
+As such, this dataset serves primarily to validate the vibration-analysis method
+and to establish a reference measurement of the vertical vibration level under 
 the current (house-ventilated) operating conditions.
 
-The goal of the test was to characterize the **vertical vibration** of the
+The goal of the test was to characterize the vertical vibration of the
 x-ray image formed on a scintillator screen by analyzing a high-speed image
 sequence acquired with the 2-BM micro-CT detector system.
 
@@ -21,7 +21,7 @@ Experiment Summary
 ------------------
 
 A stack of projection images was acquired with a FLIR Oryx camera viewing a
-LuAG scintillator at **20 keV** beam energy. The camera operated at
+LuAG scintillator at 20 keV beam energy. The camera operated at
 approximately **99 fps** (from file name ``S01-AHU401_1000frms_99fps_001.h5``),
 and the detector configuration (objective lens, binning, and ROI) was chosen for
 micro-tomography imaging with relatively large field of view. The resulting 3D
@@ -60,15 +60,15 @@ General information
 +-----------------------------------+---------------------------------------------------------------------+
 | Proposal ID                       | 00000                                                               |
 +-----------------------------------+---------------------------------------------------------------------+
-| Raw data file                     | ``S01-AHU401_1000frms_99fps_001.h5``                                |
+| Raw data file                     | ``Baseline_10000frms_99fps_002.h5``                                 |
 +-----------------------------------+---------------------------------------------------------------------+
-| File path                         | ``/data2/2025-12/DeCarlo/reference/``                               |
+| File path                         | ``/data2/2025-12/DeCarlo/run_20251222/``                            |
 +-----------------------------------+---------------------------------------------------------------------+
-| Acquisition start                 | 2025-12-19T22:18:10-0600                                            |
+| Acquisition start                 | 2025-12-22T08:53:16-0600                                            |
 +-----------------------------------+---------------------------------------------------------------------+
-| Acquisition end                   | 2025-12-19T22:21:13-0600                                            |
+| Acquisition end                   | 2025-12-22T09:07:46-0600                                            |
 +-----------------------------------+---------------------------------------------------------------------+
-| Storage ring current              | 130.0429941781159 mA                                                |
+| Storage ring current              | 130.13843732064413 mA                                                |
 +-----------------------------------+---------------------------------------------------------------------+
 | Fill mode                         | 130 mA / 48 singlets / High Coupling                                |
 +-----------------------------------+---------------------------------------------------------------------+
@@ -250,7 +250,7 @@ Processing configuration
 +===========================================+======================================================+
 | Script                                    | ``vibration/frequency.py``                           |
 +-------------------------------------------+------------------------------------------------------+ 
-| Input file                                | ``S01-AHU401_1000frms_99fps_001.h5``                 |
+| Input file                                | ``Baseline_10000frms_99fps_002.h5``                  |
 +-------------------------------------------+------------------------------------------------------+
 | Dataset path                              | ``/exchange/data``                                   |
 +-------------------------------------------+------------------------------------------------------+
@@ -276,12 +276,12 @@ The dual-band analysis was performed with the **position-based method**:
 +-------------------------------------------+-----------------+--------------------------------------------+
 | Frequency band                            | Peak frequency  | Interpretation                             |
 +===========================================+=================+============================================+
-| 25.0–35.0 Hz                              | 29.944 Hz       | Dominant line in the "vent/line" band      |
+| 25.0–35.0 Hz                              | 29.792 Hz       | Dominant line in the "vent/line" band      |
 +-------------------------------------------+-----------------+--------------------------------------------+
-| 35.0–100.0 Hz                             | 46.139 Hz       | Dominant structural/resonance component    |
+| 35.0–100.0 Hz                             | 45.986 Hz       | Dominant structural/resonance component    |
 +-------------------------------------------+-----------------+--------------------------------------------+
 
-Below are the results obtained by repeating the measurement every 15 min.
+Below are the results for the same measurement obtained repeated every 15 min one day ahead of the APS wide test.
 
 .. table:: Measured dominant vertical vibration frequencies for each (`Sxx-AHUyyy_1000frms_99fps_zzz.h5`) file, 
            together with the corresponding (simulated) APS air handler status (1) or stopped (0) during that run.
@@ -333,6 +333,12 @@ Below are the results obtained by repeating the measurement every 15 min.
    | S39-AHU403_1000frms_99fps_020.h5           | 99.0  | 2025-12-20T02:51:15-0600 |         29.792         |         45.986          | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
    +--------------------------------------------+-------+--------------------------+------------------------+-------------------------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
 
+.. warning:: 
+
+  The file names were intentionally set as part of a test to verify the APS root name assignment. 
+  During the measurements described above, all AHUs were operating.
+
+
 .. figure:: ../img/plot_vibration_reference.png
    :width: 1024px
    :align: center
@@ -346,15 +352,62 @@ Summary and Remarks
 * Under the given beamline and detector conditions (20 keV, LuAG scintillator,
   2× objective, 2×2 binning, nominal 99 fps), the vertical image motion for
   run ``S01-AHU401_1000frms_99fps_001.h5`` is dominated by frequency components
-  near **29.94 Hz** and **46.14 Hz**.
+  near **29.792 Hz** and **45.986 Hz**.
 
-* The **29.94 Hz** component lies in the 25–35 Hz band and is consistent with a
+* The **29.792 Hz** component lies in the 25–35 Hz band and is consistent with a
   ventilation / mechanical line contribution.
 
-* The **46.14 Hz** component lies in the 35–100 Hz band and indicates a higher
+* The **45.986 Hz** component lies in the 35–100 Hz band and indicates a higher
   frequency resonance, potentially associated with the detector mechanics,
   sample stage, or beamline infrastructure.
 
 These values provide a quantitative baseline for comparison with future
 measurements that will be taken after the air handler is turned off, enabling
 assessment of the impact of HVAC-related vibrations on the imaging system.
+
+
+Measurements
+============
+
+
+xx
+
+.. table:: Air handler status (1) or stopped (0) during that test.
+    :align: center
+
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |       Measurement time |file name | AH| AH| AH| AH| AH| AH| AH| AH| AH| AH| AH| AH| AH| AH| AH| AH| AH| AH| AH| AH|
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |                        |          |S01|S03|S05|S07|S09|S11|S13|S15|S17|S19|S21|S23|S25|S27|S29|S31|S33|S35|S37|S39|
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |2025-12-22T08:08:04-0600|Baseline  | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |2025-12-22T08:51:33-0600|Baseline  | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |2025-12-22T09:07:46-0600|S03-AHU501| 1 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |2025-12-22T09:11:26-0600|S05-AHU502| 1 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |2025-12-22T09:23:44-0600|S07-AHU503| 1 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |2025-12-22T09:33:43-0600|S09-AHU504| 1 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |2025-12-22T09:44:45-0600|S11-AHU505| 1 | 0 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |2025-12-22T09:53:00-0600|S13-AHU506| 1 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |2025-12-22T10:01:30-0600|S15-AHU507| 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |2025-12-22T10:10:27-0600|S17-AHU508| 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |2025-12-22T10:19:19-0600|S19-AHU509| 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |2025-12-22T10:29:18-0600|S21-AHU510| 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |2025-12-22T10:41:29-0600|S23-AHU511| 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+    +------------------------+----------+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+.. warning:: 
+
+  The final two file name roots are incorrectly labeled as “S39-AHU403” and “S01-AHU401.” In reality, AHU401 in 
+  Sector 39 was turned off first, followed by AHU403 in Sector 01 at the end of the day.
