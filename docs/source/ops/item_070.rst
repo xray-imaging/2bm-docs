@@ -68,7 +68,7 @@ General information
 +-----------------------------------+---------------------------------------------------------------------+
 | Acquisition end                   | 2025-12-22T09:07:46-0600                                            |
 +-----------------------------------+---------------------------------------------------------------------+
-| Storage ring current              | 130.13843732064413 mA                                                |
+| Storage ring current              | 130.13843732064413 mA                                               |
 +-----------------------------------+---------------------------------------------------------------------+
 | Fill mode                         | 130 mA / 48 singlets / High Coupling                                |
 +-----------------------------------+---------------------------------------------------------------------+
@@ -430,3 +430,11 @@ between 08:00 and 13:00 (local time).
 
   For the last measurement, two air handlers (Sectors 1 and 39), which are of different designs, were turned off simultaneously. 
   The root file name for this last measurement is S39-AHU403. Please ignore the AH status for these two measurement.
+
+
+.. figure:: ../img/plot_vibration_run.png
+   :width: 1024px
+   :align: center
+   :alt: softglue_001
+
+   vibration test results
