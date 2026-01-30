@@ -156,6 +156,9 @@ or::
 
   (dm-user) [2bmb@arcturus]$ dm-get-archive-task --id 0293f99b-c724-402f-af94-1f2606499d96 --display-keys ALL
 
+To list all tasks::
+
+  (dm-user) [2bmb@arcturus]$ dm-list-archive-tasks
 
 Tape archive
 ============
