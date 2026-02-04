@@ -114,3 +114,24 @@ Select a different camera::
   In [15]: optics.camera_select.put(1)
   In [16]: optics.camera_select.get()
   Out[16]: 1
+
+
+Tomoscan integration (under Bluesky)
+====================================
+
+The beamline can run tomography acquisition using
+`tomoscan <https://tomoscan.readthedocs.io/en/latest/index.html>`_, a Python
+module for collecting computed tomography data at the APS.  Tomoscan plans
+are executed through the Bluesky RunEngine.
+
+Single tomoscan
+---------------
+
+Activate the conda environment, start IPython, load the tomoscan startup,
+and run a single scan::
+
+  (base) 2bmb@arcturus ~ $ conda activate tomo-bits-decarlof
+  (tomo-bits-decarlof) 2bmb@arcturus ~ $ ipython
+
+  In [1]: from tomo_2bm.startup import *
+  In [2]: RE(tomo_single_scan())
