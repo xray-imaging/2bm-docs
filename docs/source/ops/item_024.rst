@@ -9,7 +9,6 @@ For example, running:
 ::
 
   [2bmb@tomdet] $ make clean
-  [2bmb@tomdet] $ make clean
   [2bmb@tomdet] $ make -sj
 
 may fail with errors such as:
