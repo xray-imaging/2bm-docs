@@ -69,6 +69,46 @@ Then use:
 
    memPulseSeq component
 
+Setting the pulse delay/width (GateDly)
+=======================================
+
+You can adjust the timing (delay) and duration (width) of the output pulse using the
+**GateDly** block.
+
+From the main Softglue panel, select:
+
+- **softGlue → softGlueZynqMenu**
+
+to open the **Clk, G&D, HS, PT** page:
+
+.. figure:: ../img/softglue_007.png
+   :width: 128px
+   :align: center
+   :alt: softglue_007
+
+   softGlueZynqMenu control
+
+Select **GateDly 1**:
+
+.. figure:: ../img/softglue_008.png
+   :width: 128px
+   :align: center
+   :alt: softglue_008
+
+   GateDly 1 selection
+
+Set:
+
+- ``DLY = 0``
+- ``Width = 100``
+
+Notes:
+
+- ``DLY`` sets the delay from the incoming edge to the start of the output pulse.
+- ``Width`` sets how long the output pulse stays high.
+- ``Width`` is in units of **10 MHz clock cycles** (100 ns per count). Therefore,
+  ``Width = 100`` produces a :math:`100 × 100\,\mathrm{ns} = 10\,μ\mathrm{s}` pulse.
+
 
 Custom trigger pattern (trigILF)
 ================================
