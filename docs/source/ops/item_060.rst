@@ -82,7 +82,7 @@ From the main Softglue panel, select:
 to open the **Clk, G&D, HS, PT** page:
 
 .. figure:: ../img/softglue_007.png
-   :width: 128px
+   :width: 180px
    :align: center
    :alt: softglue_007
 
@@ -91,7 +91,7 @@ to open the **Clk, G&D, HS, PT** page:
 Select **GateDly 1**:
 
 .. figure:: ../img/softglue_008.png
-   :width: 128px
+   :width: 300px
    :align: center
    :alt: softglue_008
 
