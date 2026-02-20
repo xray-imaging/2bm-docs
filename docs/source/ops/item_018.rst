@@ -169,6 +169,30 @@ To archive an experiment (e.g. ``Finfrock-2023-03``) from Voyager to tape::
   (dm-user) [2bmb@arcturus]$ dm-archive-experiment --experiment Finfrock-2023-03
 
 
+
+Pin / extend archive-to-tape date
+=================================
+
+If you receive a notification email like::
+
+  Experiment Lu-2023-03 can be archived in 1 days, 22 hours (168205.33 seconds).
+
+and want to extend the archival to tape date, run::
+
+  (base)   [2bmb@arcturus]$ source /home/dm_bm/etc/dm.setup.sh
+  (dm-user) [2bmb@arcturus]$ dm-pin-experiment --experiment Lu-2023-03 --n-days 90
+  id=12322 name=Lu-2023-03 experimentTypeId=32 experimentStationId=23 updateDate=2026-02-06 13:21:24.826141-06:00 startDate=2023-03-24 00:00:00-05:00 endDate=2023-03-27 00:00:00-05:00
+
+To verify the pinned status of an experiment::
+
+  (dm-user) dmadmin@s2bmdm> dm-get-experiment --experiment Lu-2023-03 -a -pp | grep pinned
+    'pinnedAtTime': '1771565030.0576963',
+    'pinnedAtTimestamp': '2026/02/19 23:23:50',
+    'pinnedByUser': 'user2bm',
+    'pinnedUntilTime': '1779341030.0576963',
+    'pinnedUntilTimestamp': '2026/05/21 00:23:50',
+
+
 Add users
 =========
 
