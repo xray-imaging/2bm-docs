@@ -438,3 +438,458 @@ between 08:00 and 13:00 (local time).
    :alt: softglue_001
 
    vibration test results
+
+
+Flat Field Stability Measurement
+=================================
+
+A flat field stability study was conducted at beamline 2-BM to monitor the vertical
+motion of horizontal stripes in the X-ray beam over an extended period.
+
+Beamline Setup
+--------------
+
+The images were collected at the APS beamline 2-BM. The X-ray beam is conditioned by:
+
+1. **Mirror M1** with a Pt coating operating at 0.15° grazing incidence angle, used as a
+   low-pass energy filter.
+2. **Double Multilayer Monochromator (DMM)** set to select 20 keV X-rays.
+
+The X-ray beam illuminates a **scintillator screen**, which converts X-rays into visible
+light. The visible light image is then captured by an optical camera coupled to the
+scintillator via a 2× magnification objective.
+
+.. note::
+
+   The beam exhibits **horizontal stripes that move vertically** over time. These stripes
+   are characteristic of the DMM optics and are a primary motivation for this flat field
+   stability study. Because the stripe pattern drifts during data collection, a single
+   flat field image may not adequately correct projection data acquired at a different
+   time. Understanding the temporal behavior of these stripes is essential for developing
+   improved flat field correction strategies.
+
+Experimental Parameters
+-----------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Parameter
+     - Value
+   * - Beamline
+     - 2-BM (APS)
+   * - Mirror M1
+     - Pt coating, 0.15° grazing angle
+   * - Monochromator
+     - Double Multilayer Monochromator (DMM)
+   * - Energy
+     - 20 keV
+   * - Detector
+     - Visible light camera imaging a scintillator screen
+   * - Objective
+     - 2×
+   * - Pixel size
+     - 3.45 µm (with 2× binning)
+   * - Image dimensions
+     - 2048 × 1536 pixels
+   * - Start time
+     - 2026-02-22 00:00
+   * - End time
+     - 2026-02-22 08:03
+   * - Duration
+     - ~8 hours
+   * - Exposure time
+     - 0.1 s
+   * - Images per set
+     - 10
+   * - Acquisition interval
+     - 60 s
+   * - Total sets acquired
+     - 471 (sets 0–470)
+   * - Total images acquired
+     - 4710 (flat\_...\_0000.tif – flat\_...\_4709.tif)
+   * - Image file size
+     - ~6.3 MB each
+   * - Total data volume
+     - ~29 GB
+   * - File name prefix
+     - ``flat_2x_2bin3.45um_momo20keV_``
+   * - Beam current threshold
+     - 100 mA
+
+Acquisition Details
+-------------------
+
+The camera was configured in **Multiple** image mode, collecting 10 consecutive frames
+per trigger at 0.1 s exposure time. A new set of 10 images was triggered every 60 seconds.
+The script monitored the APS storage ring current (``S-DCCT:CurrentM``) and was set to
+stop automatically if the current dropped below 100 mA.
+
+All images are open-beam (flat field) exposures with no sample in the beam path. Each image
+captures the full X-ray beam profile after the M1 mirror and DMM optics, including the
+characteristic horizontal stripe pattern produced by the multilayer optics.
+
+The file naming convention follows sequential numbering:
+
+- **Set 0:** ``flat_2x_2bin3.45um_momo20keV_0000.tif`` – ``flat_2x_2bin3.45um_momo20keV_0009.tif``
+- **Set 1:** ``flat_2x_2bin3.45um_momo20keV_0010.tif`` – ``flat_2x_2bin3.45um_momo20keV_0019.tif``
+- ...
+- **Set 470:** ``flat_2x_2bin3.45um_momo20keV_4700.tif`` – ``flat_2x_2bin3.45um_momo20keV_4709.tif``
+
+Each set of 10 images can be averaged to produce a single flat field frame, yielding
+471 averaged flat field images spanning the 8-hour measurement window.
+
+Analysis Results
+----------------
+
+The vertical stripe motion was analyzed at two timescales using cross-correlation of
+horizontally-averaged vertical profiles:
+
+1. **Fast motion** (within each 1-second set of 10 frames at 0.1 s intervals)
+2. **Slow motion** (across 471 sets over 8 hours at 1-minute intervals)
+
+.. figure:: ../img/stripe_motion_detail_v3.png
+   :width: 1024px
+   :align: center
+   :alt: Flat field stripe motion analysis
+
+   Flat field stripe motion analysis for Feb 22, 2026 (00:00–08:03). **Top left:**
+   Vertical stripe drift over 8 hours; the blue trace shows the raw shift (in pixels)
+   measured by cross-correlation of each set's averaged vertical profile relative to the
+   first set, the red line is the 30-minute moving average, and red shaded regions mark
+   active events where set-to-set jumps exceeded 2 pixels (35% of total time). Three
+   active events are visible: initial settling (0–0.73 h), a brief disturbance
+   (0.78–0.88 h), and a large sustained instability in the last 2 hours (5.93–7.83 h).
+   **Top right:** Absolute set-to-set change (log scale) showing the bimodal character —
+   most intervals have sub-pixel changes while occasional jumps reach up to 40 pixels.
+   **Middle left:** Log-scale histogram of minute-to-minute changes confirming the
+   heavy-tailed distribution with a median of 0.1 px but a long tail extending to 40 px.
+   **Middle right:** Quiet stretch duration histogram showing two quiet periods (2 and
+   302 minutes). **Bottom left:** Power spectrum of the raw signal with dominant peaks
+   near 10-minute and 23-minute periods, though the spectral power is dominated by the
+   intermittent jump events. **Bottom right:** Power spectrum plotted versus period.
+   **Lower left:** Flat field validity for all data — expected drift as a function of
+   time gap between flat field and scan, showing mean (blue), median (green), and 90th
+   percentile (red). **Lower right:** Same analysis restricted to quiet periods only,
+   showing that during stable beam conditions the drift remains below 0.5 pixels even
+   for time gaps exceeding 60 minutes.
+
+Overall Behavior
+^^^^^^^^^^^^^^^^
+
+The stripe motion is characterized by **intermittent large jumps on a quiet background**:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 50 50
+
+   * - Metric
+     - Value
+   * - Total drift range
+     - 48.5 pixels
+   * - Median minute-to-minute change
+     - 0.10 pixels
+   * - Intervals exceeding 2 px jump
+     - 100 of 470 (21.3%)
+   * - Active time (near jumps)
+     - 35.5%
+   * - Quiet time
+     - 64.5%
+   * - 30-min smoothed trend range
+     - 11.4 pixels
+   * - Linear drift rate
+     - −0.38 pixels/hour
+
+Active Events
+^^^^^^^^^^^^^
+
+Three distinct active events were identified where the stripes exhibited large, rapid
+vertical jumps:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 15 20 20 20 25
+
+   * - Event
+     - Time (h)
+     - Duration (min)
+     - Range (px)
+     - Notes
+   * - 0
+     - 0.00 – 0.73
+     - 45
+     - 16.6
+     - Initial settling after beam-up
+   * - 1
+     - 0.78 – 0.88
+     - 7
+     - 4.7
+     - Brief disturbance
+   * - 2
+     - 5.93 – 7.83
+     - 115
+     - 48.5
+     - Large sustained instability
+
+The first event likely corresponds to thermal settling of the DMM optics after beam
+delivery began. The third event, spanning the last 2 hours, dominates the total drift
+range and may be related to thermal or mechanical changes in the monochromator or
+storage ring orbit drifts.
+
+Quiet Period Stability
+^^^^^^^^^^^^^^^^^^^^^^
+
+Between the active events (0.9 – 5.9 hours, approximately 5 hours), the stripes were
+remarkably stable:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 50 50
+
+   * - Metric
+     - Value
+   * - Duration
+     - ~5 hours (302 minutes, sets 54–355)
+   * - Median minute-to-minute change
+     - 0.046 pixels
+   * - Mean minute-to-minute change
+     - 0.108 pixels
+   * - 90th percentile change
+     - 0.323 pixels
+   * - Maximum change
+     - 0.764 pixels
+   * - Autocorrelation 1/e decay
+     - 3 minutes
+   * - Autocorrelation first zero crossing
+     - 107 minutes
+
+Flat Field Validity
+^^^^^^^^^^^^^^^^^^^
+
+The practical question is: **how much stripe drift should be expected between a flat field
+acquisition and a tomographic scan?**
+
+During **quiet periods**, flat fields remain valid for extended durations:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 20 20 20 20
+
+   * - Time gap
+     - Mean \|drift\|
+     - Median \|drift\|
+     - 90th pct
+     - 95th pct
+   * - 1 min
+     - 0.108 px
+     - 0.046 px
+     - 0.323 px
+     - 0.458 px
+   * - 5 min
+     - 0.178 px
+     - 0.101 px
+     - 0.446 px
+     - 0.541 px
+   * - 10 min
+     - 0.136 px
+     - 0.084 px
+     - 0.338 px
+     - 0.483 px
+   * - 30 min
+     - 0.197 px
+     - 0.162 px
+     - 0.407 px
+     - 0.508 px
+   * - 60 min
+     - 0.201 px
+     - 0.165 px
+     - 0.412 px
+     - 0.467 px
+   * - 120 min
+     - 0.230 px
+     - 0.210 px
+     - 0.445 px
+     - 0.531 px
+   * - 240 min
+     - 0.332 px
+     - 0.358 px
+     - 0.536 px
+     - 0.596 px
+
+However, when considering **all data** (including active events), the drift is much larger:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 20 20 20 20
+
+   * - Time gap
+     - Mean \|drift\|
+     - Median \|drift\|
+     - 90th pct
+     - 95th pct
+   * - 1 min
+     - 2.695 px
+     - 0.101 px
+     - 8.275 px
+     - 18.949 px
+   * - 5 min
+     - 3.646 px
+     - 0.242 px
+     - 12.141 px
+     - 21.826 px
+   * - 30 min
+     - 3.396 px
+     - 0.251 px
+     - 12.356 px
+     - 18.801 px
+   * - 60 min
+     - 3.616 px
+     - 0.300 px
+     - 12.528 px
+     - 17.593 px
+   * - 240 min
+     - 4.898 px
+     - 0.654 px
+     - 13.591 px
+     - 19.301 px
+
+The large difference between mean and median in the all-data table reflects the
+intermittent nature of the jumps: most of the time the drift is sub-pixel, but
+occasional large jumps (up to 40 pixels) dramatically increase the mean and upper
+percentiles.
+
+Spectral Analysis
+^^^^^^^^^^^^^^^^^
+
+The dominant oscillation periods in the stripe motion are:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 25 25 25
+
+   * - Period band
+     - % of power
+     - RMS amplitude
+     - Peak-to-peak
+   * - 2–5 min
+     - 43.6%
+     - 0.73 px
+     - 9.4 px
+   * - 5–10 min
+     - 31.9%
+     - 0.63 px
+     - 7.8 px
+   * - 10–20 min
+     - 10.1%
+     - 0.35 px
+     - 3.5 px
+   * - 20–30 min
+     - 10.8%
+     - 0.37 px
+     - 2.9 px
+   * - 30–60 min
+     - 1.5%
+     - 0.14 px
+     - 0.8 px
+   * - >60 min
+     - 2.1%
+     - 0.16 px
+     - 0.8 px
+
+The strongest spectral peaks are at periods of ~9 min and ~23 min. However, the spectral
+power is dominated by the intermittent jump events rather than continuous periodic
+oscillations.
+
+Fast Motion (Sub-second)
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Within each 1-second acquisition set (10 frames at 0.1 s):
+
+.. list-table::
+   :header-rows: 1
+   :widths: 50 50
+
+   * - Metric
+     - Value
+   * - Frame-to-frame std
+     - 0.37 pixels
+   * - Frame-to-frame median \|shift\|
+     - 0.11 pixels
+   * - Mean within-set range
+     - 1.99 pixels
+   * - Maximum within-set range
+     - 8.92 pixels
+
+Conclusions
+-----------
+
+1. **The stripe motion is intermittent, not continuous.** The beam is stable ~65% of the
+   time with sub-pixel drift, punctuated by sudden jumps of up to 40 pixels.
+
+2. **During quiet periods, flat fields are valid for hours.** Even with a 4-hour gap
+   between flat field and scan, the expected drift is less than 0.6 pixels (95th
+   percentile).
+
+3. **Active events are the primary concern.** Three events were observed: an initial
+   settling period (~45 min), a brief disturbance (~7 min), and a prolonged instability
+   in the last 2 hours (~115 min).
+
+4. **Practical recommendation:** Acquire flat fields as close to scan time as possible.
+   If the beam is in a quiet state, a flat field acquired within 30 minutes will
+   typically have less than 0.5 pixels of drift. However, if an active event occurs
+   during the scan, no pre-acquired flat field will be adequate — real-time or
+   adaptive flat field correction would be needed.
+
+Analysis Scripts
+----------------
+
+The analysis was performed using two Python scripts available on GitHub:
+
+1. `analyze_stripe_motion.py <https://github.com/decarlof/sandbox/blob/master/flats/analyze_stripe_motion.py>`_
+   — Processes all 4710 TIFF images, computes vertical profiles and cross-correlation
+   shifts, saves results to ``stripe_motion_results.npz``.
+
+2. `analyze_slow_detail_v3.py <https://github.com/decarlof/sandbox/blob/master/flats/analyze_slow_detail_v3.py>`_
+   — Loads the saved results and performs detailed characterization of jump behavior,
+   quiet/active periods, spectral analysis, and flat field validity assessment.
+
+.. code-block:: bash
+
+   # Step 1: Process images (reads all TIFFs, ~30 min)
+   python analyze_stripe_motion.py /path/to/flat/images/
+
+   # Step 2: Detailed analysis (reads .npz, ~1 sec)
+   python analyze_slow_detail_v3.py /path/to/flat/images/
+
+Acquisition Script
+------------------
+
+The acquisition was controlled by a Python script using
+`pyepics <https://pyepics.github.io/pyepics/>`_ to interface with the EPICS control
+system. The full source is available at
+`collect_flats.py <https://github.com/decarlof/sandbox/blob/master/flats/collect_flats.py>`_.
+
+The script:
+
+1. Configures the camera for Multiple image mode with 10 images per trigger.
+2. Triggers acquisition every 60 seconds.
+3. Monitors the APS beam current and stops if it drops below 100 mA.
+4. Handles ``Ctrl-C`` for clean shutdown.
+
+Key EPICS PVs used:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 50 50
+
+   * - PV Name
+     - Purpose
+   * - ``2bmSP1:cam1:Acquire``
+     - Trigger acquisition
+   * - ``2bmSP1:cam1:ImageMode``
+     - Set to Multiple (1)
+   * - ``2bmSP1:cam1:NumImages``
+     - Set to 10
+   * - ``S-DCCT:CurrentM``
+     - APS storage ring current
