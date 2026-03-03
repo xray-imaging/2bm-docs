@@ -453,7 +453,7 @@ The images were collected at the APS beamline 2-BM. The X-ray beam is conditione
 
 1. **Mirror M1** with a Pt coating operating at 0.15° grazing incidence angle, used as a
    low-pass energy filter.
-2. **Double Multilayer Monochromator (DMM)** set to select 20 keV X-rays.
+2. :ref:`Double Multilayer Monochromator (DMM) <ops-dmm>` set to select 20 keV X-rays.
 
 The X-ray beam illuminates a **scintillator screen**, which converts X-rays into visible
 light. The visible light image is then captured by an optical camera coupled to the
@@ -482,7 +482,7 @@ Experimental Parameters
    * - Mirror M1
      - Pt coating, 0.15° grazing angle
    * - Monochromator
-     - Double Multilayer Monochromator (DMM)
+     - :ref:`Double Multilayer Monochromator (DMM) <ops-dmm>`
    * - Energy
      - 20 keV
    * - Detector
