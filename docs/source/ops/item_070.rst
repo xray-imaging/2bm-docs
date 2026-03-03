@@ -282,6 +282,10 @@ The dual-band analysis was performed with the **position-based method**:
 +-------------------------------------------+-----------------+--------------------------------------------+
 
 Below are the results for the same measurement obtained repeated every 15 min one day ahead of the APS wide test.
+Raw data are available for download from the APS data management system via
+`Globus (test_20251219) <https://app.globus.org/file-manager?origin_id=054a0877-97ca-4d80-947f-47ca522b173e&origin_path=%2F2025-12%2F2025-12-DeCarlo-0%2Fdata%2Ftest_20251219%2F>`_
+and
+`Globus (test_20251219_APS_PVs) <https://app.globus.org/file-manager?origin_id=054a0877-97ca-4d80-947f-47ca522b173e&origin_path=%2F2025-12%2F2025-12-DeCarlo-0%2Fdata%2Ftest_20251219_APS_PVs%2F>`_.
 
 .. table:: Measured dominant vertical vibration frequencies for each (`Sxx-AHUyyy_1000frms_99fps_zzz.h5`) file, 
            together with the corresponding (simulated) APS air handler status (1) or stopped (0) during that run.
@@ -370,10 +374,13 @@ Measurements
 ============
 
 The following series of measurements was collected during the APS-wide air handler shutdown test on December 22, 2025.
-Air handling units (AHUs) were turned off one at a time, and immediately after each AHU stopped we received an EPICS process variable (PV) 
-signal to start an Acquire sequence with the micro-CT detector. 
-All runs in this section were acquired under the same beamline and detector configuration as the baseline and were completed 
+Air handling units (AHUs) were turned off one at a time, and immediately after each AHU stopped we received an EPICS process variable (PV)
+signal to start an Acquire sequence with the micro-CT detector.
+All runs in this section were acquired under the same beamline and detector configuration as the baseline and were completed
 between 08:00 and 13:00 (local time).
+
+Raw data are available for download from the APS data management system via
+`Globus (run_20251222) <https://app.globus.org/file-manager?origin_id=054a0877-97ca-4d80-947f-47ca522b173e&origin_path=%2F2025-12%2F2025-12-DeCarlo-0%2Fdata%2Frun_20251222%2F>`_.
 
 .. table:: Air handler status (1) or stopped (0) during that test.
     :align: center
@@ -454,6 +461,11 @@ The images were collected at the APS beamline 2-BM. The X-ray beam is conditione
 1. **Mirror M1** with a Pt coating operating at 0.15° grazing incidence angle, used as a
    low-pass energy filter.
 2. :ref:`Double Multilayer Monochromator (DMM) <ops-dmm>` set to select 20 keV X-rays.
+
+Raw data are available for download from the APS data management system via
+`Globus (flats_01, Feb 22) <https://app.globus.org/file-manager?origin_id=054a0877-97ca-4d80-947f-47ca522b173e&origin_path=%2F2026-03%2F2026-03-DeCarlo-0%2Fdata%2Fflats_01%2F>`_
+and
+`Globus (flats_02, Feb 23) <https://app.globus.org/file-manager?origin_id=054a0877-97ca-4d80-947f-47ca522b173e&origin_path=%2F2026-03%2F2026-03-DeCarlo-0%2Fdata%2Fflats_02%2F>`_.
 
 The X-ray beam illuminates a **scintillator screen**, which converts X-rays into visible
 light. The visible light image is then captured by an optical camera coupled to the
