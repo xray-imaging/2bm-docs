@@ -20,7 +20,7 @@ Build EPICS base
 Create the base directory::
 
   $ mkdir ~/epics-ad
-  $ cd epics-ad
+  $ cd ~/epics-ad
 
 Download and build EPICS base (latest release)::
 
