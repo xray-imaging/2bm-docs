@@ -2,7 +2,7 @@
 Jena NV200D
 ===========
 
-The Jena NV200D/NET controllers drive two piezo axes (X and Y) at 2-BM-A.
+The Jena NV200D/NET controllers drive two piezo axes (X and Y) at 2-BM-B.
 They complement the existing :doc:`Jena NV100D <item_027>` and are integrated
 with the FPGA trigger to step through a pre-loaded position list during
 tomography acquisitions.
