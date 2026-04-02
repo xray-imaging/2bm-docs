@@ -10,6 +10,21 @@ The sample motor stack consists of:
 #. **Hexapod** – six axes (x, y, z, roll, pitch, yaw)
 
 
+Sample top X/Z
+==============
+
+The X and Z axes above the rotary stage use the `Kohzu CYAT-070
+<https://www.kohzuprecision.com/products/alignment-stages/item/cyat-070/>`_
+crossed-roller alignment stage:
+
+.. figure:: ../img/kohzu_cyat070.jpg
+   :width: 360px
+   :align: center
+   :alt: kohzu_cyat070
+
+   Kohzu CYAT-070 alignment stage (Sample top X and Z)
+
+
 Rotary stage
 ============
 
