@@ -11,8 +11,8 @@ Recommended rack-mount IOC, SSF/Mini/IOC, and workstation/NX platforms can
 be ordered following the instructions provided `here
 <https://anl.box.com/s/iw6hpbnl09htihvp25eiek2kxs54iwsd>`_.
 
-Data analysis and storage
-=========================
+Data analysis
+=============
 
 .. _cluster_folder: https://anl.box.com/s/cwqbvet2qv8239nhrof0qemyohd0jho3
 .. _cluster: https://anl.box.com/s/uysvb5ujnlugmd16r2f6o10fem9rjgvr
@@ -22,13 +22,6 @@ Data analysis and storage
 .. _cluster_quote: https://anl.box.com/s/j7wz6li4afoq2gs5g8feehmmz8q7whuy
 .. _cluster_quote_01: https://anl.box.com/s/06nkozbmkhu5qsi61njcgm1qs3ug8pcg
 .. _cluster_quote_02: https://anl.box.com/s/hz9l2whlju2a81tyr4k9e07ukc8m4zkn
-.. _disk_array_01: https://anl.box.com/s/zzyvv7w80ltwbtf09zrjiqiw7ak6i7ge
-.. _disk_array_quote_01: https://anl.box.com/s/sbft8cbt2xcpzuuvikixr82dn9jf6zog
-.. _disk_array_02: https://anl.box.com/s/d8b1xb6e99e6vggqv5dd9z02luefo7hw
-.. _disk_array_quote_02: https://anl.box.com/s/o1sh7nfxzqhcb6qef19f9s7ogavobv0g
-.. _disk_array_03: https://anl.box.com/s/2qssygdx83qkwo8up448khrzd26fm08p
-.. _disk_array_quote_03: https://anl.box.com/s/bd2i81zg4kcgecp4kd8740udf2fqwii7
-.. _ssd_array_quote_03: https://anl.box.com/s/tmwq8cpiicl378c62yxbu6r3gnlek7lu
 .. _eberlight_01: https://anl.box.com/s/njzf1ya4vlryd6bc3a61fn54g4nkol7o
 .. _eberlight_02: https://anl.box.com/s/cd77y9uwtesx2cfo60q69ekt1ua9wrc4
 
@@ -43,6 +36,64 @@ Data analysis and storage
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
 | 2-BM      | tomo 4-5 (SXM-4)   | MNJ16235754   | `cluster_02`_     | Supermicro 220GQ-TNAR+ node               | `cluster_quote_02`_    |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
+| eBERlight | eberproc1-2        | MNJ16187026   | `eberlight_01`_   | Supermicro 740GP-TNRT node                | `eberlight_02`_        |
++-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
+
+Current memory configuration for tomo1–5 is documented in `this spreadsheet
+<https://anl.box.com/s/ywjtwzk6q9su93pizzbdk90q77g0doo7>`_.
+
+GPU configuration for tomo1–5 (driver version 590.48.01 on all nodes):
+
++-------+--------+------------------+------------------+
+| Name  | # GPUs | Model            | Memory (per GPU) |
++-------+--------+------------------+------------------+
+| tomo1 | 2      | NVIDIA A100 PCIe | 40 GB            |
++-------+--------+------------------+------------------+
+| tomo2 | 2      | NVIDIA A100 PCIe | 40 GB            |
++       +--------+------------------+------------------+
+|       | 1      | NVIDIA A100 SXM4 | 40 GB            |
++-------+--------+------------------+------------------+
+| tomo3 | 1      | NVIDIA A100 PCIe | 80 GB            |
++       +--------+------------------+------------------+
+|       | 1      | NVIDIA A100 SXM4 | 40 GB            |
++-------+--------+------------------+------------------+
+| tomo4 | 4      | NVIDIA A100 SXM4 | 40 GB            |
++-------+--------+------------------+------------------+
+| tomo5 | 4      | NVIDIA A100 SXM4 | 40 GB            |
++-------+--------+------------------+------------------+
+
+RAM configuration for tomo1–5:
+
++-------+-----------+-----------+-------------+---------------------+
+| Name  | Total RAM | # Modules | Module size | Part Number         |
++-------+-----------+-----------+-------------+---------------------+
+| tomo1 | 2 TB      | 16        | 128 GB      | M393AAG40M32-CAE    |
++-------+-----------+-----------+-------------+---------------------+
+| tomo2 | 2 TB      | 16        | 128 GB      | M393AAG40M32-CAE    |
++-------+-----------+-----------+-------------+---------------------+
+| tomo3 | 1 TB      | 8         | 128 GB      | M393AAG40M32-CAE    |
++-------+-----------+-----------+-------------+---------------------+
+| tomo4 | 2 TB      | 16        | 128 GB      | 72ASQ16G72PSZ-3S2B1 |
++-------+-----------+-----------+-------------+---------------------+
+| tomo5 | 4 TB      | 16        | 128 GB      | M393AAG40M32-CAE    |
++       +           +-----------+-------------+---------------------+
+|       |           | 16        | 128 GB      | 72ASQ16G72PSZ-3S2B1 |
++-------+-----------+-----------+-------------+---------------------+
+
+Storage
+=======
+
+.. _disk_array_01: https://anl.box.com/s/zzyvv7w80ltwbtf09zrjiqiw7ak6i7ge
+.. _disk_array_quote_01: https://anl.box.com/s/sbft8cbt2xcpzuuvikixr82dn9jf6zog
+.. _disk_array_02: https://anl.box.com/s/d8b1xb6e99e6vggqv5dd9z02luefo7hw
+.. _disk_array_quote_02: https://anl.box.com/s/o1sh7nfxzqhcb6qef19f9s7ogavobv0g
+.. _disk_array_03: https://anl.box.com/s/2qssygdx83qkwo8up448khrzd26fm08p
+.. _disk_array_quote_03: https://anl.box.com/s/bd2i81zg4kcgecp4kd8740udf2fqwii7
+.. _ssd_array_quote_03: https://anl.box.com/s/tmwq8cpiicl378c62yxbu6r3gnlek7lu
+
++-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
+| Station   | Name               | Product       | Part list         | Model                                     | Quote                  |
++-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
 | 2-BM      | tomodata1          | MNJ15508749   | `disk_array_01`_  | SYS-220U-TNR storage                      | `disk_array_quote_01`_ |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
 | 2-BM      | tomodata2          | MNJ18897861   | `disk_array_02`_  | SYS-220U-TNR storage                      | `disk_array_quote_02`_ |
@@ -51,14 +102,20 @@ Data analysis and storage
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
 | 2-BM      | tomodata3 SSD      | MNJ21584605   | 12× SSD 15 TB     | Solidigm P5316 15.36T NVMe PCIe4x4 QLC    | `ssd_array_quote_03`_  |
 +-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
-| 2-BM      | tomdet             |               |                   | Supermicro SYS-521E-WR                    |                        |
-+-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
-| eBERlight | eberproc1-2        | MNJ16187026   | `eberlight_01`_   | Supermicro 740GP-TNRT node                | `eberlight_02`_        |
-+-----------+--------------------+---------------+-------------------+-------------------------------------------+------------------------+
 
-Current memory configuration for tomo1–5 and the disk-array configuration
-for tomodata1–3 are documented in `this spreadsheet
+The disk-array configuration for tomodata1–3 is documented in `this spreadsheet
 <https://anl.box.com/s/ywjtwzk6q9su93pizzbdk90q77g0doo7>`_.
+
+Current NVMe SSD array status for tomodata2 and tomodata3:
+
++-----------+-----------+--------+-------+---------------------------------------------+----------------+-----------+
+| Station   | Name      | RAID   | # SSD | Drive model                                 | Usable         | Redundancy|
++-----------+-----------+--------+-------+---------------------------------------------+----------------+-----------+
+| 2-BM      | tomodata2 | 0      | 20    | Intel SSDPF2KX153T1 14 TB NVMe              | ~266 TB        | None      |
++-----------+-----------+--------+-------+---------------------------------------------+----------------+-----------+
+| 2-BM      | tomodata3 | 5      | 21    | Intel SSDPF2KX153T1 +                       | ~266 TB        | 1 drive   |
+|           |           |        |       | Solidigm SSDPF2NV153TZ 14 TB NVMe (mixed)   |                |           |
++-----------+-----------+--------+-------+---------------------------------------------+----------------+-----------+
 
 Data collection
 ===============
