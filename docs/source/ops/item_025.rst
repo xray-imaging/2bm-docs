@@ -49,11 +49,38 @@ To copy an entire directory between two Linux computers, for example from
 
    Syntax (recursive copy)::
 
-     [tomo@tomodata1]$ java -jar /APSshare/bin/fdt.jar -c {remote_server} -r -d {remote_dir} {local_fname}
+     [tomo@tomodata1]$ java -jar /APSshare/bin/fdt.jar -c {remote_server} -r -d {remote_dir} {local_dir}
 
-   Example::
+   **Case 1 — copy the directory itself (including its name) into the destination:**
 
-     [tomo@tomodata1]$ java -jar /APSshare/bin/fdt.jar -c tomodata2 -r -d /data2/tomodata1_backup /data/Lu-2023-03/
+   Use the directory path as the source. FDT always appends the source
+   directory name to ``{remote_dir}``, so the result is
+   ``{remote_dir}/{source_dirname}/``.
+
+   Example — copies ``/data/Lu-2023-03/`` and creates ``/data2/tomodata1_backup/Lu-2023-03/``::
+
+     [tomo@tomodata1]$ java -jar /APSshare/bin/fdt.jar -c tomodata2 -r -d /data2/tomodata1_backup /data/Lu-2023-03
+
+   **Case 2 — copy only the contents (files and subdirectories) into the destination:**
+
+   Use a glob (``*``) to expand the source directory contents. The shell
+   passes each item inside the directory as a separate argument, so FDT
+   places them directly inside ``{remote_dir}`` without creating an extra
+   level.
+
+   Syntax::
+
+     [tomo@tomodata1]$ java -jar /APSshare/bin/fdt.jar -c {remote_server} -r -d {remote_dir} {local_dir}/*
+
+   Example — copies the *contents* of ``/data/Lu-2023-03/`` directly into ``/data2/tomodata1_backup/``::
+
+     [tomo@tomodata1]$ java -jar /APSshare/bin/fdt.jar -c tomodata2 -r -d /data2/tomodata1_backup /data/Lu-2023-03/*
+
+   .. note::
+
+      Unlike ``rsync``, FDT does not use a trailing slash on the source path
+      to distinguish between copying a directory and copying its contents.
+      Use ``/*`` (glob) to copy contents only.
 
 
 Verify transfer
