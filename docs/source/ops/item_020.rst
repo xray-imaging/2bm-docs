@@ -29,6 +29,7 @@ These are the model/part number of the cameras in use at 2-BM:
 .. _camera_00009:  https://vision.vieworks.com/en/camera/area_scan/VNP_series
 .. _camera_00010:  https://anl.box.com/s/89t8lg9ncm5s4kikwctvdbd0ch517xgx
 .. _camera_00011:  https://www.photometrics.com/products/kinetix-family/kinetix
+.. _camera_00012:  https://anl.box.com/s/roj8e6v47y803swgocjvas3c9xswl4bw
 
 .. _camera_order_00001: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F6-109062
 .. _camera_order_00002: https://apps.inside.anl.gov/paris/req.jsp?reqNbr=F8-219026
@@ -37,6 +38,7 @@ These are the model/part number of the cameras in use at 2-BM:
 
 .. _camera_quote_00001: https://anl.box.com/s/6yv344apeox44m5salxmj4tfmdtvdov4
 .. _camera_quote_00002: https://anl.box.com/s/u2msg1ln3w3483cmpi2jna3mdmtinhm0
+.. _camera_quote_00003: https://anl.box.com/s/svosju2ygvny8n1t3tb177th7qc8rao5
 
 .. |d00001| image:: ../img/dimax_01.png
    :width: 50px
@@ -89,6 +91,8 @@ Cameras
 | pco.edge 10 BI CLHS `(*****)`                                 |  4432 × 2368  |       4.6        | 16      | 120        |     camera_00010_  | 10 BI CLHS                              |                             |    camera_quote_00001_        |
 +---------------------------------------------------------------+---------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
 | Teledyne Kinetix 10                                           |  3200 × 3200  |       6.5        | 8/12/16 | 498        |     camera_00011_  | O1_KINETIX_10MP_PCIE                    |                             |    camera_quote_00002_        |
++---------------------------------------------------------------+---------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
+| Hamamatsu Orca-Fire (sCMOS) `(****)`                          |  4432 × 2368  |       4.6        | 16      | 115        |     camera_00012_  | C16240-20UP01 (F-mount, Quad CXP-6)     |                             |    camera_quote_00003_        |
 +---------------------------------------------------------------+---------------+------------------+---------+------------+--------------------+-----------------------------------------+-----------------------------+-------------------------------+
 
 - `(*)`     Use MicroEnable IV VD4-CL.
