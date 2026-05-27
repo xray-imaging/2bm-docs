@@ -197,6 +197,16 @@ Detector and imaging chain
 | Detector SDK version                      | 4.0.0.116                                            |
 +-------------------------------------------+------------------------------------------------------+
 
+.. figure:: ../img/vibrationOptics.png
+   :width: 1024px
+   :align: center
+   :alt: Detector and optics configuration
+
+   Detector and optics configuration used during the vibration measurement. The scintillator
+   type, thickness, lens magnification, tube length, camera pixel size, and the resulting
+   image pixel size are shown. With 2×2 binning applied, the effective image pixel size is
+   **3.45 µm** (= 2 × 1.725 µm native pixel).
+
 
 Vibration Analysis Method
 -------------------------
