@@ -130,11 +130,17 @@ Vertical intensity modulation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section quantifies the vertical intensity modulation currently observed in the
-monochromatic beam delivered by the DMM. The modulation is the main motivation for the
-Stripe-Free Multilayer project: residual stripe structure in the W–B₄C coating prints a
-periodic intensity pattern along the vertical direction of the beam, which in turn shows
-up as horizontal bands in the projection images and as ring/streak artifacts in the
-reconstructed volumes.
+monochromatic beam delivered downstream of M1 + DMM. The modulation is the main
+motivation for the Stripe-Free Multilayer project: it shows up as horizontal bands in
+the projection images and as ring/streak artifacts in the reconstructed volumes.
+
+Two distinct contributions can be separated by the choice of exposure time:
+
+- A **slow, stationary modulation** from the **M1 mirror** (figure error / coating),
+  best characterised with the long-exposure ``flats_01`` dataset.
+- A **fast, moving stripe pattern** from the **DMM** (residual W–B₄C stripe
+  structure), best characterised with the short-exposure, high-rate
+  ``S11-AHU505_1000frms_99fps_001.h5`` stream, which freezes the motion.
 
 Measurement setup
 ^^^^^^^^^^^^^^^^^
@@ -194,11 +200,13 @@ reflect the ``flats_01`` configuration.
 | Distance DMM 2nd mirror → detector           | ≈ 22244 mm (54000 − 31756.2)                  |
 +----------------------------------------------+-----------------------------------------------+
 
-Quantitative metrics
-^^^^^^^^^^^^^^^^^^^^
+Quantitative metrics (mirror contribution, ``flats_01``)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following metrics will be reported from a vertical line profile through the flat
-field (averaged horizontally over the usable beam width):
+The following metrics are computed from a vertical line profile through a single
+``flats_01`` frame, averaged horizontally over the usable beam width. They characterise
+the **mirror-induced** modulation only; the DMM stripe contribution is averaged out by
+the 0.1 s exposure (see next subsection).
 
 +---------------------------------------+----------------------------------------------+
 | Metric                                | Value                                        |
@@ -226,8 +234,14 @@ computed on the flat-field profile after dark subtraction and normalization to t
 varying envelope (low-pass filtered profile), so that only the high-frequency stripe
 contribution is retained.
 
-Reference flat-field images and line profiles
+Mirror-induced modulation (from ``flats_01``)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``flats_01`` exposures average out the fast DMM stripe motion (0.1 s exposure
+covers many cycles of the moving DMM pattern, see next subsection) and therefore
+reveal mainly the **slowly varying, stationary modulation that originates at the M1
+mirror**. The ~130 µm vertical period quantified below is attributed to figure error
+on M1, not to the DMM coating.
 
 .. figure:: ../img/flat_2x_2bin3.45um_momo20keV_001.png
    :width: 1024px
@@ -235,10 +249,9 @@ Reference flat-field images and line profiles
    :alt: Reference flat-field image from flats_01
 
    Reference flat-field image from the ``flats_01`` dataset
-   (``flat_2x_2bin3.45um_momo20keV_0001``), showing the horizontal stripe pattern
-   imprinted on the beam by the W–B₄C multilayer coating of the DMM. The vertical
-   intensity modulation quantified in this section is extracted from this and similar
-   frames.
+   (``flat_2x_2bin3.45um_momo20keV_0001``). The smooth horizontal banding visible here
+   is the **mirror** contribution; the much faster DMM stripes are averaged out by the
+   0.1 s exposure.
 
 .. figure:: ../img/flat_2x_2bin3.45um_momo20keV_001_profile.png
    :width: 800px
@@ -250,8 +263,44 @@ Reference flat-field images and line profiles
    2048-pixel detector width. **Top:** raw profile (blue) with the low-pass envelope
    (red, 200 µm moving average) overlaid; the yellow band marks the analysis window
    where the beam intensity exceeds 50 % of its peak (~3.5 mm vertical extent).
-   **Bottom:** residual after envelope removal — the high-frequency stripe contribution
+   **Bottom:** residual after envelope removal — the high-frequency mirror contribution
    isolated by :math:`(I - I_\mathrm{env}) / I_\mathrm{env}`. From this profile the
    peak-to-valley modulation is **35.7 %** and the RMS modulation is **7.0 %**, with
    a dominant vertical period of **≈ 130 µm** (≈ 33 bright bands across the
    illuminated window).
+
+DMM-induced stripes (from ``S11-AHU505_1000frms_99fps_001.h5``)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The DMM contribution sits **on top** of the mirror-induced modulation and is best
+seen in the short-exposure, high-rate stream of the
+:doc:`Vibration Frequency Measurement <item_070>` — file
+``S11-AHU505_1000frms_99fps_001.h5`` (1000 frames at 99 fps, 0.009999 s exposure),
+available via
+`Globus (test_20251219_APS_PVs) <https://app.globus.org/file-manager?origin_id=054a0877-97ca-4d80-947f-47ca522b173e&origin_path=%2F2025-12%2F2025-12-DeCarlo-0%2Fdata%2Ftest_20251219_APS_PVs%2F&two_pane=true>`_.
+Played back as a movie, the horizontal stripes shift **vertically and rapidly**
+frame-to-frame — a clear fingerprint of the DMM (the mirror pattern is static).
+
+.. figure:: ../img/AHU505_1000frms_99fps_001.png
+   :width: 1024px
+   :align: center
+   :alt: Representative frame from S11-AHU505_1000frms_99fps_001.h5
+
+   Single frame extracted from ``S11-AHU505_1000frms_99fps_001.h5`` (one of the 1000
+   frames stored in the HDF5 file), representative of the DMM-induced horizontal
+   stripes. Two stripe periodicities are visible: a fine spacing of ~83 px between
+   adjacent bright stripes, and a coarser envelope with spacing of ~700 px between
+   the strongest bands.
+
+Two characteristic vertical spacings can be measured on the DMM stripe pattern
+(detector effective pixel size = 3.45 µm):
+
++--------------------------------------+----------+-----------+
+| Feature                              | Distance | Distance  |
+|                                      | [px]     | [µm]      |
++======================================+==========+===========+
+| Fine spacing (adjacent stripes)      | ≈ 83     | ≈ 286     |
++--------------------------------------+----------+-----------+
+| Coarse spacing (envelope of strong   | ≈ 700    | ≈ 2415    |
+| bands)                               |          | (≈ 2.4 mm)|
++--------------------------------------+----------+-----------+
