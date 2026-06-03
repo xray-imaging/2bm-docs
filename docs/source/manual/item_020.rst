@@ -167,9 +167,9 @@ A-shutter (front-end)
 :Carries: (beam gating only)
 :z position: TBD (upstream of the L3 Slits; not separately listed in
    the APS reference table)
-:EPICS prefix: ``2bma:A_shutter``
-:Open command: ``2bma:A_shutter:open.VAL``
-:Close command: ``2bma:A_shutter:close.VAL``
+:EPICS prefix: ``S02BM-PSS:FES``
+:Open command: ``S02BM-PSS:FES:OpenEPICSC``
+:Close command: ``S02BM-PSS:FES:CloseEPICSC``
 :Notes:
    Independent of the P6-50 personnel-safety shutter (``B_shutter``,
    below) further downstream. Both must be open for beam to reach
@@ -516,9 +516,9 @@ P6-50 Safety Shutter (B-shutter)
 :Material: W [21 mm]
 :Aperture: 60.0 × 44.5 mm
 :RSS tag: part of 02-BM-A-P-01 assembly
-:EPICS prefix: ``2bma:B_shutter``
-:Open command: ``2bma:B_shutter:open.VAL``
-:Close command: ``2bma:B_shutter:close.VAL``
+:EPICS prefix: ``S02BM-PSS:SBS``
+:Open command: ``S02BM-PSS:SBS:OpenEPICSC``
+:Close command: ``S02BM-PSS:SBS:CloseEPICSC``
 :Notes:
    One element of the four-component P6-50 stack (white-beam stop,
    tungsten collimator, safety shutter, SS baffle) installed
