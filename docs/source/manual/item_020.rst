@@ -24,20 +24,31 @@ control) and the :doc:`../ops` section.
 Overview
 ========
 
-.. (Insert beamline layout image here; the existing schematic from
-.. ../img/2bma_beamline.png may be reused or replaced.)
+.. figure:: ../img/beamline_layout_A342-RT1000.png
+   :width: 720px
+   :align: center
+   :alt: 02-BM XSD beamline layout (APS drawing A342-RT1000, Rev 02)
+
+   02-BM XSD beamline layout (APS drawing **A342-RT1000**, Rev 02,
+   05/27/26). Top: building footprint with the 2-BM-A and 2-BM-B
+   hutches. Bottom: beamline elevation with components labelled in
+   walking order through 2-BM-A; the 2-BM-B hutch (~49–57 m from the
+   source) contains a second set of L3 slits at z ≈ 50500 mm.
+   Source PDF: `A342-RT1000-02.pdf
+   <https://anl.app.box.com/file/2249043253618?s=r8e78v7jj30ggqhmbge0bin2mb4iof7w>`_.
 
 Physical walk, source to detector (z values from the APS reference
 table, in millimetres from the centre of the storage-ring straight
-section; the beamline runs from z = 24 020 at the FE exit mask to
-z = 56 764 at the photon stop)::
+section; the beamline runs from z = 24020 at the FE exit mask to
+z = 56764 at the photon stop)::
 
    Storage ring source
      -> A-shutter (front-end)          (in 2-BM-A; z TBD)
-     -> L3 Slits + Filters             (z 25 225)
-     -> Y3-30 Mirror                   (z 27 626)
-     -> Double Multilayer Mono (DMM)   (z 29 335 / 29 934)
-     -> B-shutter (P6-50 Safety)       (z 33 343)
+     -> L3 Slits + Filters             (z = 25225 mm)
+     -> Y3-30 Mirror                   (z = 27626 mm)
+     -> Double Multilayer Mono (DMM)   (z = 29335 / 29934 mm)
+     -> B-shutter (P6-50 Safety)       (z = 33343 mm)
+     -> B-station Slits (L3-style)     (z = 50500 mm; in 2-BM-B)
      -> Sample stack                   (in 2-BM-B; optical table + tower)
      -> Detector system                (MCTOptics + Optique Peter Z + detector table)
 
@@ -73,7 +84,7 @@ blocks for cora.
    components) need a separate reconciliation pass before this page is
    considered final.
 
-Coordinate convention (from the reference table):
+Coordinate convention (from the APS_1404611 reference table linked above):
 
 - ``X`` = horizontal, positive outboard [mm]
 - ``Y`` = vertical, positive up [mm]
@@ -117,23 +128,28 @@ reference.
      - Notes
    * - 2
      - L3 Slits with Filters
-     - 25 225
+     - 25225
      - 2
      - Operational; see block below. Splits into L3 Slits (shape) and L3 Filters (energy absorption); shared assembly.
    * - 4
      - Y3-30 Mirror
-     - 27 626
+     - 27626
      - 2
      - Silicon · defines the ♠ / ♦ alternate centrelines · operational, see block below
    * - 5
      - Double Multilayer Monochromator
-     - 29 335 / 29 934
+     - 29335 / 29934
      - 2
      - Silicon · two crystals (Y offsets 9.0 / 41.0 mm) · operational, see block below
+   * - —
+     - B-station Slits
+     - 50500
+     - 2
+     - Second four-blade L3-style slits in 2-BM-B (no filter changer paired). Not in APS_1404611; z read from layout drawing A342-RT1000-02. Operational, see block below.
 
 Common position tolerances across all rows: dx = dy = 250 µm, dz = 5 mm.
 
-All three items are operational (have command surfaces) and are
+All four items are operational (have command surfaces) and are
 expanded in :ref:`operational components <operational-components>`.
 The P6-50 safety shutter (item 8c in the APS reference table) is also
 operational but gates the beam rather than conditioning it; it appears
@@ -179,14 +195,15 @@ L3 Slits
 ~~~~~~~~
 
 :Role: Beam-shape conditioning, upstream of the mirror
-:Family: Slits
-   (new Family; not yet declared in the cora equipment BC. Standard
-   APS L3-20 four-blade slits — two horizontal (X−, X+) and two
-   vertical (Y−, Y+) blade motors, plus per-direction derived
-   ``Size`` / ``Center`` calc axes.)
+:Family: Slit
+   (listed as "Pending in code" in the cora Equipment BC families
+   catalog at ``docs/catalog/families.md``; not yet a registered
+   Family. Standard APS L3-20 four-blade slits — two horizontal
+   (X−, X+) and two vertical (Y−, Y+) blade motors, plus per-
+   direction derived ``Size`` / ``Center`` calc axes.)
 :Mounted on: Front-end stand (floor-referenced)
 :Carries: (beam conditioning only)
-:z position: 25 225 mm (ref 2: centre of optic; shared with Filters)
+:z position: 25225 mm (ref 2: centre of optic; shared with Filters)
 :Position tolerance: 250 µm (x, y), 5 mm (z)
 :Reference drawing: L3200000-03.pdf
 :As-built drawings: https://anl.box.com/s/sgmoux6db8tsx71pvifzkf2ajopfidqx
@@ -240,7 +257,7 @@ L3 Filters
    per side.)
 :Mounted on: Front-end stand (shared assembly with L3 Slits)
 :Carries: (beam conditioning only)
-:z position: 25 225 mm (ref 2: centre of optic; shared with Slits)
+:z position: 25225 mm (ref 2: centre of optic; shared with Slits)
 :Position tolerance: 250 µm (x, y), 5 mm (z)
 :Reference drawing: L3200000-03.pdf
 :IOC: ``2filter`` (running on ``arcturus``)
@@ -340,12 +357,15 @@ Y3-30 Mirror
 
 :Role: Vertical-deflecting mirror; defines the alternate beam centrelines
 :Family: Mirror
-   (already listed as Pending in the cora 2-BM assets inventory.
-   Composes a mirror body with an in-vacuum stripe selector and an
-   external optical-table sub-assembly carrying Y / X / Z stages.)
+   (Pending in cora-doga: Asset ``Mirror_2BM`` appears in the
+   Pending table at ``docs/deployments/2-bm/assets.md`` and Family
+   ``Mirror`` is listed as "Pending in code" at
+   ``docs/catalog/families.md``. Composes a mirror body with an
+   in-vacuum stripe selector and an external optical-table sub-
+   assembly carrying Y / X / Z stages.)
 :Mounted on: Optical table (``[Dma:table1]`` via the ``table_full`` IOC)
 :Carries: (beam conditioning only)
-:z position: 27 626 mm (ref 2: centre of optic; mirror-1 axis)
+:z position: 27626 mm (ref 2: centre of optic; mirror-1 axis)
 :Position tolerance: 250 µm (x, y), 5 mm (z)
 :Material: Silicon
 :Mirror length: 0.993 m (used by the angle calc record)
@@ -432,17 +452,19 @@ Double Multilayer Monochromator (DMM)
 
 :Role: Energy selection (monochromatic mode)
 :Family: Monochromator
-   (new Family; not yet declared in the cora equipment BC. Two
-   crystals — upstream (US) and downstream (DS) — each with X / Y /
-   Bragg-arm drives, plus global tank Y / Z. Upstream crystal carries
-   a split Y (OB / IB) for combined Y translation and Z-tilt.)
+   (listed as "Pending in code" in the cora Equipment BC families
+   catalog at ``docs/catalog/families.md``; not yet a registered
+   Family. Two crystals — upstream (US) and downstream (DS) — each
+   with X / Y / Bragg-arm drives, plus global tank Y / Z. Upstream
+   crystal carries a split Y (OB / IB) for combined Y translation
+   and Z-tilt.)
 :Mounted on: Front-end stand (floor-referenced)
 :Carries: (beam conditioning only)
-:z position: crystal 1 at 29 335 mm, crystal 2 at 29 934 mm (ref 2: centre of optic)
+:z position: crystal 1 at 29335 mm, crystal 2 at 29934 mm (ref 2: centre of optic)
 :Y offset: 9.0 mm (crystal 1), 41.0 mm (crystal 2)
 :Position tolerance: 250 µm (x, y), 5 mm (z)
 :Material: Silicon
-:Inter-crystal spacing: 1 323 mm along beam, 765 mm in/out-board (read from screen)
+:Inter-crystal spacing: 1323 mm along beam, 765 mm in/out-board (read from screen)
 :Reference (ops): https://docs2bm.readthedocs.io/en/latest/source/ops/item_021.html#dmm
 :MEDM screen: ``DMMV.adl`` (running on ``arcturus``)
 :EPICS prefix: ``2bma:`` (motors listed below)
@@ -511,7 +533,7 @@ P6-50 Safety Shutter (B-shutter)
    shielding data.)
 :Mounted on: Front-end stand (floor-referenced)
 :Carries: (beam gating only)
-:z position: 33 343 mm (ref 1: upstream face of thermal component)
+:z position: 33343 mm (ref 1: upstream face of thermal component)
 :Position tolerance: 250 µm (x, y), 5 mm (z)
 :Material: W [21 mm]
 :Aperture: 60.0 × 44.5 mm
@@ -524,6 +546,68 @@ P6-50 Safety Shutter (B-shutter)
    tungsten collimator, safety shutter, SS baffle) installed
    together at z ≈ 330 m. The other three are passive. Both this
    and the upstream A-shutter must be open for beam to reach 2-BM-B.
+
+B-station Slits
+~~~~~~~~~~~~~~~
+
+:Role: Beam-shape conditioning at the 2-BM-B entrance, ~21 m
+   downstream of the front-end L3 slits
+:Family: Slit
+   (same standard APS L3-20 four-blade hardware as the front-end
+   L3 Slits; reuses the ``Slit`` Family declared there. No filter
+   changer is paired with this assembly.)
+:Mounted on: Own stand in 2-BM-B (floor-referenced)
+:Carries: (beam conditioning only)
+:z position: 50500 mm (read from layout drawing A342-RT1000-02; not
+   listed in the APS_1404611 reference table)
+:Position tolerance: 250 µm (x, y), 5 mm (z) (assumed identical to
+   the A-side L3 Slits)
+:MEDM screen: ``2slit.adl`` (same screen layout as the A-side slits,
+   instantiated with the B-blade motor PVs)
+:EPICS prefix: ``2bma:`` (horizontal motors ``2bma:m11`` and
+   ``2bma:m12`` for the X pair; vertical motors ``2bma:m9`` for
+   Y+ [up] and ``2bma:m10`` for Y− [down])
+:Notes:
+   These are the slits driven by ``b_slit_top`` (= ``2bma:m9``) and
+   ``b_slit_bot`` (= ``2bma:m10``) in the energy-change IOC; the
+   vertical pair tracks the per-energy beam position in Mono mode.
+   See :ref:`composite-iocs`.
+
+.. note::
+
+   **Horizontal-blade label flip.** The horizontal blade labels on
+   the operator side ("B slit Inb" / "B slit outboard") are
+   **flipped** with respect to the physical inboard / outboard
+   direction: the detector image is mirrored left / right, so the
+   on-screen "inboard" actually drives the outboard physical blade
+   and vice versa. The mapping of ``2bma:m11`` and ``2bma:m12`` to
+   the X+ / X− blades follows the physical convention (positive X
+   outboard), not the on-screen labels.
+
+.. figure:: ../img/b_slits_horizontal.png
+   :width: 480px
+   :align: center
+   :alt: 2slit.adl horizontal slits screen (2-BM-B)
+
+   ``2slit.adl`` (2-BM-B instance) — horizontal-slits control screen
+   ("LOOKING UPSTREAM", ``Lab`` coordinate system). The two leftmost
+   columns (``Slit2H −`` / ``Slit2H +``) drive the individual blade
+   motors ``2bma:m11`` and ``2bma:m12``. See the label-flip note
+   above. The ``Size`` and ``Center`` columns are calc-driven
+   composites that move both blades together to set the aperture
+   width and centre.
+
+.. figure:: ../img/b_slits_vertical.png
+   :width: 480px
+   :align: center
+   :alt: 2slit.adl vertical slits screen (2-BM-B)
+
+   ``2slit.adl`` (2-BM-B instance) — vertical-slits control screen
+   (same layout as the horizontal screen). The two leftmost columns
+   drive the individual blade motors: ``2bma:m9`` for the Y+ blade
+   (up, screen-labelled ``Slit2V +``) and ``2bma:m10`` for the Y−
+   blade (down, screen-labelled ``Slit2V −``). The ``Size`` and
+   ``Center`` columns are calc-driven composites.
 
 
 Sample stack
@@ -555,13 +639,14 @@ Kinematic chain (bottom to top)::
 
 .. note::
 
-   The cora 2-BM asset inventory currently also lists
-   ``Sample_top_Roll`` and ``Sample_top_Pitch`` as 2-BM siblings. Whether
-   these are present on the current 2-BM sample top, or whether the
-   only sample-side pitch is the laminography stage, needs to be
-   confirmed against the actual hardware. Treat the four-element
-   sample-top set in the cora doc as provisional until this page is
-   reconciled.
+   The cora 2-BM asset inventory at
+   ``docs/deployments/2-bm/assets.md`` lists four sample-top
+   Devices under ``LinearStage``: ``Sample_top_X``,
+   ``Sample_top_Z``, ``Sample_top_Roll``, ``Sample_top_Pitch``.
+   This page reproduces ``Sample_top_X`` and ``Sample_top_Z`` as
+   the operational surfaces in the kinematic chain; ``Roll`` and
+   ``Pitch`` are present in cora but not yet documented per-
+   component here.
 
 
 Sample optical table
@@ -599,8 +684,11 @@ Sample_pitch_lam
 
 :Role: Laminography pitch axis
 :Family: LinearStage
-   (mechanically a tilt; modelled as a single-axis stage in cora today.
-   Consider a dedicated ``TiltStage`` Family if more tilt axes appear.)
+   (mechanically a tilt; would model as a single-axis stage in cora.
+   Not yet registered in cora-doga — the closest pending entry is
+   "Broader sample-stage motors" under the Pending table at
+   ``docs/deployments/2-bm/assets.md``. Consider a dedicated
+   ``TiltStage`` Family if more tilt axes appear.)
 :Mounted on: Hexapod_2BM
 :Carries: Aerotech_ABRS_rotary
 :Travel: 0 deg to 15 deg
@@ -669,13 +757,23 @@ to keep the detector centre on the beam as Z moves.
 
 Chain to capture (top of beam down to floor)::
 
-   MCTOptics_objective_{0,1,2}     (10x / 5x / 1.1x; lens turret selects)
-   Oryx_5MP_camera                 (2448 x 2048, 3.45 um pixel)
-   Scintillator_LuAG               (100 um LuAG)
-     +-- MCTOptics (Assembly)              <- microscope body
-          +-- Optique_Peter_focus_Z        <- linear Z, 0 to ~1 m along beam
-               +-- Detector optical table  <- roll / pitch / X / Y
+   MCTOptics_objective_{0,1,2}             Family: Objective       (10x / 5x / 1.1x)
+   Oryx_5MP_camera                         Family: Camera          (2448 x 2048, 3.45 um pixel)
+   Scintillator_LuAG                       Family: Scintillator    (100 um LuAG)
+     +-- MCTOptics (Component)             Family: Microscope      <- microscope body; parent of the three above in cora
+          +-- MCTOptics_lens_turret        Family: RotaryStage     <- wired sibling under 2-BM (turret selects which objective is in beam)
+          +-- Optique_Peter_focus_Z        Family: LinearStage     <- wired sibling under 2-BM (focus Z, 0 to ~1 m along beam)
+               +-- Detector optical table                          <- roll / pitch / X / Y
                     +-- Hutch floor
+
+The ASCII chain above shows the kinematic-mounting view (top of beam
+down to floor). cora's ownership view is different:
+``MCTOptics_lens_turret`` and ``Optique_Peter_focus_Z`` are registered
+as Device-level siblings under the ``2-BM`` Unit, then wired into the
+``MCTOptics`` Component via ``Plan.wiring`` rather than nested under
+it. The objectives, camera, and scintillator are the children of
+``MCTOptics`` in cora. See ``docs/deployments/2-bm/assets.md`` for the
+canonical composition.
 
 
 .. _composite-iocs:
