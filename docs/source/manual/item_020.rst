@@ -951,32 +951,31 @@ MCTOptics — Optique Peter IOC
      ``Camera{0,1}Bit`` (``8`` / ``10`` / ``12`` / ``16-bit``).
    - ``2bm:MCTOptics:Cut{Left,Right,Top,Bottom}`` + ``Cut`` (busy)
      for image cropping.
-:Underlying motor map
-   (from
-   ``iocBoot/iocMCTOptics/mctOptics.substitutions``):
 
-   ===========================  ======================  ================================
-   Macro                        PV                      Purpose
-   ===========================  ======================  ================================
-   ``LENS_MOTOR``               ``2bmb:m1``             Objective selector (turret)
-   ``CAMERA_MOTOR``             ``2bmb:m5``             Camera selector (folding mirror)
-   ``LENS0_FOCUS``              ``2bmb:m2``             Objective #0 focus
-   ``LENS1_FOCUS``              ``2bmb:m3``             Objective #1 focus
-   ``LENS2_FOCUS``              ``2bmb:m4``             Objective #2 focus
-   ``CAM0_ROT``                 ``2bmb:m7``             Camera 0 rotation
-   ``CAM1_ROT``                 ``2bmb:m8``             Camera 1 rotation
-   ``LENS_SAMPLE_X``            ``2bmb:m18``            Sample alignment in X
-   ``LENS_SAMPLE_Y``            ``2bmHXP:m3``           Sample alignment in Y (hexapod)
-   ``LENS_SAMPLE_Z``            ``2bmb:m17``            Sample alignment in Z
-   ``CAMERA0``                  ``2bmSP1:``             Camera-0 areaDetector prefix
-   ``CAMERA1``                  ``2bmSP2:``             Camera-1 areaDetector prefix
-   ``TOMOSCAN``                 ``2bmb:TomoScan:``      Linked TomoScan IOC
-   ===========================  ======================  ================================
+Underlying motor map (from ``iocBoot/iocMCTOptics/mctOptics.substitutions``):
 
-   Calibrated lens positions (mm, both cameras): Pos. 0 = -60.030,
-   Pos. 1 = -0.8370, Pos. 2 = 58.64. Camera positions: Pos. 0 = 20,
-   Pos. 1 = 15. Per-objective and per-camera fine focus and
-   rotation offsets are held in the IOC's autosave file.
+===========================  ======================  ================================
+Macro                        PV                      Purpose
+===========================  ======================  ================================
+``LENS_MOTOR``               ``2bmb:m1``             Objective selector (turret)
+``CAMERA_MOTOR``             ``2bmb:m5``             Camera selector (folding mirror)
+``LENS0_FOCUS``              ``2bmb:m2``             Objective #0 focus
+``LENS1_FOCUS``              ``2bmb:m3``             Objective #1 focus
+``LENS2_FOCUS``              ``2bmb:m4``             Objective #2 focus
+``CAM0_ROT``                 ``2bmb:m7``             Camera 0 rotation
+``CAM1_ROT``                 ``2bmb:m8``             Camera 1 rotation
+``LENS_SAMPLE_X``            ``2bmb:m18``            Sample alignment in X
+``LENS_SAMPLE_Y``            ``2bmHXP:m3``           Sample alignment in Y (hexapod)
+``LENS_SAMPLE_Z``            ``2bmb:m17``            Sample alignment in Z
+``CAMERA0``                  ``2bmSP1:``             Camera-0 areaDetector prefix
+``CAMERA1``                  ``2bmSP2:``             Camera-1 areaDetector prefix
+``TOMOSCAN``                 ``2bmb:TomoScan:``      Linked TomoScan IOC
+===========================  ======================  ================================
+
+Calibrated lens positions (mm, both cameras): Pos. 0 = -60.030,
+Pos. 1 = -0.8370, Pos. 2 = 58.64. Camera positions: Pos. 0 = 20,
+Pos. 1 = 15. Per-objective and per-camera fine focus and rotation
+offsets are held in the IOC's autosave file.
 
 Optique Peter Z stage
 ---------------------

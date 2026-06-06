@@ -15,7 +15,7 @@ we have different sets of rotary stages:
 
 (*) replaced with ENSEMBLEML10-40-IO-MXH
 
-.. figure:: ../img/sample_stack.jpg
+.. figure:: ../../img/sample_stack.jpg
    :width: 480px
    :align: center
    :alt: sample_stack
