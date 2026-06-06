@@ -10,7 +10,8 @@ fields needed to reason about how it moves relative to everything else
 
 This page is the source of truth for the beamline as an assembly. Per-
 component operating instructions live in :doc:`item_010` (beamline
-control) and the :doc:`../ops` section.
+control) and the :doc:`../ops` section. Structured, cora-consumable
+recipes that *use* this hardware live in :doc:`../procedures`.
 
 .. note::
 
@@ -24,20 +25,31 @@ control) and the :doc:`../ops` section.
 Overview
 ========
 
-.. (Insert beamline layout image here; the existing schematic from
-.. ../img/2bma_beamline.png may be reused or replaced.)
+.. figure:: ../img/beamline_layout_A342-RT1000.png
+   :width: 720px
+   :align: center
+   :alt: 02-BM XSD beamline layout (APS drawing A342-RT1000, Rev 02)
+
+   02-BM XSD beamline layout (APS drawing **A342-RT1000**, Rev 02,
+   05/27/26). Top: building footprint with the 2-BM-A and 2-BM-B
+   hutches. Bottom: beamline elevation with components labelled in
+   walking order through 2-BM-A; the 2-BM-B hutch (~49–57 m from the
+   source) contains a second set of L3 slits at z ≈ 50500 mm.
+   Source PDF: `A342-RT1000-02.pdf
+   <https://anl.app.box.com/file/2249043253618?s=r8e78v7jj30ggqhmbge0bin2mb4iof7w>`_.
 
 Physical walk, source to detector (z values from the APS reference
 table, in millimetres from the centre of the storage-ring straight
-section; the beamline runs from z = 24 020 at the FE exit mask to
-z = 56 764 at the photon stop)::
+section; the beamline runs from z = 24020 at the FE exit mask to
+z = 56764 at the photon stop)::
 
    Storage ring source
      -> A-shutter (front-end)          (in 2-BM-A; z TBD)
-     -> L3 Slits + Filters             (z 25 225)
-     -> Y3-30 Mirror                   (z 27 626)
-     -> Double Multilayer Mono (DMM)   (z 29 335 / 29 934)
-     -> B-shutter (P6-50 Safety)       (z 33 343)
+     -> L3 Slits + Filters             (z = 25225 mm)
+     -> Y3-30 Mirror                   (z = 27626 mm)
+     -> Double Multilayer Mono (DMM)   (z = 29335 / 29934 mm)
+     -> B-shutter (P6-50 Safety)       (z = 33343 mm)
+     -> B-station Slits (L3-style)     (z = 50500 mm; in 2-BM-B)
      -> Sample stack                   (in 2-BM-B; optical table + tower)
      -> Detector system                (MCTOptics + Optique Peter Z + detector table)
 
@@ -63,7 +75,7 @@ That document is the source of truth for positions and shielding;
 the summary below reproduces it in walking order (source to hutch) and
 expands the components that are operationally addressed at run time
 (slits, mirror, monochromator, safety shutter) into per-component
-blocks for cora.
+blocks for `cora <https://github.com/xmap/cora>`__.
 
 .. note::
 
@@ -73,7 +85,7 @@ blocks for cora.
    components) need a separate reconciliation pass before this page is
    considered final.
 
-Coordinate convention (from the reference table):
+Coordinate convention (from the APS_1404611 reference table linked above):
 
 - ``X`` = horizontal, positive outboard [mm]
 - ``Y`` = vertical, positive up [mm]
@@ -117,23 +129,28 @@ reference.
      - Notes
    * - 2
      - L3 Slits with Filters
-     - 25 225
+     - 25225
      - 2
      - Operational; see block below. Splits into L3 Slits (shape) and L3 Filters (energy absorption); shared assembly.
    * - 4
      - Y3-30 Mirror
-     - 27 626
+     - 27626
      - 2
      - Silicon · defines the ♠ / ♦ alternate centrelines · operational, see block below
    * - 5
      - Double Multilayer Monochromator
-     - 29 335 / 29 934
+     - 29335 / 29934
      - 2
      - Silicon · two crystals (Y offsets 9.0 / 41.0 mm) · operational, see block below
+   * - —
+     - B-station Slits
+     - 50500
+     - 2
+     - Second four-blade L3-style slits in 2-BM-B (no filter changer paired). Not in APS_1404611; z read from layout drawing A342-RT1000-02. Operational, see block below.
 
 Common position tolerances across all rows: dx = dy = 250 µm, dz = 5 mm.
 
-All three items are operational (have command surfaces) and are
+All four items are operational (have command surfaces) and are
 expanded in :ref:`operational components <operational-components>`.
 The P6-50 safety shutter (item 8c in the APS reference table) is also
 operational but gates the beam rather than conditioning it; it appears
@@ -179,14 +196,15 @@ L3 Slits
 ~~~~~~~~
 
 :Role: Beam-shape conditioning, upstream of the mirror
-:Family: Slits
-   (new Family; not yet declared in the cora equipment BC. Standard
-   APS L3-20 four-blade slits — two horizontal (X−, X+) and two
-   vertical (Y−, Y+) blade motors, plus per-direction derived
-   ``Size`` / ``Center`` calc axes.)
+:Family: Slit
+   (listed as "Pending in code" in the cora Equipment BC families
+   catalog at ``docs/catalog/families.md``; not yet a registered
+   Family. Standard APS L3-20 four-blade slits — two horizontal
+   (X−, X+) and two vertical (Y−, Y+) blade motors, plus per-
+   direction derived ``Size`` / ``Center`` calc axes.)
 :Mounted on: Front-end stand (floor-referenced)
 :Carries: (beam conditioning only)
-:z position: 25 225 mm (ref 2: centre of optic; shared with Filters)
+:z position: 25225 mm (ref 2: centre of optic; shared with Filters)
 :Position tolerance: 250 µm (x, y), 5 mm (z)
 :Reference drawing: L3200000-03.pdf
 :As-built drawings: https://anl.box.com/s/sgmoux6db8tsx71pvifzkf2ajopfidqx
@@ -240,7 +258,7 @@ L3 Filters
    per side.)
 :Mounted on: Front-end stand (shared assembly with L3 Slits)
 :Carries: (beam conditioning only)
-:z position: 25 225 mm (ref 2: centre of optic; shared with Slits)
+:z position: 25225 mm (ref 2: centre of optic; shared with Slits)
 :Position tolerance: 250 µm (x, y), 5 mm (z)
 :Reference drawing: L3200000-03.pdf
 :IOC: ``2filter`` (running on ``arcturus``)
@@ -340,12 +358,15 @@ Y3-30 Mirror
 
 :Role: Vertical-deflecting mirror; defines the alternate beam centrelines
 :Family: Mirror
-   (already listed as Pending in the cora 2-BM assets inventory.
-   Composes a mirror body with an in-vacuum stripe selector and an
-   external optical-table sub-assembly carrying Y / X / Z stages.)
+   (Pending in cora: Asset ``Mirror_2BM`` appears in the
+   Pending table at ``docs/deployments/2-bm/assets.md`` and Family
+   ``Mirror`` is listed as "Pending in code" at
+   ``docs/catalog/families.md``. Composes a mirror body with an
+   in-vacuum stripe selector and an external optical-table sub-
+   assembly carrying Y / X / Z stages.)
 :Mounted on: Optical table (``[Dma:table1]`` via the ``table_full`` IOC)
 :Carries: (beam conditioning only)
-:z position: 27 626 mm (ref 2: centre of optic; mirror-1 axis)
+:z position: 27626 mm (ref 2: centre of optic; mirror-1 axis)
 :Position tolerance: 250 µm (x, y), 5 mm (z)
 :Material: Silicon
 :Mirror length: 0.993 m (used by the angle calc record)
@@ -432,17 +453,19 @@ Double Multilayer Monochromator (DMM)
 
 :Role: Energy selection (monochromatic mode)
 :Family: Monochromator
-   (new Family; not yet declared in the cora equipment BC. Two
-   crystals — upstream (US) and downstream (DS) — each with X / Y /
-   Bragg-arm drives, plus global tank Y / Z. Upstream crystal carries
-   a split Y (OB / IB) for combined Y translation and Z-tilt.)
+   (listed as "Pending in code" in the cora Equipment BC families
+   catalog at ``docs/catalog/families.md``; not yet a registered
+   Family. Two crystals — upstream (US) and downstream (DS) — each
+   with X / Y / Bragg-arm drives, plus global tank Y / Z. Upstream
+   crystal carries a split Y (OB / IB) for combined Y translation
+   and Z-tilt.)
 :Mounted on: Front-end stand (floor-referenced)
 :Carries: (beam conditioning only)
-:z position: crystal 1 at 29 335 mm, crystal 2 at 29 934 mm (ref 2: centre of optic)
+:z position: crystal 1 at 29335 mm, crystal 2 at 29934 mm (ref 2: centre of optic)
 :Y offset: 9.0 mm (crystal 1), 41.0 mm (crystal 2)
 :Position tolerance: 250 µm (x, y), 5 mm (z)
 :Material: Silicon
-:Inter-crystal spacing: 1 323 mm along beam, 765 mm in/out-board (read from screen)
+:Inter-crystal spacing: 1323 mm along beam, 765 mm in/out-board (read from screen)
 :Reference (ops): https://docs2bm.readthedocs.io/en/latest/source/ops/item_021.html#dmm
 :MEDM screen: ``DMMV.adl`` (running on ``arcturus``)
 :EPICS prefix: ``2bma:`` (motors listed below)
@@ -511,7 +534,7 @@ P6-50 Safety Shutter (B-shutter)
    shielding data.)
 :Mounted on: Front-end stand (floor-referenced)
 :Carries: (beam gating only)
-:z position: 33 343 mm (ref 1: upstream face of thermal component)
+:z position: 33343 mm (ref 1: upstream face of thermal component)
 :Position tolerance: 250 µm (x, y), 5 mm (z)
 :Material: W [21 mm]
 :Aperture: 60.0 × 44.5 mm
@@ -525,18 +548,71 @@ P6-50 Safety Shutter (B-shutter)
    together at z ≈ 330 m. The other three are passive. Both this
    and the upstream A-shutter must be open for beam to reach 2-BM-B.
 
+B-station Slits
+~~~~~~~~~~~~~~~
+
+:Role: Beam-shape conditioning at the 2-BM-B entrance, ~21 m
+   downstream of the front-end L3 slits
+:Family: Slit
+   (same standard APS L3-20 four-blade hardware as the front-end
+   L3 Slits; reuses the ``Slit`` Family declared there. No filter
+   changer is paired with this assembly.)
+:Mounted on: Own stand in 2-BM-B (floor-referenced)
+:Carries: (beam conditioning only)
+:z position: 50500 mm (read from layout drawing A342-RT1000-02; not
+   listed in the APS_1404611 reference table)
+:Position tolerance: 250 µm (x, y), 5 mm (z) (assumed identical to
+   the A-side L3 Slits)
+:MEDM screen: ``2slit.adl`` (same screen layout as the A-side slits,
+   instantiated with the B-blade motor PVs)
+:EPICS prefix: ``2bma:`` (horizontal motors ``2bma:m11`` and
+   ``2bma:m12`` for the X pair; vertical motors ``2bma:m9`` for
+   Y+ [up] and ``2bma:m10`` for Y− [down])
+:Notes:
+   These are the slits driven by ``b_slit_top`` (= ``2bma:m9``) and
+   ``b_slit_bot`` (= ``2bma:m10``) in the energy-change IOC; the
+   vertical pair tracks the per-energy beam position in Mono mode.
+   See :ref:`composite-iocs`.
+
+.. note::
+
+   **Horizontal-blade label flip.** The horizontal blade labels on
+   the operator side ("B slit Inb" / "B slit outboard") are
+   **flipped** with respect to the physical inboard / outboard
+   direction: the detector image is mirrored left / right, so the
+   on-screen "inboard" actually drives the outboard physical blade
+   and vice versa. The mapping of ``2bma:m11`` and ``2bma:m12`` to
+   the X+ / X− blades follows the physical convention (positive X
+   outboard), not the on-screen labels.
+
+.. figure:: ../img/b_slits_horizontal.png
+   :width: 480px
+   :align: center
+   :alt: 2slit.adl horizontal slits screen (2-BM-B)
+
+   ``2slit.adl`` (2-BM-B instance) — horizontal-slits control screen
+   ("LOOKING UPSTREAM", ``Lab`` coordinate system). The two leftmost
+   columns (``Slit2H −`` / ``Slit2H +``) drive the individual blade
+   motors ``2bma:m11`` and ``2bma:m12``. See the label-flip note
+   above. The ``Size`` and ``Center`` columns are calc-driven
+   composites that move both blades together to set the aperture
+   width and centre.
+
+.. figure:: ../img/b_slits_vertical.png
+   :width: 480px
+   :align: center
+   :alt: 2slit.adl vertical slits screen (2-BM-B)
+
+   ``2slit.adl`` (2-BM-B instance) — vertical-slits control screen
+   (same layout as the horizontal screen). The two leftmost columns
+   drive the individual blade motors: ``2bma:m9`` for the Y+ blade
+   (up, screen-labelled ``Slit2V +``) and ``2bma:m10`` for the Y−
+   blade (down, screen-labelled ``Slit2V −``). The ``Size`` and
+   ``Center`` columns are calc-driven composites.
+
 
 Sample stack
 ============
-
-.. warning::
-
-   **Work in progress / draft.** Everything from this section onward
-   (Sample stack, Detector system, Composite IOCs) is a skeleton:
-   prose sketches, ASCII trees of the intended kinematic chain, and
-   a single concrete Composite-IOC entry (the energy-change IOC). It
-   has not been reviewed against the actual hardware and may be
-   incomplete or wrong. Treat as a working draft until reconciled.
 
 The sample tower is a kinematic chain of six elements, from the
 experimental-hutch floor up to the sample itself. Order matters: stages
@@ -546,22 +622,43 @@ projection space.
 
 Kinematic chain (bottom to top)::
 
-   Sample optical table          (Y only; floor-referenced)
-     +-- Hexapod_2BM              (6-DOF coarse positioner)
-          +-- Sample_pitch_lam    (laminography pitch, 0-15 deg)
-               +-- Aerotech_ABRS_rotary    (theta axis)
-                    +-- Sample_top_X       (co-rotates with theta)
-                    +-- Sample_top_Z       (co-rotates with theta)
+   Sample optical table              (Y only; floor-referenced)
+     +-- Hexapod_2BM                  (6-DOF coarse positioner)
+          +-- Sample_pitch_lam        (laminography pitch, 0-20 deg)
+               +-- fixed -10 deg wedge (cancels +10 deg stage hold)
+                    +-- Aerotech_ABRS_rotary  (theta axis)
+                         +-- Sample_top_X     (co-rotates with theta)
+                         +-- Sample_top_Z     (co-rotates with theta)
 
 .. note::
 
-   The cora 2-BM asset inventory currently also lists
-   ``Sample_top_Roll`` and ``Sample_top_Pitch`` as 2-BM siblings. Whether
-   these are present on the current 2-BM sample top, or whether the
-   only sample-side pitch is the laminography stage, needs to be
-   confirmed against the actual hardware. Treat the four-element
-   sample-top set in the cora doc as provisional until this page is
-   reconciled.
+   The cora 2-BM asset inventory at
+   ``docs/deployments/2-bm/assets.md`` lists four sample-top
+   Devices: ``Sample_top_X``, ``Sample_top_Z``,
+   ``Sample_top_Roll``, ``Sample_top_Pitch``.
+   ``Sample_top_X`` and ``Sample_top_Z`` are the Kohzu CYAT-070
+   stages above the rotary and are documented below.
+   ``Sample_top_Roll`` and ``Sample_top_Pitch`` correspond to the
+   hexapod's Roll (``2bmHXP:m5``) and Pitch (``2bmHXP:m4``) axes —
+   they are part of the **Hexapod_2BM** block below, not separate
+   per-component stages above the rotary. (cora's ``LinearStage``
+   Family annotation for these two is a misnomer; they are
+   rotational hexapod axes.)
+
+.. note::
+
+   **For cora PV mapping.** Every ``2bmb:mNN`` PV cited in the
+   Sample stack and Detector system sections has been verified
+   against the ioc2bmb IOC: OMS-VME58 motors ``m1``–``m91`` are
+   declared in ``motor.substitutions``, and the Aerotech Ensemble
+   axes ``m100``/``m101``/``m102`` in ``AsynMotor.substitutions``
+   (asyn ports ``AeroE1``/``AeroE2``/``AeroE3``). The motor records
+   themselves carry generic ``DESC`` strings (``"motor $(N)"``), so
+   the per-Device role (e.g. ``Sample_top_X = 2bmb:m18``) is not
+   recoverable from the IOC alone — it is configured in mctoptics
+   substitutions, tomoScanStream, ``table.db`` calls, and this
+   page. When registering cora Devices against ioc2bmb PVs, treat
+   this page as the source of truth.
 
 
 Sample optical table
@@ -572,110 +669,530 @@ Sample optical table
    (new Family; not yet declared in the cora equipment BC)
 :Mounted on: Hutch floor
 :Carries: Hexapod_2BM (and everything above)
-:Degrees of freedom: Y (vertical) only
-:Travel: TBD
+:Degrees of freedom: 4 motors (Y, downstream X, upstream X, Z). In
+   routine operation only Y is moved; the X and Z motors exist but
+   are not used for day-to-day sample positioning.
+:EPICS:
+
+   ============  ==============  ====================================
+   Axis          PV              MEDM label
+   ============  ==============  ====================================
+   Y (vertical)  ``2bmb:m24``    ``Sample table Y``
+   Z             ``2bmb:m20``    ``Sample table Z``
+   USX           ``2bmb:m21``    ``Sample table USX`` (upstream X)
+   DSX           ``2bmb:m22``    ``Sample table DSX`` (downstream X)
+   ============  ==============  ====================================
+
+   No combined ``table.db`` virtual record is loaded for this table —
+   the four motors are addressed directly.
 :Notes:
-   Used to set a coarse vertical origin so the hexapod operates near the
-   centre of its Y travel. Standard APS optical-table hardware.
+   Used to set a coarse vertical origin so the hexapod operates near
+   the centre of its Y travel. Standard APS optical-table hardware on
+   a Vibraplane isolation base (visible in the sample-stack photo
+   below).
+
+.. figure:: ../img/sample_optical_table_y.png
+   :width: 25%
+   :align: center
+
+   Single-motor stage-control screen for the Y axis (``2bmb:m24``).
+   This is the screen used for routine vertical positioning of the
+   sample tower — no aggregating table MEDM is needed since only one
+   axis moves in normal operation.
+
+.. figure:: ../img/sample_optical_table_4motors.png
+   :width: 70%
+   :align: center
+
+   ``4Motors.adl`` MEDM for all four axes of the sample optical
+   table (Y, DSX, USX, Z), shown for reference when the rarely-used
+   X or Z axes need to be touched.
 
 Hexapod_2BM
 -----------
 
 :Role: Coarse 6-DOF sample positioner
 :Family: Hexapod
+:Model: Aerotech HexGen HEX300-230HL hexapod (300 mm platform,
+   230 mm home height). Full ordering code: HEX300-230HL with
+   suffixes ``-E1`` (incremental encoders), ``-PL4`` (ULTRA
+   high-accuracy performance grade) and ``-TAS`` (tested and
+   integrated as a system).
 :Mounted on: Sample optical table
 :Carries: Sample_pitch_lam
-:Degrees of freedom: X, Y, Z, roll, pitch, yaw
-:Travel: TBD per axis
-:EPICS prefix: TBD
+:Degrees of freedom: X, Y, Z, A (θ\ :sub:`x`), B (θ\ :sub:`y`), C (θ\ :sub:`z`)
+:Travel:
+   X 55 mm, Y 60 mm, Z 25 mm, A 15°, B 15°, C 30° (single-axis moves
+   from home; travels are mutually exclusive — consult Aerotech's
+   HexGen workspace simulator for combined-move envelopes)
+:Resolution: 20 nm (XYZ), 0.2 µrad / 0.04 arc-sec (ABC)
+:Accuracy:
+   ±1 µm (X), ±0.75 µm (Y, Z), ±10 µrad / ±2.1 arc-sec (A, B, C);
+   PL4 ULTRA grade, measured over full travel.
+:Maximum speed: 50 mm/s (X), 25 mm/s (Y, Z), 15 °/s (A, B), 30 °/s (C)
+:Load capacity:
+   45 kg vertical, 21 kg horizontal, 14 kg de-energized holding;
+   stage mass 12 kg
+:Drive: Precision ball screw, brushless slotless servo, 80 VDC bus
+:EPICS: Prefix ``2bmHXP:``. Per-axis motor records (only the
+   user-accessible axes are exposed):
+
+   ===========  ==============  =====================================
+   Axis         PV              Notes
+   ===========  ==============  =====================================
+   X            ``2bmHXP:m1``   linear, lab-X
+   Y            ``2bmHXP:m2``   linear, lab-Y (vertical)
+   Pitch        ``2bmHXP:m4``   rotation about lab-X
+   Roll         ``2bmHXP:m5``   rotation about lab-Z (beam axis)
+   ===========  ==============  =====================================
+
+   ``2bmHXP:m3`` (Z) and ``2bmHXP:m6`` (Yaw / θ\ :sub:`z`) are not
+   exposed to the user. ``m3`` is reserved for the MCTOptics IOC,
+   which drives it as ``LENS_SAMPLE_Y`` for sample-side Y alignment
+   relative to the microscope.
+
+   Top-level launcher screen is the ``2bmHXP`` UI (see
+   ``hexapod_01.png``); native Aerotech Ensemble interface rather
+   than plain motor records.
 :Notes:
    Coarse positioning of the entire sample tower. Y is shared with the
    optical table: convention is to set table Y so the sample sits in
    the beam with the hexapod at mid-travel, maximising remaining
-   hexapod DOF for fine alignment.
+   hexapod DOF for fine alignment. See the `Hex300-230HL data sheet
+   <https://anl.box.com/s/jn2h32rqxuwmtbygilk509x41ixgsdwf>`__
+   (``Hex300-Data-Sheet-D20250203.pdf``) for accuracy maps and load
+   curves.
+
+.. figure:: ../img/sample_stack.jpg
+   :width: 55%
+   :align: center
+
+   2-BM-B sample stack on the Vibraplane-isolated optical table.
+   Visible from bottom to top: the Aerotech HEX300-230HL hexapod (six
+   struts), the Kohzu SA16A-RM laminography tilt stage (centre), and
+   the Aerotech ABS250MP-M-AS air-bearing rotary at top.
 
 Sample_pitch_lam
 ----------------
 
 :Role: Laminography pitch axis
 :Family: LinearStage
-   (mechanically a tilt; modelled as a single-axis stage in cora today.
-   Consider a dedicated ``TiltStage`` Family if more tilt axes appear.)
+   (mechanically a tilt; would model as a single-axis stage in cora.
+   Not yet registered in cora — the closest pending entry is
+   "Broader sample-stage motors" under the Pending table at
+   ``docs/deployments/2-bm/assets.md``. Consider a dedicated
+   ``TiltStage`` Family if more tilt axes appear.)
+:Model: Kohzu SA16A-RM goniometer / tilt stage
 :Mounted on: Hexapod_2BM
-:Carries: Aerotech_ABRS_rotary
-:Travel: 0 deg to 15 deg
-:EPICS prefix: TBD
+:Carries: Aerotech_ABRS_rotary (via a fixed -10° wedge)
+:Travel: 0° to 20° (full mechanical range; see operating convention below)
+:EPICS: ``2bmb:m49``
 :Notes:
-   Inserted between hexapod and rotary specifically for laminography.
-   At 0 deg the rotation axis is vertical (standard tomography); at
-   higher angles the rotation axis is tilted in the beam, enabling
-   flat-sample laminography.
+   Inserted between the hexapod and the rotary specifically for
+   laminography. A fixed **-10° wedge** sits between this stage and
+   the rotary; the stage is held at **+10°** so the two cancel and
+   the rotation axis is vertical (standard tomography). Sweeping the
+   stage between 0° and 20° therefore gives a **±10° (20° total)**
+   range of net rotary-axis tilt for laminography. The default
+   laminography setpoint is **+15°** on the stage, i.e. +5° net
+   rotary-axis tilt.
 
 Aerotech_ABRS_rotary
 --------------------
 
 :Role: Sample rotation axis (theta)
 :Family: RotaryStage
-:Mounted on: Sample_pitch_lam
+:Model:
+   Stage — Aerotech ABS250MP-M-AS air-bearing direct-drive rotary
+   (250 mm aperture, mid-precision class). Drive — Aerotech Ensemble
+   HLE10-40-A-MXH (HLe-series digital drive). The cora Device
+   identifier ``Aerotech_ABRS_rotary`` is retained for stability of
+   downstream references even though the installed hardware is the
+   ABS250MP, not an ABRS.
+:Mounted on: Sample_pitch_lam (via a fixed -10° wedge — see above)
 :Carries: Sample_top_X, Sample_top_Z
 :Travel: -360 deg to +360 deg
 :Max speed: 720 deg/s
 :Encoder resolution: 0.0001 deg
 :Homing offset: 0 deg
-:EPICS prefix: TBD
+:EPICS: ``2bmb:m102``
+   (PV mapping from
+   `tomoScanStream.substitutions
+   <https://github.com/tomography/tomoscan/blob/master/iocBoot/iocTomoScanStream_2BMB/tomoScanStream.substitutions>`__,
+   where ``ROTATION = 2bmb:m102``)
 :Notes:
-   The four Sample_top_* stages above this axis co-rotate with theta.
-   In projection geometry their effect is in the rotating frame, not
-   the lab frame.
+   The two Sample_top_* stages above this axis (Sample_top_X and
+   Sample_top_Z) co-rotate with theta. In projection geometry their
+   effect is in the rotating frame, not the lab frame.
 
 Sample_top_X
 ------------
 
-:Role: Fine sample translation, perpendicular to beam (co-rotates with theta)
+:Role: Fine sample translation perpendicular to the beam
+   (co-rotates with theta). Operationally the "0/180 stage" —
+   motion lies along the beam when theta = 0° or 180°.
 :Family: LinearStage
+:Model: Kohzu CYAT-070 crossed-roller alignment stage,
+   80 × 80 mm table, ball-screw lead 1.0 mm. See
+   :doc:`../ops/item_050` for the operational page.
 :Mounted on: Aerotech_ABRS_rotary
 :Carries: (sample)
-:Travel: -10 mm to +10 mm
-:Max speed: 1 mm/s
-:Encoder resolution: 0.0005 mm
-:EPICS prefix: TBD
+:Travel: ±15 mm
+:Resolution: 1 / 0.5 / 0.05 µm (full / half / 1/20 microstep)
+:Max speed: 5 mm/s
+:Repeatability: ≤±0.5 µm
+:Lost motion: ≤2 µm
+:Backlash: ≤1 µm
+:Straightness: ≤3 µm / 30 mm (horizontal and vertical)
+:Load capacity: 98 N (10 kgf)
+:Weight: 1.7 kg
+:EPICS: ``2bmb:m18``
+   (matches ``LENS_SAMPLE_X`` in
+   ``iocBoot/iocMCTOptics/mctOptics.substitutions`` — this is the
+   sample-side X motor MCTOptics drives for lens/sample alignment.)
 
 Sample_top_Z
 ------------
 
-:Role: Fine sample translation, along beam (co-rotates with theta)
+:Role: Fine sample translation along the beam (co-rotates with
+   theta). Operationally the "90/270 stage" — motion lies along
+   the beam when theta = 90° or 270°.
 :Family: LinearStage
+:Model: Kohzu CYAT-070 crossed-roller alignment stage
+   (same hardware as Sample_top_X; see :doc:`../ops/item_050`).
 :Mounted on: Aerotech_ABRS_rotary
 :Carries: (sample)
-:Travel: TBD
-:Max speed: TBD
-:Encoder resolution: TBD
-:EPICS prefix: TBD
+:Travel: ±15 mm
+:Resolution: 1 / 0.5 / 0.05 µm (full / half / 1/20 microstep)
+:Max speed: 5 mm/s
+:Repeatability: ≤±0.5 µm
+:Lost motion: ≤2 µm
+:Backlash: ≤1 µm
+:Straightness: ≤3 µm / 30 mm (horizontal and vertical)
+:Load capacity: 98 N (10 kgf)
+:Weight: 1.7 kg
+:EPICS: ``2bmb:m17``
+   (matches ``LENS_SAMPLE_Z`` in
+   ``iocBoot/iocMCTOptics/mctOptics.substitutions`` — this is the
+   sample-side Z motor MCTOptics drives for lens/sample alignment.)
 
 
 Detector system
 ===============
 
-.. (MCTOptics microscope + Optique Peter Z translation + detector-side
-.. optical table. To be drafted; see notes below for the kinematic
-.. chain that needs to be captured here.)
+The 2-BM-B detector is an **Optique Peter MICRX080 white-beam triple-
+objective microscope**, mounted on a 1 m linear Z stage that itself
+sits on a dedicated APS-standard optical table. The Z stage moves the
+entire microscope along the beam from near-contact with the sample
+(short propagation) out to ~1 m for phase-contrast imaging; the table
+is used to keep the detector centred on the beam as Z varies.
 
-The detector microscope (MCTOptics, ~55 m from source) is mounted on
-the Optique Peter linear Z stage, which in turn sits on a standard APS
-optical table providing roll, pitch, X, and Y. The Z stage moves the
-entire microscope along the beam from ~0 (scintillator nearly touching
-the sample) out to ~1 m for phase contrast; the optical table is used
-to keep the detector centre on the beam as Z moves.
+Kinematic chain (top of beam down to floor)::
 
-Chain to capture (top of beam down to floor)::
+   FLIR Oryx 5MP  /  FLIR Oryx 31MP               (two cameras, selected via folding mirror)
+     +-- Camera selector stage                    (Schunk LPTM 30, two-position mirror)
+          +-- Dual-port system + tube lens
+               +-- Triple-objective head          (3 microscope heads, Mitutoyo MPLAPO)
+                    +-- Objective selector       (Nanotec ST4118M1404-B + ERO 1420 coder)
+                         +-- Scintillator support (LuAG, tiltable)
+                              +-- Optique Peter MICRX080 microscope body
+                                   +-- Optique Peter 1 m linear Z stage  (along beam)
+                                        +-- Detector optical table       (X / Y / Z / roll / pitch / yaw)
+                                             +-- Hutch floor
 
-   MCTOptics_objective_{0,1,2}     (10x / 5x / 1.1x; lens turret selects)
-   Oryx_5MP_camera                 (2448 x 2048, 3.45 um pixel)
-   Scintillator_LuAG               (100 um LuAG)
-     +-- MCTOptics (Assembly)              <- microscope body
-          +-- Optique_Peter_focus_Z        <- linear Z, 0 to ~1 m along beam
-               +-- Detector optical table  <- roll / pitch / X / Y
-                    +-- Hutch floor
+cora's ownership view differs from the kinematic-mounting view above:
+the lens turret and the Optique Peter Z stage are registered as
+Device-level siblings under the ``2-BM`` Unit, then wired into the
+``MCTOptics`` Component via ``Plan.wiring`` rather than nested under
+it. The objectives, cameras, and scintillator are children of
+``MCTOptics`` in cora. See ``docs/deployments/2-bm/assets.md`` for the
+canonical composition.
+
+
+Optique Peter MICRX080 microscope
+---------------------------------
+
+:Role: White-beam triple-objective indirect-detection microscope
+   (~55 m from source)
+:Family: Microscope
+:Model: Optique Peter **MICRX080**, ANL configuration
+   (manual MAN-11863-0521-0465-A, 21/05/2021)
+:Configuration:
+   Three microscope heads, each accepting one Mitutoyo MPLAPO long-
+   working-distance objective; an in-beam objective selector translates
+   the chosen head onto the optical axis. The dual-port system splits
+   the optical path between two cameras via a switchable folding-
+   mirror "camera selector". A common filter and per-head individual
+   filter live above the objectives; a tiltable scintillator support
+   sits below them.
+:Cameras:
+   Two cameras on the dual-port system (current ANL configuration):
+
+   - **FLIR Oryx 5MP** (camera 0, ``2bmSP1:`` areaDetector prefix).
+   - **FLIR Oryx 31MP** (camera 1, ``2bmSP2:`` areaDetector prefix).
+
+   The cameras shipped in the manual's optical table (PCO Dimax HS
+   and Adimec Quartz Q-12A180) have been replaced; the manual's §16
+   table is still informative for object-field / oversampling
+   estimates if you substitute the Oryx pixel size and sensor format.
+:Objectives:
+   Current ANL configuration, three slots:
+
+   - Lens 0 — **1.1×**
+   - Lens 1 — **2×**
+   - Lens 2 — **10×**
+
+   All Mitutoyo MPLAPO long-working-distance class. The manual lists
+   the broader objective family the microscope supports (2× / 5× /
+   5×HR / 7.5× / 10× / 20×) with F200 mm tube lens and 30 mm best
+   image circle.
+:Objective selector:
+   - Stepper motor: **Nanotec ST4118M1404-B**, 1.8°/step (200 steps/rev),
+     bipolar, 1.7 VDC, 1.4 A/phase.
+   - Coder: **Heidenhain ERO 1420**, 1250 lines/rev, TTL, 5 V.
+   - Drive: ball screw, 2 mm/rev pitch, direct mounting.
+   - Travel: nominal 60 mm between adjacent objectives.
+   - Closed-loop reference: left-end precision switch (±1 µm
+     reproducibility) or zero-coder mark.
+   - ANL-MICRX080 calibrated objective positions (mm from left
+     precision end switch): A=2.3006, B=0.5625, C=59.6835, D=59.6101
+     (see §13.3.1 of the manual).
+:Camera selector:
+   - Stage: **Schunk LPTM 30** with two folding mirrors.
+   - Stepper motor: 200 steps/rev full step, 0.5 mm spindle pitch,
+     max 2.5 mm/s.
+   - Positioning error <35 µm/100 mm; repeatability <6 µm (uni) /
+     <9 µm (bi).
+:Per-objective focus:
+   Each microscope head has its own motorised focus stage, so the
+   three objectives focus independently.
+:Scintillator support:
+   Tiltable square-scintillator support (8×8 mm or 12×12 mm), with a
+   ring-mounted variant (25×25 mm) for the 1× head. Vitreous-carbon
+   protective window; spring-loaded mount (see §6 of the manual).
+:Mounted on: Optique Peter 1 m linear Z stage
+:Dimensions: ~338 × 561 × 169 mm with camera-protection box;
+   ~332 × 530 × 347 mm without
+
+.. note::
+
+   This page summarises the microscope as built — for installation,
+   alignment, scintillator changes, focus calibration, and pinouts
+   refer to the full manual (53 pages) at
+   ``MAN-11863-0521-0465-A.pdf``.
+
+
+MCTOptics — Optique Peter IOC
+-----------------------------
+
+:Role: EPICS interface that exposes the Optique Peter microscope
+   (objective + camera selectors, per-head focus, per-camera rotation,
+   sample-side alignment) as a single high-level API. Implements the
+   sequencing required so that selecting a lens or camera moves the
+   underlying motors to the calibrated positions and applies the
+   per-combination offsets.
+:Family: Microscope-IOC (composite)
+:Repository: https://github.com/xray-imaging/mctoptics
+   (local checkout: ``/Users/decarlo/conda/mctoptics-decarlof/``)
+:Documentation: https://mctoptics.readthedocs.io
+:Prefix: ``2bm:MCTOptics:``
+:Top-level operator PVs:
+   - ``2bm:MCTOptics:LensSelect`` — mbbo, ``Pos. 0`` / ``Pos. 1`` /
+     ``Pos. 2`` (the three objective slots).
+   - ``2bm:MCTOptics:CameraSelect`` — mbbo, ``Pos. 0`` / ``Pos. 1``
+     (Adimec / Dimax, via the folding-mirror camera selector).
+   - ``2bm:MCTOptics:LensSelected``, ``CameraSelected`` — status
+     readbacks (also report intermediate "Moving between …" state).
+   - ``2bm:MCTOptics:LensName{0,1,2}``, ``CameraName{0,1}`` — string
+     labels (mirror into the ``LensSelect`` / ``CameraSelect`` choice
+     strings on init).
+   - ``2bm:MCTOptics:ScintillatorType``, ``ScintillatorThickness``,
+     ``CameraObjective``, ``CameraTubeLength``, ``ImagePixelSize``,
+     ``DetectorPixelSize`` — optics metadata stamped into each scan.
+   - ``2bm:MCTOptics:CameraBinning`` (``1x`` / ``2x`` / ``4x``) and
+     ``Camera{0,1}Bit`` (``8`` / ``10`` / ``12`` / ``16-bit``).
+   - ``2bm:MCTOptics:Cut{Left,Right,Top,Bottom}`` + ``Cut`` (busy)
+     for image cropping.
+
+Underlying motor map (from ``iocBoot/iocMCTOptics/mctOptics.substitutions``):
+
+===========================  ======================  ================================
+Macro                        PV                      Purpose
+===========================  ======================  ================================
+``LENS_MOTOR``               ``2bmb:m1``             Objective selector (turret)
+``CAMERA_MOTOR``             ``2bmb:m5``             Camera selector (folding mirror)
+``LENS0_FOCUS``              ``2bmb:m2``             Objective #0 focus
+``LENS1_FOCUS``              ``2bmb:m3``             Objective #1 focus
+``LENS2_FOCUS``              ``2bmb:m4``             Objective #2 focus
+``CAM0_ROT``                 ``2bmb:m7``             Camera 0 rotation
+``CAM1_ROT``                 ``2bmb:m8``             Camera 1 rotation
+``LENS_SAMPLE_X``            ``2bmb:m18``            Sample alignment in X
+``LENS_SAMPLE_Y``            ``2bmHXP:m3``           Sample alignment in Y (hexapod)
+``LENS_SAMPLE_Z``            ``2bmb:m17``            Sample alignment in Z
+``CAMERA0``                  ``2bmSP1:``             Camera-0 areaDetector prefix
+``CAMERA1``                  ``2bmSP2:``             Camera-1 areaDetector prefix
+``TOMOSCAN``                 ``2bmb:TomoScan:``      Linked TomoScan IOC
+===========================  ======================  ================================
+
+Calibrated lens positions (mm, both cameras): Pos. 0 = -60.030,
+Pos. 1 = -0.8370, Pos. 2 = 58.64. Camera positions: Pos. 0 = 20,
+Pos. 1 = 15. Per-objective and per-camera fine focus and rotation
+offsets are held in the IOC's autosave file.
+
+.. figure:: ../img/optique_peter_medm.png
+   :width: 70%
+   :align: center
+
+   MCTOptics operator screen. Top: server status and the
+   ``sync to motors`` button. Middle: the three lens slots
+   (Lens 0 = 1.1×, Lens 1 = 2×, Lens 2 = 10×), each with its own
+   focus value. Right: the two cameras (Camera 0 = Oryx 5MP,
+   Camera 1 = Oryx 31MP) with their rotation offsets. The
+   ``Default`` button restores the per-combination calibrated
+   focus / rotation values from the IOC's autosave file.
+
+Optique Peter Z stage
+---------------------
+
+:Role: Carries the entire microscope body along the beam from
+   near-contact with the sample out to ~1 m for phase-contrast
+   imaging.
+:Family: LinearStage
+:Model: Aerotech **PRO225SL-1000** mechanical-bearing linear stage
+   (SL precision class, 1000 mm travel; the longest member of the
+   PRO225SL family).
+:Mounted on: Detector optical table
+:Carries: Optique Peter MICRX080 microscope
+:Travel: 1000 mm
+:Accuracy: ±18 µm (SL Standard; calibrated grade not offered above 500 mm)
+:Resolution: 0.1 µm (high-resolution feedback) / 1.0 µm
+:Repeatability: ±1 µm bidirectional
+:Straightness: ±9.5 µm horizontal and vertical
+:Angular error: 110 µrad pitch, roll, and yaw
+:Max speed: 140 mm/s (1000 mm variant; shorter PRO225SL travels reach 220 mm/s)
+:Load capacity: 100 kg horizontal, 60 kg vertical (axial), 100 kg side
+:Moving mass: 7.3 kg (with tabletop)
+:Stage mass: 40.9 kg (without motor)
+:Material: anodised aluminium
+:MTBF: 20,000 h
+:EPICS: ``2bmbAERO:m1`` (motor record; the table-level VAL field is
+   ``2bmbAERO:m1.VAL``). Lives in a dedicated Aerotech IOC,
+   ``2bmbAERO``, separate from the main ``2bmb`` IOC.
+
+
+Detector optical table
+----------------------
+
+:Role: Floor-referenced support for the Optique Peter Z stage and the
+   microscope; used to keep the detector centred on the beam as the Z
+   stage moves.
+:Family: OpticalTable
+:Mounted on: Hutch floor
+:Carries: Optique Peter Z stage (and the microscope)
+:Degrees of freedom: X, Y, Z, AX (roll), AY (pitch), AZ (yaw) —
+   six virtual axes computed from six underlying support motors.
+:Geometry: ``SRI`` (Sector Research Instrumentation: 3 Y supports,
+   2 X supports, 1 Z support — 6 motors total).
+:EPICS: Virtual table record ``2bmb:table3`` (composite). Loaded in
+   the 2-BM-B IOC by
+   ``dbLoadRecords("$(DIR)/table.db", "P=2bmb:,Q=Table3,T=table3,
+   M0X=m13,M0Y=m14,M1Y=m12,M2X=m10,M2Y=m9,M2Z=m11,GEOM=SRI")``.
+
+Underlying motor map:
+
+=======  ============  ================================
+Macro    Motor PV      Role on the table
+=======  ============  ================================
+``M0X``  ``2bmb:m13``  corner 0 — X support
+``M0Y``  ``2bmb:m14``  corner 0 — Y support
+``M1Y``  ``2bmb:m12``  corner 1 — Y support (no X here)
+``M2X``  ``2bmb:m10``  corner 2 — X support
+``M2Y``  ``2bmb:m9``   corner 2 — Y support
+``M2Z``  ``2bmb:m11``  corner 2 — Z support (single Z)
+=======  ============  ================================
+
+The ``table.db`` template combines these into composite translate /
+rotate axes ``2bmb:table3.X``, ``.Y``, ``.Z``, ``.AX``, ``.AY``,
+``.AZ``, plus per-leg readbacks under the ``2bmb:table3:`` prefix.
+
+.. figure:: ../img/optique_peter_table_medm.png
+   :width: 60%
+   :align: center
+
+   ``table_full.adl`` MEDM screen for ``2bmb:table3`` (the detector
+   optical table under the Optique Peter instrument). The Translate
+   and Rotate columns are calc-driven composites; the Motors column
+   shows the six underlying motor records listed above.
+
+
+Trigger and synchronisation
+===========================
+
+The Aerotech Ensemble rotary controller emits a position-synchronised
+output (PSO) pulse every fixed number of encoder counts of the sample
+rotation. Those pulses are not wired straight to the detector — they
+pass through a **softGlueZynq** FPGA that conditions them (pulse
+width and delay), can mask them through a programmable lookup
+pattern, and only then drives the camera trigger input.
+
+softGlueZynq (PSO → camera trigger)
+-----------------------------------
+
+:Role: Conditions and gates the Aerotech rotary PSO pulse train into
+   the detector trigger input. Provides programmable pulse width and
+   delay, a 2:1 MUX between raw PSO and a software-defined custom
+   pattern (``trigILF``), and a ``memPulseSeq`` block for arbitrary
+   interlaced sequences.
+:Family: ``TriggerFPGA``
+   (matches cora's Pending entry ``softGlueZynq_FPGA``)
+:Hardware: APS softGlueZynq — Xilinx Zynq SoC (FPGA + ARM) on a
+   MicroZed-class carrier. The EPICS IOC runs on the ARM core and
+   starts automatically at boot.
+:Mounted on: Hutch electronics rack
+:Inputs: PSO output of the Aerotech Ensemble drive that runs the
+   rotary ``2bmb:m102``.
+:Outputs: Camera trigger input. Per
+   ``tomoscan/tomoscan_fpga_2bm.py``, the wiring is FLIR Oryx
+   ``Line2`` for the current Oryx 5MP / 31MP cameras; the same
+   module also supports Grasshopper3 (``Line0``) and Adimec
+   (continuous-timed) modes if those cameras are swapped in.
+:Signal path:
+   PSO → ``MUX2-1`` (selects raw PSO or ``trigILF``) →
+   ``GateDly 1`` (pulse width / delay; default 100 × 100 ns = 10 µs)
+   → camera trigger.
+:EPICS prefix: ``2bmbMZ1:SG:``. Key PVs:
+
+   ===================================  =========================================================
+   PV                                   Purpose
+   ===================================  =========================================================
+   ``2bmbMZ1:SG:MUX2-1_SEL_Signal``     Selects raw PSO (0) or ``trigILF`` (1) onto the trigger.
+   ``2bmbMZ1:SG:memPulseSeq.enable``    Arms (1) / disarms (0) the custom-pattern playback.
+   ``2bmbMZ1:SG:GateDly1.DLY``          Delay from input edge to start of output pulse.
+   ``2bmbMZ1:SG:GateDly1.Width``        Output pulse width, in 10 MHz clock cycles (100 = 10 µs).
+   ===================================  =========================================================
+
+:IOC location: ``/net/s2dserv/xorApps/epics/synApps_SG/ioc/2bmbMZ1/``
+   on ``arcturus``. Start with ``./start_epics_2bmbMZ1`` (or the
+   matching ``./start_caQtDM_2bmbMZ1`` for the operator screens).
+:tomoscan integration:
+   ``TomoScan2BM`` (subclass of ``TomoScanFPGAPSO``) in
+   `tomoscan/tomoscan_fpga_2bm.py
+   <https://github.com/decarlof/tomoscan/blob/master/tomoscan/tomoscan_fpga_2bm.py>`__
+   selects the camera-specific trigger mode
+   (``set_trigger_mode_oryx`` / ``_grasshopper`` / ``_adimec``);
+   the base ``TomoScanFPGAPSO`` class drives the PSO configuration
+   on the Aerotech controller.
+:Custom pulse patterns:
+   For interlaced-fly tomography, pulse subsets are loaded with the
+   helper ``macros_ILF.write_PSO_array`` (e.g.
+   ``write_PSO_array([0, 2, 4, 6])`` triggers only on PSO edges 0,
+   2, 4, 6). See
+   `interlaced/fpga/macros_ILF.py
+   <https://github.com/decarlof/interlaced/blob/main/fpga/macros_ILF.py>`__.
+:Notes:
+   :doc:`../ops/item_060` is the operational page for the FPGA —
+   MEDM screens, how to set ``DLY`` and ``Width``, how to flip the
+   MUX, and the ``memPulseSeq`` workflow.
 
 
 .. _composite-iocs:
@@ -753,8 +1270,8 @@ Energy-change IOC
 
 :Exposes: Higher-level energy-change command surface (PV / RPC TBD;
    consult ``energyApp/`` in the repository).
-:Repository: ``/Users/decarlo/conda/energy-decarlof`` (local checkout;
-   standard EPICS app layout — ``energyApp/``, ``iocBoot/``,
+:Repository: https://github.com/xray-imaging/energy.git
+   (standard EPICS app layout — ``energyApp/``, ``iocBoot/``,
    ``configure/``, ``src/``).
 
 **Mirror stripe travel (Pink mode).** ``m1_horizontal`` (the in-vacuum
