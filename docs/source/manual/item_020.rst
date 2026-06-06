@@ -74,7 +74,7 @@ That document is the source of truth for positions and shielding;
 the summary below reproduces it in walking order (source to hutch) and
 expands the components that are operationally addressed at run time
 (slits, mirror, monochromator, safety shutter) into per-component
-blocks for cora.
+blocks for `cora <https://github.com/xmap/cora>`__.
 
 .. note::
 
@@ -357,7 +357,7 @@ Y3-30 Mirror
 
 :Role: Vertical-deflecting mirror; defines the alternate beam centrelines
 :Family: Mirror
-   (Pending in cora-doga: Asset ``Mirror_2BM`` appears in the
+   (Pending in cora: Asset ``Mirror_2BM`` appears in the
    Pending table at ``docs/deployments/2-bm/assets.md`` and Family
    ``Mirror`` is listed as "Pending in code" at
    ``docs/catalog/families.md``. Composes a mirror body with an
@@ -642,7 +642,7 @@ Kinematic chain (bottom to top)::
 
 .. note::
 
-   **For cora-doga PV mapping.** Every ``2bmb:mNN`` PV cited in the
+   **For cora PV mapping.** Every ``2bmb:mNN`` PV cited in the
    Sample stack and Detector system sections has been verified
    against the ioc2bmb IOC: OMS-VME58 motors ``m1``–``m91`` are
    declared in ``motor.substitutions``, and the Aerotech Ensemble
@@ -757,7 +757,7 @@ Sample_pitch_lam
 :Role: Laminography pitch axis
 :Family: LinearStage
    (mechanically a tilt; would model as a single-axis stage in cora.
-   Not yet registered in cora-doga — the closest pending entry is
+   Not yet registered in cora — the closest pending entry is
    "Broader sample-stage motors" under the Pending table at
    ``docs/deployments/2-bm/assets.md``. Consider a dedicated
    ``TiltStage`` Family if more tilt axes appear.)
@@ -784,7 +784,7 @@ Aerotech_ABRS_rotary
 :Model:
    Stage — Aerotech ABS250MP-M-AS air-bearing direct-drive rotary
    (250 mm aperture, mid-precision class). Drive — Aerotech Ensemble
-   HLE10-40-A-MXH (HLe-series digital drive). The cora-doga Device
+   HLE10-40-A-MXH (HLe-series digital drive). The cora Device
    identifier ``Aerotech_ABRS_rotary`` is retained for stability of
    downstream references even though the installed hardware is the
    ABS250MP, not an ABRS.
