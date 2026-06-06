@@ -664,29 +664,44 @@ Sample optical table
    (new Family; not yet declared in the cora equipment BC)
 :Mounted on: Hutch floor
 :Carries: Hexapod_2BM (and everything above)
-:Degrees of freedom: Vertical (Y) only used at 2-BM-B (the table's
-   MEDM screen also exposes X, Z, and three rotations, but those are
-   not commissioned for the sample tower)
-:Travel: TBD
+:Degrees of freedom: 4 motors (Y, downstream X, upstream X, Z). In
+   routine operation only Y is moved; the X and Z motors exist but
+   are not used for day-to-day sample positioning.
 :EPICS:
-   Single physical motor ``2bmb:m24`` drives the table's vertical
-   axis. The standard APS ``table.db`` MEDM screen is still used for
-   display, but in the current 2-BM-B build only one Y motor is wired
-   (not the three-leg coupling the standard screen suggests).
-:Notes:
-   Used to set a coarse vertical origin so the hexapod operates near the
-   centre of its Y travel. Standard APS optical-table hardware on a
-   Vibraplane isolation base (visible in the sample-stack photo below).
 
-.. figure:: ../img/optical_table_medm.png
-   :width: 60%
+   ============  ==============  ====================================
+   Axis          PV              MEDM label
+   ============  ==============  ====================================
+   Y (vertical)  ``2bmb:m24``    ``Sample table Y``
+   Z             ``2bmb:m20``    ``Sample table Z``
+   USX           ``2bmb:m21``    ``Sample table USX`` (upstream X)
+   DSX           ``2bmb:m22``    ``Sample table DSX`` (downstream X)
+   ============  ==============  ====================================
+
+   No combined ``table.db`` virtual record is loaded for this table —
+   the four motors are addressed directly.
+:Notes:
+   Used to set a coarse vertical origin so the hexapod operates near
+   the centre of its Y travel. Standard APS optical-table hardware on
+   a Vibraplane isolation base (visible in the sample-stack photo
+   below).
+
+.. figure:: ../img/sample_optical_table_y.png
+   :width: 25%
    :align: center
 
-   ``table_full.adl`` MEDM screen used to display the sample optical
-   table. The Translate / Rotate columns are calc-driven composites;
-   the Motors column reflects the standard APS table layout. At
-   2-BM-B only the vertical (Y) axis is operationally used, driven by
-   the single motor ``2bmb:m24``.
+   Single-motor stage-control screen for the Y axis (``2bmb:m24``).
+   This is the screen used for routine vertical positioning of the
+   sample tower — no aggregating table MEDM is needed since only one
+   axis moves in normal operation.
+
+.. figure:: ../img/sample_optical_table_4motors.png
+   :width: 70%
+   :align: center
+
+   ``4Motors.adl`` MEDM for all four axes of the sample optical
+   table (Y, DSX, USX, Z), shown for reference when the rarely-used
+   X or Z axes need to be touched.
 
 Hexapod_2BM
 -----------
