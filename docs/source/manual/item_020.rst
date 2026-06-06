@@ -873,7 +873,9 @@ Optique Peter MICRX080 microscope
    mirror "camera selector". A common filter and per-head individual
    filter live above the objectives; a tiltable scintillator support
    sits below them.
-:Cameras (two, on the dual-port system; current ANL configuration):
+:Cameras:
+   Two cameras on the dual-port system (current ANL configuration):
+
    - **FLIR Oryx 5MP** (camera 0, ``2bmSP1:`` areaDetector prefix).
    - **FLIR Oryx 31MP** (camera 1, ``2bmSP2:`` areaDetector prefix).
 
@@ -881,7 +883,9 @@ Optique Peter MICRX080 microscope
    and Adimec Quartz Q-12A180) have been replaced; the manual's §16
    table is still informative for object-field / oversampling
    estimates if you substitute the Oryx pixel size and sensor format.
-:Objectives (current ANL configuration, three slots):
+:Objectives:
+   Current ANL configuration, three slots:
+
    - Lens 0 — **1.1×**
    - Lens 1 — **2×**
    - Lens 2 — **10×**
