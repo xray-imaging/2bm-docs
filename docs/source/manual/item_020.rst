@@ -1012,17 +1012,15 @@ Optique Peter Z stage
 :Mounted on: Detector optical table
 :Carries: Optique Peter MICRX080 microscope
 :Travel: 1000 mm
-:Accuracy: ±18 µm (SL Standard; calibrated grade not offered above
-   500 mm)
+:Accuracy: ±18 µm (SL Standard; calibrated grade not offered above 500 mm)
 :Resolution: 0.1 µm (high-resolution feedback) / 1.0 µm
-:Bidirectional repeatability: ±1 µm
-:Horizontal / vertical straightness: ±9.5 µm
-:Pitch / roll / yaw: 110 µrad
-:Max speed: 140 mm/s (1000 mm variant; shorter PRO225SL travels can
-   reach 220 mm/s)
+:Repeatability: ±1 µm bidirectional
+:Straightness: ±9.5 µm horizontal and vertical
+:Angular error: 110 µrad pitch, roll, and yaw
+:Max speed: 140 mm/s (1000 mm variant; shorter PRO225SL travels reach 220 mm/s)
 :Load capacity: 100 kg horizontal, 60 kg vertical (axial), 100 kg side
-:Moving mass (with tabletop): 7.3 kg
-:Stage mass (without motor): 40.9 kg
+:Moving mass: 7.3 kg (with tabletop)
+:Stage mass: 40.9 kg (without motor)
 :Material: anodised aluminium
 :MTBF: 20,000 h
 :EPICS: ``2bmbAERO:m1`` (motor record; the table-level VAL field is
