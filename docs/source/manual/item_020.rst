@@ -10,7 +10,8 @@ fields needed to reason about how it moves relative to everything else
 
 This page is the source of truth for the beamline as an assembly. Per-
 component operating instructions live in :doc:`item_010` (beamline
-control) and the :doc:`../ops` section.
+control) and the :doc:`../ops` section. Structured, cora-consumable
+recipes that *use* this hardware live in :doc:`../procedures`.
 
 .. note::
 
