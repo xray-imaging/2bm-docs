@@ -633,12 +633,16 @@ Kinematic chain (bottom to top)::
 
    The cora 2-BM asset inventory at
    ``docs/deployments/2-bm/assets.md`` lists four sample-top
-   Devices under ``LinearStage``: ``Sample_top_X``,
-   ``Sample_top_Z``, ``Sample_top_Roll``, ``Sample_top_Pitch``.
-   This page reproduces ``Sample_top_X`` and ``Sample_top_Z`` as
-   the operational surfaces in the kinematic chain; ``Roll`` and
-   ``Pitch`` are present in cora but not yet documented per-
-   component here.
+   Devices: ``Sample_top_X``, ``Sample_top_Z``,
+   ``Sample_top_Roll``, ``Sample_top_Pitch``.
+   ``Sample_top_X`` and ``Sample_top_Z`` are the Kohzu CYAT-070
+   stages above the rotary and are documented below.
+   ``Sample_top_Roll`` and ``Sample_top_Pitch`` correspond to the
+   hexapod's Roll (``2bmHXP:m5``) and Pitch (``2bmHXP:m4``) axes —
+   they are part of the **Hexapod_2BM** block below, not separate
+   per-component stages above the rotary. (cora's ``LinearStage``
+   Family annotation for these two is a misnomer; they are
+   rotational hexapod axes.)
 
 .. note::
 
