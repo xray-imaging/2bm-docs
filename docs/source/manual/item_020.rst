@@ -708,7 +708,7 @@ Hexapod_2BM
    X            ``2bmHXP:m1``   linear, lab-X
    Y            ``2bmHXP:m2``   linear, lab-Y (vertical)
    Pitch        ``2bmHXP:m4``   rotation about lab-X
-   Roll         ``2bmHXP:m5``   rotation about lab-Y
+   Roll         ``2bmHXP:m5``   rotation about lab-Z (beam axis)
    ===========  ==============  =====================================
 
    ``2bmHXP:m3`` (Z) and ``2bmHXP:m6`` (Yaw / θ\ :sub:`z`) are not
