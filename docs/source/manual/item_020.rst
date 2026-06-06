@@ -851,8 +851,8 @@ Energy-change IOC
 
 :Exposes: Higher-level energy-change command surface (PV / RPC TBD;
    consult ``energyApp/`` in the repository).
-:Repository: ``/Users/decarlo/conda/energy-decarlof`` (local checkout;
-   standard EPICS app layout — ``energyApp/``, ``iocBoot/``,
+:Repository: https://github.com/xray-imaging/energy.git
+   (standard EPICS app layout — ``energyApp/``, ``iocBoot/``,
    ``configure/``, ``src/``).
 
 **Mirror stripe travel (Pink mode).** ``m1_horizontal`` (the in-vacuum
