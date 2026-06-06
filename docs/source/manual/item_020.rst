@@ -1124,6 +1124,76 @@ rotate axes ``2bmb:table3.X``, ``.Y``, ``.Z``, ``.AX``, ``.AY``,
    shows the six underlying motor records listed above.
 
 
+Trigger and synchronisation
+===========================
+
+The Aerotech Ensemble rotary controller emits a position-synchronised
+output (PSO) pulse every fixed number of encoder counts of the sample
+rotation. Those pulses are not wired straight to the detector — they
+pass through a **softGlueZynq** FPGA that conditions them (pulse
+width and delay), can mask them through a programmable lookup
+pattern, and only then drives the camera trigger input.
+
+softGlueZynq (PSO → camera trigger)
+-----------------------------------
+
+:Role: Conditions and gates the Aerotech rotary PSO pulse train into
+   the detector trigger input. Provides programmable pulse width and
+   delay, a 2:1 MUX between raw PSO and a software-defined custom
+   pattern (``trigILF``), and a ``memPulseSeq`` block for arbitrary
+   interlaced sequences.
+:Family: ``TriggerFPGA``
+   (matches cora's Pending entry ``softGlueZynq_FPGA``)
+:Hardware: APS softGlueZynq — Xilinx Zynq SoC (FPGA + ARM) on a
+   MicroZed-class carrier. The EPICS IOC runs on the ARM core and
+   starts automatically at boot.
+:Mounted on: Hutch electronics rack
+:Inputs: PSO output of the Aerotech Ensemble drive that runs the
+   rotary ``2bmb:m102``.
+:Outputs: Camera trigger input. Per
+   ``tomoscan/tomoscan_fpga_2bm.py``, the wiring is FLIR Oryx
+   ``Line2`` for the current Oryx 5MP / 31MP cameras; the same
+   module also supports Grasshopper3 (``Line0``) and Adimec
+   (continuous-timed) modes if those cameras are swapped in.
+:Signal path:
+   PSO → ``MUX2-1`` (selects raw PSO or ``trigILF``) →
+   ``GateDly 1`` (pulse width / delay; default 100 × 100 ns = 10 µs)
+   → camera trigger.
+:EPICS prefix: ``2bmbMZ1:SG:``. Key PVs:
+
+   ===================================  =========================================================
+   PV                                   Purpose
+   ===================================  =========================================================
+   ``2bmbMZ1:SG:MUX2-1_SEL_Signal``     Selects raw PSO (0) or ``trigILF`` (1) onto the trigger.
+   ``2bmbMZ1:SG:memPulseSeq.enable``    Arms (1) / disarms (0) the custom-pattern playback.
+   ``2bmbMZ1:SG:GateDly1.DLY``          Delay from input edge to start of output pulse.
+   ``2bmbMZ1:SG:GateDly1.Width``        Output pulse width, in 10 MHz clock cycles (100 = 10 µs).
+   ===================================  =========================================================
+
+:IOC location: ``/net/s2dserv/xorApps/epics/synApps_SG/ioc/2bmbMZ1/``
+   on ``arcturus``. Start with ``./start_epics_2bmbMZ1`` (or the
+   matching ``./start_caQtDM_2bmbMZ1`` for the operator screens).
+:tomoscan integration:
+   ``TomoScan2BM`` (subclass of ``TomoScanFPGAPSO``) in
+   `tomoscan/tomoscan_fpga_2bm.py
+   <https://github.com/tomography/tomoscan/blob/master/tomoscan/tomoscan_fpga_2bm.py>`__
+   selects the camera-specific trigger mode
+   (``set_trigger_mode_oryx`` / ``_grasshopper`` / ``_adimec``);
+   the base ``TomoScanFPGAPSO`` class drives the PSO configuration
+   on the Aerotech controller.
+:Custom pulse patterns:
+   For interlaced-fly tomography, pulse subsets are loaded with the
+   helper ``macros_ILF.write_PSO_array`` (e.g.
+   ``write_PSO_array([0, 2, 4, 6])`` triggers only on PSO edges 0,
+   2, 4, 6). See
+   `interlaced/macros_ILF.py
+   <https://github.com/decarlof/interlaced/blob/main/macros_ILF.py>`__.
+:Notes:
+   :doc:`../ops/item_060` is the operational page for the FPGA —
+   MEDM screens, how to set ``DLY`` and ``Width``, how to flip the
+   MUX, and the ``memPulseSeq`` workflow.
+
+
 .. _composite-iocs:
 
 Composite IOCs
