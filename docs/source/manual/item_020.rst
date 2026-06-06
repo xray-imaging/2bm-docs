@@ -757,8 +757,9 @@ Hexapod_2BM
    Coarse positioning of the entire sample tower. Y is shared with the
    optical table: convention is to set table Y so the sample sits in
    the beam with the hexapod at mid-travel, maximising remaining
-   hexapod DOF for fine alignment. See the data sheet
-   ``Hex300-Data-Sheet-D20250203.pdf`` for accuracy maps and load
+   hexapod DOF for fine alignment. See the `Hex300-230HL data sheet
+   <https://anl.box.com/s/jn2h32rqxuwmtbygilk509x41ixgsdwf>`__
+   (``Hex300-Data-Sheet-D20250203.pdf``) for accuracy maps and load
    curves.
 
 .. figure:: ../img/sample_stack.jpg
