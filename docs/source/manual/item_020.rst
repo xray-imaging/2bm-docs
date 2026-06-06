@@ -613,15 +613,6 @@ B-station Slits
 Sample stack
 ============
 
-.. warning::
-
-   **Work in progress / draft.** Everything from this section onward
-   (Sample stack, Detector system, Composite IOCs) is a skeleton:
-   prose sketches, ASCII trees of the intended kinematic chain, and
-   a single concrete Composite-IOC entry (the energy-change IOC). It
-   has not been reviewed against the actual hardware and may be
-   incomplete or wrong. Treat as a working draft until reconciled.
-
 The sample tower is a kinematic chain of six elements, from the
 experimental-hutch floor up to the sample itself. Order matters: stages
 below the rotary translate or tilt the rotation axis in lab
@@ -630,12 +621,13 @@ projection space.
 
 Kinematic chain (bottom to top)::
 
-   Sample optical table          (Y only; floor-referenced)
-     +-- Hexapod_2BM              (6-DOF coarse positioner)
-          +-- Sample_pitch_lam    (laminography pitch, 0-15 deg)
-               +-- Aerotech_ABRS_rotary    (theta axis)
-                    +-- Sample_top_X       (co-rotates with theta)
-                    +-- Sample_top_Z       (co-rotates with theta)
+   Sample optical table              (Y only; floor-referenced)
+     +-- Hexapod_2BM                  (6-DOF coarse positioner)
+          +-- Sample_pitch_lam        (laminography pitch, 0-20 deg)
+               +-- fixed -10 deg wedge (cancels +10 deg stage hold)
+                    +-- Aerotech_ABRS_rotary  (theta axis)
+                         +-- Sample_top_X     (co-rotates with theta)
+                         +-- Sample_top_Z     (co-rotates with theta)
 
 .. note::
 
@@ -657,27 +649,76 @@ Sample optical table
    (new Family; not yet declared in the cora equipment BC)
 :Mounted on: Hutch floor
 :Carries: Hexapod_2BM (and everything above)
-:Degrees of freedom: Y (vertical) only
+:Degrees of freedom: Vertical (Y) only used at 2-BM-B (the table's
+   MEDM screen also exposes X, Z, and three rotations, but those are
+   not commissioned for the sample tower)
 :Travel: TBD
+:EPICS:
+   Single physical motor ``2bmb:m24`` drives the table's vertical
+   axis. The standard APS ``table.db`` MEDM screen is still used for
+   display, but in the current 2-BM-B build only one Y motor is wired
+   (not the three-leg coupling the standard screen suggests).
 :Notes:
    Used to set a coarse vertical origin so the hexapod operates near the
-   centre of its Y travel. Standard APS optical-table hardware.
+   centre of its Y travel. Standard APS optical-table hardware on a
+   Vibraplane isolation base (visible in the sample-stack photo below).
+
+.. figure:: ../img/optical_table_medm.png
+   :width: 60%
+   :align: center
+
+   ``table_full.adl`` MEDM screen used to display the sample optical
+   table. The Translate / Rotate columns are calc-driven composites;
+   the Motors column reflects the standard APS table layout. At
+   2-BM-B only the vertical (Y) axis is operationally used, driven by
+   the single motor ``2bmb:m24``.
 
 Hexapod_2BM
 -----------
 
 :Role: Coarse 6-DOF sample positioner
 :Family: Hexapod
+:Model: Aerotech HexGen HEX300-230HL hexapod (300 mm platform,
+   230 mm home height). Full ordering code: HEX300-230HL with
+   suffixes ``-E1`` (incremental encoders), ``-PL4`` (ULTRA
+   high-accuracy performance grade) and ``-TAS`` (tested and
+   integrated as a system).
 :Mounted on: Sample optical table
 :Carries: Sample_pitch_lam
-:Degrees of freedom: X, Y, Z, roll, pitch, yaw
-:Travel: TBD per axis
+:Degrees of freedom: X, Y, Z, A (θ\ :sub:`x`), B (θ\ :sub:`y`), C (θ\ :sub:`z`)
+:Travel:
+   X 55 mm, Y 60 mm, Z 25 mm, A 15°, B 15°, C 30° (single-axis moves
+   from home; travels are mutually exclusive — consult Aerotech's
+   HexGen workspace simulator for combined-move envelopes)
+:Resolution: 20 nm (XYZ), 0.2 µrad / 0.04 arc-sec (ABC)
+:Accuracy:
+   ±1 µm (X), ±0.75 µm (Y, Z), ±10 µrad / ±2.1 arc-sec (A, B, C);
+   PL4 ULTRA grade, measured over full travel.
+:Maximum speed: 50 mm/s (X), 25 mm/s (Y, Z), 15 °/s (A, B), 30 °/s (C)
+:Load capacity:
+   45 kg vertical, 21 kg horizontal, 14 kg de-energized holding;
+   stage mass 12 kg
+:Drive: Precision ball screw, brushless slotless servo, 80 VDC bus
 :EPICS prefix: TBD
+   (top-level launcher screen is the ``2bmHXP`` UI — see
+   ``hexapod_01.png``; native Aerotech Ensemble interface, not a
+   plain motor record)
 :Notes:
    Coarse positioning of the entire sample tower. Y is shared with the
    optical table: convention is to set table Y so the sample sits in
    the beam with the hexapod at mid-travel, maximising remaining
-   hexapod DOF for fine alignment.
+   hexapod DOF for fine alignment. See the data sheet
+   ``Hex300-Data-Sheet-D20250203.pdf`` for accuracy maps and load
+   curves.
+
+.. figure:: ../img/sample_stack.jpg
+   :width: 55%
+   :align: center
+
+   2-BM-B sample stack on the Vibraplane-isolated optical table.
+   Visible from bottom to top: the Aerotech HEX300-230HL hexapod (six
+   struts), the Kohzu SA16A-RM laminography tilt stage (centre), and
+   the Aerotech ABS250MP-M-AS air-bearing rotary at top.
 
 Sample_pitch_lam
 ----------------
@@ -689,56 +730,99 @@ Sample_pitch_lam
    "Broader sample-stage motors" under the Pending table at
    ``docs/deployments/2-bm/assets.md``. Consider a dedicated
    ``TiltStage`` Family if more tilt axes appear.)
+:Model: Kohzu SA16A-RM goniometer / tilt stage
 :Mounted on: Hexapod_2BM
-:Carries: Aerotech_ABRS_rotary
-:Travel: 0 deg to 15 deg
-:EPICS prefix: TBD
+:Carries: Aerotech_ABRS_rotary (via a fixed -10° wedge)
+:Travel: 0° to 20° (full mechanical range; see operating convention below)
+:EPICS: ``2bmb:m49``
 :Notes:
-   Inserted between hexapod and rotary specifically for laminography.
-   At 0 deg the rotation axis is vertical (standard tomography); at
-   higher angles the rotation axis is tilted in the beam, enabling
-   flat-sample laminography.
+   Inserted between the hexapod and the rotary specifically for
+   laminography. A fixed **-10° wedge** sits between this stage and
+   the rotary; the stage is held at **+10°** so the two cancel and
+   the rotation axis is vertical (standard tomography). Sweeping the
+   stage between 0° and 20° therefore gives a **±10° (20° total)**
+   range of net rotary-axis tilt for laminography. The default
+   laminography setpoint is **+15°** on the stage, i.e. +5° net
+   rotary-axis tilt.
 
 Aerotech_ABRS_rotary
 --------------------
 
 :Role: Sample rotation axis (theta)
 :Family: RotaryStage
-:Mounted on: Sample_pitch_lam
+:Model:
+   Stage — Aerotech ABS250MP-M-AS air-bearing direct-drive rotary
+   (250 mm aperture, mid-precision class). Drive — Aerotech Ensemble
+   HLE10-40-A-MXH (HLe-series digital drive). The cora-doga Device
+   identifier ``Aerotech_ABRS_rotary`` is retained for stability of
+   downstream references even though the installed hardware is the
+   ABS250MP, not an ABRS.
+:Mounted on: Sample_pitch_lam (via a fixed -10° wedge — see above)
 :Carries: Sample_top_X, Sample_top_Z
 :Travel: -360 deg to +360 deg
 :Max speed: 720 deg/s
 :Encoder resolution: 0.0001 deg
 :Homing offset: 0 deg
-:EPICS prefix: TBD
+:EPICS: ``2bmb:m102``
+   (PV mapping from
+   `tomoScanStream.substitutions
+   <https://github.com/tomography/tomoscan/blob/master/iocBoot/iocTomoScanStream_2BMB/tomoScanStream.substitutions>`__,
+   where ``ROTATION = 2bmb:m102``)
 :Notes:
-   The four Sample_top_* stages above this axis co-rotate with theta.
-   In projection geometry their effect is in the rotating frame, not
-   the lab frame.
+   The two Sample_top_* stages above this axis (Sample_top_X and
+   Sample_top_Z) co-rotate with theta. In projection geometry their
+   effect is in the rotating frame, not the lab frame.
 
 Sample_top_X
 ------------
 
-:Role: Fine sample translation, perpendicular to beam (co-rotates with theta)
+:Role: Fine sample translation perpendicular to the beam
+   (co-rotates with theta). Operationally the "0/180 stage" —
+   motion lies along the beam when theta = 0° or 180°.
 :Family: LinearStage
+:Model: Kohzu CYAT-070 crossed-roller alignment stage,
+   80 × 80 mm table, ball-screw lead 1.0 mm. See
+   :doc:`../ops/item_050` for the operational page.
 :Mounted on: Aerotech_ABRS_rotary
 :Carries: (sample)
-:Travel: -10 mm to +10 mm
-:Max speed: 1 mm/s
-:Encoder resolution: 0.0005 mm
-:EPICS prefix: TBD
+:Travel: ±15 mm
+:Resolution: 1 / 0.5 / 0.05 µm (full / half / 1/20 microstep)
+:Max speed: 5 mm/s
+:Repeatability: ≤±0.5 µm
+:Lost motion: ≤2 µm
+:Backlash: ≤1 µm
+:Straightness: ≤3 µm / 30 mm (horizontal and vertical)
+:Load capacity: 98 N (10 kgf)
+:Weight: 1.7 kg
+:EPICS: ``2bmb:m18``
+   (matches ``LENS_SAMPLE_X`` in
+   ``iocBoot/iocMCTOptics/mctOptics.substitutions`` — this is the
+   sample-side X motor MCTOptics drives for lens/sample alignment.)
 
 Sample_top_Z
 ------------
 
-:Role: Fine sample translation, along beam (co-rotates with theta)
+:Role: Fine sample translation along the beam (co-rotates with
+   theta). Operationally the "90/270 stage" — motion lies along
+   the beam when theta = 90° or 270°.
 :Family: LinearStage
+:Model: Kohzu CYAT-070 crossed-roller alignment stage
+   (same hardware as Sample_top_X; see :doc:`../ops/item_050`).
 :Mounted on: Aerotech_ABRS_rotary
 :Carries: (sample)
-:Travel: TBD
-:Max speed: TBD
-:Encoder resolution: TBD
-:EPICS prefix: TBD
+:Travel: ±15 mm
+:Resolution: 1 / 0.5 / 0.05 µm (full / half / 1/20 microstep)
+:Max speed: 5 mm/s
+:Repeatability: ≤±0.5 µm
+:Lost motion: ≤2 µm
+:Backlash: ≤1 µm
+:Straightness: ≤3 µm / 30 mm (horizontal and vertical)
+:Load capacity: 98 N (10 kgf)
+:Weight: 1.7 kg
+:EPICS: ``2bmb:m17``
+   (matches ``LENS_SAMPLE_Z`` in
+   ``iocBoot/iocMCTOptics/mctOptics.substitutions`` — this is the
+   sample-side Z motor MCTOptics drives for lens/sample alignment.)
 
 
 Detector system
