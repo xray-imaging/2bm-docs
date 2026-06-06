@@ -116,7 +116,7 @@ Custom trigger pattern (trigILF)
 The **trigILF** pulses are used as camera triggers. These pulses form a
 subset of the PSO pulse train and are selected using the Python function
 `write_PSO_array
-<https://github.com/decarlof/interlaced/blob/main/macros_ILF.py>`_.
+<https://github.com/decarlof/interlaced/blob/main/fpga/macros_ILF.py>`_.
 
 Example::
 
