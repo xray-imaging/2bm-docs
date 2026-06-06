@@ -21,6 +21,7 @@ Content
    source/apsu
    source/manual
    source/ops
+   source/procedures
    source/pre_apsu/pre_apsu
    source/publications
 
