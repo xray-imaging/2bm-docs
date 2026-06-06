@@ -640,6 +640,21 @@ Kinematic chain (bottom to top)::
    ``Pitch`` are present in cora but not yet documented per-
    component here.
 
+.. note::
+
+   **For cora-doga PV mapping.** Every ``2bmb:mNN`` PV cited in the
+   Sample stack and Detector system sections has been verified
+   against the ioc2bmb IOC: OMS-VME58 motors ``m1``–``m91`` are
+   declared in ``motor.substitutions``, and the Aerotech Ensemble
+   axes ``m100``/``m101``/``m102`` in ``AsynMotor.substitutions``
+   (asyn ports ``AeroE1``/``AeroE2``/``AeroE3``). The motor records
+   themselves carry generic ``DESC`` strings (``"motor $(N)"``), so
+   the per-Device role (e.g. ``Sample_top_X = 2bmb:m18``) is not
+   recoverable from the IOC alone — it is configured in mctoptics
+   substitutions, tomoScanStream, ``table.db`` calls, and this
+   page. When registering cora Devices against ioc2bmb PVs, treat
+   this page as the source of truth.
+
 
 Sample optical table
 --------------------
