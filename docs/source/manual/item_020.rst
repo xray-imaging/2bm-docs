@@ -699,10 +699,26 @@ Hexapod_2BM
    45 kg vertical, 21 kg horizontal, 14 kg de-energized holding;
    stage mass 12 kg
 :Drive: Precision ball screw, brushless slotless servo, 80 VDC bus
-:EPICS prefix: TBD
-   (top-level launcher screen is the ``2bmHXP`` UI — see
-   ``hexapod_01.png``; native Aerotech Ensemble interface, not a
-   plain motor record)
+:EPICS: Prefix ``2bmHXP:``. Per-axis motor records (only the
+   user-accessible axes are exposed):
+
+   ===========  ==============  =====================================
+   Axis         PV              Notes
+   ===========  ==============  =====================================
+   X            ``2bmHXP:m1``   linear, lab-X
+   Y            ``2bmHXP:m2``   linear, lab-Y (vertical)
+   Pitch        ``2bmHXP:m4``   rotation about lab-X
+   Roll         ``2bmHXP:m5``   rotation about lab-Y
+   ===========  ==============  =====================================
+
+   ``2bmHXP:m3`` (Z) and ``2bmHXP:m6`` (Yaw / θ\ :sub:`z`) are not
+   exposed to the user. ``m3`` is reserved for the MCTOptics IOC,
+   which drives it as ``LENS_SAMPLE_Y`` for sample-side Y alignment
+   relative to the microscope.
+
+   Top-level launcher screen is the ``2bmHXP`` UI (see
+   ``hexapod_01.png``); native Aerotech Ensemble interface rather
+   than plain motor records.
 :Notes:
    Coarse positioning of the entire sample tower. Y is shared with the
    optical table: convention is to set table Y so the sample sits in
