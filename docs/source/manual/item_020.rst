@@ -828,36 +828,208 @@ Sample_top_Z
 Detector system
 ===============
 
-.. (MCTOptics microscope + Optique Peter Z translation + detector-side
-.. optical table. To be drafted; see notes below for the kinematic
-.. chain that needs to be captured here.)
+The 2-BM-B detector is an **Optique Peter MICRX080 white-beam triple-
+objective microscope**, mounted on a 1 m linear Z stage that itself
+sits on a dedicated APS-standard optical table. The Z stage moves the
+entire microscope along the beam from near-contact with the sample
+(short propagation) out to ~1 m for phase-contrast imaging; the table
+is used to keep the detector centred on the beam as Z varies.
 
-The detector microscope (MCTOptics, ~55 m from source) is mounted on
-the Optique Peter linear Z stage, which in turn sits on a standard APS
-optical table providing roll, pitch, X, and Y. The Z stage moves the
-entire microscope along the beam from ~0 (scintillator nearly touching
-the sample) out to ~1 m for phase contrast; the optical table is used
-to keep the detector centre on the beam as Z moves.
+Kinematic chain (top of beam down to floor)::
 
-Chain to capture (top of beam down to floor)::
+   PCO Dimax HS  /  Adimec Quartz Q-12A180        (two cameras, selected via folding mirror)
+     +-- Camera selector stage                    (Schunk LPTM 30, two-position mirror)
+          +-- Dual-port system + tube lens
+               +-- Triple-objective head          (3 microscope heads, Mitutoyo MPLAPO)
+                    +-- Objective selector       (Nanotec ST4118M1404-B + ERO 1420 coder)
+                         +-- Scintillator support (LuAG, tiltable)
+                              +-- Optique Peter MICRX080 microscope body
+                                   +-- Optique Peter 1 m linear Z stage  (along beam)
+                                        +-- Detector optical table       (X / Y / Z / roll / pitch / yaw)
+                                             +-- Hutch floor
 
-   MCTOptics_objective_{0,1,2}             Family: Objective       (10x / 5x / 1.1x)
-   Oryx_5MP_camera                         Family: Camera          (2448 x 2048, 3.45 um pixel)
-   Scintillator_LuAG                       Family: Scintillator    (100 um LuAG)
-     +-- MCTOptics (Component)             Family: Microscope      <- microscope body; parent of the three above in cora
-          +-- MCTOptics_lens_turret        Family: RotaryStage     <- wired sibling under 2-BM (turret selects which objective is in beam)
-          +-- Optique_Peter_focus_Z        Family: LinearStage     <- wired sibling under 2-BM (focus Z, 0 to ~1 m along beam)
-               +-- Detector optical table                          <- roll / pitch / X / Y
-                    +-- Hutch floor
-
-The ASCII chain above shows the kinematic-mounting view (top of beam
-down to floor). cora's ownership view is different:
-``MCTOptics_lens_turret`` and ``Optique_Peter_focus_Z`` are registered
-as Device-level siblings under the ``2-BM`` Unit, then wired into the
+cora's ownership view differs from the kinematic-mounting view above:
+the lens turret and the Optique Peter Z stage are registered as
+Device-level siblings under the ``2-BM`` Unit, then wired into the
 ``MCTOptics`` Component via ``Plan.wiring`` rather than nested under
-it. The objectives, camera, and scintillator are the children of
+it. The objectives, cameras, and scintillator are children of
 ``MCTOptics`` in cora. See ``docs/deployments/2-bm/assets.md`` for the
 canonical composition.
+
+
+Optique Peter MICRX080 microscope
+---------------------------------
+
+:Role: White-beam triple-objective indirect-detection microscope
+   (~55 m from source)
+:Family: Microscope
+:Model: Optique Peter **MICRX080**, ANL configuration
+   (manual MAN-11863-0521-0465-A, 21/05/2021)
+:Configuration:
+   Three microscope heads, each accepting one Mitutoyo MPLAPO long-
+   working-distance objective; an in-beam objective selector translates
+   the chosen head onto the optical axis. The dual-port system splits
+   the optical path between two cameras via a switchable folding-
+   mirror "camera selector". A common filter and per-head individual
+   filter live above the objectives; a tiltable scintillator support
+   sits below them.
+:Cameras (two, on the dual-port system):
+   - **PCO Dimax HS** — CMOS, 11 µm pixel (per optical table in §16
+     of the manual).
+   - **Adimec Quartz Q-12A180** — CMOSIS sCMOS, 5.5 µm pixel.
+:Objectives (typical ANL set, all Mitutoyo MPLAPO Lwd):
+   2× / 5× / 5×HR / 7.5× / 10× / 20× — total magnification matches
+   nominal (with F200 mm tube lens, 30 mm best image circle). Object-
+   side pixel sizes range from ~10 µm (2× / Dimax) down to ~0.3 µm
+   (20× / Adimec). See §16 of the manual for the full optical table
+   (object field, oversampling ratio, depth of focus per
+   objective × camera combination).
+:Objective selector:
+   - Stepper motor: **Nanotec ST4118M1404-B**, 1.8°/step (200 steps/rev),
+     bipolar, 1.7 VDC, 1.4 A/phase.
+   - Coder: **Heidenhain ERO 1420**, 1250 lines/rev, TTL, 5 V.
+   - Drive: ball screw, 2 mm/rev pitch, direct mounting.
+   - Travel: nominal 60 mm between adjacent objectives.
+   - Closed-loop reference: left-end precision switch (±1 µm
+     reproducibility) or zero-coder mark.
+   - ANL-MICRX080 calibrated objective positions (mm from left
+     precision end switch): A=2.3006, B=0.5625, C=59.6835, D=59.6101
+     (see §13.3.1 of the manual).
+:Camera selector:
+   - Stage: **Schunk LPTM 30** with two folding mirrors.
+   - Stepper motor: 200 steps/rev full step, 0.5 mm spindle pitch,
+     max 2.5 mm/s.
+   - Positioning error <35 µm/100 mm; repeatability <6 µm (uni) /
+     <9 µm (bi).
+:Per-objective focus:
+   Each microscope head has its own motorised focus stage, so the
+   three objectives focus independently.
+:Scintillator support:
+   Tiltable square-scintillator support (8×8 mm or 12×12 mm), with a
+   ring-mounted variant (25×25 mm) for the 1× head. Vitreous-carbon
+   protective window; spring-loaded mount (see §6 of the manual).
+:Mounted on: Optique Peter 1 m linear Z stage
+:Dimensions: ~338 × 561 × 169 mm with camera-protection box;
+   ~332 × 530 × 347 mm without
+
+.. note::
+
+   This page summarises the microscope as built — for installation,
+   alignment, scintillator changes, focus calibration, and pinouts
+   refer to the full manual (53 pages) at
+   ``MAN-11863-0521-0465-A.pdf``.
+
+
+MCTOptics — Optique Peter IOC
+-----------------------------
+
+:Role: EPICS interface that exposes the Optique Peter microscope
+   (objective + camera selectors, per-head focus, per-camera rotation,
+   sample-side alignment) as a single high-level API. Implements the
+   sequencing required so that selecting a lens or camera moves the
+   underlying motors to the calibrated positions and applies the
+   per-combination offsets.
+:Family: Microscope-IOC (composite)
+:Repository: https://github.com/xray-imaging/mctoptics
+   (local checkout: ``/Users/decarlo/conda/mctoptics-decarlof/``)
+:Documentation: https://mctoptics.readthedocs.io
+:Prefix: ``2bm:MCTOptics:``
+:Top-level operator PVs:
+   - ``2bm:MCTOptics:LensSelect`` — mbbo, ``Pos. 0`` / ``Pos. 1`` /
+     ``Pos. 2`` (the three objective slots).
+   - ``2bm:MCTOptics:CameraSelect`` — mbbo, ``Pos. 0`` / ``Pos. 1``
+     (Adimec / Dimax, via the folding-mirror camera selector).
+   - ``2bm:MCTOptics:LensSelected``, ``CameraSelected`` — status
+     readbacks (also report intermediate "Moving between …" state).
+   - ``2bm:MCTOptics:LensName{0,1,2}``, ``CameraName{0,1}`` — string
+     labels (mirror into the ``LensSelect`` / ``CameraSelect`` choice
+     strings on init).
+   - ``2bm:MCTOptics:ScintillatorType``, ``ScintillatorThickness``,
+     ``CameraObjective``, ``CameraTubeLength``, ``ImagePixelSize``,
+     ``DetectorPixelSize`` — optics metadata stamped into each scan.
+   - ``2bm:MCTOptics:CameraBinning`` (``1x`` / ``2x`` / ``4x``) and
+     ``Camera{0,1}Bit`` (``8`` / ``10`` / ``12`` / ``16-bit``).
+   - ``2bm:MCTOptics:Cut{Left,Right,Top,Bottom}`` + ``Cut`` (busy)
+     for image cropping.
+:Underlying motor map
+   (from
+   ``iocBoot/iocMCTOptics/mctOptics.substitutions``):
+
+   ===========================  ======================  ================================
+   Macro                        PV                      Purpose
+   ===========================  ======================  ================================
+   ``LENS_MOTOR``               ``2bmb:m1``             Objective selector (turret)
+   ``CAMERA_MOTOR``             ``2bmb:m5``             Camera selector (folding mirror)
+   ``LENS0_FOCUS``              ``2bmb:m2``             Objective #0 focus
+   ``LENS1_FOCUS``              ``2bmb:m3``             Objective #1 focus
+   ``LENS2_FOCUS``              ``2bmb:m4``             Objective #2 focus
+   ``CAM0_ROT``                 ``2bmb:m7``             Camera 0 rotation
+   ``CAM1_ROT``                 ``2bmb:m8``             Camera 1 rotation
+   ``LENS_SAMPLE_X``            ``2bmb:m18``            Sample alignment in X
+   ``LENS_SAMPLE_Y``            ``2bmHXP:m3``           Sample alignment in Y (hexapod)
+   ``LENS_SAMPLE_Z``            ``2bmb:m17``            Sample alignment in Z
+   ``CAMERA0``                  ``2bmSP1:``             Camera-0 areaDetector prefix
+   ``CAMERA1``                  ``2bmSP2:``             Camera-1 areaDetector prefix
+   ``TOMOSCAN``                 ``2bmb:TomoScan:``      Linked TomoScan IOC
+   ===========================  ======================  ================================
+
+   Calibrated lens positions (mm, both cameras): Pos. 0 = -60.030,
+   Pos. 1 = -0.8370, Pos. 2 = 58.64. Camera positions: Pos. 0 = 20,
+   Pos. 1 = 15. Per-objective and per-camera fine focus and
+   rotation offsets are held in the IOC's autosave file.
+
+Optique Peter Z stage
+---------------------
+
+:Role: Carries the entire microscope body along the beam from
+   near-contact with the sample out to ~1 m for phase-contrast
+   imaging.
+:Family: LinearStage
+:Model: Aerotech **PRO225SL-1000** mechanical-bearing linear stage
+   (SL precision class, 1000 mm travel; the longest member of the
+   PRO225SL family).
+:Mounted on: Detector optical table
+:Carries: Optique Peter MICRX080 microscope
+:Travel: 1000 mm
+:Accuracy: ±18 µm (SL Standard; calibrated grade not offered above
+   500 mm)
+:Resolution: 0.1 µm (high-resolution feedback) / 1.0 µm
+:Bidirectional repeatability: ±1 µm
+:Horizontal / vertical straightness: ±9.5 µm
+:Pitch / roll / yaw: 110 µrad
+:Max speed: 140 mm/s (1000 mm variant; shorter PRO225SL travels can
+   reach 220 mm/s)
+:Load capacity: 100 kg horizontal, 60 kg vertical (axial), 100 kg side
+:Moving mass (with tabletop): 7.3 kg
+:Stage mass (without motor): 40.9 kg
+:Material: anodised aluminium
+:MTBF: 20,000 h
+:EPICS: ``2bmbAERO:m1`` (motor record; the table-level VAL field is
+   ``2bmbAERO:m1.VAL``). Lives in a dedicated Aerotech IOC,
+   ``2bmbAERO``, separate from the main ``2bmb`` IOC.
+
+
+Detector optical table
+----------------------
+
+:Role: Floor-referenced support for the Optique Peter Z stage and the
+   microscope; used to keep the detector centred on the beam as the Z
+   stage moves.
+:Family: OpticalTable
+:Mounted on: Hutch floor
+:Carries: Optique Peter Z stage (and the microscope)
+:Degrees of freedom: X, Y, Z, roll, pitch, yaw (standard APS table;
+   only some axes are routinely commissioned)
+:EPICS: TBD — motor PVs pending; will be added in a follow-up.
+
+.. figure:: ../img/optique_peter_table_medm.png
+   :width: 60%
+   :align: center
+
+   ``table_full.adl`` MEDM screen for the detector optical table under
+   the Optique Peter instrument. Translate / Rotate columns are
+   calc-driven composites; the Motors column shows the underlying
+   per-leg motor records.
 
 
 .. _composite-iocs:
