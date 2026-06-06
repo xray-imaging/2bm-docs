@@ -1176,7 +1176,7 @@ softGlueZynq (PSO → camera trigger)
 :tomoscan integration:
    ``TomoScan2BM`` (subclass of ``TomoScanFPGAPSO``) in
    `tomoscan/tomoscan_fpga_2bm.py
-   <https://github.com/tomography/tomoscan/blob/master/tomoscan/tomoscan_fpga_2bm.py>`__
+   <https://github.com/decarlof/tomoscan/blob/master/tomoscan/tomoscan_fpga_2bm.py>`__
    selects the camera-specific trigger mode
    (``set_trigger_mode_oryx`` / ``_grasshopper`` / ``_adimec``);
    the base ``TomoScanFPGAPSO`` class drives the PSO configuration
@@ -1186,8 +1186,8 @@ softGlueZynq (PSO → camera trigger)
    helper ``macros_ILF.write_PSO_array`` (e.g.
    ``write_PSO_array([0, 2, 4, 6])`` triggers only on PSO edges 0,
    2, 4, 6). See
-   `interlaced/macros_ILF.py
-   <https://github.com/decarlof/interlaced/blob/main/macros_ILF.py>`__.
+   `interlaced/fpga/macros_ILF.py
+   <https://github.com/decarlof/interlaced/blob/main/fpga/macros_ILF.py>`__.
 :Notes:
    :doc:`../ops/item_060` is the operational page for the FPGA —
    MEDM screens, how to set ``DLY`` and ``Width``, how to flip the
