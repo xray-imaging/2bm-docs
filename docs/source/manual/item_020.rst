@@ -1017,18 +1017,40 @@ Detector optical table
 :Family: OpticalTable
 :Mounted on: Hutch floor
 :Carries: Optique Peter Z stage (and the microscope)
-:Degrees of freedom: X, Y, Z, roll, pitch, yaw (standard APS table;
-   only some axes are routinely commissioned)
-:EPICS: TBD — motor PVs pending; will be added in a follow-up.
+:Degrees of freedom: X, Y, Z, AX (roll), AY (pitch), AZ (yaw) —
+   six virtual axes computed from six underlying support motors.
+:Geometry: ``SRI`` (Sector Research Instrumentation: 3 Y supports,
+   2 X supports, 1 Z support — 6 motors total).
+:EPICS: Virtual table record ``2bmb:table3`` (composite). Loaded in
+   the 2-BM-B IOC by
+   ``dbLoadRecords("$(DIR)/table.db", "P=2bmb:,Q=Table3,T=table3,
+   M0X=m13,M0Y=m14,M1Y=m12,M2X=m10,M2Y=m9,M2Z=m11,GEOM=SRI")``.
+
+Underlying motor map:
+
+==========  ==========  ====================================
+Macro       Motor PV    Role on the table
+==========  ==========  ====================================
+``M0X``     ``2bmb:m13``  corner 0 — X support
+``M0Y``     ``2bmb:m14``  corner 0 — Y support
+``M1Y``     ``2bmb:m12``  corner 1 — Y support (no X here)
+``M2X``     ``2bmb:m10``  corner 2 — X support
+``M2Y``     ``2bmb:m9``   corner 2 — Y support
+``M2Z``     ``2bmb:m11``  corner 2 — Z support (single Z)
+==========  ==========  ====================================
+
+The ``table.db`` template combines these into composite translate /
+rotate axes ``2bmb:table3.X``, ``.Y``, ``.Z``, ``.AX``, ``.AY``,
+``.AZ``, plus per-leg readbacks under the ``2bmb:table3:`` prefix.
 
 .. figure:: ../img/optique_peter_table_medm.png
    :width: 60%
    :align: center
 
-   ``table_full.adl`` MEDM screen for the detector optical table under
-   the Optique Peter instrument. Translate / Rotate columns are
-   calc-driven composites; the Motors column shows the underlying
-   per-leg motor records.
+   ``table_full.adl`` MEDM screen for ``2bmb:table3`` (the detector
+   optical table under the Optique Peter instrument). The Translate
+   and Rotate columns are calc-driven composites; the Motors column
+   shows the six underlying motor records listed above.
 
 
 .. _composite-iocs:
