@@ -837,7 +837,7 @@ is used to keep the detector centred on the beam as Z varies.
 
 Kinematic chain (top of beam down to floor)::
 
-   PCO Dimax HS  /  Adimec Quartz Q-12A180        (two cameras, selected via folding mirror)
+   FLIR Oryx 5MP  /  FLIR Oryx 31MP               (two cameras, selected via folding mirror)
      +-- Camera selector stage                    (Schunk LPTM 30, two-position mirror)
           +-- Dual-port system + tube lens
                +-- Triple-objective head          (3 microscope heads, Mitutoyo MPLAPO)
@@ -873,17 +873,23 @@ Optique Peter MICRX080 microscope
    mirror "camera selector". A common filter and per-head individual
    filter live above the objectives; a tiltable scintillator support
    sits below them.
-:Cameras (two, on the dual-port system):
-   - **PCO Dimax HS** — CMOS, 11 µm pixel (per optical table in §16
-     of the manual).
-   - **Adimec Quartz Q-12A180** — CMOSIS sCMOS, 5.5 µm pixel.
-:Objectives (typical ANL set, all Mitutoyo MPLAPO Lwd):
-   2× / 5× / 5×HR / 7.5× / 10× / 20× — total magnification matches
-   nominal (with F200 mm tube lens, 30 mm best image circle). Object-
-   side pixel sizes range from ~10 µm (2× / Dimax) down to ~0.3 µm
-   (20× / Adimec). See §16 of the manual for the full optical table
-   (object field, oversampling ratio, depth of focus per
-   objective × camera combination).
+:Cameras (two, on the dual-port system; current ANL configuration):
+   - **FLIR Oryx 5MP** (camera 0, ``2bmSP1:`` areaDetector prefix).
+   - **FLIR Oryx 31MP** (camera 1, ``2bmSP2:`` areaDetector prefix).
+
+   The cameras shipped in the manual's optical table (PCO Dimax HS
+   and Adimec Quartz Q-12A180) have been replaced; the manual's §16
+   table is still informative for object-field / oversampling
+   estimates if you substitute the Oryx pixel size and sensor format.
+:Objectives (current ANL configuration, three slots):
+   - Lens 0 — **1.1×**
+   - Lens 1 — **2×**
+   - Lens 2 — **10×**
+
+   All Mitutoyo MPLAPO long-working-distance class. The manual lists
+   the broader objective family the microscope supports (2× / 5× /
+   5×HR / 7.5× / 10× / 20×) with F200 mm tube lens and 30 mm best
+   image circle.
 :Objective selector:
    - Stepper motor: **Nanotec ST4118M1404-B**, 1.8°/step (200 steps/rev),
      bipolar, 1.7 VDC, 1.4 A/phase.
@@ -977,6 +983,18 @@ Pos. 1 = -0.8370, Pos. 2 = 58.64. Camera positions: Pos. 0 = 20,
 Pos. 1 = 15. Per-objective and per-camera fine focus and rotation
 offsets are held in the IOC's autosave file.
 
+.. figure:: ../img/optique_peter_medm.png
+   :width: 70%
+   :align: center
+
+   MCTOptics operator screen. Top: server status and the
+   ``sync to motors`` button. Middle: the three lens slots
+   (Lens 0 = 1.1×, Lens 1 = 2×, Lens 2 = 10×), each with its own
+   focus value. Right: the two cameras (Camera 0 = Oryx 5MP,
+   Camera 1 = Oryx 31MP) with their rotation offsets. The
+   ``Default`` button restores the per-combination calibrated
+   focus / rotation values from the IOC's autosave file.
+
 Optique Peter Z stage
 ---------------------
 
@@ -1028,16 +1046,16 @@ Detector optical table
 
 Underlying motor map:
 
-==========  ==========  ====================================
-Macro       Motor PV    Role on the table
-==========  ==========  ====================================
-``M0X``     ``2bmb:m13``  corner 0 — X support
-``M0Y``     ``2bmb:m14``  corner 0 — Y support
-``M1Y``     ``2bmb:m12``  corner 1 — Y support (no X here)
-``M2X``     ``2bmb:m10``  corner 2 — X support
-``M2Y``     ``2bmb:m9``   corner 2 — Y support
-``M2Z``     ``2bmb:m11``  corner 2 — Z support (single Z)
-==========  ==========  ====================================
+=======  ============  ================================
+Macro    Motor PV      Role on the table
+=======  ============  ================================
+``M0X``  ``2bmb:m13``  corner 0 — X support
+``M0Y``  ``2bmb:m14``  corner 0 — Y support
+``M1Y``  ``2bmb:m12``  corner 1 — Y support (no X here)
+``M2X``  ``2bmb:m10``  corner 2 — X support
+``M2Y``  ``2bmb:m9``   corner 2 — Y support
+``M2Z``  ``2bmb:m11``  corner 2 — Z support (single Z)
+=======  ============  ================================
 
 The ``table.db`` template combines these into composite translate /
 rotate axes ``2bmb:table3.X``, ``.Y``, ``.Z``, ``.AX``, ``.AY``,
