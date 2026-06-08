@@ -80,6 +80,21 @@ RAM configuration for tomo1–5:
 |       |           | 16        | 128 GB      | 72ASQ16G72PSZ-3S2B1 |
 +-------+-----------+-----------+-------------+---------------------+
 
+Spare RAM modules on hand:
+
++--------------------+----------+-------------+-------+-------------+--------------+-----------+
+| Part Number        | Capacity | Type        | Org.  | Speed       | Manufacturer | # on hand |
++====================+==========+=============+=======+=============+==============+===========+
+| M393A8G40AB2-CWEBY | 64 GB    | DDR4 ECC    | 2Rx4  | PC4-3200AA  | Samsung      | 32        |
+|                    |          | Registered  |       | (DDR4-3200) |              |           |
+|                    |          | (RDIMM)     |       |             |              |           |
++--------------------+----------+-------------+-------+-------------+--------------+-----------+
+
+Date code ``2303`` (week 03 of 2023), made in Korea; example serial
+``Y0414C030324A61EF9``. Registered ECC RDIMM — for Supermicro / other
+server boards whose QVL supports ``RDIMM 2Rx4 @ 3200 MT/s``; not
+compatible with boards that require unbuffered DIMMs (UDIMM).
+
 Storage
 =======
 
