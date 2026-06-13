@@ -192,6 +192,17 @@ A-shutter (front-end)
    below) further downstream. Both must be open for beam to reach
    2-BM-B.
 
+.. note::
+
+   **2-BM-A motor controller.** Every ``2bma:mNN`` motor cited in
+   the 2-BM-A blocks below (L3 Slits, Y3-30 Mirror, DMM, B-station
+   Slits, etc.) is a slot on the OMS-VME58 card in the ``ioc2bma``
+   crate — cora Asset ``OMS_VME58_2bma_drive``. None of those
+   driven stages are themselves modelled as cora Assets yet (the
+   front-end / beam-conditioning band stays in cora's Pending
+   list); the controller Asset ships in isolation as the
+   addressability handle for "controller-level" Procedures.
+
 L3 Slits
 ~~~~~~~~
 
@@ -358,12 +369,13 @@ Y3-30 Mirror
 
 :Role: Vertical-deflecting mirror; defines the alternate beam centrelines
 :Family: Mirror
-   (Pending in cora: Asset ``Mirror_2BM`` appears in the
-   Pending table at ``docs/deployments/2-bm/assets.md`` and Family
-   ``Mirror`` is listed as "Pending in code" at
-   ``docs/catalog/families.md``. Composes a mirror body with an
-   in-vacuum stripe selector and an external optical-table sub-
-   assembly carrying Y / X / Z stages.)
+   (Pending in cora: Asset ``Y3-30_mirror`` appears in the
+   Pending table at ``docs/deployments/2-bm/assets.md`` (renamed
+   from ``Mirror_2BM`` per cora's #89) and Family ``Mirror`` is
+   listed as "Pending in code" at ``docs/catalog/families.md``.
+   Composes a mirror body with an in-vacuum stripe selector and
+   an external optical-table sub-assembly carrying Y / X / Z
+   stages.)
 :Mounted on: Optical table (``[Dma:table1]`` via the ``table_full`` IOC)
 :Carries: (beam conditioning only)
 :z position: 27626 mm (ref 2: centre of optic; mirror-1 axis)
@@ -641,9 +653,9 @@ Kinematic chain (bottom to top)::
    ``Sample_top_Roll`` and ``Sample_top_Pitch`` correspond to the
    hexapod's Roll (``2bmHXP:m5``) and Pitch (``2bmHXP:m4``) axes —
    they are part of the **Hexapod_2BM** block below, not separate
-   per-component stages above the rotary. (cora's ``LinearStage``
-   Family annotation for these two is a misnomer; they are
-   rotational hexapod axes.)
+   per-component stages above the rotary. cora classifies these
+   two as ``PseudoAxis`` Assets ("virtual DoFs over the 2bmHXP
+   hexapod-kinematics solver"), confirming the same mapping.
 
 .. note::
 
@@ -720,6 +732,8 @@ Hexapod_2BM
    integrated as a system).
 :Mounted on: Sample optical table
 :Carries: Sample_pitch_lam
+:Driven by: ``Aerotech_Hexapod_drive`` (cora ``MotionController``
+   Asset; specific product line not yet confirmed on this page)
 :Degrees of freedom: X, Y, Z, A (θ\ :sub:`x`), B (θ\ :sub:`y`), C (θ\ :sub:`z`)
 :Travel:
    X 55 mm, Y 60 mm, Z 25 mm, A 15°, B 15°, C 30° (single-axis moves
@@ -811,6 +825,8 @@ Aerotech_ABRS_rotary
    ABS250MP, not an ABRS.
 :Mounted on: Sample_pitch_lam (via a fixed -10° wedge — see above)
 :Carries: Sample_top_X, Sample_top_Z
+:Driven by: ``Aerotech_Ensemble_drive`` (cora ``MotionController``
+   Asset wrapping the Aerotech Ensemble HLE10-40-A-MXH)
 :Travel: -360 deg to +360 deg
 :Max speed: 720 deg/s
 :Encoder resolution: 0.0001 deg
@@ -850,6 +866,9 @@ Sample_top_X
    (matches ``LENS_SAMPLE_X`` in
    ``iocBoot/iocMCTOptics/mctOptics.substitutions`` — this is the
    sample-side X motor MCTOptics drives for lens/sample alignment.)
+:Driven by: ``OMS_VME58_2bmb_drive`` (cora ``MotionController``
+   Asset wrapping the OMS-VME58 card in ``ioc2bmb`` that hosts
+   the entire ``2bmb:m1``–``m91`` motor band)
 
 Sample_top_Z
 ------------
@@ -875,6 +894,8 @@ Sample_top_Z
    (matches ``LENS_SAMPLE_Z`` in
    ``iocBoot/iocMCTOptics/mctOptics.substitutions`` — this is the
    sample-side Z motor MCTOptics drives for lens/sample alignment.)
+:Driven by: ``OMS_VME58_2bmb_drive`` (cora ``MotionController``
+   Asset; same as ``Sample_top_X``)
 
 
 Detector system
@@ -935,6 +956,14 @@ Optique Peter MICRX080 microscope
    and Adimec Quartz Q-12A180) have been replaced; the manual's §16
    table is still informative for object-field / oversampling
    estimates if you substitute the Oryx pixel size and sensor format.
+   cora now records the **PCO Dimax HS** under the Decommissioned
+   block of ``docs/deployments/2-bm/assets.md`` with rationale
+   "superseded by the FLIR Oryx detector chain" (per cora's #89).
+   cora's ``Camera`` Family schema is now made explicit at 2-BM
+   with ``max_framerate_hz``, ``sensor_kind``, and ``readout_mode``
+   fields so the high-framerate Dimax and the general-purpose Oryx
+   share one Family (the variant-as-settings rule, not variant-
+   as-subtype).
 :Objectives:
    Current ANL configuration, three slots:
 
@@ -1034,6 +1063,11 @@ Macro                        PV                      Purpose
 ``TOMOSCAN``                 ``2bmb:TomoScan:``      Linked TomoScan IOC
 ===========================  ======================  ================================
 
+All eight ``2bmb:m1``–``m8`` motors in this map plus ``m17``
+and ``m18`` are slots on the same OMS-VME58 card — cora Asset
+``OMS_VME58_2bmb_drive``. The hexapod motor ``2bmHXP:m3`` is one
+DoF of ``Hexapod_2BM``, driven by ``Aerotech_Hexapod_drive``.
+
 Calibrated lens positions (mm, both cameras): Pos. 0 = -60.030,
 Pos. 1 = -0.8370, Pos. 2 = 58.64. Camera positions: Pos. 0 = 20,
 Pos. 1 = 15. Per-objective and per-camera fine focus and rotation
@@ -1051,8 +1085,11 @@ offsets are held in the IOC's autosave file.
    ``Default`` button restores the per-combination calibrated
    focus / rotation values from the IOC's autosave file.
 
-Optique Peter Z stage
+Optique_Peter_focus_Z
 ---------------------
+
+(cora Asset identifier; previously called "Optique Peter Z stage"
+in this page.)
 
 :Role: Carries the entire microscope body along the beam from
    near-contact with the sample out to ~1 m for phase-contrast
@@ -1060,9 +1097,12 @@ Optique Peter Z stage
 :Family: LinearStage
 :Model: Aerotech **PRO225SL-1000** mechanical-bearing linear stage
    (SL precision class, 1000 mm travel; the longest member of the
-   PRO225SL family).
+   PRO225SL family). cora Model: ``aerotech_pro225sl_1000``.
 :Mounted on: Detector optical table
 :Carries: Optique Peter MICRX080 microscope
+:Driven by: ``Aerotech_2bmbAERO_drive`` (cora ``MotionController``
+   Asset wrapping the Aerotech drive that the ``2bmbAERO`` IOC
+   manages)
 :Travel: 1000 mm
 :Accuracy: ±18 µm (SL Standard; calibrated grade not offered above 500 mm)
 :Resolution: 0.1 µm (high-resolution feedback) / 1.0 µm
@@ -1124,6 +1164,17 @@ rotate axes ``2bmb:table3.X``, ``.Y``, ``.Z``, ``.AX``, ``.AY``,
    and Rotate columns are calc-driven composites; the Motors column
    shows the six underlying motor records listed above.
 
+.. note::
+
+   **Procedure that commands this table.**
+   :doc:`../procedures/item_002` (``detector_z_rail_alignment``)
+   uses ``2bmb:table3.AX`` (pitch) and ``.AY`` (yaw) to rotate the
+   Optique Peter Z rail back parallel to the beam after a small
+   square X-ray spot is observed to drift across the camera as the
+   Z stage translates. This is the procedure that justifies
+   registering an ``OpticalTable`` Family + ``Detector_optical_table``
+   Asset on the cora side.
+
 
 Trigger and synchronisation
 ===========================
@@ -1143,8 +1194,14 @@ softGlueZynq (PSO → camera trigger)
    delay, a 2:1 MUX between raw PSO and a software-defined custom
    pattern (``trigILF``), and a ``memPulseSeq`` block for arbitrary
    interlaced sequences.
-:Family: ``TriggerFPGA``
-   (matches cora's Pending entry ``softGlueZynq_FPGA``)
+:Family: ``TimingController``
+   (cora's Pending entry ``softGlueZynq_FPGA`` carries Family
+   ``TimingController`` — the second ``<Domain>Controller`` Family
+   after ``MotionController``. Affordance is ``Pulsing`` via the
+   ``Controller`` Role: the timing box is itself the actor, not a
+   driven device. Substrate "FPGA" is not a Family axis; the
+   ``TriggerFPGA`` placeholder we previously cited has been
+   superseded by ``TimingController`` per cora's #89.)
 :Hardware: APS softGlueZynq — Xilinx Zynq SoC (FPGA + ARM) on a
    MicroZed-class carrier. The EPICS IOC runs on the ARM core and
    starts automatically at boot.
