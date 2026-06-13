@@ -369,12 +369,13 @@ Y3-30 Mirror
 
 :Role: Vertical-deflecting mirror; defines the alternate beam centrelines
 :Family: Mirror
-   (Pending in cora: Asset ``Mirror_2BM`` appears in the
-   Pending table at ``docs/deployments/2-bm/assets.md`` and Family
-   ``Mirror`` is listed as "Pending in code" at
-   ``docs/catalog/families.md``. Composes a mirror body with an
-   in-vacuum stripe selector and an external optical-table sub-
-   assembly carrying Y / X / Z stages.)
+   (Pending in cora: Asset ``Y3-30_mirror`` appears in the
+   Pending table at ``docs/deployments/2-bm/assets.md`` (renamed
+   from ``Mirror_2BM`` per cora's #89) and Family ``Mirror`` is
+   listed as "Pending in code" at ``docs/catalog/families.md``.
+   Composes a mirror body with an in-vacuum stripe selector and
+   an external optical-table sub-assembly carrying Y / X / Z
+   stages.)
 :Mounted on: Optical table (``[Dma:table1]`` via the ``table_full`` IOC)
 :Carries: (beam conditioning only)
 :z position: 27626 mm (ref 2: centre of optic; mirror-1 axis)
@@ -955,6 +956,14 @@ Optique Peter MICRX080 microscope
    and Adimec Quartz Q-12A180) have been replaced; the manual's §16
    table is still informative for object-field / oversampling
    estimates if you substitute the Oryx pixel size and sensor format.
+   cora now records the **PCO Dimax HS** under the Decommissioned
+   block of ``docs/deployments/2-bm/assets.md`` with rationale
+   "superseded by the FLIR Oryx detector chain" (per cora's #89).
+   cora's ``Camera`` Family schema is now made explicit at 2-BM
+   with ``max_framerate_hz``, ``sensor_kind``, and ``readout_mode``
+   fields so the high-framerate Dimax and the general-purpose Oryx
+   share one Family (the variant-as-settings rule, not variant-
+   as-subtype).
 :Objectives:
    Current ANL configuration, three slots:
 
@@ -1174,8 +1183,14 @@ softGlueZynq (PSO → camera trigger)
    delay, a 2:1 MUX between raw PSO and a software-defined custom
    pattern (``trigILF``), and a ``memPulseSeq`` block for arbitrary
    interlaced sequences.
-:Family: ``TriggerFPGA``
-   (matches cora's Pending entry ``softGlueZynq_FPGA``)
+:Family: ``TimingController``
+   (cora's Pending entry ``softGlueZynq_FPGA`` carries Family
+   ``TimingController`` — the second ``<Domain>Controller`` Family
+   after ``MotionController``. Affordance is ``Pulsing`` via the
+   ``Controller`` Role: the timing box is itself the actor, not a
+   driven device. Substrate "FPGA" is not a Family axis; the
+   ``TriggerFPGA`` placeholder we previously cited has been
+   superseded by ``TimingController`` per cora's #89.)
 :Hardware: APS softGlueZynq — Xilinx Zynq SoC (FPGA + ARM) on a
    MicroZed-class carrier. The EPICS IOC runs on the ARM core and
    starts automatically at boot.
