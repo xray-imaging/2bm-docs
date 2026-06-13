@@ -1164,6 +1164,17 @@ rotate axes ``2bmb:table3.X``, ``.Y``, ``.Z``, ``.AX``, ``.AY``,
    and Rotate columns are calc-driven composites; the Motors column
    shows the six underlying motor records listed above.
 
+.. note::
+
+   **Procedure that commands this table.**
+   :doc:`../procedures/item_002` (``detector_z_rail_alignment``)
+   uses ``2bmb:table3.AX`` (pitch) and ``.AY`` (yaw) to rotate the
+   Optique Peter Z rail back parallel to the beam after a small
+   square X-ray spot is observed to drift across the camera as the
+   Z stage translates. This is the procedure that justifies
+   registering an ``OpticalTable`` Family + ``Detector_optical_table``
+   Asset on the cora side.
+
 
 Trigger and synchronisation
 ===========================

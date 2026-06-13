@@ -19,8 +19,27 @@ ops counterpart but should not duplicate it.
 For the underlying hardware (PV names, intrinsic specs, kinematic
 chain), see :doc:`manual/item_020`.
 
+
+Current procedures
+==================
+
+- :doc:`procedures/item_001` — ``Procedure template``. Canonical
+  skeleton for new procedure pages (Name / Devices / Preconditions /
+  Parameters / Steps / Postconditions / Failure modes). Copy this
+  file as ``item_NNN.rst`` to start a new procedure.
+- :doc:`procedures/item_002` —
+  ``detector_z_rail_alignment``. Walks the Optique Peter detector
+  along its 1 m PRO225SL Z rail with a small square X-ray aperture
+  defined by the B-station slits, fits the centroid drift, and uses
+  the detector optical table (``2bmb:table3.AX`` / ``.AY``) to
+  rotate the rail back parallel to the beam. Open trigger for an
+  ``OpticalTable`` Family + ``Detector_optical_table`` Asset on the
+  cora side.
+
+
 .. toctree::
    :glob:
    :maxdepth: 1
+   :hidden:
 
    procedures/item*
