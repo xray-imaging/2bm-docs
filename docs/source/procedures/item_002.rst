@@ -169,23 +169,33 @@ Steps
      - ``caget …`` *(persist into the Run log).*
    * - 7
      - **Iteration 0 — calibrate the table → centroid Jacobian.**
+       Measure how a small ``ΔAY`` / ``ΔAX`` step moves the
+       centroid at fixed Z (decouples the table perturbation from
+       the rail tilt the procedure is trying to remove):
 
-       (a) Move Z to ``z_near``; acquire one image; fit centroid
-       (X₀, Y₀).
+       (a) Move Z to ``z_far``; acquire baseline centroid
+       (``X_f0``, ``Y_f0``) at AY = AY_baseline.
 
-       (b) Apply test step ``Δ = z_calibration_step`` to
-       ``table3.AY``; move Z to ``z_far``; acquire image; fit
-       centroid (X₁, Y₁).
+       (b) Apply ``ΔAY = z_calibration_step`` to ``table3.AY``;
+       at the same ``z_far``, acquire centroid (``X_f1``,
+       ``Y_f1``). Compute the Jacobian column for AY:
+       ``J_AY_X = (X_f1 − X_f0) / ΔAY`` and
+       ``J_AY_Y = (Y_f1 − Y_f0) / ΔAY``. Restore AY.
 
-       (c) Compute ``J_AY_X = (X₁ − X₀) / Δ`` (object-side µm of
-       centroid shift per µrad of AY). Repeat with AX → ``J_AX_Y``.
+       (c) Apply ``ΔAX = z_calibration_step`` to ``table3.AX``;
+       at ``z_far``, acquire centroid (``X_f2``, ``Y_f2``).
+       Compute ``J_AX_X = (X_f2 − X_f0) / ΔAX`` and
+       ``J_AX_Y = (Y_f2 − Y_f0) / ΔAX``. Restore AX.
 
-       (d) Restore table to baseline.
-     - ``caput 2bmbAERO:m1 …``; ``caput 2bmSP1:cam1:Acquire 1``;
-       ``caget 2bmSP1:image1:ArrayData …`` (or use an external
-       client to grab the frame and compute the centroid). For
-       the table:
-       ``caput 2bmb:table3.AY <baseline_AY + Δ>``.
+       (d) Sanity-check: ``|J_AY_X|`` and ``|J_AX_Y|`` should be
+       well above noise (else the test step was too small, slits
+       were closed, or the table didn't actually move). Abort
+       cleanly if either is below a configurable floor.
+     - ``caput 2bmbAERO:m1 …``;
+       ``caput 2bmSP1:cam1:Acquire 1``;
+       ``caget 2bmSP1:image1:ArrayData …``; for the table:
+       ``caput 2bmb:table3.AY <baseline_AY + ΔAY>`` etc., each
+       followed by ``cawait …DMOV == 1``.
    * - 8
      - **Iterative correction.** For ``i = 1 … max_iterations``:
 
