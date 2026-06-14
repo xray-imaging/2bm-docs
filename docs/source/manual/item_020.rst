@@ -587,6 +587,41 @@ P6-50 Safety Shutter (B-shutter)
    together at z ≈ 330 m. The other three are passive. Both this
    and the upstream A-shutter must be open for beam to reach 2-BM-B.
 
+PSS hutch search status
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The Personnel Safety System publishes a per-hutch "secure" enum
+that reads ``ON`` when the hutch is searched and locked (and the
+PSS is willing to admit beam) and ``OFF`` when the search is broken
+(door open, search active, manual override, etc.).
+
+:Family: PSS interlock readback (read-only; not a Family in the
+   cora 2-BM inventory — these are operational status PVs, not
+   commandable Assets).
+:Hosted on: ``s2pvgate.xray.aps.anl.gov:5064`` (PSS gateway; same
+   host as the shutter ``BeamBlockingM`` PVs).
+
+==================  =============================  ==========================
+PV                  Description (``DESC``)         Meaning
+==================  =============================  ==========================
+``S02BM-PSS:StaA:SecureM``   ``Sta-A Secure``      2-BM-A hutch
+``S02BM-PSS:StaB:SecureM``   ``Sta-B Secure``      2-BM-B hutch
+==================  =============================  ==========================
+
+Both PVs share the same enum:
+
+- STATE 0 = ``OFF`` → hutch **not** secure (search active or
+  broken; PSS will not admit beam).
+- STATE 1 = ``ON``  → hutch secure (searched and locked; PSS
+  permits beam).
+
+These are the predicates the :doc:`../procedures/item_003`
+(``enable_beamline``) stub procedure uses for its
+``beamline_enabled`` postcondition. Both must read ``ON`` before
+the FES open command (``S02BM-PSS:FES:OpenEPICSC``) will be
+honoured.
+
+
 B-station Slits
 ~~~~~~~~~~~~~~~
 
