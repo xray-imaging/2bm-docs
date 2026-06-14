@@ -108,11 +108,15 @@ Operating envelope (v0.0.1 "build trust" phase)
 
 - **Z safety band** ``[200, 500]`` mm — enforced at ``__init__``;
   the motor's own ``.HLM`` / ``.LLM`` are not modified.
-- **Per-motion confirmation gate** — before every motor motion
-  (Z, table AY, table AX) the procedure prints a plan block (PV,
-  current value, target value, delta, units) and waits for ``y``
-  or ``N`` on stdin. ``N`` aborts cleanly via ``OperatorAbort``;
-  the ``try / finally`` then runs the restore path.
+- **Per-motion confirmation gate** — before every **table** move
+  (calibration perturb / restore, iteration correction) the
+  procedure prints a plan block (PV, current value, target value,
+  delta, units) and waits for ``y`` or ``N`` on stdin. ``N``
+  aborts cleanly via ``OperatorAbort``; the ``try / finally``
+  then runs the restore path. **Z measurement moves** stay within
+  the safety band and only sample the alignment (don't change
+  it), so they are announced but NOT gated by default. Pass
+  ``--gate-z`` to gate them too.
 - **Snapshot + restore** — at entry the procedure captures the
   full camera state of the active camera (``Acquire``,
   ``AcquireTime``, ``NumImages``, ``ImageMode``, ``TriggerMode``,
@@ -163,9 +167,12 @@ Parameters
    * - ``z_calibration_step``
      - number > 0
      - µrad
-     - Test step in ``table3.AX`` / ``.AY`` used to discover the
-       sign and magnitude of the table → centroid Jacobian on
-       iteration 0. Default: 50 µrad.
+     - Test step in ``table3.AY`` and ``.AX`` used to discover the
+       2×2 slope-sensitivity matrix M. Default: 50 µrad. Must be
+       large enough that the resulting slope change is well above
+       the centroid noise floor (~20 µrad for the Oryx 31MP at
+       1.1× over a 300 mm Z lever). If calibration aborts with
+       "sensitivity matrix near-singular", bump to 100.
    * - ``exposure_time``
      - number > 0
      - s
@@ -179,6 +186,21 @@ Parameters
      - integer ≥ 1
      - —
      - Safety cap. Default: 5.
+   * - ``damping``
+     - 0 < d ≤ 1
+     - —
+     - Multiplier on the iteration's computed correction. 1.0 =
+       full correction, 0.5 (default) = half. Damping < 1 keeps
+       us in the linear range across iterations when the
+       sensitivity matrix is imperfect or table cross-coupling
+       exceeds what a 2×2 linear model captures.
+   * - ``divergence_grow_threshold``
+     - > 1
+     - ×
+     - Abort if ``|slope|`` at iteration N exceeds
+       ``|slope|`` at iteration N−1 by more than this factor.
+       Default: 1.5. Catches runaway positive feedback before
+       it walks the spot off the camera.
    * - ``threshold_fraction``
      - 0 < x < 1
      - —
@@ -194,6 +216,13 @@ Parameters
        effective pitch of the delivered image — so 2 × 2 binning
        gives an effective 6.9 µm pitch without any CLI override.
        If ``BinX != BinY`` a warning is logged and BinX is used.
+   * - ``--gate-z``
+     - flag
+     - —
+     - Also gate Z measurement moves on y/N. Default off: Z moves
+       stay within the safety band and only sample alignment, so
+       they're announced but not gated. Table moves are ALWAYS
+       gated regardless.
    * - ``--yes``
      - flag
      - —
@@ -208,7 +237,7 @@ Parameters
      - flag
      - —
      - Print every planned motion and skip; never moves any
-       motor. Camera reads (e.g. PixelFormat) still happen.
+       motor. Camera reads + centroid fits still happen.
 
 
 Steps
@@ -244,54 +273,66 @@ Steps
        table pose as the zero-correction reference.
      - ``caget 2bmb:table3.AY``, ``caget 2bmb:table3.AX``.
    * - 4
-     - **Iteration 0 — calibrate the table → centroid Jacobian.**
-       Measure how a small ``ΔAY`` / ``ΔAX`` step moves the
-       centroid at fixed Z (decouples the table perturbation from
-       the rail tilt the procedure is trying to remove):
+     - **Calibrate the slope-sensitivity matrix M.** For each
+       table axis (AY, AX): measure baseline slope, perturb axis
+       by ``z_calibration_step``, re-measure slope, restore axis.
+       Build the 2×2 matrix M:
 
-       (a) **[gated]** Move Z to ``z_far``; acquire baseline
-       centroid (``X_f0``, ``Y_f0``) at AY = AY_baseline.
+       .. code-block:: text
 
-       (b) **[gated]** Apply ``ΔAY = z_calibration_step`` to
-       ``table3.AY``; at the same ``z_far``, acquire centroid
-       (``X_f1``, ``Y_f1``). Compute the Jacobian column for AY:
-       ``J_AY_X = (X_f1 − X_f0) / ΔAY`` and
-       ``J_AY_Y = (Y_f1 − Y_f0) / ΔAY``.
-       **[gated]** Restore AY.
+          | Δslope_X |   | M_AY_X  M_AX_X | | ΔAY |
+          |          | = |                | |     |
+          | Δslope_Y |   | M_AY_Y  M_AX_Y | | ΔAX |
 
-       (c) **[gated]** Apply ``ΔAX = z_calibration_step`` to
-       ``table3.AX``; at ``z_far``, acquire centroid (``X_f2``,
-       ``Y_f2``). Compute ``J_AX_X = (X_f2 − X_f0) / ΔAX`` and
-       ``J_AX_Y = (Y_f2 − Y_f0) / ΔAX``. **[gated]** Restore AX.
+       where slope is in µm/mm and Δaxis in µrad.
 
-       (d) Sanity-check: ``|J_AY_X|`` and ``|J_AX_Y|`` should be
-       well above noise (else the test step was too small, slits
-       were closed, or the table didn't actually move). Abort
-       cleanly if either is below ``min_jacobian_um_per_urad``.
+       (a) Move Z to ``z_near`` → acquire; move Z to ``z_far`` →
+       acquire. Compute baseline slope (``slope0_X``, ``slope0_Y``).
+
+       (b) **[gated]** Perturb ``table3.AY`` by
+       ``+z_calibration_step``. Re-measure slope. Compute
+       ``M_AY_X = (slope_AY_X − slope0_X) / Δ`` and ``M_AY_Y``
+       likewise. **[gated]** Restore AY.
+
+       (c) **[gated]** Perturb ``table3.AX``, re-measure slope,
+       compute ``M_AX_X`` and ``M_AX_Y``. **[gated]** Restore AX.
+
+       (d) Sanity-check ``|det(M)|`` ≥ ``min_sensitivity_det``.
+       Below this, the procedure aborts with a clear "matrix
+       near-singular" message — bump ``z_calibration_step`` to
+       100 µrad and retry.
+
+       *This replaces the old centroid-shift-at-z-far "Jacobian"
+       formulation, which measured the wrong physical quantity:
+       uniform centroid shifts at fixed Z cancel between
+       z_near/z_far and leave slope unchanged. The slope
+       sensitivity is what actually drives convergence.*
      - ``move_motor 2bmbAERO:m1 …``;
-       ``move_table_axis 2bmb:table3.AY <baseline + Δ>``
-       *(writes the soft PV, then polls the AND of the six jack*
-       ``.DMOV`` *PVs);*
+       ``move_table_axis 2bmb:table3.AY <baseline + Δ>``;
        ``acquire_image(cam_prefix, exposure_time)``;
        centre-of-mass over threshold.
    * - 5
      - **Iterative correction.** For ``i = 1 … max_iterations``:
 
-       (a) **[gated]** Acquire frames at ``z_near`` and
-       ``z_far``; fit centroids; compute slopes
-       ``slope_X = (X_far − X_near) / (z_far − z_near)`` and
-       ``slope_Y = (Y_far − Y_near) / (z_far − z_near)`` in
-       object-side µm per mm of Z.
+       (a) Acquire frames at ``z_near`` and ``z_far``; fit
+       centroids; compute slopes ``slope_X``, ``slope_Y``.
 
-       (b) Convert to angular misalignment (µrad).
+       (b) Convert to angular misalignment ``tilt_X``,
+       ``tilt_Y`` (µrad).
 
-       (c) If ``|tilt_X|`` and ``|tilt_Y|`` are both below
+       (c) **Divergence guard**: if ``|tilt|`` (Euclidean) at
+       this iteration exceeds the previous iteration's by more
+       than ``divergence_grow_threshold``, raise ``RuntimeError``
+       → restore puts table AY/AX back to baseline. Aborts a
+       runaway before it walks the spot off the camera.
+
+       (d) If both ``|tilt_X|`` and ``|tilt_Y|`` are below
        ``convergence_threshold``, **break**.
 
-       (d) **[gated]** Apply correction:
-       ``AY_new = AY_current − tilt_X × deg/µrad`` (signs from
-       calibration); ``AX_new = AX_current − tilt_Y × deg/µrad``.
-       Both axes commanded in a single confirmation gate.
+       (e) **[gated]** Compute corrective ΔAY, ΔAX by solving
+       ``M @ (ΔAY, ΔAX) = −(slope_X, slope_Y)`` via
+       ``numpy.linalg.inv``; multiply by ``damping``. Apply
+       both axes in a single confirmation gate.
      - ``move_table_axis 2bmb:table3.AY <new>``,
        ``move_table_axis 2bmb:table3.AX <new>``.
    * - 6
