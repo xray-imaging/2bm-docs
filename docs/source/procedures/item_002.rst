@@ -250,7 +250,9 @@ Parameters
    * - ``exposure_time``
      - number > 0
      - s
-     - Per-frame exposure. Default: 0.05.
+     - Per-frame exposure. Default: 0.2 (gives a clean bright spot
+       on the 1.1× lens at typical 2-BM-B flux). Increase if the
+       centroid signal is weak.
    * - ``convergence_threshold``
      - number > 0 (or auto)
      - µrad
