@@ -187,6 +187,19 @@ A-shutter (front-end)
 :EPICS prefix: ``S02BM-PSS:FES``
 :Open command: ``S02BM-PSS:FES:OpenEPICSC``
 :Close command: ``S02BM-PSS:FES:CloseEPICSC``
+:Status readback: ``S02BM-PSS:FES:BeamBlockingM`` (``DBF_ENUM``,
+   read-only; hosted on the PSS gateway ``s2pvgate``).
+
+   - STATE 0 = ``OFF`` → beam is **not** being blocked →
+     **shutter OPEN**.
+   - STATE 1 = ``ON``  → beam **is** being blocked →
+     **shutter CLOSED**.
+
+   Note the inverted semantics: the PV reports the *blocking
+   state*, not the *shutter position*. After issuing
+   ``OpenEPICSC`` / ``CloseEPICSC`` confirm the state by reading
+   ``BeamBlockingM`` (``caget`` returns the string ``OFF`` /
+   ``ON`` when called with ``-S``; the integer 0 / 1 by default).
 :Notes:
    Independent of the P6-50 personnel-safety shutter (``B_shutter``,
    below) further downstream. Both must be open for beam to reach
