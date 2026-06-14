@@ -316,11 +316,24 @@ Parameters
        large corrections; the clip keeps each iteration within
        the linear range near the calibration point. Convergence
        happens over more iterations rather than one big move.
-   * - ``threshold_fraction``
-     - 0 < x < 1
-     - —
-     - Centroid algorithm threshold as fraction of frame max.
-       Default: 0.5.
+   * - ``bg_corner_size``
+     - int > 4
+     - pixels
+     - Per-side length of each of the four corner boxes the
+       centroid algorithm uses to estimate the background-noise
+       level. Default: 100. Reduce only if the beam spot is large
+       enough to spill into a frame corner.
+   * - ``bg_sigma_threshold``
+     - > 0
+     - σ
+     - Centroid binary-mask threshold is
+       ``bg_median + N × bg_sigma_from_MAD`` (median + Median
+       Absolute Deviation, robust to outliers in the corner
+       samples). Default: 5.0. Smaller N includes more of the
+       dim halo (and more noise); larger N keeps only clearly-
+       above-background pixels.
+
+
    * - ``camera_pixel_um``
      - number > 0
      - µm
@@ -353,6 +366,23 @@ Parameters
      - —
      - Print every planned motion and skip; never moves any
        motor. Camera reads + centroid fits still happen.
+
+
+.. note::
+
+   **Centroid algorithm.** In v0.0.1 the centroid algorithm
+   changed from intensity-weighted COM (``center_of_mass``,
+   fraction-of-max threshold) to a background-thresholded
+   **geometric centroid** (``centroid_above_background``,
+   σ-above-background threshold). Driven by 2-BM-B field testing:
+   the DMM beam has strong horizontal multilayer-stripe modulation
+   that biases an intensity-weighted COM toward whichever stripe
+   happens to be brightest, instead of the geometric centre of the
+   illuminated square aperture. The new algorithm gives every
+   above-threshold pixel an equal vote, so the centroid tracks the
+   geometric centre of the illuminated area regardless of internal
+   structure. Median+MAD on corner samples makes the threshold
+   robust to bright features spilling into a corner.
 
 
 Steps
