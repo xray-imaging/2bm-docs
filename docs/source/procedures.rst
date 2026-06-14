@@ -53,8 +53,9 @@ procedure is implemented.
 - :doc:`procedures/item_005` — ``set_energy_to_preselect``.
   Satisfies ``energy_configured``.
 - :doc:`procedures/item_006` — ``set_flag_in``. Satisfies
-  ``flag_in_beam``. (Flag itself is a future addition to the
-  hardware inventory.)
+  ``flag_in_beam``. (Flag is ``2bma:m44`` in
+  :doc:`manual/item_020`; energy-dependent target Y from
+  ``energy-decarlof``'s ``energy2bm.json``.)
 - :doc:`procedures/item_007` — ``open_b_shutter``. Satisfies
   ``b_shutter_open``.
 - :doc:`procedures/item_008` — ``set_b_slits``. Satisfies

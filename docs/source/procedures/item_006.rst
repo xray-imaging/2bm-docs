@@ -1,20 +1,14 @@
 ============================================
-Move flag into beam
+Move flag into beam (mode-dependent)
 ============================================
 
 .. warning::
 
    **STATUS: STUB.** Placeholder for the procedure that satisfies
    the precondition ``flag_in_beam`` of :doc:`item_002`
-   (``detector_z_rail_alignment``). To be fleshed out as the
-   procedure is implemented.
-
-   The **flag** is a downstream element scheduled to be added to
-   the 2-BM beamline. It is not yet present in
-   :doc:`../manual/item_020` — this stub records the precondition
-   slot so that the procedure graph for ``detector_z_rail_alignment``
-   has a target to point at. Replace the placeholders below once the
-   flag is installed.
+   (``detector_z_rail_alignment``). The flag is now in the
+   :doc:`../manual/item_020` inventory (as ``2bma:m44``); the
+   procedure that orchestrates it is what's still TBD.
 
 
 Name
@@ -26,38 +20,71 @@ Name
 Devices
 -------
 
-- :doc:`../manual/item_020`: **Flag** (TBD — not yet in the
-  hardware inventory). Single-axis Y motion.
+- :doc:`../manual/item_020`: **Flag (diagnostic phosphor)** —
+  single vertical (Y) motor ``2bma:m44``. User/dial offset:
+  ``user = dial - 5`` mm. User-coord limits: -4.5 to +35.0 mm.
 
 
 Preconditions
 -------------
 
 - :doc:`item_003` (``enable_beamline``).
+- For mono mode: :doc:`item_005`
+  (``set_energy_to_preselect``) — the target flag Y depends on
+  the current DMM energy via the
+  ``energy_move_flag`` lookup in
+  ``energy-decarlof/src/energy/data/energy2bm.json``.
 
 
 Parameters
 ----------
 
-- ``flag_y_mm`` (number) — Y position for in-beam state. Default:
-  TBD.
+- ``mode`` (enum: ``pink`` | ``mono``) — beamline mode. Default:
+  derived from current DMM state (out = pink, in = mono).
+- ``flag_y_mm`` (number, user coord) — explicit target Y. If
+  not given, derive from ``mode``:
+
+  - ``pink``: ``flag_y_mm = 0`` (lower position, out of beam).
+  - ``mono``: ``flag_y_mm = energy_move_flag[current_energy_keV]``
+    (read from ``energy2bm.json``). Indicative values:
+    13.374 keV → 23 mm, 18 keV → 17 mm, 20 keV → 15 mm,
+    25 keV → 12 mm, 30+ keV → 0 mm.
 
 
 Steps
 -----
 
-- TBD. Move flag Y motor to in-beam position; wait for DMOV.
+1. Determine target Y from ``mode`` + (if mono) energy lookup.
+2. Range check: ``-4.5 ≤ flag_y_mm ≤ 35.0``.
+3. ``move_motor 2bma:m44 <flag_y_mm>``; wait for DMOV.
 
 
 Postconditions
 --------------
 
 :Satisfies: ``flag_in_beam``
-:Predicate: ``Flag_Y_RBV`` within tolerance of ``flag_y_mm``
-   (PV name TBD).
+:Predicate: ``2bma:m44.RBV`` within motor tolerance of the
+   commanded ``flag_y_mm``.
 
 
 Failure modes
 -------------
 
-- TBD.
+- Motor fault on ``2bma:m44`` — check the motor record's status
+  and clear before retrying.
+- For mono mode: ``energy2bm.json`` has no entry for the current
+  DMM energy — operator must either calibrate the lookup or pass
+  ``flag_y_mm`` explicitly.
+- Range check fails — typically operator misread mm vs encoded
+  units; verify against the ``meters_all.adl`` MEDM screen.
+
+
+Notes
+-----
+
+In ``detector_z_rail_alignment`` (v0.0.1) the procedure assumes
+the flag is already in the appropriate position for the running
+mode. If pink-beam alignment is being done, the operator should
+have driven ``2bma:m44`` to 0 mm beforehand. The
+``set_flag_in`` procedure formalises that step so cora's
+dependency graph can resolve it.

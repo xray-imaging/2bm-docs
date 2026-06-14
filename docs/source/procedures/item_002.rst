@@ -108,8 +108,10 @@ cora's dependency graph will be able to auto-resolve them.
        in the ``energy`` package's lookup tables.
      - :doc:`item_005` (``set_energy_to_preselect``)
    * - ``flag_in_beam``
-     - **Flag** moved to its in-beam Y position. *(Flag is a future
-       addition; placeholder.)*
+     - ``2bma:m44`` (Flag Y) at the mode-appropriate position.
+       Pink: ``0 mm`` user. Mono: per ``energy_move_flag`` lookup
+       in ``energy2bm.json`` (~12-23 mm depending on energy;
+       ``0`` at 30+ keV). See item_020's Flag block.
      - :doc:`item_006` (``set_flag_in``)
    * - ``b_shutter_open``
      - ``S02BM-PSS:SBS:BeamBlockingM == OFF`` (inverted enum — OFF

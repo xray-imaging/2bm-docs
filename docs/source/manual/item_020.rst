@@ -216,6 +216,62 @@ A-shutter (front-end)
    list); the controller Asset ships in isolation as the
    addressability handle for "controller-level" Procedures.
 
+Flag (diagnostic phosphor)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:Role: Diagnostic phosphor screen on a vertical stage. A visible-
+   light camera looks at it so operators can see the X-ray beam
+   position and gauge intensity. In pink-beam (white-beam) mode
+   the flag is parked at its lower limit (``Y = 0 mm`` user,
+   ``5 mm`` dial) -- out of the beam. In mono mode the flag is
+   raised to block the M1-scattered halo while letting the
+   monochromatic beam pass; the exact Y is energy-dependent.
+:Family: Diagnostic (no cora Family declared yet; this is the
+   first instance of a "viewable beam diagnostic" on the 2-BM
+   inventory).
+:Mounted on: Own stand in 2-BM-A (floor-referenced).
+:Carries: phosphor-painted flag + visible camera (not modelled
+   here; the camera is its own Asset).
+:z position: ~20.6 m from source (upstream of the L3 Slits).
+   Not separately listed in the APS reference table.
+:EPICS: ``2bma:m44`` -- single vertical (Y) motor.
+:User/dial offset: user = dial - 5 mm. Limits (user, from
+   ``meters_all.adl``): -4.5 to +35.0 mm (dial 0.5 to 40.0 mm).
+
+The energy-dependent flag positions used by mono-beam scans are
+defined in the ``energy`` package's lookup table
+(``src/energy/data/energy2bm.json``, key
+``energy_move_flag``):
+
+==============  ===================  ==========================
+DMM energy keV  Flag Y (mm, user)    Comment
+==============  ===================  ==========================
+13.374          23.0                 highest (low energy)
+13.574          22.0
+18.000          17.0
+20.000          15.0
+25.000          12.0
+25.584          12.0
+30.000          0.0                  flag down (out of beam)
+40.000          0.0
+50.000          0.0
+60.000          0.0                  highest energy
+==============  ===================  ==========================
+
+Pink-beam mode: flag at ``Y = 0 mm`` (user) -- same as the
+"flag down" position used by mono at 30 keV and above.
+
+.. note::
+
+   **Procedures that command this component.**
+   :doc:`../procedures/item_006` (``set_flag_in``) is the stub
+   that satisfies the ``flag_in_beam`` precondition of
+   :doc:`../procedures/item_002` (``detector_z_rail_alignment``).
+   The energy-dependent target Y is read from the
+   ``energy_move_flag`` field of ``energy2bm.json``; operating in
+   pink mode means writing ``0 mm`` user to ``2bma:m44``.
+
+
 L3 Slits
 ~~~~~~~~
 
