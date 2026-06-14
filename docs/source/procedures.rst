@@ -55,7 +55,8 @@ procedure is implemented.
 - :doc:`procedures/item_006` — ``set_flag_in``. Satisfies
   ``flag_in_beam``. (Flag is ``2bma:m44`` in
   :doc:`manual/item_020`; energy-dependent target Y from
-  ``energy-decarlof``'s ``energy2bm.json``.)
+  `energy2bm.json
+  <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__.)
 - :doc:`procedures/item_007` — ``open_b_shutter``. Satisfies
   ``b_shutter_open``.
 - :doc:`procedures/item_008` — ``set_b_slits``. Satisfies
