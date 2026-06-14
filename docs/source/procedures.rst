@@ -37,6 +37,37 @@ Current procedures
   cora side.
 
 
+Stub procedures (precondition targets of item_002)
+==================================================
+
+These pages exist so the precondition graph of
+:doc:`procedures/item_002` has named targets to link to. Each is a
+STUB — the procedure is named, its Postconditions field declares
+which state it would satisfy, and the rest is TBD until the
+procedure is implemented.
+
+- :doc:`procedures/item_003` — ``enable_beamline``. Satisfies
+  ``beamline_enabled``.
+- :doc:`procedures/item_004` — ``set_a_slits``. Satisfies
+  ``a_slits_open``.
+- :doc:`procedures/item_005` — ``set_energy_to_preselect``.
+  Satisfies ``energy_configured``.
+- :doc:`procedures/item_006` — ``set_flag_in``. Satisfies
+  ``flag_in_beam``. (Flag is ``2bma:m44`` in
+  :doc:`manual/item_020`; energy-dependent target Y from
+  `energy2bm.json
+  <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__.)
+- :doc:`procedures/item_007` — ``open_b_shutter``. Satisfies
+  ``b_shutter_open``.
+- :doc:`procedures/item_008` — ``set_b_slits``. Satisfies
+  ``b_slits_configured``.
+- :doc:`procedures/item_009` — ``move_sample_out_of_beam``.
+  Satisfies ``sample_out_of_beam``.
+- :doc:`procedures/item_010` —
+  ``configure_microscope_for_alignment``. Satisfies
+  ``microscope_configured``.
+
+
 .. toctree::
    :glob:
    :maxdepth: 1

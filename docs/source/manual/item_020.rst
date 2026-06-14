@@ -216,6 +216,65 @@ A-shutter (front-end)
    list); the controller Asset ships in isolation as the
    addressability handle for "controller-level" Procedures.
 
+Flag (diagnostic phosphor)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:Role: Diagnostic phosphor screen on a vertical stage. A visible-
+   light camera looks at it so operators can see the X-ray beam
+   position and gauge intensity. In pink-beam (white-beam) mode
+   the flag is parked at its lower limit (``Y = 0 mm`` user,
+   ``5 mm`` dial) -- out of the beam. In mono mode the flag is
+   raised to block the M1-scattered halo while letting the
+   monochromatic beam pass; the exact Y is energy-dependent.
+:Family: Diagnostic (no cora Family declared yet; this is the
+   first instance of a "viewable beam diagnostic" on the 2-BM
+   inventory).
+:Mounted on: Own stand in 2-BM-A (floor-referenced).
+:Carries: phosphor-painted flag + visible camera (not modelled
+   here; the camera is its own Asset).
+:z position: ~20.6 m from source (upstream of the L3 Slits).
+   Not separately listed in the APS reference table.
+:EPICS: ``2bma:m44`` -- single vertical (Y) motor.
+:User/dial offset: user = dial - 5 mm. Limits (user, from
+   ``meters_all.adl``): -4.5 to +35.0 mm (dial 0.5 to 40.0 mm).
+
+The energy-dependent flag positions used by mono-beam scans are
+defined in the ``energy`` package's lookup table
+(`energy2bm.json
+<https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__,
+key ``energy_move_flag``):
+
+==============  ===================  ==========================
+DMM energy keV  Flag Y (mm, user)    Comment
+==============  ===================  ==========================
+13.374          23.0                 highest (low energy)
+13.574          22.0
+18.000          17.0
+20.000          15.0
+25.000          12.0
+25.584          12.0
+30.000          0.0                  flag down (out of beam)
+40.000          0.0
+50.000          0.0
+60.000          0.0                  highest energy
+==============  ===================  ==========================
+
+Pink-beam mode: flag at ``Y = 0 mm`` (user) -- same as the
+"flag down" position used by mono at 30 keV and above.
+
+.. note::
+
+   **Procedures that command this component.**
+   :doc:`../procedures/item_006` (``set_flag_in``) is the stub
+   that satisfies the ``flag_in_beam`` precondition of
+   :doc:`../procedures/item_002` (``detector_z_rail_alignment``).
+   The energy-dependent target Y is read from the
+   ``energy_move_flag`` field of `energy2bm.json
+   <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__;
+   operating in
+   pink mode means writing ``0 mm`` user to ``2bma:m44``.
+
+
 L3 Slits
 ~~~~~~~~
 
@@ -586,6 +645,76 @@ P6-50 Safety Shutter (B-shutter)
    tungsten collimator, safety shutter, SS baffle) installed
    together at z ≈ 330 m. The other three are passive. Both this
    and the upstream A-shutter must be open for beam to reach 2-BM-B.
+
+PSS hutch search status
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The Personnel Safety System publishes a per-hutch "secure" enum
+that reads ``ON`` when the hutch is searched and locked (and the
+PSS is willing to admit beam) and ``OFF`` when the search is broken
+(door open, search active, manual override, etc.).
+
+:Family: PSS interlock readback (read-only; not a Family in the
+   cora 2-BM inventory — these are operational status PVs, not
+   commandable Assets).
+:Hosted on: ``s2pvgate.xray.aps.anl.gov:5064`` (PSS gateway; same
+   host as the shutter ``BeamBlockingM`` PVs).
+
+==========================  ===================  ==============
+PV                          Description (DESC)   Meaning
+==========================  ===================  ==============
+``S02BM-PSS:StaA:SecureM``  ``Sta-A Secure``     2-BM-A hutch
+``S02BM-PSS:StaB:SecureM``  ``Sta-B Secure``     2-BM-B hutch
+==========================  ===================  ==============
+
+Both PVs share the same enum:
+
+- STATE 0 = ``OFF`` → hutch **not** secure (search active or
+  broken; PSS will not admit beam).
+- STATE 1 = ``ON``  → hutch secure (searched and locked; PSS
+  permits beam).
+
+These are the predicates the :doc:`../procedures/item_003`
+(``enable_beamline``) stub procedure uses for its
+``beamline_enabled`` postcondition. Both must read ``ON`` before
+the FES open command (``S02BM-PSS:FES:OpenEPICSC``) will be
+honoured.
+
+
+ACIS upstream permit
+~~~~~~~~~~~~~~~~~~~~
+
+The APS Access Control and Interlock System exposes a single
+"upstream permit" PV that aggregates storage-ring health,
+injection state, APS-wide permits, the per-beamline PSS state,
+and the BLEPS fault chain into one boolean. If it reads ``ON``,
+all of the upstream conditions required to admit beam to 2-BM
+are met -- the FES open command will be honoured.
+
+:Family: ACIS upstream permit (read-only; analogous to the PSS
+   ``SecureM`` PVs above but at a higher level of aggregation).
+:Hosted on: ``s2pvgate.xray.aps.anl.gov:5064``.
+
+==========================  =============================  ===================
+PV                          Description (``DESC``)         Meaning
+==========================  =============================  ===================
+``SR-ACIS:2BM:FesPermitM``  ``2BM PSS FES Permit``         FES open permitted
+==========================  =============================  ===================
+
+Enum:
+
+- STATE 0 = ``OFF`` → ACIS does **not** permit the FES to open
+  (some upstream condition failed -- could be storage ring down,
+  BLEPS fault latched, PSS not searched, etc.).
+- STATE 1 = ``ON``  → ACIS permits the FES to open. The
+  individual upstream conditions are all green.
+
+This is the single PV the :doc:`../procedures/item_003`
+(``enable_beamline``) stub procedure uses to test the composite
+"upstream OK" condition. It replaces the earlier
+"BLEPS-clear AND machine-state-OK" pair of TBDs because ACIS
+already composes both.
+
 
 B-station Slits
 ~~~~~~~~~~~~~~~
