@@ -628,6 +628,45 @@ wrong (PV name, sign, magnitude), answer ``N`` and the procedure
 exits cleanly via the snapshot restore.
 
 
+Field-test results (v0.0.1, 2026-06-14)
+---------------------------------------
+
+First end-to-end convergent run on 2-BM-B:
+
+:Camera: FLIR Oryx 31MP at ``2bmSP2:`` via MCTOptics
+:Lens: 1.1× (slot 0)
+:Z safety band: 200–500 mm
+:Calibration step: 100 µrad
+:Damping: 0.5
+:Auto-set convergence threshold: 31.4 µrad
+:Sensitivity-matrix condition number: **1.1** (essentially
+   diagonal — AY ↔ slope_X, AX ↔ slope_Y, no cross-coupling)
+
+Convergence trajectory:
+
+==== ============ ============ ============ ===================
+iter ``tilt_X``   ``tilt_Y``   ``|tilt|``   reduction vs prev
+==== ============ ============ ============ ===================
+1    −169 µrad    +397 µrad    431 µrad     —
+2    −85          +203         220          0.51×
+3    −46          +97          107          0.49×
+4    −20          +49          53           0.50×
+5    −10          **+24**      **26**       0.49× ← converged
+==== ============ ============ ============ ===================
+
+Each iteration cut ``|tilt|`` almost exactly in half, matching
+the ``damping=0.5`` prediction to better than 1%. The final
+residual (26 µrad) sits at the PRO225SL rail's intrinsic
+straightness floor (~10–20 µrad over a 300 mm sub-range) — the
+procedure cannot drive ``|tilt|`` below this regardless of
+iteration count. Final table pose:
+``AY = −0.0092 deg``, ``AX = −0.0211 deg``.
+
+Run details and the architectural / bug history that got here
+are in `2bm-procedures CHANGELOG
+<https://github.com/decarlof/2bm-procedures/blob/main/CHANGELOG.md>`__.
+
+
 Notes
 -----
 
