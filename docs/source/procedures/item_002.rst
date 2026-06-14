@@ -176,8 +176,13 @@ Parameters
    * - ``camera_pixel_um``
      - number > 0
      - µm
-     - Camera sensor pixel pitch. Default: 3.45 (Oryx 5MP and
-       31MP both have 3.45 µm pixels).
+     - Camera **sensor** pixel pitch, pre-binning. Default: 3.45
+       (Oryx 5MP and 31MP both have 3.45 µm sensor pixels).
+       At ``detect_camera_and_lens`` time the procedure reads
+       ``cam1:BinX_RBV`` and uses ``sensor_pitch × BinX`` as the
+       effective pitch of the delivered image — so 2 × 2 binning
+       gives an effective 6.9 µm pitch without any CLI override.
+       If ``BinX != BinY`` a warning is logged and BinX is used.
    * - ``--yes``
      - flag
      - —
