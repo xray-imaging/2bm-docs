@@ -117,12 +117,23 @@ Operating envelope (v0.0.1 "build trust" phase)
   full camera state of the active camera (``Acquire``,
   ``AcquireTime``, ``NumImages``, ``ImageMode``, ``TriggerMode``,
   ``TriggerSource``, ``TriggerOverlap``, ``ExposureMode``,
-  ``ArrayCallbacks``) plus the Z stage RBV. On every exit path —
-  success, abort, exception, Ctrl-C — these are restored. The
-  restore path prints its plan but is **not** gated (it must run
-  even on a panic exit); pass ``--confirm-restore`` to gate it.
-  ``table3.AY`` and ``.AX`` are deliberately NOT snapshotted —
-  their new values are the procedure's deliberate output.
+  ``ArrayCallbacks``), the Z stage RBV, **and** the table soft
+  axes ``2bmb:table3.AY`` / ``.AX``. On every exit path the camera
+  state and Z position are restored. The table AY/AX are restored
+  **only on non-success exits** (``OperatorAbort``, exception,
+  max-iterations reached without convergence) — on clean
+  convergence the optimised AY/AX are left in place as the
+  procedure's deliberate output. The restore path prints its plan
+  but is **not** gated (it must run even on a panic exit); pass
+  ``--confirm-restore`` to gate it.
+
+  Caveat: the table restore writes to the ``2bmb:table3.AY/.AX``
+  soft PVs; the synApps ``table.db`` kinematic does not always
+  perfectly invert a perturb-and-back cycle, so the underlying
+  jacks may end up a fraction of a microradian off their
+  pre-procedure RBVs (jack hysteresis). True per-jack restore
+  would require snapshotting and writing the six jack positions
+  directly; not implemented in v0.0.1.
 - **Operator-managed surfaces** — MCTOptics camera/lens selection,
   B-station slit apertures, and the FES shutter are NOT touched.
   The procedure reads what the operator has set and adapts.
