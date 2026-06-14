@@ -2,14 +2,14 @@
 Centre and close an L3-style slit aperture
 ============================================
 
-Drive an L3-style slit's virtual-motor ``Hcenter`` and ``Vcenter``
-to bring the beam image to the centre of the detector frame, then
-incrementally close the ``Hsize`` and ``Vsize`` apertures to a
-target size (typically 0 = fully closed). The operator typically
-follows this with a manual rezeroing step (``caput`` Hcenter /
-Vcenter / Hsize / Vsize to 0) to define a new origin for the
-slit virtual motors -- that rezeroing is **not** part of this
-procedure in v0.0.1.
+Three-phase L3-style slit procedure: (1) drive the virtual-motor
+``Hcenter`` / ``Vcenter`` so the beam image lands at the centre
+of the detector frame; (2) incrementally close ``Hsize`` /
+``Vsize`` to a target size (typically 0 = fully closed); (3)
+**rezero** the virtual motors -- redefine the current physical
+pose as the new origin so the four virtual motors read 0 at the
+closed + centred position. Phase 3 is **default-enabled** but
+gated per axis; ``--no-rezero`` skips it.
 
 The procedure is parameterised over which slit station to target:
 ``A`` (front-end L3 Slits at z = 25225 mm) or ``B`` (2-BM-B
@@ -141,6 +141,17 @@ Parameters
      - ≥ 0
      - mm
      - Final V aperture. Default: 0.
+   * - ``rezero``
+     - bool
+     - —
+     - If True (default), after closing the procedure rezeros the
+       four virtual motors by setting the per-axis ``<axis>set``
+       PV to ``Set``, writing 0 to ``<axis>center`` /
+       ``<axis>size``, and switching ``<axis>set`` back to
+       ``Use``. Each H and V rezero is gated separately and
+       irreversible. Set to False (CLI flag ``--no-rezero``) to
+       skip and leave the slit virtual motors in their absolute
+       coordinate system.
    * - ``exposure_time``
      - > 0
      - s
@@ -234,14 +245,44 @@ Steps
        ``move_table_axis <slit>Vsize <new>``;
        ``acquire_image`` + centroid each step.
    * - 6
-     - **Restore.** Run by ``try / finally`` on every exit path.
-       On **clean completion** (centred + closed): slits are
-       left at the new (centred, closed) state. On **any other
-       exit** (OperatorAbort, exception, divergence): slits go
-       back to the snapshot baseline. Camera state always
-       restored.
+     - **Phase 3 (default ON): Rezero.** For each axis (H, V),
+       separately gated:
 
-       Slit restore order: Hcenter → Vcenter → Hsize → Vsize.
+       (a) ``caput <slit>{H,V}set "Set"`` -- switches the slit
+       calc records into position-redefinition mode.
+
+       (b) ``caput <slit>{H,V}center 0`` and
+       ``caput <slit>{H,V}size 0`` -- in Set mode these writes
+       redefine the current physical pose as the new origin
+       rather than commanding motion.
+
+       (c) ``caput <slit>{H,V}set "Use"`` -- restores motion
+       semantics for subsequent moves.
+
+       **IRREVERSIBLE.** Once any rezero write is issued, the
+       snapshot-restore for slits is disabled: the pre-rezero
+       baseline values are in the old coordinate system, and
+       writing them back through the new origin would
+       physically move the slits to arbitrary positions.
+       Operator can answer ``N`` at the H gate to skip
+       rezeroing entirely (keeps the centred + closed state);
+       answering ``N`` at the V gate after the H rezero
+       succeeded leaves H rezeroed and V untouched.
+
+       Skip the entire phase via the ``--no-rezero`` flag.
+     - 4 ``caput`` per axis: ``<slit>Hset``, ``<slit>Hcenter``,
+       ``<slit>Hsize``, ``<slit>Hset`` for H; same for V.
+   * - 7
+     - **Restore.** Run by ``try / finally`` on every exit path.
+       Slits are restored to baseline **unless** either:
+
+       - Procedure completed centring + closing cleanly (slits
+         are the deliberate output), OR
+       - Any rezero write was issued (snapshot is meaningless
+         in the new coordinate system).
+
+       Camera state always restored. Slit restore order:
+       Hcenter → Vcenter → Hsize → Vsize.
      - ``_Snapshot.restore(restore_slits=…)`` → four
        ``move_table_axis`` calls then the camera-state caputs.
 
@@ -258,10 +299,12 @@ On **clean completion**:
   (typically both 0) **or** the beam was no longer above
   threshold at a size slightly above target.
 - Camera state restored to the operator's pre-procedure values.
-- The new slit centre + closed size remain as the procedure's
-  deliberate output. Operator follows up by manually rezeroing
-  the four virtual motors to define a new origin (not
-  automated in v0.0.1).
+- The slit virtual motors are left at the centred + closed
+  state. If ``--rezero`` was kept on (default), all four virtual
+  motors read **0** at the current physical pose (new origin
+  defined). If ``--no-rezero`` was passed, the virtual motors
+  read the absolute pre-rezero values (closed + centred in the
+  old coordinate system).
 
 On **abort**:
 
@@ -350,7 +393,7 @@ Notes
   records which in turn drive the underlying blade motors. The
   procedure uses ``move_table_axis`` for motion-done because the
   pattern is the same as the detector optical table: write the
-  soft PV, poll the underlying motor ``.DMOV``s.
+  soft PV, poll the underlying motors' ``.DMOV``.
 - Open trigger this procedure creates: register a per-station
   ``Slit`` Asset on the cora side and a ``centre_and_close_slits``
   Procedure record in
