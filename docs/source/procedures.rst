@@ -45,6 +45,16 @@ Current procedures
   reduction. Operator typically follows with manual rezeroing
   of the four virtual motors to define a new origin. Open
   trigger for a per-station ``Slit`` Asset on the cora side.
+- :doc:`procedures/item_012` —
+  ``calibrate_slit_blade_throw``. Diagnostic procedure that
+  drives each of a station's four blade motors by ``±blade_throw_mm``
+  from baseline, measures the bbox edge shift of the bright spot
+  on the detector, and reports per-blade ``pixels-per-mm`` slopes.
+  Flags same-axis spread and V/H mean-ratio mismatches to
+  identify mis-calibrated blade motors. No deliberate output --
+  all blades restored to baseline. Open trigger to extend the
+  per-station ``Slit`` Asset with per-blade calibration fields
+  on the cora side.
 
 
 Stub procedures (precondition targets of item_002)
