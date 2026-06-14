@@ -31,9 +31,9 @@ Preconditions
 - :doc:`item_003` (``enable_beamline``).
 - For mono mode: :doc:`item_005`
   (``set_energy_to_preselect``) — the target flag Y depends on
-  the current DMM energy via the
-  ``energy_move_flag`` lookup in
-  ``energy-decarlof/src/energy/data/energy2bm.json``.
+  the current DMM energy via the ``energy_move_flag`` lookup in
+  `energy2bm.json
+  <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__.
 
 
 Parameters
@@ -46,9 +46,10 @@ Parameters
 
   - ``pink``: ``flag_y_mm = 0`` (lower position, out of beam).
   - ``mono``: ``flag_y_mm = energy_move_flag[current_energy_keV]``
-    (read from ``energy2bm.json``). Indicative values:
-    13.374 keV → 23 mm, 18 keV → 17 mm, 20 keV → 15 mm,
-    25 keV → 12 mm, 30+ keV → 0 mm.
+    (read from `energy2bm.json
+    <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__).
+    Indicative values: 13.374 keV → 23 mm, 18 keV → 17 mm,
+    20 keV → 15 mm, 25 keV → 12 mm, 30+ keV → 0 mm.
 
 
 Steps
@@ -72,9 +73,10 @@ Failure modes
 
 - Motor fault on ``2bma:m44`` — check the motor record's status
   and clear before retrying.
-- For mono mode: ``energy2bm.json`` has no entry for the current
-  DMM energy — operator must either calibrate the lookup or pass
-  ``flag_y_mm`` explicitly.
+- For mono mode: `energy2bm.json
+  <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__
+  has no entry for the current DMM energy — operator must either
+  calibrate the lookup or pass ``flag_y_mm`` explicitly.
 - Range check fails — typically operator misread mm vs encoded
   units; verify against the ``meters_all.adl`` MEDM screen.
 

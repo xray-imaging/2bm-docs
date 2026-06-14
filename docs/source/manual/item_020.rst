@@ -240,8 +240,9 @@ Flag (diagnostic phosphor)
 
 The energy-dependent flag positions used by mono-beam scans are
 defined in the ``energy`` package's lookup table
-(``src/energy/data/energy2bm.json``, key
-``energy_move_flag``):
+(`energy2bm.json
+<https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__,
+key ``energy_move_flag``):
 
 ==============  ===================  ==========================
 DMM energy keV  Flag Y (mm, user)    Comment
@@ -268,7 +269,9 @@ Pink-beam mode: flag at ``Y = 0 mm`` (user) -- same as the
    that satisfies the ``flag_in_beam`` precondition of
    :doc:`../procedures/item_002` (``detector_z_rail_alignment``).
    The energy-dependent target Y is read from the
-   ``energy_move_flag`` field of ``energy2bm.json``; operating in
+   ``energy_move_flag`` field of `energy2bm.json
+   <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__;
+   operating in
    pink mode means writing ``0 mm`` user to ``2bma:m44``.
 
 

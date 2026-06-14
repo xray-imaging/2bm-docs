@@ -110,8 +110,10 @@ cora's dependency graph will be able to auto-resolve them.
    * - ``flag_in_beam``
      - ``2bma:m44`` (Flag Y) at the mode-appropriate position.
        Pink: ``0 mm`` user. Mono: per ``energy_move_flag`` lookup
-       in ``energy2bm.json`` (~12-23 mm depending on energy;
-       ``0`` at 30+ keV). See item_020's Flag block.
+       in `energy2bm.json
+       <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__
+       (~12-23 mm depending on energy; ``0`` at 30+ keV). See
+       item_020's Flag block.
      - :doc:`item_006` (``set_flag_in``)
    * - ``b_shutter_open``
      - ``S02BM-PSS:SBS:BeamBlockingM == OFF`` (inverted enum — OFF
