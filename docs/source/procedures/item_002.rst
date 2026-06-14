@@ -93,8 +93,10 @@ cora's dependency graph will be able to auto-resolve them.
      - Predicate (informal)
      - Satisfied by
    * - ``beamline_enabled``
-     - Hutches searched and locked; BLEPS clear of Fault; APS
-       delivering beam; FES permit granted.
+     - ``StaA:SecureM == ON`` AND ``StaB:SecureM == ON`` AND
+       ``FES:BeamBlockingM == OFF`` AND
+       ``SR-ACIS:2BM:FesPermitM == ON`` (the last aggregates
+       BLEPS + APS machine state into one boolean).
      - :doc:`item_003` (``enable_beamline``)
    * - ``a_slits_open``
      - A-station slits open with ``H ≥ 0.5 mm`` and ``V ≥ 0.5 mm``

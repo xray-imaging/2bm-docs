@@ -601,12 +601,12 @@ PSS is willing to admit beam) and ``OFF`` when the search is broken
 :Hosted on: ``s2pvgate.xray.aps.anl.gov:5064`` (PSS gateway; same
    host as the shutter ``BeamBlockingM`` PVs).
 
-==================  =============================  ==========================
-PV                  Description (``DESC``)         Meaning
-==================  =============================  ==========================
-``S02BM-PSS:StaA:SecureM``   ``Sta-A Secure``      2-BM-A hutch
-``S02BM-PSS:StaB:SecureM``   ``Sta-B Secure``      2-BM-B hutch
-==================  =============================  ==========================
+==========================  ===================  ==============
+PV                          Description (DESC)   Meaning
+==========================  ===================  ==============
+``S02BM-PSS:StaA:SecureM``  ``Sta-A Secure``     2-BM-A hutch
+``S02BM-PSS:StaB:SecureM``  ``Sta-B Secure``     2-BM-B hutch
+==========================  ===================  ==============
 
 Both PVs share the same enum:
 
@@ -620,6 +620,41 @@ These are the predicates the :doc:`../procedures/item_003`
 ``beamline_enabled`` postcondition. Both must read ``ON`` before
 the FES open command (``S02BM-PSS:FES:OpenEPICSC``) will be
 honoured.
+
+
+ACIS upstream permit
+~~~~~~~~~~~~~~~~~~~~
+
+The APS Access Control and Interlock System exposes a single
+"upstream permit" PV that aggregates storage-ring health,
+injection state, APS-wide permits, the per-beamline PSS state,
+and the BLEPS fault chain into one boolean. If it reads ``ON``,
+all of the upstream conditions required to admit beam to 2-BM
+are met -- the FES open command will be honoured.
+
+:Family: ACIS upstream permit (read-only; analogous to the PSS
+   ``SecureM`` PVs above but at a higher level of aggregation).
+:Hosted on: ``s2pvgate.xray.aps.anl.gov:5064``.
+
+==========================  =============================  ===================
+PV                          Description (``DESC``)         Meaning
+==========================  =============================  ===================
+``SR-ACIS:2BM:FesPermitM``  ``2BM PSS FES Permit``         FES open permitted
+==========================  =============================  ===================
+
+Enum:
+
+- STATE 0 = ``OFF`` → ACIS does **not** permit the FES to open
+  (some upstream condition failed -- could be storage ring down,
+  BLEPS fault latched, PSS not searched, etc.).
+- STATE 1 = ``ON``  → ACIS permits the FES to open. The
+  individual upstream conditions are all green.
+
+This is the single PV the :doc:`../procedures/item_003`
+(``enable_beamline``) stub procedure uses to test the composite
+"upstream OK" condition. It replaces the earlier
+"BLEPS-clear AND machine-state-OK" pair of TBDs because ACIS
+already composes both.
 
 
 B-station Slits
