@@ -179,12 +179,25 @@ Operating envelope (v0.0.1 "build trust" phase)
   ``ArrayCallbacks``), the Z stage RBV, **and** the table soft
   axes ``2bmb:table3.AY`` / ``.AX``. On every exit path the camera
   state and Z position are restored. The table AY/AX are restored
-  **only on non-success exits** (``OperatorAbort``, exception,
-  max-iterations reached without convergence) — on clean
-  convergence the optimised AY/AX are left in place as the
-  procedure's deliberate output. The restore path prints its plan
-  but is **not** gated (it must run even on a panic exit); pass
-  ``--confirm-restore`` to gate it.
+  **only on these exits**:
+
+  - ``OperatorAbort`` (operator answered N at a gate).
+  - Exception (any RuntimeError, including the divergence guard).
+  - max-iterations exhausted **and** the best ``|tilt|`` seen across
+    iterations was no better than the starting state.
+
+  On **clean convergence**, the optimised AY/AX stay in place as
+  the procedure's deliberate output. On **max-iterations with a
+  net improvement** (the common case when the threshold can't be
+  reached because of noise), the procedure moves the table back
+  to the iteration that gave the best ``|tilt|`` ("best-state commit")
+  and leaves it there — the operator still gets the improvement
+  that did happen, instead of losing it to baseline restore. The
+  log clearly states which path was taken.
+
+  The restore path prints its plan but is **not** gated (it must
+  run even on a panic exit); pass ``--confirm-restore`` to gate
+  it.
 
   Caveat: the table restore writes to the ``2bmb:table3.AY/.AX``
   soft PVs; the synApps ``table.db`` kinematic does not always
@@ -233,10 +246,39 @@ Parameters
      - s
      - Per-frame exposure. Default: 0.05.
    * - ``convergence_threshold``
-     - number > 0
+     - number > 0 (or auto)
      - µrad
-     - Residual linear slope at or below which the procedure
-       stops iterating. Default: 5 µrad.
+     - Residual linear slope at or below which the procedure stops
+       iterating. **Default: auto-computed** from the detected lens
+       + binning + dz + a fixed rail-straightness floor (~10 µrad
+       for the PRO225SL over a 300 mm dz), multiplied by
+       ``convergence_safety_margin``. Operator override
+       (``--convergence-urad``) wins; a warning is logged if the
+       override is below the physical noise floor (procedure
+       cannot meaningfully converge to a sub-floor target).
+       Reference values at this beamline (dz=300 mm,
+       bin=2x2, centroid_noise=1 pix):
+
+       - 1.1x (Lens1): noise floor ~21 urad -> auto threshold ~31 urad
+       - 5x   (Lens2): noise floor ~10 urad (straightness floor
+         dominates) -> auto threshold ~15 urad
+       - 10x  (Lens3): noise floor ~10 urad -> auto threshold ~15 urad
+   * - ``convergence_safety_margin``
+     - > 1
+     - ×
+     - Multiplier applied to the noise floor when auto-computing
+       the convergence threshold. Default: 1.5. Larger values
+       converge sooner (less precision); smaller values closer to
+       1.0 push toward the physical floor but may not always
+       reach it given residual centroid jitter.
+   * - ``centroid_noise_pix``
+     - > 0
+     - pixels
+     - Assumed standard deviation of the centroid fit, used only
+       by the auto-threshold calculation. Default: 1.0 (typical
+       for COM on a clean spot above threshold). Increase if the
+       spot is faint / noisy; decrease if a sub-pixel-stable
+       Gaussian fit is in use.
    * - ``max_iterations``
      - integer ≥ 1
      - —
@@ -385,7 +427,7 @@ Steps
        (b) Convert to angular misalignment ``tilt_X``,
        ``tilt_Y`` (µrad).
 
-       (c) **Divergence guard**: if ``|tilt|`` (Euclidean) at
+       (c) **Divergence guard**: if ````|tilt|```` (Euclidean) at
        this iteration exceeds the previous iteration's by more
        than ``divergence_grow_threshold``, raise ``RuntimeError``
        → restore puts table AY/AX back to baseline. Aborts a
