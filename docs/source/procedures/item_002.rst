@@ -346,6 +346,14 @@ Parameters
      - (``binmask`` only) Threshold = ``bg_median + N × sigma``
        where ``sigma = 1.4826 × MAD`` (Median Absolute Deviation).
        Default: 5.0.
+   * - ``frames_per_measurement``
+     - int ≥ 1
+     - —
+     - Acquire and average N frames per centroid measurement.
+       Centroid shot-noise drops as ``sqrt(N)`` at N× per-
+       measurement acquisition cost. Default: 1 (no averaging).
+       Try ``4`` for a ~2× SNR boost on the sensitivity matrix
+       without enlarging the calibration step.
 
 
    * - ``camera_pixel_um``
