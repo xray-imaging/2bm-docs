@@ -2,14 +2,18 @@
 Centre and close an L3-style slit aperture
 ============================================
 
-Three-phase L3-style slit procedure: (1) drive the virtual-motor
+Four-phase L3-style slit procedure: (1) drive the virtual-motor
 ``Hcenter`` / ``Vcenter`` so the beam image lands at the centre
 of the detector frame; (2) incrementally close ``Hsize`` /
 ``Vsize`` to a target size (typically 0 = fully closed); (3)
 **rezero** the virtual motors -- redefine the current physical
 pose as the new origin so the four virtual motors read 0 at the
-closed + centred position. Phase 3 is **default-enabled** but
-gated per axis; ``--no-rezero`` skips it.
+closed + centred position; (4) **reopen** the slits to the
+original aperture (snapshot's ``Hsize`` / ``Vsize``, e.g. 1 mm)
+so the operator ends with a usable beam through a centred slit.
+
+Phases 3 and 4 are both **default-enabled** but gated per axis;
+``--no-rezero`` / ``--no-reopen`` skip the respective phase.
 
 The procedure is parameterised over which slit station to target:
 ``A`` (front-end L3 Slits at z = 25225 mm) or ``B`` (2-BM-B
@@ -152,6 +156,16 @@ Parameters
        irreversible. Set to False (CLI flag ``--no-rezero``) to
        skip and leave the slit virtual motors in their absolute
        coordinate system.
+   * - ``reopen``
+     - bool
+     - —
+     - If True (default), after rezero (or after closing, if
+       rezero is disabled) the procedure caputs the snapshot's
+       original ``Hsize`` / ``Vsize`` back into the slit
+       virtual motors. Each axis gated. Operator ends with the
+       slits open at the original aperture centred on the
+       (possibly new) origin -- ready for use. CLI flag
+       ``--no-reopen`` to skip (leaves slits closed).
    * - ``exposure_time``
      - > 0
      - s
@@ -273,6 +287,20 @@ Steps
      - 4 ``caput`` per axis: ``<slit>Hset``, ``<slit>Hcenter``,
        ``<slit>Hsize``, ``<slit>Hset`` for H; same for V.
    * - 7
+     - **Phase 4 (default ON): Reopen.** Per axis, gated:
+       caput the snapshot's original ``Hsize`` (resp. ``Vsize``)
+       back into the virtual motor. If phase 3 (rezero) ran,
+       this is interpreted in the new coordinate system -- the
+       slits open by the original aperture (e.g. 1 mm) centred
+       on the new origin (= beam axis). If rezero was skipped,
+       the aperture size write still works as an absolute size;
+       only the coordinate-system label is unchanged.
+
+       Skip with the ``--no-reopen`` flag (operator can leave
+       the slits closed for inspection).
+     - ``move_table_axis <slit>Hsize <snapshot.Hsize>``;
+       ``move_table_axis <slit>Vsize <snapshot.Vsize>``.
+   * - 8
      - **Restore.** Run by ``try / finally`` on every exit path.
        Slits are restored to baseline **unless** either:
 
@@ -299,12 +327,20 @@ On **clean completion**:
   (typically both 0) **or** the beam was no longer above
   threshold at a size slightly above target.
 - Camera state restored to the operator's pre-procedure values.
-- The slit virtual motors are left at the centred + closed
-  state. If ``--rezero`` was kept on (default), all four virtual
-  motors read **0** at the current physical pose (new origin
-  defined). If ``--no-rezero`` was passed, the virtual motors
-  read the absolute pre-rezero values (closed + centred in the
-  old coordinate system).
+- The slit virtual motors' final state depends on which phases
+  ran:
+
+  - **Default (rezero + reopen both on)**: virtual motors read
+    ``Hcenter = Vcenter = 0`` and ``Hsize = Vsize = original
+    aperture`` (e.g. 1 mm). New origin is defined; slits are
+    open at the original aperture centred on the beam axis.
+  - **``--no-reopen``**: virtual motors read ``Hsize = Vsize = 0``
+    (slits closed). Origin set if rezero ran.
+  - **``--no-rezero`` (+ default reopen)**: slits open at the
+    original aperture, centred on the corrected pose;
+    coordinate system unchanged from pre-procedure.
+  - **``--no-rezero --no-reopen``**: slits closed at the new
+    centred pose, no coordinate change. Useful for verification.
 
 On **abort**:
 
