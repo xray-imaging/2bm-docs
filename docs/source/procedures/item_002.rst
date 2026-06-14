@@ -81,26 +81,87 @@ Devices
 Preconditions
 -------------
 
-The operator is responsible for these before launching:
+In v0.0.1 the operator is responsible for establishing each of the
+states below before launching. As the satisfying procedures land,
+cora's dependency graph will be able to auto-resolve them.
 
-- Beamline is running in white-beam mode (DMM out, filters set
-  for indirect-detection imaging).
-- ``MCTOptics`` IOC is reachable (``2bm:MCTOptics:CameraSelected``
-  and ``LensSelected`` respond).
-- The desired **camera** is selected on the MCTOptics screen
-  (Camera 1 = Oryx 5MP, Camera 2 = Oryx 31MP).
-- The desired **lens** is selected on the MCTOptics screen
-  (Lens1 / Lens2 / Lens3).
-- ``Optique_Peter_focus_Z`` is homed and the Z stage is between
-  200 and 500 mm (the procedure's safety band; runs that ask for
-  values outside this band are rejected at ``__init__``).
-- ``2bmb:table3`` is at a known-good baseline pose.
-- B-station slits are open to a small square aperture (~1 × 1 mm
-  is the design target; the centroid algorithm needs a compact
-  bright region above ``threshold_fraction × max``).
-- Front-end shutter (FES) is **open**.
-- Nobody is in 2-BM-B; PSS interlocks satisfied.
-- Sample stage is in a safe out-of-beam position.
+.. list-table::
+   :header-rows: 1
+   :widths: 22 48 30
+
+   * - State
+     - Predicate (informal)
+     - Satisfied by
+   * - ``beamline_enabled``
+     - ``StaA:SecureM == ON`` AND ``StaB:SecureM == ON`` AND
+       ``FES:BeamBlockingM == OFF`` AND
+       ``SR-ACIS:2BM:FesPermitM == ON`` (the last aggregates
+       BLEPS + APS machine state into one boolean).
+     - :doc:`item_003` (``enable_beamline``)
+   * - ``a_slits_open``
+     - A-station slits open with ``H ≥ 0.5 mm`` and ``V ≥ 0.5 mm``
+       (so propagation produces ≈ 1 × 1 mm at the sample / detector
+       plane).
+     - :doc:`item_004` (``set_a_slits``)
+   * - ``energy_configured``
+     - Mirror M1 and DMM driven to the energy-dependent positions
+       in the ``energy`` package's lookup tables.
+     - :doc:`item_005` (``set_energy_to_preselect``)
+   * - ``flag_in_beam``
+     - ``2bma:m44`` (Flag Y) at the mode-appropriate position.
+       Pink: ``0 mm`` user. Mono: per ``energy_move_flag`` lookup
+       in `energy2bm.json
+       <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__
+       (~12-23 mm depending on energy; ``0`` at 30+ keV). See
+       item_020's Flag block.
+     - :doc:`item_006` (``set_flag_in``)
+   * - ``b_shutter_open``
+     - ``S02BM-PSS:SBS:BeamBlockingM == OFF`` (inverted enum — OFF
+       means NOT blocking, i.e. shutter OPEN).
+     - :doc:`item_007` (``open_b_shutter``)
+   * - ``b_slits_configured``
+     - B-station slits at ``H × V = 1.0 × 1.0 mm`` centred on the
+       energy-set vertical Y. Blade motors ``2bma:m9 / m10 / m11
+       / m12``.
+     - :doc:`item_008` (``set_b_slits``)
+   * - ``sample_out_of_beam``
+     - The relevant sample-stack axis (mount-dependent) is at its
+       out-of-beam position.
+     - :doc:`item_009` (``move_sample_out_of_beam``)
+   * - ``microscope_configured``
+     - MCTOptics lens at 1.1× (slot 0); detector optical table
+       ``2bmb:table3.Y`` at the energy-set beam-centre position;
+       Z stage ``2bmbAERO:m1`` at a safe mid-band position
+       (default 300 mm).
+     - :doc:`item_010` (``configure_microscope_for_alignment``)
+   * - **FES shutter is open**
+     - ``S02BM-PSS:FES:BeamBlockingM == OFF`` (inverted enum).
+       Bundled into ``beamline_enabled`` above; called out
+       separately because the FES status is a useful sanity check
+       directly visible on the synoptic.
+     - :doc:`item_003` (``enable_beamline``)
+   * - **Z stage in safety band**
+     - ``200 ≤ 2bmbAERO:m1.RBV ≤ 500`` (mm). Runs that ask for
+       ``z_near`` / ``z_far`` outside this band are rejected at
+       ``__init__``.
+     - operator (manual move) or
+       :doc:`item_010` (``configure_microscope_for_alignment``)
+   * - **MCTOptics IOC reachable**
+     - ``2bm:MCTOptics:CameraSelect`` and ``LensSelect`` respond
+       to ``caget`` (the IOC runs on ``tomdet`` and may not be on
+       the same network as some operator hosts).
+     - operator (start MCTOptics IOC if not running)
+   * - **PSS interlocks satisfied**
+     - ``S02BM-PSS:StaA:SecureM == 1`` (ON) AND
+       ``S02BM-PSS:StaB:SecureM == 1`` (ON).
+       See :doc:`../manual/item_020` (PSS hutch search status block).
+     - operator (floor procedure)
+
+The machine-readable form of this table lives in
+``procedures/detector_z_rail_alignment.py`` as the module-level
+``PRECONDITIONS`` list. It is currently **data only** — the
+procedure does NOT runtime-check these. Cora can ingest the list
+once the schema lands.
 
 
 Operating envelope (v0.0.1 "build trust" phase)
@@ -124,12 +185,25 @@ Operating envelope (v0.0.1 "build trust" phase)
   ``ArrayCallbacks``), the Z stage RBV, **and** the table soft
   axes ``2bmb:table3.AY`` / ``.AX``. On every exit path the camera
   state and Z position are restored. The table AY/AX are restored
-  **only on non-success exits** (``OperatorAbort``, exception,
-  max-iterations reached without convergence) — on clean
-  convergence the optimised AY/AX are left in place as the
-  procedure's deliberate output. The restore path prints its plan
-  but is **not** gated (it must run even on a panic exit); pass
-  ``--confirm-restore`` to gate it.
+  **only on these exits**:
+
+  - ``OperatorAbort`` (operator answered N at a gate).
+  - Exception (any RuntimeError, including the divergence guard).
+  - max-iterations exhausted **and** the best ``|tilt|`` seen across
+    iterations was no better than the starting state.
+
+  On **clean convergence**, the optimised AY/AX stay in place as
+  the procedure's deliberate output. On **max-iterations with a
+  net improvement** (the common case when the threshold can't be
+  reached because of noise), the procedure moves the table back
+  to the iteration that gave the best ``|tilt|`` ("best-state commit")
+  and leaves it there — the operator still gets the improvement
+  that did happen, instead of losing it to baseline restore. The
+  log clearly states which path was taken.
+
+  The restore path prints its plan but is **not** gated (it must
+  run even on a panic exit); pass ``--confirm-restore`` to gate
+  it.
 
   Caveat: the table restore writes to the ``2bmb:table3.AY/.AX``
   soft PVs; the synApps ``table.db`` kinematic does not always
@@ -176,12 +250,43 @@ Parameters
    * - ``exposure_time``
      - number > 0
      - s
-     - Per-frame exposure. Default: 0.05.
+     - Per-frame exposure. Default: 0.2 (gives a clean bright spot
+       on the 1.1× lens at typical 2-BM-B flux). Increase if the
+       centroid signal is weak.
    * - ``convergence_threshold``
-     - number > 0
+     - number > 0 (or auto)
      - µrad
-     - Residual linear slope at or below which the procedure
-       stops iterating. Default: 5 µrad.
+     - Residual linear slope at or below which the procedure stops
+       iterating. **Default: auto-computed** from the detected lens
+       + binning + dz + a fixed rail-straightness floor (~10 µrad
+       for the PRO225SL over a 300 mm dz), multiplied by
+       ``convergence_safety_margin``. Operator override
+       (``--convergence-urad``) wins; a warning is logged if the
+       override is below the physical noise floor (procedure
+       cannot meaningfully converge to a sub-floor target).
+       Reference values at this beamline (dz=300 mm,
+       bin=2x2, centroid_noise=1 pix):
+
+       - 1.1x (Lens1): noise floor ~21 urad -> auto threshold ~31 urad
+       - 5x   (Lens2): noise floor ~10 urad (straightness floor
+         dominates) -> auto threshold ~15 urad
+       - 10x  (Lens3): noise floor ~10 urad -> auto threshold ~15 urad
+   * - ``convergence_safety_margin``
+     - > 1
+     - ×
+     - Multiplier applied to the noise floor when auto-computing
+       the convergence threshold. Default: 1.5. Larger values
+       converge sooner (less precision); smaller values closer to
+       1.0 push toward the physical floor but may not always
+       reach it given residual centroid jitter.
+   * - ``centroid_noise_pix``
+     - > 0
+     - pixels
+     - Assumed standard deviation of the centroid fit, used only
+       by the auto-threshold calculation. Default: 1.0 (typical
+       for COM on a clean spot above threshold). Increase if the
+       spot is faint / noisy; decrease if a sub-pixel-stable
+       Gaussian fit is in use.
    * - ``max_iterations``
      - integer ≥ 1
      - —
@@ -330,7 +435,7 @@ Steps
        (b) Convert to angular misalignment ``tilt_X``,
        ``tilt_Y`` (µrad).
 
-       (c) **Divergence guard**: if ``|tilt|`` (Euclidean) at
+       (c) **Divergence guard**: if ````|tilt|```` (Euclidean) at
        this iteration exceeds the previous iteration's by more
        than ``divergence_grow_threshold``, raise ``RuntimeError``
        → restore puts table AY/AX back to baseline. Aborts a
