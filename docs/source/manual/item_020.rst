@@ -187,6 +187,19 @@ A-shutter (front-end)
 :EPICS prefix: ``S02BM-PSS:FES``
 :Open command: ``S02BM-PSS:FES:OpenEPICSC``
 :Close command: ``S02BM-PSS:FES:CloseEPICSC``
+:Status readback: ``S02BM-PSS:FES:BeamBlockingM`` (``DBF_ENUM``,
+   read-only; hosted on the PSS gateway ``s2pvgate``).
+
+   - STATE 0 = ``OFF`` → beam is **not** being blocked →
+     **shutter OPEN**.
+   - STATE 1 = ``ON``  → beam **is** being blocked →
+     **shutter CLOSED**.
+
+   Note the inverted semantics: the PV reports the *blocking
+   state*, not the *shutter position*. After issuing
+   ``OpenEPICSC`` / ``CloseEPICSC`` confirm the state by reading
+   ``BeamBlockingM`` (``caget`` returns the string ``OFF`` /
+   ``ON`` when called with ``-S``; the integer 0 / 1 by default).
 :Notes:
    Independent of the P6-50 personnel-safety shutter (``B_shutter``,
    below) further downstream. Both must be open for beam to reach
@@ -554,6 +567,20 @@ P6-50 Safety Shutter (B-shutter)
 :EPICS prefix: ``S02BM-PSS:SBS``
 :Open command: ``S02BM-PSS:SBS:OpenEPICSC``
 :Close command: ``S02BM-PSS:SBS:CloseEPICSC``
+:Status readback: ``S02BM-PSS:SBS:BeamBlockingM`` (``DBF_ENUM``,
+   read-only; description ``SBS BLEPS Status``; hosted on the PSS
+   gateway ``s2pvgate``). The status is reported via BLEPS rather
+   than the PSS directly.
+
+   - STATE 0 = ``OFF`` → beam is **not** being blocked →
+     **shutter OPEN**.
+   - STATE 1 = ``ON``  → beam **is** being blocked →
+     **shutter CLOSED**.
+
+   Same inverted semantics as the A-shutter ``BeamBlockingM`` PV
+   above: the readback reports the *blocking state*, not the
+   *shutter position*. After issuing ``OpenEPICSC`` /
+   ``CloseEPICSC`` confirm by reading ``BeamBlockingM``.
 :Notes:
    One element of the four-component P6-50 stack (white-beam stop,
    tungsten collimator, safety shutter, SS baffle) installed
