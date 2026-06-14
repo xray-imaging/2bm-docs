@@ -201,6 +201,16 @@ Parameters
        ``|slope|`` at iteration N−1 by more than this factor.
        Default: 1.5. Catches runaway positive feedback before
        it walks the spot off the camera.
+   * - ``max_correction_per_iter_urad``
+     - > 0
+     - µrad
+     - Hard clip on the per-iteration correction magnitude for
+       each table axis. Default: 200. When the calibrated
+       sensitivity matrix M is ill-conditioned (table has weak
+       authority over one slope direction), M⁻¹ can compute very
+       large corrections; the clip keeps each iteration within
+       the linear range near the calibration point. Convergence
+       happens over more iterations rather than one big move.
    * - ``threshold_fraction``
      - 0 < x < 1
      - —
