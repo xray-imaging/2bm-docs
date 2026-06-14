@@ -81,26 +81,79 @@ Devices
 Preconditions
 -------------
 
-The operator is responsible for these before launching:
+In v0.0.1 the operator is responsible for establishing each of the
+states below before launching. As the satisfying procedures land,
+cora's dependency graph will be able to auto-resolve them.
 
-- Beamline is running in white-beam mode (DMM out, filters set
-  for indirect-detection imaging).
-- ``MCTOptics`` IOC is reachable (``2bm:MCTOptics:CameraSelected``
-  and ``LensSelected`` respond).
-- The desired **camera** is selected on the MCTOptics screen
-  (Camera 1 = Oryx 5MP, Camera 2 = Oryx 31MP).
-- The desired **lens** is selected on the MCTOptics screen
-  (Lens1 / Lens2 / Lens3).
-- ``Optique_Peter_focus_Z`` is homed and the Z stage is between
-  200 and 500 mm (the procedure's safety band; runs that ask for
-  values outside this band are rejected at ``__init__``).
-- ``2bmb:table3`` is at a known-good baseline pose.
-- B-station slits are open to a small square aperture (~1 × 1 mm
-  is the design target; the centroid algorithm needs a compact
-  bright region above ``threshold_fraction × max``).
-- Front-end shutter (FES) is **open**.
-- Nobody is in 2-BM-B; PSS interlocks satisfied.
-- Sample stage is in a safe out-of-beam position.
+.. list-table::
+   :header-rows: 1
+   :widths: 22 48 30
+
+   * - State
+     - Predicate (informal)
+     - Satisfied by
+   * - ``beamline_enabled``
+     - Hutches searched and locked; BLEPS clear of Fault; APS
+       delivering beam; FES permit granted.
+     - :doc:`item_003` (``enable_beamline``)
+   * - ``a_slits_open``
+     - A-station slits open with ``H ≥ 0.5 mm`` and ``V ≥ 0.5 mm``
+       (so propagation produces ≈ 1 × 1 mm at the sample / detector
+       plane).
+     - :doc:`item_004` (``set_a_slits``)
+   * - ``energy_configured``
+     - Mirror M1 and DMM driven to the energy-dependent positions
+       in the ``energy`` package's lookup tables.
+     - :doc:`item_005` (``set_energy_to_preselect``)
+   * - ``flag_in_beam``
+     - **Flag** moved to its in-beam Y position. *(Flag is a future
+       addition; placeholder.)*
+     - :doc:`item_006` (``set_flag_in``)
+   * - ``b_shutter_open``
+     - ``S02BM-PSS:SBS:BeamBlockingM == OFF`` (inverted enum — OFF
+       means NOT blocking, i.e. shutter OPEN).
+     - :doc:`item_007` (``open_b_shutter``)
+   * - ``b_slits_configured``
+     - B-station slits at ``H × V = 1.0 × 1.0 mm`` centred on the
+       energy-set vertical Y. Blade motors ``2bma:m9 / m10 / m11
+       / m12``.
+     - :doc:`item_008` (``set_b_slits``)
+   * - ``sample_out_of_beam``
+     - The relevant sample-stack axis (mount-dependent) is at its
+       out-of-beam position.
+     - :doc:`item_009` (``move_sample_out_of_beam``)
+   * - ``microscope_configured``
+     - MCTOptics lens at 1.1× (slot 0); detector optical table
+       ``2bmb:table3.Y`` at the energy-set beam-centre position;
+       Z stage ``2bmbAERO:m1`` at a safe mid-band position
+       (default 300 mm).
+     - :doc:`item_010` (``configure_microscope_for_alignment``)
+   * - **FES shutter is open**
+     - ``S02BM-PSS:FES:BeamBlockingM == OFF`` (inverted enum).
+       Bundled into ``beamline_enabled`` above; called out
+       separately because the FES status is a useful sanity check
+       directly visible on the synoptic.
+     - :doc:`item_003` (``enable_beamline``)
+   * - **Z stage in safety band**
+     - ``200 ≤ 2bmbAERO:m1.RBV ≤ 500`` (mm). Runs that ask for
+       ``z_near`` / ``z_far`` outside this band are rejected at
+       ``__init__``.
+     - operator (manual move) or
+       :doc:`item_010` (``configure_microscope_for_alignment``)
+   * - **MCTOptics IOC reachable**
+     - ``2bm:MCTOptics:CameraSelect`` and ``LensSelect`` respond
+       to ``caget`` (the IOC runs on ``tomdet`` and may not be on
+       the same network as some operator hosts).
+     - operator (start MCTOptics IOC if not running)
+   * - **PSS interlocks satisfied**
+     - Nobody in 2-BM-B; hutch search complete.
+     - operator (floor procedure)
+
+The machine-readable form of this table lives in
+``procedures/detector_z_rail_alignment.py`` as the module-level
+``PRECONDITIONS`` list. It is currently **data only** — the
+procedure does NOT runtime-check these. Cora can ingest the list
+once the schema lands.
 
 
 Operating envelope (v0.0.1 "build trust" phase)
