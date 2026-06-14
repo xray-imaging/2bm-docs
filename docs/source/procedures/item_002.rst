@@ -316,22 +316,36 @@ Parameters
        large corrections; the clip keeps each iteration within
        the linear range near the calibration point. Convergence
        happens over more iterations rather than one big move.
+   * - ``centroid_algorithm``
+     - ``"com"`` | ``"binmask"``
+     - —
+     - Selects the centroid implementation in
+       ``_shared/centroid.py``. Default: ``"com"`` (intensity-
+       weighted centre of mass). Use ``"binmask"`` (background-
+       thresholded geometric centroid) when the bright pixels of
+       the beam lie *outside* the spot envelope (e.g. a saturated
+       stripe far from the geometric centre is biasing COM).
+       Field-tested 2026-06-14 on a 2-BM-B Oryx 31MP frame
+       against an operator hand-eyeballed centre: ``com`` was 8
+       px off, ``binmask`` 30-40 px off (the multilayer halo
+       extends asymmetrically and pulls the binmask centroid
+       off-axis). ``com`` is the right default for this beamline.
+   * - ``threshold_fraction``
+     - 0 < x < 1
+     - —
+     - (``com`` only) Threshold as a fraction of the per-frame
+       maximum pixel value. Default: 0.5.
    * - ``bg_corner_size``
      - int > 4
      - pixels
-     - Per-side length of each of the four corner boxes the
-       centroid algorithm uses to estimate the background-noise
-       level. Default: 100. Reduce only if the beam spot is large
-       enough to spill into a frame corner.
+     - (``binmask`` only) Per-side length of each of four corner
+       boxes used to estimate background statistics. Default: 100.
    * - ``bg_sigma_threshold``
      - > 0
      - σ
-     - Centroid binary-mask threshold is
-       ``bg_median + N × bg_sigma_from_MAD`` (median + Median
-       Absolute Deviation, robust to outliers in the corner
-       samples). Default: 5.0. Smaller N includes more of the
-       dim halo (and more noise); larger N keeps only clearly-
-       above-background pixels.
+     - (``binmask`` only) Threshold = ``bg_median + N × sigma``
+       where ``sigma = 1.4826 × MAD`` (Median Absolute Deviation).
+       Default: 5.0.
 
 
    * - ``camera_pixel_um``
