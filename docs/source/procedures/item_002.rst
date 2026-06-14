@@ -39,28 +39,34 @@ Devices
   is the open trigger this procedure creates.
 
 - :doc:`../manual/item_020`: **MCTOptics** — read only.
-  ``2bm:MCTOptics:CameraSelected`` and ``LensSelected`` are read
-  to derive the camera areaDetector prefix and the lens
-  magnification. The procedure does **not** modify either.
+  ``2bm:MCTOptics:CameraSelect`` and ``LensSelect`` (the setpoint
+  mbbo records) are read at start to derive the camera
+  areaDetector prefix and the lens magnification. The procedure
+  does **not** modify either. The lookup is keyed by the mbbo
+  **enum index** (returned by a plain ``caget`` without
+  ``as_string=True``) so it survives IOC-version differences in
+  the display strings (e.g. ``"Camera 1"`` vs
+  ``"Camera Selected 1"``).
 
-  =================  ================  =======================
-  CameraSelected     cam_prefix        Camera
-  =================  ================  =======================
-  ``Camera 1``       ``2bmSP1:``       FLIR Oryx 5MP
-  ``Camera 2``       ``2bmSP2:``       FLIR Oryx 31MP
-  =================  ================  =======================
+  ======  ==============  ================  =======================
+  Index   CameraSelect    cam_prefix        Camera
+  ======  ==============  ================  =======================
+  0       ``Camera 1``    ``2bmSP1:``       FLIR Oryx 5MP
+  1       ``Camera 2``    ``2bmSP2:``       FLIR Oryx 31MP
+  ======  ==============  ================  =======================
 
-  =================  ================
-  LensSelected       Magnification
-  =================  ================
-  ``Lens1``          1.1×
-  ``Lens2``          5.0×
-  ``Lens3``          10.0×
-  =================  ================
+  ======  ==============  ================
+  Index   LensSelect      Magnification
+  ======  ==============  ================
+  0       ``Lens1``       1.1×
+  1       ``Lens2``       5.0×
+  2       ``Lens3``       10.0×
+  ======  ==============  ================
 
   Magnifications are hard-coded in
-  ``detector_z_rail_alignment.py`` (``LENS_MAGNIFICATIONS``);
-  update there if the installed objectives change.
+  ``detector_z_rail_alignment.py``
+  (``LENS_MAGNIFICATIONS_BY_INDEX``); update there if the
+  installed objectives change.
 
 - :doc:`../manual/item_020`: **Scintillator_LuAG** — passive
   (no command surface).
