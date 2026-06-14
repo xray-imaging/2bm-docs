@@ -118,7 +118,18 @@ Parameters
      - > 0
      - pixels
      - Centroid must be within N pixels of the frame centre in
-       both axes to declare centring converged. Default: 5.
+       both axes to declare centring converged. Default: 15
+       (at the COM noise floor on 2-BM-B's multilayer-stripe
+       images; tightening below ~15 pix requires frame averaging
+       via ``--frames-per-measurement``).
+   * - ``centring_divergence_grow_threshold``
+     - > 1
+     - ×
+     - Abort centring if ``|err|`` grows by more than this
+       factor between iterations. Default: 2.0 (looser than
+       :doc:`item_002`'s 1.5× because COM noise on slit-edge
+       images can briefly bump ``|err|`` at small corrections
+       without indicating a real failure).
    * - ``centring_max_iterations``
      - ≥ 1
      - —
