@@ -51,9 +51,17 @@ Postconditions
 --------------
 
 :Satisfies: ``beamline_enabled``
-:Predicate: TBD — no single PV today; depends on BLEPS status
-   register + PSS hutch status + machine-state PV. Likely requires
-   a composite predicate.
+:Predicate: Composite. The PSS components are concrete; the BLEPS
+   and machine-state components are TBD.
+
+   - ``S02BM-PSS:StaA:SecureM == 1`` (``ON`` — 2-BM-A hutch
+     searched and locked; see :doc:`../manual/item_020`).
+   - ``S02BM-PSS:StaB:SecureM == 1`` (``ON`` — 2-BM-B hutch
+     searched and locked).
+   - ``S02BM-PSS:FES:BeamBlockingM == 0`` (``OFF`` — FES open;
+     same inverted-enum convention documented in item_020).
+   - BLEPS status: TBD (Fault register clear).
+   - Machine state: TBD (APS storage ring delivering beam).
 
 
 Failure modes

@@ -146,7 +146,9 @@ cora's dependency graph will be able to auto-resolve them.
        the same network as some operator hosts).
      - operator (start MCTOptics IOC if not running)
    * - **PSS interlocks satisfied**
-     - Nobody in 2-BM-B; hutch search complete.
+     - ``S02BM-PSS:StaA:SecureM == 1`` (ON) AND
+       ``S02BM-PSS:StaB:SecureM == 1`` (ON).
+       See :doc:`../manual/item_020` (PSS hutch search status block).
      - operator (floor procedure)
 
 The machine-readable form of this table lives in
