@@ -736,6 +736,26 @@ B-station Slits
 :EPICS prefix: ``2bma:`` (horizontal motors ``2bma:m11`` and
    ``2bma:m12`` for the X pair; vertical motors ``2bma:m9`` for
    Y+ [up] and ``2bma:m10`` for Y− [down])
+:Virtual motor PVs (composite Size/Centre): the four ``ao``-record
+   PVs below drive both blades of a pair together. Hosted on
+   ``ioc2bmb1.xray.aps.anl.gov:5064`` despite the ``2bma:`` prefix.
+   These are the PVs the ``2slit.adl`` MEDM screen wires to the
+   ``Size`` and ``Center`` text-entry boxes; the ``Size`` /
+   ``Center`` values you set on the screen propagate through
+   downstream calc records to the individual blade motors.
+
+   =========================  ======================  =====================
+   PV                         Role                    Limits (HOPR / LOPR)
+   =========================  ======================  =====================
+   ``2bma:Slit2Hsize``        Horizontal aperture mm  +45.50 / -112.50
+   ``2bma:Slit2Hcenter``      Horizontal centre mm    +37.08 / -41.92
+   ``2bma:Slit2Vsize``        Vertical aperture mm    +115.62 / -34.13
+   ``2bma:Slit2Vcenter``      Vertical centre mm      +52.28 / -22.60
+   =========================  ======================  =====================
+
+   *(Earlier doc attempts referred to* ``2bma:Slit2H:size`` *with a
+   colon — that is NOT the name. The canonical names are no-colon
+   concatenations as listed.)*
 :Notes:
    These are the slits driven by ``b_slit_top`` (= ``2bma:m9``) and
    ``b_slit_bot`` (= ``2bma:m10``) in the energy-change IOC; the
