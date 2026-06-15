@@ -26,7 +26,7 @@ Name
 Devices
 -------
 
-- :doc:`../manual/item_020`: **Optique_Peter_focus_Z** —
+- :doc:`../manual/item_020`: **Focus** —
   ``2bmbAERO:m1`` (Aerotech PRO225SL-1000, 1 m travel).
 - :doc:`../manual/item_020`: **Detector optical table** —
   synApps ``table.db`` composite ``2bmb:table3``; corrective DoFs
@@ -316,11 +316,46 @@ Parameters
        large corrections; the clip keeps each iteration within
        the linear range near the calibration point. Convergence
        happens over more iterations rather than one big move.
+   * - ``centroid_algorithm``
+     - ``"com"`` | ``"binmask"``
+     - —
+     - Selects the centroid implementation in
+       ``_shared/centroid.py``. Default: ``"com"`` (intensity-
+       weighted centre of mass). Use ``"binmask"`` (background-
+       thresholded geometric centroid) when the bright pixels of
+       the beam lie *outside* the spot envelope (e.g. a saturated
+       stripe far from the geometric centre is biasing COM).
+       Field-tested 2026-06-14 on a 2-BM-B Oryx 31MP frame
+       against an operator hand-eyeballed centre: ``com`` was 8
+       px off, ``binmask`` 30-40 px off (the multilayer halo
+       extends asymmetrically and pulls the binmask centroid
+       off-axis). ``com`` is the right default for this beamline.
    * - ``threshold_fraction``
      - 0 < x < 1
      - —
-     - Centroid algorithm threshold as fraction of frame max.
-       Default: 0.5.
+     - (``com`` only) Threshold as a fraction of the per-frame
+       maximum pixel value. Default: 0.5.
+   * - ``bg_corner_size``
+     - int > 4
+     - pixels
+     - (``binmask`` only) Per-side length of each of four corner
+       boxes used to estimate background statistics. Default: 100.
+   * - ``bg_sigma_threshold``
+     - > 0
+     - σ
+     - (``binmask`` only) Threshold = ``bg_median + N × sigma``
+       where ``sigma = 1.4826 × MAD`` (Median Absolute Deviation).
+       Default: 5.0.
+   * - ``frames_per_measurement``
+     - int ≥ 1
+     - —
+     - Acquire and average N frames per centroid measurement.
+       Centroid shot-noise drops as ``sqrt(N)`` at N× per-
+       measurement acquisition cost. Default: 1 (no averaging).
+       Try ``4`` for a ~2× SNR boost on the sensitivity matrix
+       without enlarging the calibration step.
+
+
    * - ``camera_pixel_um``
      - number > 0
      - µm
@@ -353,6 +388,23 @@ Parameters
      - —
      - Print every planned motion and skip; never moves any
        motor. Camera reads + centroid fits still happen.
+
+
+.. note::
+
+   **Centroid algorithm.** In v0.0.1 the centroid algorithm
+   changed from intensity-weighted COM (``center_of_mass``,
+   fraction-of-max threshold) to a background-thresholded
+   **geometric centroid** (``centroid_above_background``,
+   σ-above-background threshold). Driven by 2-BM-B field testing:
+   the DMM beam has strong horizontal multilayer-stripe modulation
+   that biases an intensity-weighted COM toward whichever stripe
+   happens to be brightest, instead of the geometric centre of the
+   illuminated square aperture. The new algorithm gives every
+   above-threshold pixel an equal vote, so the centroid tracks the
+   geometric centre of the illuminated area regardless of internal
+   structure. Median+MAD on corner samples makes the threshold
+   robust to bright features spilling into a corner.
 
 
 Steps
@@ -474,7 +526,7 @@ Postconditions
 - ``2bmb:table3.AY`` and ``.AX`` are at the converged values;
   their new positions are logged. (Procedure deliberately does
   not restore these — they're the output.)
-- ``Optique_Peter_focus_Z`` is back at its pre-procedure RBV
+- ``Focus`` is back at its pre-procedure RBV
   (restored from snapshot).
 - All snapshotted camera state is back to its pre-procedure
   values: if the camera was running Continuous on entry, it is
@@ -576,6 +628,45 @@ wrong (PV name, sign, magnitude), answer ``N`` and the procedure
 exits cleanly via the snapshot restore.
 
 
+Field-test results (v0.0.1, 2026-06-14)
+---------------------------------------
+
+First end-to-end convergent run on 2-BM-B:
+
+:Camera: FLIR Oryx 31MP at ``2bmSP2:`` via MCTOptics
+:Lens: 1.1× (slot 0)
+:Z safety band: 200–500 mm
+:Calibration step: 100 µrad
+:Damping: 0.5
+:Auto-set convergence threshold: 31.4 µrad
+:Sensitivity-matrix condition number: **1.1** (essentially
+   diagonal — AY ↔ slope_X, AX ↔ slope_Y, no cross-coupling)
+
+Convergence trajectory:
+
+==== ============ ============ ============ ===================
+iter ``tilt_X``   ``tilt_Y``   ``|tilt|``   reduction vs prev
+==== ============ ============ ============ ===================
+1    −169 µrad    +397 µrad    431 µrad     —
+2    −85          +203         220          0.51×
+3    −46          +97          107          0.49×
+4    −20          +49          53           0.50×
+5    −10          **+24**      **26**       0.49× ← converged
+==== ============ ============ ============ ===================
+
+Each iteration cut ``|tilt|`` almost exactly in half, matching
+the ``damping=0.5`` prediction to better than 1%. The final
+residual (26 µrad) sits at the PRO225SL rail's intrinsic
+straightness floor (~10–20 µrad over a 300 mm sub-range) — the
+procedure cannot drive ``|tilt|`` below this regardless of
+iteration count. Final table pose:
+``AY = −0.0092 deg``, ``AX = −0.0211 deg``.
+
+Run details and the architectural / bug history that got here
+are in `2bm-procedures CHANGELOG
+<https://github.com/decarlof/2bm-procedures/blob/main/CHANGELOG.md>`__.
+
+
 Notes
 -----
 
@@ -603,12 +694,12 @@ Notes
   snapshot at exit.
 - This procedure is **not** the same as cora's stubbed
   ``resolution_alignment`` (which targets the same
-  ``Optique_Peter_focus_Z`` Asset but optimises **lens focus**
+  ``Focus`` Asset but optimises **lens focus**
   on a fixed sample, not the rail-to-beam angular alignment).
   Both procedures share Assets but operate on different
   physical surfaces.
 - Open trigger this procedure creates: register a
-  ``Detector_optical_table`` Asset (Family ``OpticalTable``) in
+  ``DetectorTable`` Asset (Family ``OpticalTable``) in
   ``cora/docs/deployments/2-bm/assets.md``, then add a
   ``detector_z_rail_alignment`` entry to that deployment's
   ``procedures.md`` referencing this page.
