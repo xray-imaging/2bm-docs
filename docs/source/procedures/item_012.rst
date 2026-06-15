@@ -344,3 +344,118 @@ Notes
   Asset for each station with per-blade ``calibration_slope_pix_per_mm``
   fields populated from this procedure's report (one record per
   blade motor).
+
+
+Field-test results (v0.0.2, 2026-06-14)
+---------------------------------------
+
+First end-to-end runs on both 2-BM stations. Surfaced and fixed
+a long-standing V-blade miscal on A; confirmed B is healthy.
+
+:Camera: FLIR Oryx 31MP at ``2bmSP2:`` via MCTOptics
+:Lens: 1.1× (slot 0)
+:Camera binning: 2 × 2
+:Frames per measurement: 4
+:Blade throw: ±0.25 mm
+
+A station — before MRES fix
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+============= ============ ============ ===================
+blade         primary edge slope px/mm  notes
+============= ============ ============ ===================
+``2bma:m13``  left         339.8        H+ (X+, outboard)
+``2bma:m14``  right        328.0        H− (X−, inboard)
+``2bma:m15``  bottom       506.8        V+ (Y+, up)
+``2bma:m16``  top          486.4        V− (Y−, down)
+============= ============ ============ ===================
+
+- H mean = 334 px/mm, V mean = 497 px/mm, **V/H = 1.487** ← WARN.
+- Same-axis spread: H 3.5%, V 4.1% (both blades within an axis
+  agree; whole-axis V miscal, not single-blade).
+- Cross-checked against the operator's pre-existing workaround
+  ("setting Vsize = 0.6 mm with Hsize = 1.0 mm gives a square
+  image on the detector") and against a hand-bbox of an earlier
+  PNG showing the same 1.55× V/H aspect.
+
+Root cause: the motor IOC substitution file
+(``/net/s2dserv/xorApps/epics/synApps_5_8/ioc/2bma/iocBoot/ioc2bma/motor.substitutions``)
+uses a single template for every motor m1..m44+ — all share
+``MRES = 2.5e-4``, ``EGU = "degrees"``, ``VELO = 1``. The per-
+axis mechanical differences between the A H blade assembly and
+the A V blade assembly were never compensated.
+
+Fix (applied live via ``caput`` with the SET/Use position-
+redefinition pattern, persisted via autosave):
+
+.. code-block:: bash
+
+   # For each of m15 and m16:
+   caput 2bma:m15.VAL 0       # park at known position
+   caput 2bma:m15.SET 1       # enter position-redefine mode
+   caput 2bma:m15.MRES 5.95e-4  # = 4e-4 (old) × 1.487 (correction factor)
+   caput 2bma:m15.VAL 0       # relabel position in new units (0 → 0)
+   caput 2bma:m15.SET 0       # exit Set mode
+
+A station — after MRES fix
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+============= ============ ============ ===================
+blade         primary edge slope px/mm  notes
+============= ============ ============ ===================
+``2bma:m13``  left         339.7        unchanged ✓
+``2bma:m14``  right        328.0        unchanged ✓
+``2bma:m15``  bottom       350.4        MRES 4e-4 → 5.95e-4
+``2bma:m16``  top          322.3        MRES 4e-4 → 5.95e-4
+============= ============ ============ ===================
+
+- H mean = 334 px/mm, V mean = 336 px/mm, **V/H = 1.008** ← PASS.
+- Same-axis spread: H 3.5%, V 8.4% (V borderline; likely tighten
+  with ``--frames-per-measurement 8``).
+- Visually validated: Hsize = Vsize = 1.0 mm now produces a
+  square aperture image on the detector.
+
+B station (no fix needed)
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+============= ============ ============ ===================
+blade         primary edge slope px/mm  notes
+============= ============ ============ ===================
+``2bma:m9``   top          170.0        V+ (Y+, up)
+``2bma:m10``  bottom       172.0        V− (Y−, down)
+``2bma:m11``  left         168.3        H pair
+``2bma:m12``  right        167.5        H pair
+============= ============ ============ ===================
+
+- H mean = 167.9 px/mm, V mean = 171.0 px/mm,
+  **V/H = 1.019** ← PASS.
+- Same-axis spread: H 0.5%, V 1.2% (textbook).
+- B slopes are ~½ of A's, matching the 2× geometric magnification
+  of A's projection at the detector plane (A at z = 25225 mm, B
+  and detector both at z ≈ 50500 mm).
+
+Notes from the field test
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **DMM image flip.** A's blade-to-edge mapping is mirrored from
+  :doc:`../manual/item_020`'s labels (m13 = H+ outboard moves the
+  LEFT edge of the spot; m15 = V+ up moves the BOTTOM edge). B's
+  mapping is straight (m9 = V+ moves the TOP edge). The DMM
+  Bragg reflection between A and B inverts one axis of A's image
+  relative to B's at the detector. Worth knowing for any future
+  blade-direction debugging.
+- **A V-blade tilt.** Even after the MRES fix, the centring-
+  sensitivity matrix (from :doc:`item_011`) shows H_sens = 330
+  px/mm but V_sens = 134 px/mm — a factor 2.5 asymmetry that the
+  blade-throw procedure doesn't see (both axes give ~334 px/mm
+  per blade). The discrepancy is consistent with a small tilt
+  on the V blade pair that smears the V intensity profile, so
+  the COM tracks the slit centre less than 1:1 when Vcenter
+  moves. Not a calibration error — a geometric fact about A's V
+  kinematic. B's centring sensitivity is much more symmetric
+  (H_sens = 170, V_sens = 109, ratio 1.55) consistent with B
+  not having the same tilt.
+
+Run details and the architectural / bug history that got here
+are in `2bm-procedures CHANGELOG
+<https://github.com/decarlof/2bm-procedures/blob/main/CHANGELOG.md>`__.
