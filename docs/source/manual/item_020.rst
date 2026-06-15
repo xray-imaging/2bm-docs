@@ -245,6 +245,23 @@ L3 Slits
 :EPICS prefix: ``2bma:`` (horizontal motors ``m14`` for A Slit X−
    [inboard], ``m13`` for A Slit X+ [outboard]; vertical motors
    ``m15`` for A Slit Y+ [up], ``m16`` for A Slit Y− [down])
+:Virtual motor PVs (composite Size/Centre): the four ``ao``-record
+   PVs below drive both blades of a pair together. Hosted on
+   ``ioc2bmb1.xray.aps.anl.gov:5064`` (the same IOC that hosts the
+   B-station slit calc records, despite the ``2bma:`` prefix on
+   both). These are the PVs the ``2slit.adl`` MEDM screen wires
+   to the ``Size`` and ``Center`` text-entry boxes; the values you
+   set on the screen propagate through downstream calc records to
+   the individual blade motors.
+
+   =========================  ======================  =====================
+   PV                         Role                    Limits (HOPR / LOPR)
+   =========================  ======================  =====================
+   ``2bma:Slit1Hsize``        Horizontal aperture mm  +93.95 / -24.05
+   ``2bma:Slit1Hcenter``      Horizontal centre mm    +34.73 / -24.27
+   ``2bma:Slit1Vsize``        Vertical aperture mm    +71.29 / -66.71
+   ``2bma:Slit1Vcenter``      Vertical centre mm      +23.47 / -45.53
+   =========================  ======================  =====================
 
 The slits at 2-BM are standard APS L3-20. Technical as-built drawings
 are available `here <https://anl.box.com/s/sgmoux6db8tsx71pvifzkf2ajopfidqx>`_.
@@ -780,9 +797,10 @@ B-station Slits
    Y+ [up] and ``2bma:m10`` for Y− [down])
 :Virtual motor PVs (composite Size/Centre): the four ``ao``-record
    PVs below drive both blades of a pair together. Hosted on
-   ``ioc2bmb1.xray.aps.anl.gov:5064`` despite the ``2bma:`` prefix.
-   These are the PVs the ``2slit.adl`` MEDM screen wires to the
-   ``Size`` and ``Center`` text-entry boxes; the ``Size`` /
+   ``ioc2bmb1.xray.aps.anl.gov:5064`` (the same IOC that hosts the
+   A-station slit calc records, despite the ``2bma:`` prefix on
+   both). These are the PVs the ``2slit.adl`` MEDM screen wires
+   to the ``Size`` and ``Center`` text-entry boxes; the ``Size`` /
    ``Center`` values you set on the screen propagate through
    downstream calc records to the individual blade motors.
 
