@@ -211,7 +211,7 @@ A-shutter (front-end)
    **2-BM-A motor controller.** Every ``2bma:mNN`` motor cited in
    the 2-BM-A blocks below (L3 Slits, Y3-30 Mirror, DMM, B-station
    Slits, etc.) is a slot on the OMS-VME58 card in the ``ioc2bma``
-   crate — cora Asset ``OMS_VME58_2bma_drive``. None of those
+   crate — cora Asset ``FrontEndDrive``. None of those
    driven stages are themselves modelled as cora Assets yet (the
    front-end / beam-conditioning band stays in cora's Pending
    list); the controller Asset ships in isolation as the
@@ -227,12 +227,12 @@ L3 Slits
    Family. Standard APS L3-20 four-blade slits — two horizontal
    (X−, X+) and two vertical (Y−, Y+) blade motors, plus per-
    direction derived ``Size`` / ``Center`` calc axes.)
-:cora Asset: ``A_station_slits`` (proposed name; not yet registered.
+:cora Asset: ``ConditioningSlit`` (proposed name; not yet registered.
    Used as the ``target_asset_ids`` value by ``calibrate_slit_blade_throw``
    (:doc:`../procedures/item_012`) and by ``centre_and_close_slits``
    (:doc:`../procedures/item_011`).)
 :Mounted on: Front-end stand (floor-referenced)
-:Driven by: ``OMS_VME58_2bma_drive`` (cora ``MotionController`` Asset
+:Driven by: ``FrontEndDrive`` (cora ``MotionController`` Asset
    already registered in ``cora/docs/deployments/2-bm/assets.md``;
    pending controller_id back-reference from this Asset once it
    registers)
@@ -301,13 +301,13 @@ are available `here <https://anl.box.com/s/sgmoux6db8tsx71pvifzkf2ajopfidqx>`_.
 
    **cora Asset registration intent.** When the ``Slit`` Family
    graduates from Pending, register this assembly as Asset
-   ``A_station_slits`` with the following structure (mirrors the
-   ``Hexapod_2BM`` / ``Aerotech_ABRS_rotary`` patterns
+   ``ConditioningSlit`` with the following structure (mirrors the
+   ``Hexapod`` / ``Rotary`` patterns
    already in ``cora/docs/deployments/2-bm/assets.md``):
 
    - Family: ``Slit``
    - Mounted on: front-end stand (floor reference)
-   - controller_id back-reference: ``OMS_VME58_2bma_drive``
+   - controller_id back-reference: ``FrontEndDrive``
    - Settings (blade motors): ``2bma:m13`` (H+ outboard), ``2bma:m14``
      (H− inboard), ``2bma:m15`` (V+ up), ``2bma:m16`` (V− down)
    - Settings (virtual / calc-driven aperture):
@@ -434,13 +434,14 @@ Y3-30 Mirror
 
 :Role: Vertical-deflecting mirror; defines the alternate beam centrelines
 :Family: Mirror
-   (Pending in cora: Asset ``Y3-30_mirror`` appears in the
-   Pending table at ``docs/deployments/2-bm/assets.md`` (renamed
-   from ``Mirror_2BM`` per cora's #89) and Family ``Mirror`` is
-   listed as "Pending in code" at ``docs/catalog/families.md``.
-   Composes a mirror body with an in-vacuum stripe selector and
-   an external optical-table sub-assembly carrying Y / X / Z
-   stages.)
+   (Pending in cora: Asset ``Mirror`` appears in the Pending
+   table at ``docs/deployments/2-bm/assets.md`` (role-name
+   convention set by cora's #111, after earlier candidate
+   names ``Mirror_2BM`` and ``Y3-30_mirror``); Family
+   ``Mirror`` is listed as "Pending in code" at
+   ``docs/catalog/families.md``. Composes a mirror body with
+   an in-vacuum stripe selector and an external optical-table
+   sub-assembly carrying Y / X / Z stages.)
 :Mounted on: Optical table (``[Dma:table1]`` via the ``table_full`` IOC)
 :Carries: (beam conditioning only)
 :z position: 27626 mm (ref 2: centre of optic; mirror-1 axis)
@@ -776,12 +777,12 @@ B-station Slits
    (same standard APS L3-20 four-blade hardware as the front-end
    L3 Slits; reuses the ``Slit`` Family declared there. No filter
    changer is paired with this assembly.)
-:cora Asset: ``B_station_slits`` (proposed name; not yet registered.
+:cora Asset: ``SampleSlit`` (proposed name; not yet registered.
    Used as the ``target_asset_ids`` value by ``calibrate_slit_blade_throw``
    (:doc:`../procedures/item_012`) and by ``centre_and_close_slits``
    (:doc:`../procedures/item_011`).)
 :Mounted on: Own stand in 2-BM-B (floor-referenced)
-:Driven by: ``OMS_VME58_2bma_drive`` (same OMS VME58 board as the
+:Driven by: ``FrontEndDrive`` (same OMS VME58 board as the
    A-station L3 Slits, despite the B-station mounting location —
    the IOC crate is in 2-BM-A and addresses both stations'
    slits over VME)
@@ -862,13 +863,13 @@ B-station Slits
 
    **cora Asset registration intent.** When the ``Slit`` Family
    graduates from Pending, register this assembly as Asset
-   ``B_station_slits`` with the same structure as the proposed
-   ``A_station_slits`` Asset (see L3 Slits block above) but
+   ``SampleSlit`` with the same structure as the proposed
+   ``ConditioningSlit`` Asset (see L3 Slits block above) but
    with the B-station PV set:
 
    - Family: ``Slit``
    - Mounted on: own stand in 2-BM-B (floor reference)
-   - controller_id back-reference: ``OMS_VME58_2bma_drive``
+   - controller_id back-reference: ``FrontEndDrive``
      (the IOC crate is in 2-BM-A and addresses both stations'
      slits over VME; both A and B Slit Assets back-reference
      the same controller)
@@ -902,24 +903,24 @@ projection space.
 Kinematic chain (bottom to top)::
 
    Sample optical table              (Y only; floor-referenced)
-     +-- Hexapod_2BM                  (6-DOF coarse positioner)
-          +-- Sample_pitch_lam        (laminography pitch, 0-20 deg)
+     +-- Hexapod                  (6-DOF coarse positioner)
+          +-- LaminographyPitch        (laminography pitch, 0-20 deg)
                +-- fixed -10 deg wedge (cancels +10 deg stage hold)
-                    +-- Aerotech_ABRS_rotary  (theta axis)
-                         +-- Sample_top_X     (co-rotates with theta)
-                         +-- Sample_top_Z     (co-rotates with theta)
+                    +-- Rotary  (theta axis)
+                         +-- SampleTop_X     (co-rotates with theta)
+                         +-- SampleTop_Z     (co-rotates with theta)
 
 .. note::
 
    The cora 2-BM asset inventory at
    ``docs/deployments/2-bm/assets.md`` lists four sample-top
-   Devices: ``Sample_top_X``, ``Sample_top_Z``,
+   Devices: ``SampleTop_X``, ``SampleTop_Z``,
    ``Sample_top_Roll``, ``Sample_top_Pitch``.
-   ``Sample_top_X`` and ``Sample_top_Z`` are the Kohzu CYAT-070
+   ``SampleTop_X`` and ``SampleTop_Z`` are the Kohzu CYAT-070
    stages above the rotary and are documented below.
    ``Sample_top_Roll`` and ``Sample_top_Pitch`` correspond to the
    hexapod's Roll (``2bmHXP:m5``) and Pitch (``2bmHXP:m4``) axes —
-   they are part of the **Hexapod_2BM** block below, not separate
+   they are part of the **Hexapod** block below, not separate
    per-component stages above the rotary. cora classifies these
    two as ``PseudoAxis`` Assets ("virtual DoFs over the 2bmHXP
    hexapod-kinematics solver"), confirming the same mapping.
@@ -933,7 +934,7 @@ Kinematic chain (bottom to top)::
    axes ``m100``/``m101``/``m102`` in ``AsynMotor.substitutions``
    (asyn ports ``AeroE1``/``AeroE2``/``AeroE3``). The motor records
    themselves carry generic ``DESC`` strings (``"motor $(N)"``), so
-   the per-Device role (e.g. ``Sample_top_X = 2bmb:m18``) is not
+   the per-Device role (e.g. ``SampleTop_X = 2bmb:m18``) is not
    recoverable from the IOC alone — it is configured in mctoptics
    substitutions, tomoScanStream, ``table.db`` calls, and this
    page. When registering cora Devices against ioc2bmb PVs, treat
@@ -947,7 +948,7 @@ Sample optical table
 :Family: OpticalTable
    (new Family; not yet declared in the cora equipment BC)
 :Mounted on: Hutch floor
-:Carries: Hexapod_2BM (and everything above)
+:Carries: Hexapod (and everything above)
 :Degrees of freedom: 4 motors (Y, downstream X, upstream X, Z). In
    routine operation only Y is moved; the X and Z motors exist but
    are not used for day-to-day sample positioning.
@@ -987,8 +988,8 @@ Sample optical table
    table (Y, DSX, USX, Z), shown for reference when the rarely-used
    X or Z axes need to be touched.
 
-Hexapod_2BM
------------
+Hexapod
+-------
 
 :Role: Coarse 6-DOF sample positioner
 :Family: Hexapod
@@ -998,8 +999,8 @@ Hexapod_2BM
    high-accuracy performance grade) and ``-TAS`` (tested and
    integrated as a system).
 :Mounted on: Sample optical table
-:Carries: Sample_pitch_lam
-:Driven by: ``Aerotech_Hexapod_drive`` (cora ``MotionController``
+:Carries: LaminographyPitch
+:Driven by: ``HexapodDrive`` (cora ``MotionController``
    Asset; specific product line not yet confirmed on this page)
 :Degrees of freedom: X, Y, Z, A (θ\ :sub:`x`), B (θ\ :sub:`y`), C (θ\ :sub:`z`)
 :Travel:
@@ -1053,8 +1054,8 @@ Hexapod_2BM
    struts), the Kohzu SA16A-RM laminography tilt stage (centre), and
    the Aerotech ABS250MP-M-AS air-bearing rotary at top.
 
-Sample_pitch_lam
-----------------
+LaminographyPitch
+-----------------
 
 :Role: Laminography pitch axis
 :Family: LinearStage
@@ -1064,8 +1065,8 @@ Sample_pitch_lam
    ``docs/deployments/2-bm/assets.md``. Consider a dedicated
    ``TiltStage`` Family if more tilt axes appear.)
 :Model: Kohzu SA16A-RM goniometer / tilt stage
-:Mounted on: Hexapod_2BM
-:Carries: Aerotech_ABRS_rotary (via a fixed -10° wedge)
+:Mounted on: Hexapod
+:Carries: Rotary (via a fixed -10° wedge)
 :Travel: 0° to 20° (full mechanical range; see operating convention below)
 :EPICS: ``2bmb:m49``
 :Notes:
@@ -1078,8 +1079,8 @@ Sample_pitch_lam
    laminography setpoint is **+15°** on the stage, i.e. +5° net
    rotary-axis tilt.
 
-Aerotech_ABRS_rotary
---------------------
+Rotary
+------
 
 :Role: Sample rotation axis (theta)
 :Family: RotaryStage
@@ -1087,13 +1088,15 @@ Aerotech_ABRS_rotary
    Stage — Aerotech ABS250MP-M-AS air-bearing direct-drive rotary
    (250 mm aperture, mid-precision class). Drive — Aerotech Ensemble
    HLE10-40-A-MXH (HLe-series digital drive). The cora Device
-   identifier ``Aerotech_ABRS_rotary`` is retained for stability of
-   downstream references even though the installed hardware is the
-   ABS250MP, not an ABRS.
-:Mounted on: Sample_pitch_lam (via a fixed -10° wedge — see above)
-:Carries: Sample_top_X, Sample_top_Z
-:Driven by: ``Aerotech_Ensemble_drive`` (cora ``MotionController``
-   Asset wrapping the Aerotech Ensemble HLE10-40-A-MXH)
+   identifier ``Rotary`` is a role-name per cora's #111 convention
+   (vendor / model lives in the bound Model, not the Asset name).
+   Earlier candidate names: ``Aerotech_ABRS_rotary``,
+   ``aerotech_abs250mp_m_as``.
+:Mounted on: LaminographyPitch (via a fixed -10° wedge — see above)
+:Carries: SampleTop_X, SampleTop_Z
+:Driven by: ``RotaryDrive`` (cora ``MotionController`` Asset
+   wrapping the Aerotech Ensemble HLE10-40-A-MXH; bound Model
+   ``aerotech_ensemble``)
 :Travel: -360 deg to +360 deg
 :Max speed: 720 deg/s
 :Encoder resolution: 0.0001 deg
@@ -1104,12 +1107,12 @@ Aerotech_ABRS_rotary
    <https://github.com/tomography/tomoscan/blob/master/iocBoot/iocTomoScanStream_2BMB/tomoScanStream.substitutions>`__,
    where ``ROTATION = 2bmb:m102``)
 :Notes:
-   The two Sample_top_* stages above this axis (Sample_top_X and
-   Sample_top_Z) co-rotate with theta. In projection geometry their
+   The two Sample_top_* stages above this axis (SampleTop_X and
+   SampleTop_Z) co-rotate with theta. In projection geometry their
    effect is in the rotating frame, not the lab frame.
 
-Sample_top_X
-------------
+SampleTop_X
+-----------
 
 :Role: Fine sample translation perpendicular to the beam
    (co-rotates with theta). Operationally the "0/180 stage" —
@@ -1118,7 +1121,7 @@ Sample_top_X
 :Model: Kohzu CYAT-070 crossed-roller alignment stage,
    80 × 80 mm table, ball-screw lead 1.0 mm. See
    :doc:`../ops/item_050` for the operational page.
-:Mounted on: Aerotech_ABRS_rotary
+:Mounted on: Rotary
 :Carries: (sample)
 :Travel: ±15 mm
 :Resolution: 1 / 0.5 / 0.05 µm (full / half / 1/20 microstep)
@@ -1133,20 +1136,20 @@ Sample_top_X
    (matches ``LENS_SAMPLE_X`` in
    ``iocBoot/iocMCTOptics/mctOptics.substitutions`` — this is the
    sample-side X motor MCTOptics drives for lens/sample alignment.)
-:Driven by: ``OMS_VME58_2bmb_drive`` (cora ``MotionController``
+:Driven by: ``SampleStageDrive`` (cora ``MotionController``
    Asset wrapping the OMS-VME58 card in ``ioc2bmb`` that hosts
    the entire ``2bmb:m1``–``m91`` motor band)
 
-Sample_top_Z
-------------
+SampleTop_Z
+-----------
 
 :Role: Fine sample translation along the beam (co-rotates with
    theta). Operationally the "90/270 stage" — motion lies along
    the beam when theta = 90° or 270°.
 :Family: LinearStage
 :Model: Kohzu CYAT-070 crossed-roller alignment stage
-   (same hardware as Sample_top_X; see :doc:`../ops/item_050`).
-:Mounted on: Aerotech_ABRS_rotary
+   (same hardware as SampleTop_X; see :doc:`../ops/item_050`).
+:Mounted on: Rotary
 :Carries: (sample)
 :Travel: ±15 mm
 :Resolution: 1 / 0.5 / 0.05 µm (full / half / 1/20 microstep)
@@ -1161,8 +1164,8 @@ Sample_top_Z
    (matches ``LENS_SAMPLE_Z`` in
    ``iocBoot/iocMCTOptics/mctOptics.substitutions`` — this is the
    sample-side Z motor MCTOptics drives for lens/sample alignment.)
-:Driven by: ``OMS_VME58_2bmb_drive`` (cora ``MotionController``
-   Asset; same as ``Sample_top_X``)
+:Driven by: ``SampleStageDrive`` (cora ``MotionController``
+   Asset; same as ``SampleTop_X``)
 
 
 Detector system
@@ -1332,8 +1335,8 @@ Macro                        PV                      Purpose
 
 All eight ``2bmb:m1``–``m8`` motors in this map plus ``m17``
 and ``m18`` are slots on the same OMS-VME58 card — cora Asset
-``OMS_VME58_2bmb_drive``. The hexapod motor ``2bmHXP:m3`` is one
-DoF of ``Hexapod_2BM``, driven by ``Aerotech_Hexapod_drive``.
+``SampleStageDrive``. The hexapod motor ``2bmHXP:m3`` is one
+DoF of ``Hexapod``, driven by ``HexapodDrive``.
 
 Calibrated lens positions (mm, both cameras): Pos. 0 = -60.030,
 Pos. 1 = -0.8370, Pos. 2 = 58.64. Camera positions: Pos. 0 = 20,
@@ -1352,8 +1355,8 @@ offsets are held in the IOC's autosave file.
    ``Default`` button restores the per-combination calibrated
    focus / rotation values from the IOC's autosave file.
 
-Optique_Peter_focus_Z
----------------------
+Focus
+-----
 
 (cora Asset identifier; previously called "Optique Peter Z stage"
 in this page.)
@@ -1367,7 +1370,7 @@ in this page.)
    PRO225SL family). cora Model: ``aerotech_pro225sl_1000``.
 :Mounted on: Detector optical table
 :Carries: Optique Peter MICRX080 microscope
-:Driven by: ``Aerotech_2bmbAERO_drive`` (cora ``MotionController``
+:Driven by: ``FocusDrive`` (cora ``MotionController``
    Asset wrapping the Aerotech drive that the ``2bmbAERO`` IOC
    manages)
 :Travel: 1000 mm
@@ -1439,7 +1442,7 @@ rotate axes ``2bmb:table3.X``, ``.Y``, ``.Z``, ``.AX``, ``.AY``,
    Optique Peter Z rail back parallel to the beam after a small
    square X-ray spot is observed to drift across the camera as the
    Z stage translates. This is the procedure that justifies
-   registering an ``OpticalTable`` Family + ``Detector_optical_table``
+   registering an ``OpticalTable`` Family + ``DetectorTable``
    Asset on the cora side.
 
 

@@ -26,7 +26,7 @@ Name
 Devices
 -------
 
-- :doc:`../manual/item_020`: **Optique_Peter_focus_Z** —
+- :doc:`../manual/item_020`: **Focus** —
   ``2bmbAERO:m1`` (Aerotech PRO225SL-1000, 1 m travel).
 - :doc:`../manual/item_020`: **Detector optical table** —
   synApps ``table.db`` composite ``2bmb:table3``; corrective DoFs
@@ -526,7 +526,7 @@ Postconditions
 - ``2bmb:table3.AY`` and ``.AX`` are at the converged values;
   their new positions are logged. (Procedure deliberately does
   not restore these — they're the output.)
-- ``Optique_Peter_focus_Z`` is back at its pre-procedure RBV
+- ``Focus`` is back at its pre-procedure RBV
   (restored from snapshot).
 - All snapshotted camera state is back to its pre-procedure
   values: if the camera was running Continuous on entry, it is
@@ -694,12 +694,12 @@ Notes
   snapshot at exit.
 - This procedure is **not** the same as cora's stubbed
   ``resolution_alignment`` (which targets the same
-  ``Optique_Peter_focus_Z`` Asset but optimises **lens focus**
+  ``Focus`` Asset but optimises **lens focus**
   on a fixed sample, not the rail-to-beam angular alignment).
   Both procedures share Assets but operate on different
   physical surfaces.
 - Open trigger this procedure creates: register a
-  ``Detector_optical_table`` Asset (Family ``OpticalTable``) in
+  ``DetectorTable`` Asset (Family ``OpticalTable``) in
   ``cora/docs/deployments/2-bm/assets.md``, then add a
   ``detector_z_rail_alignment`` entry to that deployment's
   ``procedures.md`` referencing this page.

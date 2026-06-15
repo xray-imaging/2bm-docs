@@ -21,7 +21,7 @@ Devices
 
 - :doc:`../manual/item_020`: **Sample stack** — the relevant lateral
   axis depends on the sample mount. Typically one of
-  ``Sample_top_X`` (``2bmb:m18``), ``Sample_top_Z`` (``2bmb:m17``),
+  ``SampleTop_X`` (``2bmb:m18``), ``SampleTop_Z`` (``2bmb:m17``),
   the hexapod X/Y axes (``2bmHXP:m1 / m2``), or the sample optical
   table Y (``2bmb:m24``).
 
