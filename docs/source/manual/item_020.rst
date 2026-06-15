@@ -894,30 +894,47 @@ P6-50 Safety Shutter (B-shutter)
    of the beamline optics, so the per-scan gating responsibility
    falls on the P6-50.
 
-   **TomoScan wiring.** The substitutions file
-   ``iocBoot/iocTomoScan_2BMB/tomoScan.substitutions`` binds the
-   ``OpenShutter`` / ``CloseShutter`` macros directly to
-   ``S02BM-PSS:SBS:OpenEPICSC`` / ``S02BM-PSS:SBS:CloseEPICSC``
-   (with ``ShutterStatus`` reading ``S02BM-PSS:SBS:BeamBlockingM``).
-   The ``TomoScan2BM.open_frontend_shutter()`` /
-   ``close_frontend_shutter()`` methods in
-   ``tomoscan/tomoscan_2bm.py`` are what actuate these — note that
-   despite the ``frontend`` in the method name, the actual PV
-   target is the B-station P6-50, NOT the upstream FES. The FES
-   is read-only from TomoScan's perspective via
-   ``S02BM-PSS:FES:FEEPSPermitM`` (the ``BEAM_READY`` macro), and
-   stays open throughout the session.
+   **TomoScan wiring (intended).** Both TomoScan shutter macro
+   pairs target the same P6-50 SBS shutter:
 
-   The other set of TomoScan methods, ``open_shutter()`` /
-   ``close_shutter()`` (bound to the ``OpenFastShutter`` /
-   ``CloseFastShutter`` macros at ``2bma:B_shutter:open.VAL`` /
-   ``close.VAL``), is a stub: both methods log
+   ============================  ====================================
+   TomoScan macro / method        Target PV
+   ============================  ====================================
+   ``OpenShutter`` /
+   ``open_frontend_shutter()``    ``S02BM-PSS:SBS:OpenEPICSC`` (=1)
+   ``CloseShutter`` /
+   ``close_frontend_shutter()``   ``S02BM-PSS:SBS:CloseEPICSC`` (=1)
+   ``OpenFastShutter`` /
+   ``open_shutter()``             ``S02BM-PSS:SBS:OpenEPICSC`` (=1)
+   ``CloseFastShutter`` /
+   ``close_shutter()``            ``S02BM-PSS:SBS:CloseEPICSC`` (=1)
+   ``ShutterStatus``              ``S02BM-PSS:SBS:BeamBlockingM.VAL``
+   ============================  ====================================
+
+   Both macro pairs map to the same physical shutter because there
+   is only one EPICS-controllable beam gate at 2-BM-B today. The
+   FES (``S02BM-PSS:FES:``) is read-only from TomoScan's
+   perspective via ``S02BM-PSS:FES:FEEPSPermitM`` (the
+   ``BEAM_READY`` macro), and stays open throughout the session.
+
+   Despite the ``frontend`` in the ``open_frontend_shutter`` method
+   name, the actual PV target is the B-station P6-50, NOT the
+   upstream FES. Misleading; tangential to fix.
+
+   **Substitutions-file caveat (pending fix).** The current
+   ``iocBoot/iocTomoScan_2BMB/tomoScan.substitutions`` correctly
+   binds the ``OpenShutter`` / ``CloseShutter`` pair to the SBS
+   PVs above, but the ``OpenFastShutter`` / ``CloseFastShutter``
+   pair is bound to stale placeholder soft PVs
+   (``2bma:B_shutter:open.VAL`` / ``close.VAL``) that have no
+   physical actuator behind them. The ``TomoScan2BM.open_shutter()``
+   / ``close_shutter()`` methods accordingly log
    ``"Wait 2s -- Temporarily while there is no fast shutter at
-   2bmb"`` and just sleep two seconds. They are placeholders for
-   a future dedicated fast shutter; today they do nothing
-   functional. All real shutter actuation during scans goes
-   through the misleadingly-named ``open_frontend_shutter`` /
-   ``close_frontend_shutter`` pair above.
+   2bmb"`` and just ``time.sleep(2)``. The substitutions file
+   will be updated to point ``OpenFastShutter`` / ``CloseFastShutter``
+   at the SBS PVs as well; the 2-second sleep can then be removed
+   from the TomoScan methods (the P6-50's own actuation time
+   becomes the only physical delay).
 
    Operational consequence: during a TomoScan run the P6-50
    cycles open / close many times per scan (closed for darks and
