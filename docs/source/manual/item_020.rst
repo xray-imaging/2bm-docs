@@ -254,14 +254,25 @@ L3 Slits
    set on the screen propagate through downstream calc records to
    the individual blade motors.
 
-   =========================  ======================  =====================
-   PV                         Role                    Limits (HOPR / LOPR)
-   =========================  ======================  =====================
-   ``2bma:Slit1Hsize``        Horizontal aperture mm  +93.95 / -24.05
-   ``2bma:Slit1Hcenter``      Horizontal centre mm    +34.73 / -24.27
-   ``2bma:Slit1Vsize``        Vertical aperture mm    +71.29 / -66.71
-   ``2bma:Slit1Vcenter``      Vertical centre mm      +23.47 / -45.53
-   =========================  ======================  =====================
+   .. list-table::
+      :header-rows: 1
+      :widths: 30 40 30
+
+      * - PV
+        - Role
+        - Limits (HOPR / LOPR)
+      * - ``2bma:Slit1Hsize``
+        - Horizontal aperture mm
+        - +93.95 / -24.05
+      * - ``2bma:Slit1Hcenter``
+        - Horizontal centre mm
+        - +34.73 / -24.27
+      * - ``2bma:Slit1Vsize``
+        - Vertical aperture mm
+        - +71.29 / -66.71
+      * - ``2bma:Slit1Vcenter``
+        - Vertical centre mm
+        - +23.47 / -45.53
 
 The slits at 2-BM are standard APS L3-20. Technical as-built drawings
 are available `here <https://anl.box.com/s/sgmoux6db8tsx71pvifzkf2ajopfidqx>`_.
@@ -805,14 +816,25 @@ B-station Slits
    ``Center`` values you set on the screen propagate through
    downstream calc records to the individual blade motors.
 
-   =========================  ======================  =====================
-   PV                         Role                    Limits (HOPR / LOPR)
-   =========================  ======================  =====================
-   ``2bma:Slit2Hsize``        Horizontal aperture mm  +45.50 / -112.50
-   ``2bma:Slit2Hcenter``      Horizontal centre mm    +37.08 / -41.92
-   ``2bma:Slit2Vsize``        Vertical aperture mm    +115.62 / -34.13
-   ``2bma:Slit2Vcenter``      Vertical centre mm      +52.28 / -22.60
-   =========================  ======================  =====================
+   .. list-table::
+      :header-rows: 1
+      :widths: 30 40 30
+
+      * - PV
+        - Role
+        - Limits (HOPR / LOPR)
+      * - ``2bma:Slit2Hsize``
+        - Horizontal aperture mm
+        - +45.50 / -112.50
+      * - ``2bma:Slit2Hcenter``
+        - Horizontal centre mm
+        - +37.08 / -41.92
+      * - ``2bma:Slit2Vsize``
+        - Vertical aperture mm
+        - +115.62 / -34.13
+      * - ``2bma:Slit2Vcenter``
+        - Vertical centre mm
+        - +52.28 / -22.60
 
    *(Earlier doc attempts referred to* ``2bma:Slit2H:size`` *with a
    colon — that is NOT the name. The canonical names are no-colon
