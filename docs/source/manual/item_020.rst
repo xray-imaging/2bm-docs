@@ -258,10 +258,15 @@ A-shutter (front-end)
 :Role: First beam-gating element on the beamline; located in 2-BM-A
    upstream of the slits
 :Family: Shutter
-   (would be a second instance of the Shutter Family already declared
-   in the cora 2-BM assets inventory as ``Shutter_2BM``; the
-   inventory currently lists only one Shutter — this entry needs to
-   be added.)
+   (would be a second instance of the cora ``Shutter`` Family.
+   The cora 2-BM assets inventory at
+   ``docs/deployments/2-bm/assets.md`` currently lists only one
+   ``Shutter`` Asset, ``StationShutter``, which is the B-station
+   P6-50 safety shutter below; the A-shutter is not yet registered
+   and needs a distinct Asset name (cora has not chosen one — a
+   role-name like ``FrontEndShutter`` would follow the same
+   convention as ``StationShutter``, naming the shutter by what it
+   gates rather than by vendor or PV).)
 :Mounted on: Front-end stand (floor-referenced)
 :Carries: (beam gating only)
 :z position: TBD (upstream of the L3 Slits; not separately listed in
@@ -285,7 +290,12 @@ A-shutter (front-end)
 :Notes:
    Independent of the P6-50 personnel-safety shutter (``B_shutter``,
    below) further downstream. Both must be open for beam to reach
-   2-BM-B.
+   2-BM-B. **Operational practice: the A-shutter is opened at the
+   start of an experimental session and kept open continuously**
+   to preserve the thermal stability of the beamline optics
+   (mirror, monochromator). Per-scan beam gating is done on the
+   downstream P6-50 (``B_shutter``) instead; see the P6-50 block
+   below for the TomoScan integration.
 
 .. note::
 
@@ -414,11 +424,17 @@ L3 Filters
 ~~~~~~~~~~
 
 :Role: Energy filtering (selective absorption upstream of the mirror)
-:Family: FilterChanger
-   (new Family; not yet declared in the cora equipment BC. Two
-   independent paddle sets — upstream and downstream — with up to
-   four filter materials per side, plus a None / LowLimit reference
-   per side.)
+:Family: Filter
+   (cora ``Filter`` Family; the device is preregistered in the
+   2-BM Pending list at ``docs/deployments/2-bm/assets.md`` as
+   Asset ``Filter`` with Family ``Filter``. ``Filter`` is the
+   thing-noun the device IS (anatomy); the paddle-changing
+   mechanism is operational behaviour, captured as affordances
+   on the Family rather than baked into the Family name —
+   cora's noun-LAST rule rejects the agent-noun reading of
+   ``FilterChanger``. Two independent paddle sets — upstream and
+   downstream — with up to four filter materials per side, plus
+   a None / LowLimit reference per side.)
 :Mounted on: Front-end stand (shared assembly with L3 Slits)
 :Carries: (beam conditioning only)
 :z position: 25225 mm (ref 2: centre of optic; shared with Slits)
@@ -529,7 +545,7 @@ Y3-30 Mirror
    ``docs/catalog/families.md``. Composes a mirror body with
    an in-vacuum stripe selector and an external optical-table
    sub-assembly carrying Y / X / Z stages.)
-:Mounted on: Optical table (``[Dma:table1]`` via the ``table_full`` IOC)
+:Mounted on: Optical table (``2bma:table1`` via the ``table_full`` IOC)
 :Carries: (beam conditioning only)
 :z position: 27626 mm (ref 2: centre of optic; mirror-1 axis)
 :Position tolerance: 250 µm (x, y), 5 mm (z)
@@ -564,7 +580,22 @@ angle.
 - **M1 USY** (upstream Y) — ``2bma:m5``
 - **Y average** — derived (mean of the two Y motors)
 - **Angle [mr]** — derived (deflection angle in milliradians,
-  computed from the Y difference and the 0.993 m mirror length)
+  computed from the Y difference and the 0.9932 m mirror length)
+
+These two per-end Y motors and the derived calc records are loaded
+into the IOC by:
+
+::
+
+   dbLoadRecords("$(OPTICS)/opticsApp/Db/2postMirror.db",
+                 "P=2bma:,Q=M1,mDn=m2,mUp=m5,LENGTH=0.9932")
+
+i.e. ``mDn`` (downstream) = ``2bma:m2``, ``mUp`` (upstream) =
+``2bma:m5``, mirror length 0.9932 m for the angle calc. There are
+**exactly two physical Y motors** on the mirror itself; the
+``2bma:table1`` virtual record below also exposes Y axes, but those
+are the same two physical motors viewed as table corner supports
+(see the Optical table block and the m3 note there).
 
 **In-vacuum stripe selector.** The mirror has four horizontal coating
 stripes on its optical surface, selected by translating the mirror
@@ -589,29 +620,92 @@ stripe expected-flux curve (``mirror_multilayer_coating.png``).
 **Optical table.** The mirror sub-assembly sits on a multi-motor
 optical table that provides additional X (transverse) and Z
 (along-beam) translation and rotations. The table is driven through
-the ``table_full`` IOC ([Dma:table1]); ``Translate`` / ``Rotate``
+the ``table_full`` IOC, exposing the virtual table record
+``2bma:table1`` (composite). Loaded in the 2-BM-A IOC by
+``dbLoadRecords("$(DIR)/table.db", "P=2bma:,Q=Table1,T=table1,
+M0X=m1, M0Y=m2, M1Y=m3, M2X=m4, M2Y=m5, M2Z=m6, GEOM=SRI")``.
+Geometry is ``SRI`` (Sector Research Instrumentation: 3 Y supports,
+2 X supports, 1 Z support — 6 motors total), the same template
+used for the detector optical table; ``Translate`` / ``Rotate``
 columns on the screen are calc-driven composites of the underlying
 Motors column.
+
+Underlying motor map:
+
+=======  ============  ================================
+Macro    Motor PV      Role on the table
+=======  ============  ================================
+``M0X``  ``2bma:m1``   corner 0 — X support
+``M0Y``  ``2bma:m2``   corner 0 — Y support
+``M1Y``  ``2bma:m3``   **ERRONEOUS** — see warning below
+``M2X``  ``2bma:m4``   corner 2 — X support
+``M2Y``  ``2bma:m5``   corner 2 — Y support
+``M2Z``  ``2bma:m6``   corner 2 — Z support (single Z)
+=======  ============  ================================
+
+The ``table.db`` template combines these into composite translate /
+rotate axes ``2bma:table1.X``, ``.Y``, ``.Z``, ``.AX``, ``.AY``,
+``.AZ``, plus per-leg readbacks under the ``2bma:table1:`` prefix.
 
 .. figure:: ../img/mirror_table.png
    :width: 480px
    :align: center
-   :alt: table_full.adl optical-table screen
+   :alt: table_full.adl optical-table screen for 2bma:table1
 
-   ``table_full.adl`` ([Dma:table1]) — optical-table control screen.
-   Translate / Rotate columns are calc-driven composites; the Motors
-   column drives the underlying stages (M0X, M0Y, M1Y, M2X, M2Y, …).
+   ``table_full.adl`` for ``2bma:table1`` — optical-table control
+   screen. Translate / Rotate columns are calc-driven composites; the
+   Motors column drives the underlying stages (M0X, M0Y, M1Y, M2X,
+   M2Y, M2Z).
 
-Key table motors:
+Operational status of each axis:
 
-- **M0X**, **M2X** — table X (two motors driven together; underlying
-  EPICS PVs TBD from the IOC configuration). Used by the
-  energy-change IOC to extend the in-vacuum ``m3`` travel when the
-  highest-energy stripe is requested.
-- **M0Y**, **M1Y**, **M2Y** — table Y stages (redundant with the
-  ``2postMirror.adl`` per-end Y motors above for fine pitch; the
-  per-end motors are the operational surface).
-- **Z** — along-beam translation; present but not used operationally.
+- **M0X**, **M2X** (X support, ``2bma:m1`` / ``2bma:m4``): driven by
+  the **energy-change IOC** in coordinated moves with the in-vacuum
+  stripe selector to extend stripe-selector travel when reaching the
+  highest-energy mirror stripes. Per-energy values are stored as
+  ``m1mox`` / ``m1m2x`` in the energy IOC configuration (see
+  :ref:`composite-iocs`).
+- **M0Y**, **M2Y** (Y supports, ``2bma:m2`` / ``2bma:m5``):
+  physically the same per-end mirror Y motors documented above as
+  ``M1 DSY`` (downstream Y) and ``M1 USY`` (upstream Y) — viewed
+  once as raw motor records driven via ``2postMirror.adl`` (the
+  operational surface for fine pitch / angle setting) and once as
+  table Y corner supports via this virtual record.
+- **M1Y** (``2bma:m3``): **erroneous macro mapping** — see warning
+  below. ``2bma:m3`` is the in-vacuum stripe selector, not a table
+  Y support. The mirror table physically has only two Y supports
+  (``M0Y`` and ``M2Y`` above).
+- **M2Z** (Z support, ``2bma:m6``): along-beam translation; present
+  but not used operationally.
+
+.. warning::
+
+   **``M1Y = m3`` in the table.db substitution above is an error.**
+
+   ``2bma:m3`` is the in-vacuum X stage that translates the mirror
+   inside the vacuum chamber (the stripe selector), confirmed by
+   beamline staff (2026-06-15). It cannot also be a table Y corner
+   support: a single motor record drives a single physical motor.
+   The mirror table physically has only TWO Y supports (corners 0
+   and 2), corroborated by the ``2postMirror.db`` loading line above
+   (``mDn=m2``, ``mUp=m5`` — exactly two per-end Y motors wired).
+   The ``M1Y`` macro slot in the ``GEOM=SRI`` template was filled
+   with ``2bma:m3`` likely because the template requires six motor
+   macros and an existing motor record was substituted as padding.
+
+   Consequence: any move on ``2bma:table1.Y``, ``.AX``, or ``.AY``
+   that distributes through ``M1Y`` will perturb the in-vacuum
+   stripe selector. The composite Y / pitch / roll axes on this
+   table are therefore NOT safe to drive until the substitution is
+   fixed. Per-energy mirror Y is set via ``2postMirror.adl``
+   (driving ``2bma:m2`` and ``2bma:m5`` directly); per-energy
+   table-X moves via ``M0X`` and ``M2X`` are independent and
+   remain safe.
+
+   Tracked as `xray-imaging/2bm-docs#171
+   <https://github.com/xray-imaging/2bm-docs/issues/171>`__ (fix
+   the ``M1Y`` mapping in the ``table.db`` substitution in
+   ``iocBoot/ioc2bma/st.cmd``).
 
 Double Multilayer Monochromator (DMM)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -752,9 +846,13 @@ P6-50 Safety Shutter (B-shutter)
 
 :Role: Personnel-safety shutter for 2-BM hutches
 :Family: Shutter
-   (already declared in the cora 2-BM assets inventory as
-   ``Shutter_2BM``; this entry is the source of its position and
-   shielding data.)
+   (already registered as the cora ``StationShutter`` Asset
+   (cora ``Shutter`` Family) in
+   ``docs/deployments/2-bm/assets.md``; this entry is the source
+   of its position and shielding data. ``StationShutter`` is the
+   role-name cora chose for the B-station personnel-safety
+   shutter; the upstream A-shutter would be a separate
+   ``Shutter`` Asset — see the A-shutter block above.)
 :Mounted on: Front-end stand (floor-referenced)
 :Carries: (beam gating only)
 :z position: 33343 mm (ref 1: upstream face of thermal component)
@@ -784,6 +882,64 @@ P6-50 Safety Shutter (B-shutter)
    tungsten collimator, safety shutter, SS baffle) installed
    together at z ≈ 330 m. The other three are passive. Both this
    and the upstream A-shutter must be open for beam to reach 2-BM-B.
+
+.. note::
+
+   **The "fast shutter" in TomoScan / 2-BM operator parlance IS
+   this P6-50 SBS shutter.** There is no separate pneumatic /
+   fast-actuator shutter at 2-BM-B today; the P6-50 is the
+   beam-gate that closes for dark and white (flat) field
+   acquisition during every scan. The upstream A-shutter (FES)
+   is kept open continuously to preserve the thermal stability
+   of the beamline optics, so the per-scan gating responsibility
+   falls on the P6-50.
+
+   **TomoScan wiring (intended).** Both TomoScan shutter macro
+   pairs target the same P6-50 SBS shutter:
+
+   ============================  ====================================
+   TomoScan macro / method        Target PV
+   ============================  ====================================
+   ``OpenShutter`` /
+   ``open_frontend_shutter()``    ``S02BM-PSS:SBS:OpenEPICSC`` (=1)
+   ``CloseShutter`` /
+   ``close_frontend_shutter()``   ``S02BM-PSS:SBS:CloseEPICSC`` (=1)
+   ``OpenFastShutter`` /
+   ``open_shutter()``             ``S02BM-PSS:SBS:OpenEPICSC`` (=1)
+   ``CloseFastShutter`` /
+   ``close_shutter()``            ``S02BM-PSS:SBS:CloseEPICSC`` (=1)
+   ``ShutterStatus``              ``S02BM-PSS:SBS:BeamBlockingM.VAL``
+   ============================  ====================================
+
+   Both macro pairs map to the same physical shutter because there
+   is only one EPICS-controllable beam gate at 2-BM-B today. The
+   FES (``S02BM-PSS:FES:``) is read-only from TomoScan's
+   perspective via ``S02BM-PSS:FES:FEEPSPermitM`` (the
+   ``BEAM_READY`` macro), and stays open throughout the session.
+
+   Despite the ``frontend`` in the ``open_frontend_shutter`` method
+   name, the actual PV target is the B-station P6-50, NOT the
+   upstream FES. Misleading; tangential to fix.
+
+   **Substitutions-file caveat (pending fix).** The current
+   ``iocBoot/iocTomoScan_2BMB/tomoScan.substitutions`` correctly
+   binds the ``OpenShutter`` / ``CloseShutter`` pair to the SBS
+   PVs above, but the ``OpenFastShutter`` / ``CloseFastShutter``
+   pair is bound to stale placeholder soft PVs
+   (``2bma:B_shutter:open.VAL`` / ``close.VAL``) that have no
+   physical actuator behind them. The ``TomoScan2BM.open_shutter()``
+   / ``close_shutter()`` methods accordingly log
+   ``"Wait 2s -- Temporarily while there is no fast shutter at
+   2bmb"`` and just ``time.sleep(2)``. The substitutions file
+   will be updated to point ``OpenFastShutter`` / ``CloseFastShutter``
+   at the SBS PVs as well; the 2-second sleep can then be removed
+   from the TomoScan methods (the P6-50's own actuation time
+   becomes the only physical delay).
+
+   Operational consequence: during a TomoScan run the P6-50
+   cycles open / close many times per scan (closed for darks and
+   for flat-fields, open for projections); this is by design, not
+   a shutter failure. Cycle counts can be high.
 
 B-station Slits
 ~~~~~~~~~~~~~~~
@@ -968,8 +1124,17 @@ Sample optical table
 --------------------
 
 :Role: Floor-referenced support for the entire sample tower
-:Family: OpticalTable
-   (new Family; not yet declared in the cora equipment BC)
+:Family: Table
+   (cora ``Table`` Family, declared in the cora catalog at
+   ``catalog/catalog.yaml`` and pending registration as Asset
+   ``SampleTable`` in ``docs/deployments/2-bm/assets.md``. The
+   substrate word "Optical" is deliberately omitted from the Family
+   name per cora's naming rule that a Family names the device's own
+   nature, not its contents — the ``OpticalHousing`` → ``Housing``
+   precedent. Axis-set differences across the three 2-BM tables
+   (sample = 4 direct translation motors; detector = 6 virtual axes;
+   mirror = present but unused) are a per-Asset settings axis
+   (``axis_layout``), not a Family split.)
 :Mounted on: Hutch floor
 :Carries: Hexapod (and everything above)
 :Degrees of freedom: 4 motors (Y, downstream X, upstream X, Z). In
@@ -1081,12 +1246,15 @@ LaminographyPitch
 -----------------
 
 :Role: Laminography pitch axis
-:Family: LinearStage
-   (mechanically a tilt; would model as a single-axis stage in cora.
-   Not yet registered in cora — the closest pending entry is
-   "Broader sample-stage motors" under the Pending table at
-   ``docs/deployments/2-bm/assets.md``. Consider a dedicated
-   ``TiltStage`` Family if more tilt axes appear.)
+:Family: TiltStage
+   (cora ``TiltStage`` Family, declared specifically for the
+   Kohzu SA16A-RM laminography goniometer per
+   ``docs/deployments/2-bm/assets.md``: a rotational, limited-range
+   stage — so neither ``LinearStage`` nor ``RotaryStage`` (whose
+   ``Following`` / ``Marking`` PSO affordances a tilt does not carry).
+   Affordances: ``Rotatable``, ``Homeable``, ``Limitable``. Not yet
+   instantiated as an Asset; the closest pending entry is "Broader
+   sample-stage motors" in that page's Pending table.)
 :Model: Kohzu SA16A-RM goniometer / tilt stage
 :Mounted on: Hexapod
 :Carries: Rotary (via a fixed -10° wedge)
@@ -1243,7 +1411,20 @@ Optique Peter MICRX080 microscope
    Two cameras on the dual-port system (current ANL configuration):
 
    - **FLIR Oryx 5MP** (camera 0, ``2bmSP1:`` areaDetector prefix).
+     Model ``Oryx ORX-10G-51S5M``. Sony IMX250 CMOS sensor,
+     global shutter; 2448 × 2048, 3.45 µm pixel pitch; 162 fps
+     at full resolution over 10GigE; 12-bit ADC. C-mount.
    - **FLIR Oryx 31MP** (camera 1, ``2bmSP2:`` areaDetector prefix).
+     Model ``Oryx ORX-10G-310S9M``. Sony IMX367 CMOS sensor,
+     global shutter; 6464 × 4852, 3.45 µm pixel pitch. C-mount.
+
+   Vendor technical reference: FLIR ``ORX-10GS-51S5-Technical-
+   Reference.pdf`` (revised 2020-04-22). Covers both ``ORX-10G-51S5``
+   and ``ORX-10GS-51S5`` variants, which the manual cover page
+   states are "functionally the same and differ only in dimensions
+   and mass" — i.e. the IOC-reported model string (``ORX-10G-51S5M``,
+   without ``GS``) and any catalog SKU using ``ORX-10GS-51S5M-C``
+   describe the same camera class.
 
    The cameras shipped in the manual's optical table (PCO Dimax HS
    and Adimec Quartz Q-12A180) have been replaced; the manual's §16
@@ -1302,6 +1483,61 @@ Optique Peter MICRX080 microscope
    alignment, scintillator changes, focus calibration, and pinouts
    refer to the full manual (53 pages) at
    ``MAN-11863-0521-0465-A.pdf``.
+
+**Camera identification (as currently reported by the Spinnaker
+driver via areaDetector).** Read from the ``ADSpinnaker.adl``
+screen for each camera. These are the per-unit values an operator
+or reviewer needs for reproducibility provenance (which firmware,
+which SDK / driver / areaDetector core was in force at run time);
+they update independently of the per-class spec values above.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 22 39 39
+
+   * - Field
+     - Camera 0 (``2bmSP1:cam1:``)
+     - Camera 1 (``2bmSP2:cam1:``)
+   * - Manufacturer
+     - FLIR
+     - FLIR
+   * - Model (as reported)
+     - ``Oryx ORX-10G-51S5M``
+     - ``Oryx ORX-10G-310S9M``
+   * - Serial number
+     - ``19173710``
+     - ``22150530``
+   * - Firmware version
+     - ``1710.0.0.0``
+     - ``1904.0.72.0``
+   * - SDK version (Spinnaker)
+     - ``4.0.0.116``
+     - ``4.0.0.116``
+   * - Driver version (areaDetector)
+     - ``3.5.0``
+     - ``3.5.0``
+   * - ADCore version
+     - ``3.14.0``
+     - ``3.14.0``
+
+.. figure:: ../img/camera_oryx_5mp_medm.png
+   :width: 600px
+   :align: center
+   :alt: ADSpinnaker.adl for camera 0 (FLIR Oryx 5MP, 2bmSP1:cam1:)
+
+   ``ADSpinnaker.adl`` for camera 0 (``2bmSP1:cam1:``, FLIR Oryx
+   5MP). The Setup panel (top-left) is the source of the per-unit
+   identification values in the table above.
+
+.. figure:: ../img/camera_oryx_31mp_medm.png
+   :width: 600px
+   :align: center
+   :alt: ADSpinnaker.adl for camera 1 (FLIR Oryx 31MP, 2bmSP2:cam1:)
+
+   ``ADSpinnaker.adl`` for camera 1 (``2bmSP2:cam1:``, FLIR Oryx
+   31MP). Same screen layout as camera 0; the Readout panel shows
+   sensor size 3232 × 2426 because the screen was captured with
+   2 × 2 binning enabled (native 6464 × 4852).
 
 
 MCTOptics — Optique Peter IOC
@@ -1424,11 +1660,22 @@ Detector optical table
 :Role: Floor-referenced support for the Optique Peter Z stage and the
    microscope; used to keep the detector centred on the beam as the Z
    stage moves.
-:Family: OpticalTable
+:Family: Table
+   (cora ``Table`` Family, declared in the cora catalog at
+   ``catalog/catalog.yaml`` and pending registration as Asset
+   ``DetectorTable`` in ``docs/deployments/2-bm/assets.md``. The
+   six virtual axes on ``2bmb:table3`` are this Asset's
+   ``axis_layout = virtual_pose`` settings value, with the composite
+   record name held in ``virtual_record`` and the SRI 3-Y / 2-X / 1-Z
+   support layout in ``geometry`` — a settings difference from the
+   sample ``Table`` Asset, not a Family split.)
 :Mounted on: Hutch floor
 :Carries: Optique Peter Z stage (and the microscope)
-:Degrees of freedom: X, Y, Z, AX (roll), AY (pitch), AZ (yaw) —
-   six virtual axes computed from six underlying support motors.
+:Degrees of freedom: X, Y, Z, AX (pitch, rotation about lab-X
+   outboard, corrects vertical slope), AY (yaw, rotation about
+   lab-Y vertical, corrects horizontal slope), AZ (roll, rotation
+   about lab-Z beam axis) — six virtual axes computed from six
+   underlying support motors.
 :Geometry: ``SRI`` (Sector Research Instrumentation: 3 Y supports,
    2 X supports, 1 Z support — 6 motors total).
 :EPICS: Virtual table record ``2bmb:table3`` (composite). Loaded in
@@ -1470,8 +1717,8 @@ rotate axes ``2bmb:table3.X``, ``.Y``, ``.Z``, ``.AX``, ``.AY``,
    Optique Peter Z rail back parallel to the beam after a small
    square X-ray spot is observed to drift across the camera as the
    Z stage translates. This is the procedure that justifies
-   registering an ``OpticalTable`` Family + ``DetectorTable``
-   Asset on the cora side.
+   registering a ``DetectorTable`` Asset (cora ``Table`` Family)
+   on the cora side.
 
 
 Trigger and synchronisation
@@ -1669,11 +1916,49 @@ slits, and the filter changer. From cora's perspective the energy
 change should be one Method on a composite "BeamEnergy" surface; the
 underlying motor stack stays hidden inside this IOC.
 
-.. (Planned entries — to be drafted as the IOCs are catalogued.)
+MCTOptics IOC
+-------------
 
-.. - **MCTOptics IOC** — encapsulates lens-turret routing, focus
-..   coupling, camera trigger; exposes ``lens_select`` and friends.
-..   Reference: https://github.com/BCDA-APS/tomo-bits
+:Encapsulates: All motors and combination logic of the Optique Peter
+   triple-objective microscope. From the underlying motor map
+   (``iocBoot/iocMCTOptics/mctOptics.substitutions``): lens turret
+   (``LENS_MOTOR = 2bmb:m1``), camera selector
+   (``CAMERA_MOTOR = 2bmb:m5``), per-objective focus
+   (``LENS{0,1,2}_FOCUS = 2bmb:m{2,3,4}``), per-camera rotation
+   (``CAM{0,1}_ROT = 2bmb:m{7,8}``), and sample-side alignment
+   (``LENS_SAMPLE_X = 2bmb:m18``, ``LENS_SAMPLE_Y = 2bmHXP:m3``,
+   ``LENS_SAMPLE_Z = 2bmb:m17``). When the operator changes the
+   lens or camera selection, the IOC drives the corresponding
+   motor to the calibrated position and applies the per-combination
+   focus and rotation offsets from its autosave file.
+
+:Exposes: Higher-level operator surface under prefix
+   ``2bm:MCTOptics:``. Setpoints: ``LensSelect``, ``CameraSelect``
+   (mbbo, ``Pos. 0`` / ``Pos. 1`` / ``Pos. 2``). Status readbacks:
+   ``LensSelected``, ``CameraSelected`` (also report the
+   intermediate "Moving between …" state). Labels and stamped scan
+   metadata: ``LensName{0,1,2}``, ``CameraName{0,1}``,
+   ``ScintillatorType``, ``ScintillatorThickness``,
+   ``CameraObjective``, ``CameraTubeLength``, ``ImagePixelSize``,
+   ``DetectorPixelSize``, ``CameraBinning``, ``Camera{0,1}Bit``,
+   ``Cut{Left,Right,Top,Bottom}``. The full per-PV semantics live
+   in the MCTOptics block above (the operator-facing block);
+   this entry is the composite-IOC contract that downstream
+   consumers (cora included) bind against.
+
+:Repository: https://github.com/xray-imaging/mctoptics
+   (documentation: https://mctoptics.readthedocs.io).
+
+**Why this matters for cora.** Lens and camera selection at 2-BM
+are not raw motor moves — they are composite operations that depend
+on per-combination calibration values held in the IOC's autosave.
+Treating ``2bmb:m{2,3,4}`` or ``2bmb:m1`` as bare motors and
+addressing them directly from cora would bypass that calibration
+and re-implement (badly) what MCTOptics already does. The cora
+binding for the microscope should target the ``2bm:MCTOptics:*``
+PVs above; the underlying motor stack stays hidden inside this IOC.
+
+.. (Planned entry — to be drafted as the IOC is catalogued.)
 
 .. - **(Planned) Sample-stack IOC** — could encapsulate the
 ..   hexapod-Y / optical-table-Y handoff so the rest of the beamline
