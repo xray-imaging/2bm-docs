@@ -1096,12 +1096,15 @@ LaminographyPitch
 -----------------
 
 :Role: Laminography pitch axis
-:Family: LinearStage
-   (mechanically a tilt; would model as a single-axis stage in cora.
-   Not yet registered in cora — the closest pending entry is
-   "Broader sample-stage motors" under the Pending table at
-   ``docs/deployments/2-bm/assets.md``. Consider a dedicated
-   ``TiltStage`` Family if more tilt axes appear.)
+:Family: TiltStage
+   (cora ``TiltStage`` Family, declared specifically for the
+   Kohzu SA16A-RM laminography goniometer per
+   ``docs/deployments/2-bm/assets.md``: a rotational, limited-range
+   stage — so neither ``LinearStage`` nor ``RotaryStage`` (whose
+   ``Following`` / ``Marking`` PSO affordances a tilt does not carry).
+   Affordances: ``Rotatable``, ``Homeable``, ``Limitable``. Not yet
+   instantiated as an Asset; the closest pending entry is "Broader
+   sample-stage motors" in that page's Pending table.)
 :Model: Kohzu SA16A-RM goniometer / tilt stage
 :Mounted on: Hexapod
 :Carries: Rotary (via a fixed -10° wedge)
