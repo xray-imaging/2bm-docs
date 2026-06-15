@@ -16,6 +16,15 @@ Name
 ``configure_microscope_for_alignment``
 
 
+Source
+------
+
+Not yet implemented. Future location: `procedures/configure_microscope_for_alignment.py
+<https://github.com/decarlof/2bm-procedures/blob/main/procedures/configure_microscope_for_alignment.py>`__
+in the `2bm-procedures
+<https://github.com/decarlof/2bm-procedures>`__ repository.
+
+
 Devices
 -------
 
@@ -25,9 +34,10 @@ Devices
 - :doc:`../manual/item_020`: **Detector optical table** —
   ``2bmb:table3``; the ``.Y`` translation axis sets the table
   vertical position so the X-ray beam lands on the camera centre.
-- :doc:`../manual/item_020`: **Optique Peter Z stage** —
-  ``2bmbAERO:m1``; pre-positioned to a safe mid-band Z before the
-  alignment procedure runs.
+- :doc:`../manual/item_020`: **PropagationDistance** —
+  ``2bmbAERO:m1`` (the sample-to-detector Z stage; was named
+  "Optique Peter Z stage" / ``Focus`` previously). Pre-positioned
+  to a safe mid-band Z before the alignment procedure runs.
 
 
 Preconditions
