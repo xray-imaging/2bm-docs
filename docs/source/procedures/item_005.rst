@@ -16,6 +16,18 @@ Name
 ``set_energy_to_preselect``
 
 
+Source
+------
+
+Not yet implemented in this repository. Future location: `procedures/set_energy_to_preselect.py
+<https://github.com/decarlof/2bm-procedures/blob/main/procedures/set_energy_to_preselect.py>`__
+in the `2bm-procedures
+<https://github.com/decarlof/2bm-procedures>`__ repository. Likely a
+thin wrapper around the `energy
+<https://github.com/xray-imaging/energy>`__ package, which already
+implements the coordinated DMM + mirror energy change.
+
+
 Devices
 -------
 

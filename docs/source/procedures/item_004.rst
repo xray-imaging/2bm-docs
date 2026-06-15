@@ -16,6 +16,15 @@ Name
 ``set_a_slits``
 
 
+Source
+------
+
+Not yet implemented. Future location: `procedures/set_a_slits.py
+<https://github.com/decarlof/2bm-procedures/blob/main/procedures/set_a_slits.py>`__
+in the `2bm-procedures
+<https://github.com/decarlof/2bm-procedures>`__ repository.
+
+
 Devices
 -------
 
