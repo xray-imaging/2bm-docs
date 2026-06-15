@@ -16,6 +16,15 @@ Name
 ``move_sample_out_of_beam``
 
 
+Source
+------
+
+Not yet implemented. Future location: `procedures/move_sample_out_of_beam.py
+<https://github.com/decarlof/2bm-procedures/blob/main/procedures/move_sample_out_of_beam.py>`__
+in the `2bm-procedures
+<https://github.com/decarlof/2bm-procedures>`__ repository.
+
+
 Devices
 -------
 

@@ -23,10 +23,19 @@ Name
 ``detector_z_rail_alignment``
 
 
+Source
+------
+
+- **Implementation**: `procedures/detector_z_rail_alignment.py
+  <https://github.com/decarlof/2bm-procedures/blob/main/procedures/detector_z_rail_alignment.py>`__
+- **Release notes**: `2bm-procedures CHANGELOG
+  <https://github.com/decarlof/2bm-procedures/blob/main/CHANGELOG.md>`__
+
+
 Devices
 -------
 
-- :doc:`../manual/item_020`: **Focus** —
+- :doc:`../manual/item_020`: **PropagationDistance** —
   ``2bmbAERO:m1`` (Aerotech PRO225SL-1000, 1 m travel).
 - :doc:`../manual/item_020`: **Detector optical table** —
   synApps ``table.db`` composite ``2bmb:table3``; corrective DoFs
@@ -526,7 +535,7 @@ Postconditions
 - ``2bmb:table3.AY`` and ``.AX`` are at the converged values;
   their new positions are logged. (Procedure deliberately does
   not restore these — they're the output.)
-- ``Focus`` is back at its pre-procedure RBV
+- ``PropagationDistance`` is back at its pre-procedure RBV
   (restored from snapshot).
 - All snapshotted camera state is back to its pre-procedure
   values: if the camera was running Continuous on entry, it is
@@ -693,11 +702,15 @@ Notes
   cannot make the call hang. All of these are restored from
   snapshot at exit.
 - This procedure is **not** the same as cora's stubbed
-  ``resolution_alignment`` (which targets the same
-  ``Focus`` Asset but optimises **lens focus**
-  on a fixed sample, not the rail-to-beam angular alignment).
-  Both procedures share Assets but operate on different
-  physical surfaces.
+  ``resolution_alignment``. The two touch different Assets
+  entirely: ``resolution_alignment`` optimises **lens focus**
+  via the MCTOptics per-lens focus values (saved by the IOC
+  per camera + lens combination), while this procedure walks
+  the ``PropagationDistance`` rail stage (``2bmbAERO:m1``) to
+  fit and correct rail-to-beam angular alignment. The earlier
+  shared-Asset framing in this page reflected the now-corrected
+  misconception that ``2bmbAERO:m1`` was a lens-focus motor;
+  it is in fact the sample-to-detector Z (propagation) stage.
 - Open trigger this procedure creates: register a
   ``DetectorTable`` Asset (Family ``OpticalTable``) in
   ``cora/docs/deployments/2-bm/assets.md``, then add a

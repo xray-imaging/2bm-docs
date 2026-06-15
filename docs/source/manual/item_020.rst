@@ -1378,24 +1378,29 @@ offsets are held in the IOC's autosave file.
    ``Default`` button restores the per-combination calibrated
    focus / rotation values from the IOC's autosave file.
 
-Focus
------
+PropagationDistance
+-------------------
 
-(cora Asset identifier; previously called "Optique Peter Z stage"
-in this page.)
+(cora Asset identifier. Previously called ``Focus`` (cora #111)
+and "Optique Peter Z stage" (this page); both names were
+misleading — this stage controls the sample-to-detector distance
+along the beam, NOT lens focus. The propagation distance is what
+the operator increases for phase-contrast imaging.)
 
-:Role: Carries the entire microscope body along the beam from
-   near-contact with the sample out to ~1 m for phase-contrast
-   imaging.
+:Role: Sample-to-detector Z stage. Carries the entire microscope
+   body along the beam from near-contact with the sample out to
+   ~1 m, varying the **propagation distance** used to control
+   inline phase contrast.
 :Family: LinearStage
 :Model: Aerotech **PRO225SL-1000** mechanical-bearing linear stage
    (SL precision class, 1000 mm travel; the longest member of the
    PRO225SL family). cora Model: ``aerotech_pro225sl_1000``.
 :Mounted on: Detector optical table
 :Carries: Optique Peter MICRX080 microscope
-:Driven by: ``FocusDrive`` (cora ``MotionController``
+:Driven by: ``PropagationDistanceDrive`` (cora ``MotionController``
    Asset wrapping the Aerotech drive that the ``2bmbAERO`` IOC
-   manages)
+   manages; was ``FocusDrive`` in cora #111, renamed to match the
+   stage it drives)
 :Travel: 1000 mm
 :Accuracy: ±18 µm (SL Standard; calibrated grade not offered above 500 mm)
 :Resolution: 0.1 µm (high-resolution feedback) / 1.0 µm
