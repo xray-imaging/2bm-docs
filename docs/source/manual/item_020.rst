@@ -1348,7 +1348,20 @@ Optique Peter MICRX080 microscope
    Two cameras on the dual-port system (current ANL configuration):
 
    - **FLIR Oryx 5MP** (camera 0, ``2bmSP1:`` areaDetector prefix).
+     Model ``Oryx ORX-10G-51S5M``. Sony IMX250 CMOS sensor,
+     global shutter; 2448 × 2048, 3.45 µm pixel pitch; 162 fps
+     at full resolution over 10GigE; 12-bit ADC. C-mount.
    - **FLIR Oryx 31MP** (camera 1, ``2bmSP2:`` areaDetector prefix).
+     Model ``Oryx ORX-10G-310S9M``. Sony IMX367 CMOS sensor,
+     global shutter; 6464 × 4852, 3.45 µm pixel pitch. C-mount.
+
+   Vendor technical reference: FLIR ``ORX-10GS-51S5-Technical-
+   Reference.pdf`` (revised 2020-04-22). Covers both ``ORX-10G-51S5``
+   and ``ORX-10GS-51S5`` variants, which the manual cover page
+   states are "functionally the same and differ only in dimensions
+   and mass" — i.e. the IOC-reported model string (``ORX-10G-51S5M``,
+   without ``GS``) and any catalog SKU using ``ORX-10GS-51S5M-C``
+   describe the same camera class.
 
    The cameras shipped in the manual's optical table (PCO Dimax HS
    and Adimec Quartz Q-12A180) have been replaced; the manual's §16
@@ -1407,6 +1420,61 @@ Optique Peter MICRX080 microscope
    alignment, scintillator changes, focus calibration, and pinouts
    refer to the full manual (53 pages) at
    ``MAN-11863-0521-0465-A.pdf``.
+
+**Camera identification (as currently reported by the Spinnaker
+driver via areaDetector).** Read from the ``ADSpinnaker.adl``
+screen for each camera. These are the per-unit values an operator
+or reviewer needs for reproducibility provenance (which firmware,
+which SDK / driver / areaDetector core was in force at run time);
+they update independently of the per-class spec values above.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 22 39 39
+
+   * - Field
+     - Camera 0 (``2bmSP1:cam1:``)
+     - Camera 1 (``2bmSP2:cam1:``)
+   * - Manufacturer
+     - FLIR
+     - FLIR
+   * - Model (as reported)
+     - ``Oryx ORX-10G-51S5M``
+     - ``Oryx ORX-10G-310S9M``
+   * - Serial number
+     - ``19173710``
+     - ``22150530``
+   * - Firmware version
+     - ``1710.0.0.0``
+     - ``1904.0.72.0``
+   * - SDK version (Spinnaker)
+     - ``4.0.0.116``
+     - ``4.0.0.116``
+   * - Driver version (areaDetector)
+     - ``3.5.0``
+     - ``3.5.0``
+   * - ADCore version
+     - ``3.14.0``
+     - ``3.14.0``
+
+.. figure:: ../img/camera_oryx_5mp_medm.png
+   :width: 600px
+   :align: center
+   :alt: ADSpinnaker.adl for camera 0 (FLIR Oryx 5MP, 2bmSP1:cam1:)
+
+   ``ADSpinnaker.adl`` for camera 0 (``2bmSP1:cam1:``, FLIR Oryx
+   5MP). The Setup panel (top-left) is the source of the per-unit
+   identification values in the table above.
+
+.. figure:: ../img/camera_oryx_31mp_medm.png
+   :width: 600px
+   :align: center
+   :alt: ADSpinnaker.adl for camera 1 (FLIR Oryx 31MP, 2bmSP2:cam1:)
+
+   ``ADSpinnaker.adl`` for camera 1 (``2bmSP2:cam1:``, FLIR Oryx
+   31MP). Same screen layout as camera 0; the Readout panel shows
+   sensor size 3232 × 2426 because the screen was captured with
+   2 × 2 binning enabled (native 6464 × 4852).
 
 
 MCTOptics — Optique Peter IOC
