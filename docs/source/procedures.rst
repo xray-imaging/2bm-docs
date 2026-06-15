@@ -33,7 +33,7 @@ Current procedures
   defined by the B-station slits, fits the centroid drift, and uses
   the detector optical table (``2bmb:table3.AX`` / ``.AY``) to
   rotate the rail back parallel to the beam. Open trigger for an
-  ``OpticalTable`` Family + ``Detector_optical_table`` Asset on the
+  ``OpticalTable`` Family + ``DetectorTable`` Asset on the
   cora side.
 - :doc:`procedures/item_011` —
   ``centre_and_close_slits``. Drives an L3-style slit

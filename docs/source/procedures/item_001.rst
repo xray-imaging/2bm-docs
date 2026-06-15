@@ -51,7 +51,7 @@ from or writes to. The first time a Device appears it should link
 back to :doc:`../manual/item_020` so cora can resolve the wiring.)*
 
 - :doc:`../manual/item_020`: ``<asset_name_1>``
-  (e.g. ``Aerotech_ABRS_rotary``)
+  (e.g. ``Rotary``)
 - :doc:`../manual/item_020`: ``<asset_name_2>``
 
 
