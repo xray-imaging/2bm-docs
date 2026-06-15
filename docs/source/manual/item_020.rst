@@ -227,7 +227,15 @@ L3 Slits
    Family. Standard APS L3-20 four-blade slits — two horizontal
    (X−, X+) and two vertical (Y−, Y+) blade motors, plus per-
    direction derived ``Size`` / ``Center`` calc axes.)
+:cora Asset: ``A_station_slits`` (proposed name; not yet registered.
+   Used as the ``target_asset_ids`` value by ``calibrate_slit_blade_throw``
+   (:doc:`../procedures/item_012`) and by ``centre_and_close_slits``
+   (:doc:`../procedures/item_011`).)
 :Mounted on: Front-end stand (floor-referenced)
+:Driven by: ``OMS_VME58_2bma_drive`` (cora ``MotionController`` Asset
+   already registered in ``cora/docs/deployments/2-bm/assets.md``;
+   pending controller_id back-reference from this Asset once it
+   registers)
 :Carries: (beam conditioning only)
 :z position: 25225 mm (ref 2: centre of optic; shared with Filters)
 :Position tolerance: 250 µm (x, y), 5 mm (z)
@@ -271,6 +279,32 @@ are available `here <https://anl.box.com/s/sgmoux6db8tsx71pvifzkf2ajopfidqx>`_.
    (up) and ``2bma:m16`` for the Y− blade (down). The ``Size`` and
    ``Center`` columns are calc-driven composites that move both
    blades together to set the aperture height and centre.
+
+.. note::
+
+   **cora Asset registration intent.** When the ``Slit`` Family
+   graduates from Pending, register this assembly as Asset
+   ``A_station_slits`` with the following structure (mirrors the
+   ``Hexapod_2BM`` / ``Aerotech_ABRS_rotary`` patterns
+   already in ``cora/docs/deployments/2-bm/assets.md``):
+
+   - Family: ``Slit``
+   - Mounted on: front-end stand (floor reference)
+   - controller_id back-reference: ``OMS_VME58_2bma_drive``
+   - Settings (blade motors): ``2bma:m13`` (H+ outboard), ``2bma:m14``
+     (H− inboard), ``2bma:m15`` (V+ up), ``2bma:m16`` (V− down)
+   - Settings (virtual / calc-driven aperture):
+     ``2bma:Slit1Hsize``, ``2bma:Slit1Hcenter``,
+     ``2bma:Slit1Vsize``, ``2bma:Slit1Vcenter``
+   - z position: 25225 mm (from APS reference table)
+   - Per-blade calibration field
+     ``calibration_slope_pix_per_mm`` (one per blade motor),
+     seed values + conditions from the
+     :doc:`../procedures/item_012` field-test table for the
+     "A station — after MRES fix" run (2026-06-14).
+   - Target of Procedure ``calibrate_slit_blade_throw``
+     (:doc:`../procedures/item_012`) and Procedure
+     ``centre_and_close_slits`` (:doc:`../procedures/item_011`).
 
 L3 Filters
 ~~~~~~~~~~
@@ -725,7 +759,15 @@ B-station Slits
    (same standard APS L3-20 four-blade hardware as the front-end
    L3 Slits; reuses the ``Slit`` Family declared there. No filter
    changer is paired with this assembly.)
+:cora Asset: ``B_station_slits`` (proposed name; not yet registered.
+   Used as the ``target_asset_ids`` value by ``calibrate_slit_blade_throw``
+   (:doc:`../procedures/item_012`) and by ``centre_and_close_slits``
+   (:doc:`../procedures/item_011`).)
 :Mounted on: Own stand in 2-BM-B (floor-referenced)
+:Driven by: ``OMS_VME58_2bma_drive`` (same OMS VME58 board as the
+   A-station L3 Slits, despite the B-station mounting location —
+   the IOC crate is in 2-BM-A and addresses both stations'
+   slits over VME)
 :Carries: (beam conditioning only)
 :z position: 50500 mm (read from layout drawing A342-RT1000-02; not
    listed in the APS_1404611 reference table)
@@ -797,6 +839,37 @@ B-station Slits
    (up, screen-labelled ``Slit2V +``) and ``2bma:m10`` for the Y−
    blade (down, screen-labelled ``Slit2V −``). The ``Size`` and
    ``Center`` columns are calc-driven composites.
+
+.. note::
+
+   **cora Asset registration intent.** When the ``Slit`` Family
+   graduates from Pending, register this assembly as Asset
+   ``B_station_slits`` with the same structure as the proposed
+   ``A_station_slits`` Asset (see L3 Slits block above) but
+   with the B-station PV set:
+
+   - Family: ``Slit``
+   - Mounted on: own stand in 2-BM-B (floor reference)
+   - controller_id back-reference: ``OMS_VME58_2bma_drive``
+     (the IOC crate is in 2-BM-A and addresses both stations'
+     slits over VME; both A and B Slit Assets back-reference
+     the same controller)
+   - Settings (blade motors): ``2bma:m11`` and ``2bma:m12`` (H
+     pair, per the label-flip note above), ``2bma:m9`` (V+ up),
+     ``2bma:m10`` (V− down)
+   - Settings (virtual / calc-driven aperture):
+     ``2bma:Slit2Hsize``, ``2bma:Slit2Hcenter``,
+     ``2bma:Slit2Vsize``, ``2bma:Slit2Vcenter``
+   - z position: 50500 mm (read from layout drawing
+     A342-RT1000-02; not in the APS_1404611 reference table)
+   - Per-blade calibration field
+     ``calibration_slope_pix_per_mm`` (one per blade motor),
+     seed values + conditions from the
+     :doc:`../procedures/item_012` field-test table for the
+     "B station (no fix needed)" run (2026-06-14).
+   - Target of Procedure ``calibrate_slit_blade_throw``
+     (:doc:`../procedures/item_012`) and Procedure
+     ``centre_and_close_slits`` (:doc:`../procedures/item_011`).
 
 
 Sample stack
