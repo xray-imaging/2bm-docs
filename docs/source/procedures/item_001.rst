@@ -18,6 +18,7 @@ sections below map onto cora as follows:
 Section                 Maps to in cora
 ======================  ====================================================
 **Name**                ``Method.name``
+**Source**              Links to the Python implementation + release notes
 **Devices**             ``Plan.wiring`` targets (Assets from item_020)
 **Preconditions**       Guard clauses checked before the Method runs
 **Parameters**          ``Method.parameters_schema``
@@ -41,6 +42,22 @@ Name
 
 ``procedure_short_identifier``
 *(required — snake_case; becomes ``Method.name`` in cora)*
+
+
+Source
+------
+
+*(required — links to the Python implementation in
+`2bm-procedures <https://github.com/decarlof/2bm-procedures>`__
+and to its CHANGELOG entry. For stub pages prior to
+implementation, replace the bullets with a "Not yet implemented.
+Future location: procedures/SLUG.py ..." note. Substitute the
+actual snake_case procedure slug for the literal* ``SLUG`` *below.)*
+
+- **Implementation**: `procedures/SLUG.py
+  <https://github.com/decarlof/2bm-procedures/blob/main/procedures/SLUG.py>`__
+- **Release notes**: `2bm-procedures CHANGELOG
+  <https://github.com/decarlof/2bm-procedures/blob/main/CHANGELOG.md>`__
 
 
 Devices

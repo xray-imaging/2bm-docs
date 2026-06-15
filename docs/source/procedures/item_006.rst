@@ -17,6 +17,15 @@ Name
 ``set_flag_in``
 
 
+Source
+------
+
+Not yet implemented. Future location: `procedures/set_flag_in.py
+<https://github.com/decarlof/2bm-procedures/blob/main/procedures/set_flag_in.py>`__
+in the `2bm-procedures
+<https://github.com/decarlof/2bm-procedures>`__ repository.
+
+
 Devices
 -------
 

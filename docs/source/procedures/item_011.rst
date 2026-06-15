@@ -30,6 +30,15 @@ Name
 ``centre_and_close_slits``
 
 
+Source
+------
+
+- **Implementation**: `procedures/centre_and_close_slits.py
+  <https://github.com/decarlof/2bm-procedures/blob/main/procedures/centre_and_close_slits.py>`__
+- **Release notes**: `2bm-procedures CHANGELOG
+  <https://github.com/decarlof/2bm-procedures/blob/main/CHANGELOG.md>`__
+
+
 Devices
 -------
 
