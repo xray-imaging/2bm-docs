@@ -290,7 +290,12 @@ A-shutter (front-end)
 :Notes:
    Independent of the P6-50 personnel-safety shutter (``B_shutter``,
    below) further downstream. Both must be open for beam to reach
-   2-BM-B.
+   2-BM-B. **Operational practice: the A-shutter is opened at the
+   start of an experimental session and kept open continuously**
+   to preserve the thermal stability of the beamline optics
+   (mirror, monochromator). Per-scan beam gating is done on the
+   downstream P6-50 (``B_shutter``) instead; see the P6-50 block
+   below for the TomoScan integration.
 
 .. note::
 
@@ -877,6 +882,47 @@ P6-50 Safety Shutter (B-shutter)
    tungsten collimator, safety shutter, SS baffle) installed
    together at z ≈ 330 m. The other three are passive. Both this
    and the upstream A-shutter must be open for beam to reach 2-BM-B.
+
+.. note::
+
+   **The "fast shutter" in TomoScan / 2-BM operator parlance IS
+   this P6-50 SBS shutter.** There is no separate pneumatic /
+   fast-actuator shutter at 2-BM-B today; the P6-50 is the
+   beam-gate that closes for dark and white (flat) field
+   acquisition during every scan. The upstream A-shutter (FES)
+   is kept open continuously to preserve the thermal stability
+   of the beamline optics, so the per-scan gating responsibility
+   falls on the P6-50.
+
+   **TomoScan wiring.** The substitutions file
+   ``iocBoot/iocTomoScan_2BMB/tomoScan.substitutions`` binds the
+   ``OpenShutter`` / ``CloseShutter`` macros directly to
+   ``S02BM-PSS:SBS:OpenEPICSC`` / ``S02BM-PSS:SBS:CloseEPICSC``
+   (with ``ShutterStatus`` reading ``S02BM-PSS:SBS:BeamBlockingM``).
+   The ``TomoScan2BM.open_frontend_shutter()`` /
+   ``close_frontend_shutter()`` methods in
+   ``tomoscan/tomoscan_2bm.py`` are what actuate these — note that
+   despite the ``frontend`` in the method name, the actual PV
+   target is the B-station P6-50, NOT the upstream FES. The FES
+   is read-only from TomoScan's perspective via
+   ``S02BM-PSS:FES:FEEPSPermitM`` (the ``BEAM_READY`` macro), and
+   stays open throughout the session.
+
+   The other set of TomoScan methods, ``open_shutter()`` /
+   ``close_shutter()`` (bound to the ``OpenFastShutter`` /
+   ``CloseFastShutter`` macros at ``2bma:B_shutter:open.VAL`` /
+   ``close.VAL``), is a stub: both methods log
+   ``"Wait 2s -- Temporarily while there is no fast shutter at
+   2bmb"`` and just sleep two seconds. They are placeholders for
+   a future dedicated fast shutter; today they do nothing
+   functional. All real shutter actuation during scans goes
+   through the misleadingly-named ``open_frontend_shutter`` /
+   ``close_frontend_shutter`` pair above.
+
+   Operational consequence: during a TomoScan run the P6-50
+   cycles open / close many times per scan (closed for darks and
+   for flat-fields, open for projections); this is by design, not
+   a shutter failure. Cycle counts can be high.
 
 B-station Slits
 ~~~~~~~~~~~~~~~
