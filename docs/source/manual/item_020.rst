@@ -258,10 +258,15 @@ A-shutter (front-end)
 :Role: First beam-gating element on the beamline; located in 2-BM-A
    upstream of the slits
 :Family: Shutter
-   (would be a second instance of the Shutter Family already declared
-   in the cora 2-BM assets inventory as ``Shutter_2BM``; the
-   inventory currently lists only one Shutter — this entry needs to
-   be added.)
+   (would be a second instance of the cora ``Shutter`` Family.
+   The cora 2-BM assets inventory at
+   ``docs/deployments/2-bm/assets.md`` currently lists only one
+   ``Shutter`` Asset, ``StationShutter``, which is the B-station
+   P6-50 safety shutter below; the A-shutter is not yet registered
+   and needs a distinct Asset name (cora has not chosen one — a
+   role-name like ``FrontEndShutter`` would follow the same
+   convention as ``StationShutter``, naming the shutter by what it
+   gates rather than by vendor or PV).)
 :Mounted on: Front-end stand (floor-referenced)
 :Carries: (beam gating only)
 :z position: TBD (upstream of the L3 Slits; not separately listed in
@@ -758,9 +763,13 @@ P6-50 Safety Shutter (B-shutter)
 
 :Role: Personnel-safety shutter for 2-BM hutches
 :Family: Shutter
-   (already declared in the cora 2-BM assets inventory as
-   ``Shutter_2BM``; this entry is the source of its position and
-   shielding data.)
+   (already registered as the cora ``StationShutter`` Asset
+   (cora ``Shutter`` Family) in
+   ``docs/deployments/2-bm/assets.md``; this entry is the source
+   of its position and shielding data. ``StationShutter`` is the
+   role-name cora chose for the B-station personnel-safety
+   shutter; the upstream A-shutter would be a separate
+   ``Shutter`` Asset — see the A-shutter block above.)
 :Mounted on: Front-end stand (floor-referenced)
 :Carries: (beam gating only)
 :z position: 33343 mm (ref 1: upstream face of thermal component)
