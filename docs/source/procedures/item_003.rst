@@ -16,6 +16,15 @@ Name
 ``enable_beamline``
 
 
+Source
+------
+
+Not yet implemented. Future location: `procedures/enable_beamline.py
+<https://github.com/decarlof/2bm-procedures/blob/main/procedures/enable_beamline.py>`__
+in the `2bm-procedures
+<https://github.com/decarlof/2bm-procedures>`__ repository.
+
+
 Devices
 -------
 

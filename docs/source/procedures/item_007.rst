@@ -16,6 +16,15 @@ Name
 ``open_b_shutter``
 
 
+Source
+------
+
+Not yet implemented. Future location: `procedures/open_b_shutter.py
+<https://github.com/decarlof/2bm-procedures/blob/main/procedures/open_b_shutter.py>`__
+in the `2bm-procedures
+<https://github.com/decarlof/2bm-procedures>`__ repository.
+
+
 Devices
 -------
 

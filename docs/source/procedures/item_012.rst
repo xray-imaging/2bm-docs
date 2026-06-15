@@ -29,6 +29,15 @@ Name
 ``calibrate_slit_blade_throw``
 
 
+Source
+------
+
+- **Implementation**: `procedures/calibrate_slit_blade_throw.py
+  <https://github.com/decarlof/2bm-procedures/blob/main/procedures/calibrate_slit_blade_throw.py>`__
+- **Release notes**: `2bm-procedures CHANGELOG
+  <https://github.com/decarlof/2bm-procedures/blob/main/CHANGELOG.md>`__
+
+
 Devices
 -------
 
