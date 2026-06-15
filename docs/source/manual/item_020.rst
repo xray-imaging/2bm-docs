@@ -968,8 +968,17 @@ Sample optical table
 --------------------
 
 :Role: Floor-referenced support for the entire sample tower
-:Family: OpticalTable
-   (new Family; not yet declared in the cora equipment BC)
+:Family: Table
+   (cora ``Table`` Family, declared in the cora catalog at
+   ``catalog/catalog.yaml`` and pending registration as Asset
+   ``SampleTable`` in ``docs/deployments/2-bm/assets.md``. The
+   substrate word "Optical" is deliberately omitted from the Family
+   name per cora's naming rule that a Family names the device's own
+   nature, not its contents — the ``OpticalHousing`` → ``Housing``
+   precedent. Axis-set differences across the three 2-BM tables
+   (sample = 4 direct translation motors; detector = 6 virtual axes;
+   mirror = present but unused) are a per-Asset settings axis
+   (``axis_layout``), not a Family split.)
 :Mounted on: Hutch floor
 :Carries: Hexapod (and everything above)
 :Degrees of freedom: 4 motors (Y, downstream X, upstream X, Z). In
@@ -1424,7 +1433,15 @@ Detector optical table
 :Role: Floor-referenced support for the Optique Peter Z stage and the
    microscope; used to keep the detector centred on the beam as the Z
    stage moves.
-:Family: OpticalTable
+:Family: Table
+   (cora ``Table`` Family, declared in the cora catalog at
+   ``catalog/catalog.yaml`` and pending registration as Asset
+   ``DetectorTable`` in ``docs/deployments/2-bm/assets.md``. The
+   six virtual axes on ``2bmb:table3`` are this Asset's
+   ``axis_layout = virtual_pose`` settings value, with the composite
+   record name held in ``virtual_record`` and the SRI 3-Y / 2-X / 1-Z
+   support layout in ``geometry`` — a settings difference from the
+   sample ``Table`` Asset, not a Family split.)
 :Mounted on: Hutch floor
 :Carries: Optique Peter Z stage (and the microscope)
 :Degrees of freedom: X, Y, Z, AX (roll), AY (pitch), AZ (yaw) —
@@ -1470,8 +1487,8 @@ rotate axes ``2bmb:table3.X``, ``.Y``, ``.Z``, ``.AX``, ``.AY``,
    Optique Peter Z rail back parallel to the beam after a small
    square X-ray spot is observed to drift across the camera as the
    Z stage translates. This is the procedure that justifies
-   registering an ``OpticalTable`` Family + ``DetectorTable``
-   Asset on the cora side.
+   registering a ``DetectorTable`` Asset (cora ``Table`` Family)
+   on the cora side.
 
 
 Trigger and synchronisation

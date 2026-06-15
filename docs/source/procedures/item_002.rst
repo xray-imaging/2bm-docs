@@ -44,7 +44,7 @@ Devices
   (per item_020.rst) — ``2bmb:m9 / m10 / m11 / m12 / m13 / m14``;
   motion-done detected by ANDing all six ``.DMOV`` fields.
 
-  Not yet a cora Asset — registering one (Family ``OpticalTable``)
+  Not yet a cora Asset — registering one (cora ``Table`` Family)
   is the open trigger this procedure creates.
 
 - :doc:`../manual/item_020`: **MCTOptics** — read only.
@@ -712,7 +712,7 @@ Notes
   misconception that ``2bmbAERO:m1`` was a lens-focus motor;
   it is in fact the sample-to-detector Z (propagation) stage.
 - Open trigger this procedure creates: register a
-  ``DetectorTable`` Asset (Family ``OpticalTable``) in
+  ``DetectorTable`` Asset (cora ``Table`` Family) in
   ``cora/docs/deployments/2-bm/assets.md``, then add a
   ``detector_z_rail_alignment`` entry to that deployment's
   ``procedures.md`` referencing this page.
