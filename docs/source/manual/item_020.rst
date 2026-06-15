@@ -63,6 +63,87 @@ Each block below expands into individual components with their intrinsic
 properties and kinematic relations.
 
 
+Personnel and access interlocks
+===============================
+
+The Personnel Safety System (PSS) and the APS-wide Access Control
+and Interlock System (ACIS) gate beam admission to 2-BM. Neither
+exposes a commandable Asset — both publish read-only status PVs
+that downstream procedures and shutter-open commands check before
+acting. They are not beam-conditioning devices and do not appear in
+the z-ordered "Physical walk" above; they live here, alongside the
+overview, because every beam-path component below is conditional on
+both reading ``ON``.
+
+PSS hutch search status
+-----------------------
+
+The Personnel Safety System publishes a per-hutch "secure" enum
+that reads ``ON`` when the hutch is searched and locked (and the
+PSS is willing to admit beam) and ``OFF`` when the search is broken
+(door open, search active, manual override, etc.).
+
+:Family: PSS interlock readback (read-only; not a Family in the
+   cora 2-BM inventory — these are operational status PVs, not
+   commandable Assets).
+:Hosted on: ``s2pvgate.xray.aps.anl.gov:5064`` (PSS gateway; same
+   host as the shutter ``BeamBlockingM`` PVs).
+
+==========================  ===================  ==============
+PV                          Description (DESC)   Meaning
+==========================  ===================  ==============
+``S02BM-PSS:StaA:SecureM``  ``Sta-A Secure``     2-BM-A hutch
+``S02BM-PSS:StaB:SecureM``  ``Sta-B Secure``     2-BM-B hutch
+==========================  ===================  ==============
+
+Both PVs share the same enum:
+
+- STATE 0 = ``OFF`` → hutch **not** secure (search active or
+  broken; PSS will not admit beam).
+- STATE 1 = ``ON``  → hutch secure (searched and locked; PSS
+  permits beam).
+
+These are the predicates the :doc:`../procedures/item_003`
+(``enable_beamline``) stub procedure uses for its
+``beamline_enabled`` postcondition. Both must read ``ON`` before
+the FES open command (``S02BM-PSS:FES:OpenEPICSC``) will be
+honoured.
+
+ACIS upstream permit
+--------------------
+
+The APS Access Control and Interlock System exposes a single
+"upstream permit" PV that aggregates storage-ring health,
+injection state, APS-wide permits, the per-beamline PSS state,
+and the BLEPS fault chain into one boolean. If it reads ``ON``,
+all of the upstream conditions required to admit beam to 2-BM
+are met -- the FES open command will be honoured.
+
+:Family: ACIS upstream permit (read-only; analogous to the PSS
+   ``SecureM`` PVs above but at a higher level of aggregation).
+:Hosted on: ``s2pvgate.xray.aps.anl.gov:5064``.
+
+==========================  =============================  ===================
+PV                          Description (``DESC``)         Meaning
+==========================  =============================  ===================
+``SR-ACIS:2BM:FesPermitM``  ``2BM PSS FES Permit``         FES open permitted
+==========================  =============================  ===================
+
+Enum:
+
+- STATE 0 = ``OFF`` → ACIS does **not** permit the FES to open
+  (some upstream condition failed -- could be storage ring down,
+  BLEPS fault latched, PSS not searched, etc.).
+- STATE 1 = ``ON``  → ACIS permits the FES to open. The
+  individual upstream conditions are all green.
+
+This is the single PV the :doc:`../procedures/item_003`
+(``enable_beamline``) stub procedure uses to test the composite
+"upstream OK" condition. It replaces the earlier
+"BLEPS-clear AND machine-state-OK" pair of TBDs because ACIS
+already composes both.
+
+
 Beam delivery
 =============
 
@@ -245,7 +326,7 @@ L3 Slits
 :EPICS prefix: ``2bma:`` (horizontal motors ``m14`` for A Slit X−
    [inboard], ``m13`` for A Slit X+ [outboard]; vertical motors
    ``m15`` for A Slit Y+ [up], ``m16`` for A Slit Y− [down])
-:Virtual motor PVs (composite Size/Centre): the four ``ao``-record
+:Virtual motor PVs: the four composite Size/Centre ``ao``-record
    PVs below drive both blades of a pair together. Hosted on
    ``ioc2bmb1.xray.aps.anl.gov:5064`` (the same IOC that hosts the
    B-station slit calc records, despite the ``2bma:`` prefix on
@@ -256,22 +337,17 @@ L3 Slits
 
    .. list-table::
       :header-rows: 1
-      :widths: 30 40 30
+      :widths: 50 50
 
       * - PV
-        - Role
-        - Limits (HOPR / LOPR)
+        - Limits (mm)
       * - ``2bma:Slit1Hsize``
-        - Horizontal aperture mm
         - +93.95 / -24.05
       * - ``2bma:Slit1Hcenter``
-        - Horizontal centre mm
         - +34.73 / -24.27
       * - ``2bma:Slit1Vsize``
-        - Vertical aperture mm
         - +71.29 / -66.71
       * - ``2bma:Slit1Vcenter``
-        - Vertical centre mm
         - +23.47 / -45.53
 
 The slits at 2-BM are standard APS L3-20. Technical as-built drawings
@@ -709,76 +785,6 @@ P6-50 Safety Shutter (B-shutter)
    together at z ≈ 330 m. The other three are passive. Both this
    and the upstream A-shutter must be open for beam to reach 2-BM-B.
 
-PSS hutch search status
-~~~~~~~~~~~~~~~~~~~~~~~
-
-The Personnel Safety System publishes a per-hutch "secure" enum
-that reads ``ON`` when the hutch is searched and locked (and the
-PSS is willing to admit beam) and ``OFF`` when the search is broken
-(door open, search active, manual override, etc.).
-
-:Family: PSS interlock readback (read-only; not a Family in the
-   cora 2-BM inventory — these are operational status PVs, not
-   commandable Assets).
-:Hosted on: ``s2pvgate.xray.aps.anl.gov:5064`` (PSS gateway; same
-   host as the shutter ``BeamBlockingM`` PVs).
-
-==========================  ===================  ==============
-PV                          Description (DESC)   Meaning
-==========================  ===================  ==============
-``S02BM-PSS:StaA:SecureM``  ``Sta-A Secure``     2-BM-A hutch
-``S02BM-PSS:StaB:SecureM``  ``Sta-B Secure``     2-BM-B hutch
-==========================  ===================  ==============
-
-Both PVs share the same enum:
-
-- STATE 0 = ``OFF`` → hutch **not** secure (search active or
-  broken; PSS will not admit beam).
-- STATE 1 = ``ON``  → hutch secure (searched and locked; PSS
-  permits beam).
-
-These are the predicates the :doc:`../procedures/item_003`
-(``enable_beamline``) stub procedure uses for its
-``beamline_enabled`` postcondition. Both must read ``ON`` before
-the FES open command (``S02BM-PSS:FES:OpenEPICSC``) will be
-honoured.
-
-
-ACIS upstream permit
-~~~~~~~~~~~~~~~~~~~~
-
-The APS Access Control and Interlock System exposes a single
-"upstream permit" PV that aggregates storage-ring health,
-injection state, APS-wide permits, the per-beamline PSS state,
-and the BLEPS fault chain into one boolean. If it reads ``ON``,
-all of the upstream conditions required to admit beam to 2-BM
-are met -- the FES open command will be honoured.
-
-:Family: ACIS upstream permit (read-only; analogous to the PSS
-   ``SecureM`` PVs above but at a higher level of aggregation).
-:Hosted on: ``s2pvgate.xray.aps.anl.gov:5064``.
-
-==========================  =============================  ===================
-PV                          Description (``DESC``)         Meaning
-==========================  =============================  ===================
-``SR-ACIS:2BM:FesPermitM``  ``2BM PSS FES Permit``         FES open permitted
-==========================  =============================  ===================
-
-Enum:
-
-- STATE 0 = ``OFF`` → ACIS does **not** permit the FES to open
-  (some upstream condition failed -- could be storage ring down,
-  BLEPS fault latched, PSS not searched, etc.).
-- STATE 1 = ``ON``  → ACIS permits the FES to open. The
-  individual upstream conditions are all green.
-
-This is the single PV the :doc:`../procedures/item_003`
-(``enable_beamline``) stub procedure uses to test the composite
-"upstream OK" condition. It replaces the earlier
-"BLEPS-clear AND machine-state-OK" pair of TBDs because ACIS
-already composes both.
-
-
 B-station Slits
 ~~~~~~~~~~~~~~~
 
@@ -807,7 +813,7 @@ B-station Slits
 :EPICS prefix: ``2bma:`` (horizontal motors ``2bma:m11`` and
    ``2bma:m12`` for the X pair; vertical motors ``2bma:m9`` for
    Y+ [up] and ``2bma:m10`` for Y− [down])
-:Virtual motor PVs (composite Size/Centre): the four ``ao``-record
+:Virtual motor PVs: the four composite Size/Centre ``ao``-record
    PVs below drive both blades of a pair together. Hosted on
    ``ioc2bmb1.xray.aps.anl.gov:5064`` (the same IOC that hosts the
    A-station slit calc records, despite the ``2bma:`` prefix on
@@ -818,22 +824,17 @@ B-station Slits
 
    .. list-table::
       :header-rows: 1
-      :widths: 30 40 30
+      :widths: 50 50
 
       * - PV
-        - Role
-        - Limits (HOPR / LOPR)
+        - Limits (mm)
       * - ``2bma:Slit2Hsize``
-        - Horizontal aperture mm
         - +45.50 / -112.50
       * - ``2bma:Slit2Hcenter``
-        - Horizontal centre mm
         - +37.08 / -41.92
       * - ``2bma:Slit2Vsize``
-        - Vertical aperture mm
         - +115.62 / -34.13
       * - ``2bma:Slit2Vcenter``
-        - Vertical centre mm
         - +52.28 / -22.60
 
    *(Earlier doc attempts referred to* ``2bma:Slit2H:size`` *with a
