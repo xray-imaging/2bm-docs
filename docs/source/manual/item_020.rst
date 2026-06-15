@@ -414,11 +414,17 @@ L3 Filters
 ~~~~~~~~~~
 
 :Role: Energy filtering (selective absorption upstream of the mirror)
-:Family: FilterChanger
-   (new Family; not yet declared in the cora equipment BC. Two
-   independent paddle sets — upstream and downstream — with up to
-   four filter materials per side, plus a None / LowLimit reference
-   per side.)
+:Family: Filter
+   (cora ``Filter`` Family; the device is preregistered in the
+   2-BM Pending list at ``docs/deployments/2-bm/assets.md`` as
+   Asset ``Filter`` with Family ``Filter``. ``Filter`` is the
+   thing-noun the device IS (anatomy); the paddle-changing
+   mechanism is operational behaviour, captured as affordances
+   on the Family rather than baked into the Family name —
+   cora's noun-LAST rule rejects the agent-noun reading of
+   ``FilterChanger``. Two independent paddle sets — upstream and
+   downstream — with up to four filter materials per side, plus
+   a None / LowLimit reference per side.)
 :Mounted on: Front-end stand (shared assembly with L3 Slits)
 :Carries: (beam conditioning only)
 :z position: 25225 mm (ref 2: centre of optic; shared with Slits)
