@@ -57,8 +57,8 @@ Current procedures
   on the cora side.
 
 
-Stub procedures (precondition targets of item_002)
-==================================================
+Stub procedures (preconditions of :doc:`procedures/item_002`)
+=============================================================
 
 These pages exist so the precondition graph of
 :doc:`procedures/item_002` has named targets to link to. Each is a
