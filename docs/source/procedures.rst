@@ -32,9 +32,9 @@ Current procedures
   along its 1 m PRO225SL Z rail with a small square X-ray aperture
   defined by the B-station slits, fits the centroid drift, and uses
   the detector optical table (``2bmb:table3.AX`` / ``.AY``) to
-  rotate the rail back parallel to the beam. Open trigger for an
-  ``OpticalTable`` Family + ``DetectorTable`` Asset on the
-  cora side.
+  rotate the rail back parallel to the beam. Open trigger for a
+  ``DetectorTable`` Asset (cora ``Table`` Family) on the cora
+  side.
 - :doc:`procedures/item_011` —
   ``centre_and_close_slits``. Drives an L3-style slit
   (``--slit-station A`` or ``B``) so the beam image sits at the
