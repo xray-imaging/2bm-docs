@@ -1704,11 +1704,49 @@ slits, and the filter changer. From cora's perspective the energy
 change should be one Method on a composite "BeamEnergy" surface; the
 underlying motor stack stays hidden inside this IOC.
 
-.. (Planned entries — to be drafted as the IOCs are catalogued.)
+MCTOptics IOC
+-------------
 
-.. - **MCTOptics IOC** — encapsulates lens-turret routing, focus
-..   coupling, camera trigger; exposes ``lens_select`` and friends.
-..   Reference: https://github.com/BCDA-APS/tomo-bits
+:Encapsulates: All motors and combination logic of the Optique Peter
+   triple-objective microscope. From the underlying motor map
+   (``iocBoot/iocMCTOptics/mctOptics.substitutions``): lens turret
+   (``LENS_MOTOR = 2bmb:m1``), camera selector
+   (``CAMERA_MOTOR = 2bmb:m5``), per-objective focus
+   (``LENS{0,1,2}_FOCUS = 2bmb:m{2,3,4}``), per-camera rotation
+   (``CAM{0,1}_ROT = 2bmb:m{7,8}``), and sample-side alignment
+   (``LENS_SAMPLE_X = 2bmb:m18``, ``LENS_SAMPLE_Y = 2bmHXP:m3``,
+   ``LENS_SAMPLE_Z = 2bmb:m17``). When the operator changes the
+   lens or camera selection, the IOC drives the corresponding
+   motor to the calibrated position and applies the per-combination
+   focus and rotation offsets from its autosave file.
+
+:Exposes: Higher-level operator surface under prefix
+   ``2bm:MCTOptics:``. Setpoints: ``LensSelect``, ``CameraSelect``
+   (mbbo, ``Pos. 0`` / ``Pos. 1`` / ``Pos. 2``). Status readbacks:
+   ``LensSelected``, ``CameraSelected`` (also report the
+   intermediate "Moving between …" state). Labels and stamped scan
+   metadata: ``LensName{0,1,2}``, ``CameraName{0,1}``,
+   ``ScintillatorType``, ``ScintillatorThickness``,
+   ``CameraObjective``, ``CameraTubeLength``, ``ImagePixelSize``,
+   ``DetectorPixelSize``, ``CameraBinning``, ``Camera{0,1}Bit``,
+   ``Cut{Left,Right,Top,Bottom}``. The full per-PV semantics live
+   in the MCTOptics block above (the operator-facing block);
+   this entry is the composite-IOC contract that downstream
+   consumers (cora included) bind against.
+
+:Repository: https://github.com/xray-imaging/mctoptics
+   (documentation: https://mctoptics.readthedocs.io).
+
+**Why this matters for cora.** Lens and camera selection at 2-BM
+are not raw motor moves — they are composite operations that depend
+on per-combination calibration values held in the IOC's autosave.
+Treating ``2bmb:m{2,3,4}`` or ``2bmb:m1`` as bare motors and
+addressing them directly from cora would bypass that calibration
+and re-implement (badly) what MCTOptics already does. The cora
+binding for the microscope should target the ``2bm:MCTOptics:*``
+PVs above; the underlying motor stack stays hidden inside this IOC.
+
+.. (Planned entry — to be drafted as the IOC is catalogued.)
 
 .. - **(Planned) Sample-stack IOC** — could encapsulate the
 ..   hexapod-Y / optical-table-Y handoff so the rest of the beamline
