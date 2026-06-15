@@ -1540,8 +1540,11 @@ Detector optical table
    sample ``Table`` Asset, not a Family split.)
 :Mounted on: Hutch floor
 :Carries: Optique Peter Z stage (and the microscope)
-:Degrees of freedom: X, Y, Z, AX (roll), AY (pitch), AZ (yaw) —
-   six virtual axes computed from six underlying support motors.
+:Degrees of freedom: X, Y, Z, AX (pitch, rotation about lab-X
+   outboard, corrects vertical slope), AY (yaw, rotation about
+   lab-Y vertical, corrects horizontal slope), AZ (roll, rotation
+   about lab-Z beam axis) — six virtual axes computed from six
+   underlying support motors.
 :Geometry: ``SRI`` (Sector Research Instrumentation: 3 Y supports,
    2 X supports, 1 Z support — 6 motors total).
 :EPICS: Virtual table record ``2bmb:table3`` (composite). Loaded in
