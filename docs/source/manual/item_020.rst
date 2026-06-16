@@ -1283,21 +1283,32 @@ Rotary
 :Model:
    Stage — Aerotech **ABRS-250MP-M-AS** air-bearing direct-drive
    rotary (Aerotech ABRS series, 250 mm aperture, mid-precision
-   class). Drive — Aerotech Ensemble HLE10-40-A-MXH (HLe-series
-   digital drive). The cora Device identifier ``Rotary`` is a
-   role-name per cora's #111 convention (vendor / model lives in
-   the bound Model, not the Asset name). Earlier candidate names:
-   ``Aerotech_ABRS_rotary``, ``aerotech_abs250mp_m_as`` — the
-   second one was based on a then-incorrect ``ABS`` reading of the
-   hardware label; operator confirmation 2026-06-15 settles the
-   model on ABRS.
+   class). Drive — Aerotech **ENSEMBLE ML 10-40-IO-MXH**
+   (Multi-Loop subseries, 10 A, 40 V bus, I/O option, MXH option;
+   operator-confirmed against the hardware label 2026-06-16).
+   The cora Device identifier ``Rotary`` is a role-name per cora's
+   #111 convention (vendor / model lives in the bound Model, not
+   the Asset name). Earlier candidate names: ``Aerotech_ABRS_rotary``,
+   ``aerotech_abs250mp_m_as`` — the second one was based on a
+   then-incorrect ``ABS`` reading of the hardware label; operator
+   confirmation 2026-06-15 settles the model on ABRS.
 :Serial number: ``146853-A-1-1-X``
 :Reference drawing: ``630C2125 REV (-)``
 :Mounted on: LaminographyPitch (via a fixed -10° wedge — see above)
 :Carries: SampleTop_X, SampleTop_Z
 :Driven by: ``RotaryDrive`` (cora ``MotionController`` Asset
-   wrapping the Aerotech Ensemble HLE10-40-A-MXH; bound Model
-   ``aerotech_ensemble``)
+   wrapping the **Aerotech ENSEMBLE ML 10-40-IO-MXH**, S/N
+   ``730792/1``, Aeronet-networked. Earlier this page named the
+   drive as Ensemble HLE10-40-A-MXH; operator confirmation
+   2026-06-16 corrects both the subseries (ML, not HLe) and the
+   option suffix (``-IO-`` was missing). The drive card is housed
+   in an Aerotech **TM3-A-20B VDC-20B VDC / NO SPLIT / PS24-1 /
+   C1ML-06 / C2ML-09 / US-115VAC** chassis, S/N ``160591-A-1-1``
+   (Order # ``730578``, built to dwg ``630D2079 REV-H``); the
+   chassis + PS24-1 supply provide DC bus and Aeronet
+   distribution to the ML card. Bound cora Model:
+   ``aerotech_ensemble`` (currently — see [cora#156] for the
+   pending rename to a Model handle matching the actual P/N.))
 :Travel: -360 deg to +360 deg
 :Max speed: 720 deg/s
 :Encoder resolution: 0.0001 deg
@@ -1651,9 +1662,16 @@ the operator increases for phase-contrast imaging.)
 :Mounted on: Detector optical table
 :Carries: Optique Peter MICRX080 microscope
 :Driven by: ``PropagationDistanceDrive`` (cora ``MotionController``
-   Asset wrapping the Aerotech drive that the ``2bmbAERO`` IOC
-   manages; was ``FocusDrive`` in cora #111, renamed to match the
-   stage it drives)
+   Asset wrapping the **Aerotech Ensemble HLe 10-40-A-IO-MXH**
+   (HLe subseries, 10 A, 40 V bus, ``-A-`` option, ``-IO-`` option,
+   MXH option; full P/N as printed on the label:
+   ``EnsembleHLe10-40-A-IO-MXH``), S/N ``228849-02``,
+   operator-confirmed against the hardware label 2026-06-16. This
+   resolves the prior "specific product line not yet confirmed"
+   placeholder and the cora ``aerotech_2bmbaero_drive_unknown_pn``
+   Model row. The drive is what the ``2bmbAERO`` IOC manages; the
+   Asset was ``FocusDrive`` in cora #111, renamed to match the
+   stage it drives.)
 :Travel: 1000 mm
 :Accuracy: ±18 µm (SL Standard; calibrated grade not offered above 500 mm)
 :Resolution: 0.1 µm (high-resolution feedback) / 1.0 µm
