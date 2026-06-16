@@ -545,7 +545,7 @@ Y3-30 Mirror
    ``docs/catalog/families.md``. Composes a mirror body with
    an in-vacuum stripe selector and an external optical-table
    sub-assembly carrying Y / X / Z stages.)
-:Mounted on: Optical table (``2bma:table1`` via the ``table_full`` IOC)
+:Mounted on: Optical table (six physical motors ``2bma:m1``–``2bma:m6``; the per-end Y motors are driven via ``2postMirror.db`` and the table X motors via the energy-change IOC; see the Mirror optical table block below)
 :Carries: (beam conditioning only)
 :z position: 27626 mm (ref 2: centre of optic; mirror-1 axis)
 :Position tolerance: 250 µm (x, y), 5 mm (z)
@@ -553,7 +553,7 @@ Y3-30 Mirror
 :Mirror length: 0.993 m (used by the angle calc record)
 :Reference drawing: 4105091203-300000
 :Reference (ops): https://docs2bm.readthedocs.io/en/latest/source/ops/item_045.html#mirror
-:MEDM screens: ``2postMirror.adl`` (Y / pitch control), ``table_full.adl`` (optical-table control)
+:MEDM screens: ``2postMirror.adl`` (Y / pitch control). ``table_full.adl`` was historically used for the ``2bma:table1`` composite axes; that record was dropped 2026-06-15 (see Mirror optical table block below) and the screen is no longer functional at runtime.
 :EPICS prefix: ``2bma:`` (motors listed per sub-system below)
 
 The APS reference-table entry reflects pre-APS-U geometry; the
@@ -592,10 +592,11 @@ into the IOC by:
 
 i.e. ``mDn`` (downstream) = ``2bma:m2``, ``mUp`` (upstream) =
 ``2bma:m5``, mirror length 0.9932 m for the angle calc. There are
-**exactly two physical Y motors** on the mirror itself; the
-``2bma:table1`` virtual record below also exposes Y axes, but those
-are the same two physical motors viewed as table corner supports
-(see the Optical table block and the m3 note there).
+**exactly two physical Y motors** on the mirror itself; these are
+the operational surface for fine pitch / angle setting via
+``2postMirror.adl``. See the Mirror optical table block below for
+why the table-level virtual record (``2bma:table1``) used to
+double-count them and has now been removed.
 
 **In-vacuum stripe selector.** The mirror has four horizontal coating
 stripes on its optical surface, selected by translating the mirror
@@ -617,95 +618,94 @@ stripe expected-flux curve (``mirror_multilayer_coating.png``).
    This coordination is encapsulated by the energy-change IOC; see
    :ref:`composite-iocs`.
 
-**Optical table.** The mirror sub-assembly sits on a multi-motor
-optical table that provides additional X (transverse) and Z
-(along-beam) translation and rotations. The table is driven through
-the ``table_full`` IOC, exposing the virtual table record
-``2bma:table1`` (composite). Loaded in the 2-BM-A IOC by
-``dbLoadRecords("$(DIR)/table.db", "P=2bma:,Q=Table1,T=table1,
-M0X=m1, M0Y=m2, M1Y=m3, M2X=m4, M2Y=m5, M2Z=m6, GEOM=SRI")``.
-Geometry is ``SRI`` (Sector Research Instrumentation: 3 Y supports,
-2 X supports, 1 Z support — 6 motors total), the same template
-used for the detector optical table; ``Translate`` / ``Rotate``
-columns on the screen are calc-driven composites of the underlying
-Motors column.
+**Mirror optical table.** The mirror sub-assembly sits on a
+multi-motor optical table whose six physical motors live on the
+``ioc2bma`` crate as ``2bma:m1`` through ``2bma:m6``. The table is
+**not exposed as a composite virtual record at 2-BM today** (the
+``2bma:table1`` record was historically loaded via ``table.db`` but
+has been removed — see note below). The six physical motors are
+driven via two separate, purpose-fit abstractions:
 
-Underlying motor map:
+- ``2postMirror.db`` for the mirror's pitch and vertical translation
+  (the per-end Y motors ``2bma:m2`` and ``2bma:m5``); operational
+  surface is ``2postMirror.adl``.
+- The energy-change IOC for the X support motors ``2bma:m1`` and
+  ``2bma:m4`` (the ``m1mox`` / ``m1m2x`` per-energy values driven in
+  coordinated moves with the in-vacuum stripe selector to reach the
+  highest-energy mirror stripes; see :ref:`composite-iocs`).
 
-=======  ============  ================================
-Macro    Motor PV      Role on the table
-=======  ============  ================================
-``M0X``  ``2bma:m1``   corner 0 — X support
-``M0Y``  ``2bma:m2``   corner 0 — Y support
-``M1Y``  ``2bma:m3``   **ERRONEOUS** — see warning below
-``M2X``  ``2bma:m4``   corner 2 — X support
-``M2Y``  ``2bma:m5``   corner 2 — Y support
-``M2Z``  ``2bma:m6``   corner 2 — Z support (single Z)
-=======  ============  ================================
+Per-motor role:
 
-The ``table.db`` template combines these into composite translate /
-rotate axes ``2bma:table1.X``, ``.Y``, ``.Z``, ``.AX``, ``.AY``,
-``.AZ``, plus per-leg readbacks under the ``2bma:table1:`` prefix.
+=========  =============================================================
+Motor PV   Role
+=========  =============================================================
+``2bma:m1``  Table X support, corner 0 (driven by energy-change IOC as ``m1mox``)
+``2bma:m2``  Mirror downstream Y (``M1 DSY``; per-end Y for pitch / vertical; ``2postMirror.adl`` operational surface; also ``mDn`` in ``2postMirror.db``)
+``2bma:m3``  In-vacuum X stripe selector (NOT a table support; see In-vacuum stripe selector block above)
+``2bma:m4``  Table X support, corner 2 (driven by energy-change IOC as ``m1m2x``)
+``2bma:m5``  Mirror upstream Y (``M1 USY``; per-end Y for pitch / vertical; ``2postMirror.adl`` operational surface; also ``mUp`` in ``2postMirror.db``)
+``2bma:m6``  Table Z support; present but not used operationally
+=========  =============================================================
 
 .. figure:: ../img/mirror_table.png
    :width: 480px
    :align: center
-   :alt: table_full.adl optical-table screen for 2bma:table1
+   :alt: table_full.adl optical-table screen for 2bma:table1 (historical)
 
-   ``table_full.adl`` for ``2bma:table1`` — optical-table control
-   screen. Translate / Rotate columns are calc-driven composites; the
-   Motors column drives the underlying stages (M0X, M0Y, M1Y, M2X,
-   M2Y, M2Z).
+   ``table_full.adl`` for ``2bma:table1``, **historical screenshot**.
+   This screen showed the table virtual record's composite axes
+   while ``table.db`` was loaded. As of 2026-06-15 the
+   ``2bma:table1`` record is no longer loaded (see note below); this
+   screen will show disconnected PVs at runtime and is kept here for
+   documentation of the prior configuration only.
 
-Operational status of each axis:
+.. note::
 
-- **M0X**, **M2X** (X support, ``2bma:m1`` / ``2bma:m4``): driven by
-  the **energy-change IOC** in coordinated moves with the in-vacuum
-  stripe selector to extend stripe-selector travel when reaching the
-  highest-energy mirror stripes. Per-energy values are stored as
-  ``m1mox`` / ``m1m2x`` in the energy IOC configuration (see
-  :ref:`composite-iocs`).
-- **M0Y**, **M2Y** (Y supports, ``2bma:m2`` / ``2bma:m5``):
-  physically the same per-end mirror Y motors documented above as
-  ``M1 DSY`` (downstream Y) and ``M1 USY`` (upstream Y) — viewed
-  once as raw motor records driven via ``2postMirror.adl`` (the
-  operational surface for fine pitch / angle setting) and once as
-  table Y corner supports via this virtual record.
-- **M1Y** (``2bma:m3``): **erroneous macro mapping** — see warning
-  below. ``2bma:m3`` is the in-vacuum stripe selector, not a table
-  Y support. The mirror table physically has only two Y supports
-  (``M0Y`` and ``M2Y`` above).
-- **M2Z** (Z support, ``2bma:m6``): along-beam translation; present
-  but not used operationally.
+   **History — ``2bma:table1`` virtual record removed 2026-06-15.**
 
-.. warning::
+   ``iocBoot/ioc2bma/st.cmd`` previously loaded the synApps
+   ``table.db`` template for this mirror table with the
+   substitution
+   ``"P=2bma:,Q=Table1,T=table1,M0X=m1, M0Y=m2, M1Y=m3, M2X=m4,
+   M2Y=m5, M2Z=m6, GEOM=SRI"``. That substitution had ``M1Y =
+   2bma:m3`` — but ``2bma:m3`` is the in-vacuum X stage that
+   translates the mirror inside the vacuum chamber (the stripe
+   selector), not a table Y corner support. The mirror table
+   physically has only **two** Y supports (the per-end DSY / USY
+   motors at ``2bma:m2`` / ``2bma:m5``, corroborated by the
+   ``2postMirror.db`` substitution above), so the ``M1Y`` slot in
+   the SRI 3-Y / 2-X / 1-Z template was structural padding
+   mistakenly filled with the stripe-selector motor record.
 
-   **``M1Y = m3`` in the table.db substitution above is an error.**
+   Consequence at the time: any move on ``2bma:table1.Y``, ``.AX``,
+   or ``.AY`` distributed through ``M1Y`` and would have perturbed
+   the in-vacuum stripe selector. The composite Y / pitch / yaw
+   axes on the table were therefore not safe to drive.
 
-   ``2bma:m3`` is the in-vacuum X stage that translates the mirror
-   inside the vacuum chamber (the stripe selector), confirmed by
-   beamline staff (2026-06-15). It cannot also be a table Y corner
-   support: a single motor record drives a single physical motor.
-   The mirror table physically has only TWO Y supports (corners 0
-   and 2), corroborated by the ``2postMirror.db`` loading line above
-   (``mDn=m2``, ``mUp=m5`` — exactly two per-end Y motors wired).
-   The ``M1Y`` macro slot in the ``GEOM=SRI`` template was filled
-   with ``2bma:m3`` likely because the template requires six motor
-   macros and an existing motor record was substituted as padding.
+   Three resolution paths were considered (tracked at
+   `xray-imaging/2bm-docs#171
+   <https://github.com/xray-imaging/2bm-docs/issues/171>`__):
 
-   Consequence: any move on ``2bma:table1.Y``, ``.AX``, or ``.AY``
-   that distributes through ``M1Y`` will perturb the in-vacuum
-   stripe selector. The composite Y / pitch / roll axes on this
-   table are therefore NOT safe to drive until the substitution is
-   fixed. Per-energy mirror Y is set via ``2postMirror.adl``
-   (driving ``2bma:m2`` and ``2bma:m5`` directly); per-energy
-   table-X moves via ``M0X`` and ``M2X`` are independent and
-   remain safe.
+   - **Path A** — substitute a soft motor record for ``M1Y`` so the
+     composite axes stay nominally functional but no longer touch
+     ``2bma:m3``.
+   - **Path B** — switch to ``ASRPmirrorTable.db`` (the synApps
+     mirror-table-specific template) which uses ``PITCH`` + ``VERT``
+     instead of 6 motors and matches the physical 2-Y geometry.
+   - **Path C** — drop the ``2bma:table1`` virtual record entirely;
+     drive the 6 physical motors directly via ``2postMirror.db``
+     (per-end Y / pitch / vertical) and the energy-change IOC (table
+     X). No composite axes, no soft motor.
 
-   Tracked as `xray-imaging/2bm-docs#171
-   <https://github.com/xray-imaging/2bm-docs/issues/171>`__ (fix
-   the ``M1Y`` mapping in the ``table.db`` substitution in
-   ``iocBoot/ioc2bma/st.cmd``).
+   **Path C was chosen** (operator-confirmed 2026-06-15): the
+   ``dbLoadRecords`` line for ``table.db`` was commented out in
+   ``iocBoot/ioc2bma/st.cmd``, so the ``2bma:table1`` record and
+   its ``.X / .Y / .Z / .AX / .AY / .AZ`` composite axes no longer
+   exist in CA. All operational motion at the mirror goes through
+   ``2postMirror.db`` (pitch / vertical) and the energy-change IOC
+   (table X for stripe-selector extension); ``2bma:m6`` (the Z
+   support) remains an addressable raw motor record but is not used
+   operationally.
 
 Double Multilayer Monochromator (DMM)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
