@@ -1186,10 +1186,15 @@ Hexapod
    suffixes ``-E1`` (incremental encoders), ``-PL4`` (ULTRA
    high-accuracy performance grade) and ``-TAS`` (tested and
    integrated as a system).
+:Serial number: ``486060-01``
 :Mounted on: Sample optical table
 :Carries: LaminographyPitch
-:Driven by: ``HexapodDrive`` (cora ``MotionController``
-   Asset; specific product line not yet confirmed on this page)
+:Driven by: ``HexapodDrive`` (cora ``MotionController`` Asset,
+   bound to Aerotech **Automation1-iXR3** drive, full ordering
+   code ``Automation1-iXR3-VL1-VB4-VB4-SB0CT222222-P1P1P1P1P1P1-CO-LC1MT1PSO6-SI0-TAS``,
+   S/N ``486125-01``, in a separate rack; operator-confirmed
+   2026-06-15. Earlier this page noted "specific product line not
+   yet confirmed"; this is the resolution.)
 :Degrees of freedom: X, Y, Z, A (θ\ :sub:`x`), B (θ\ :sub:`y`), C (θ\ :sub:`z`)
 :Travel:
    X 55 mm, Y 60 mm, Z 25 mm, A 15°, B 15°, C 30° (single-axis moves
@@ -1240,7 +1245,7 @@ Hexapod
    2-BM-B sample stack on the Vibraplane-isolated optical table.
    Visible from bottom to top: the Aerotech HEX300-230HL hexapod (six
    struts), the Kohzu SA16A-RM laminography tilt stage (centre), and
-   the Aerotech ABS250MP-M-AS air-bearing rotary at top.
+   the Aerotech ABRS-250MP-M-AS air-bearing rotary at top.
 
 LaminographyPitch
 -----------------
@@ -1276,13 +1281,18 @@ Rotary
 :Role: Sample rotation axis (theta)
 :Family: RotaryStage
 :Model:
-   Stage — Aerotech ABS250MP-M-AS air-bearing direct-drive rotary
-   (250 mm aperture, mid-precision class). Drive — Aerotech Ensemble
-   HLE10-40-A-MXH (HLe-series digital drive). The cora Device
-   identifier ``Rotary`` is a role-name per cora's #111 convention
-   (vendor / model lives in the bound Model, not the Asset name).
-   Earlier candidate names: ``Aerotech_ABRS_rotary``,
-   ``aerotech_abs250mp_m_as``.
+   Stage — Aerotech **ABRS-250MP-M-AS** air-bearing direct-drive
+   rotary (Aerotech ABRS series, 250 mm aperture, mid-precision
+   class). Drive — Aerotech Ensemble HLE10-40-A-MXH (HLe-series
+   digital drive). The cora Device identifier ``Rotary`` is a
+   role-name per cora's #111 convention (vendor / model lives in
+   the bound Model, not the Asset name). Earlier candidate names:
+   ``Aerotech_ABRS_rotary``, ``aerotech_abs250mp_m_as`` — the
+   second one was based on a then-incorrect ``ABS`` reading of the
+   hardware label; operator confirmation 2026-06-15 settles the
+   model on ABRS.
+:Serial number: ``146853-A-1-1-X``
+:Reference drawing: ``630C2125 REV (-)``
 :Mounted on: LaminographyPitch (via a fixed -10° wedge — see above)
 :Carries: SampleTop_X, SampleTop_Z
 :Driven by: ``RotaryDrive`` (cora ``MotionController`` Asset
@@ -1631,6 +1641,13 @@ the operator increases for phase-contrast imaging.)
 :Model: Aerotech **PRO225SL-1000** mechanical-bearing linear stage
    (SL precision class, 1000 mm travel; the longest member of the
    PRO225SL family). cora Model: ``aerotech_pro225sl_1000``.
+:Motor: Aerotech **BM250_UF**, 240 VAC AC servo motor, S/N
+   ``234848-07``. This is the motor inside the PRO225SL stage that
+   drives the ball screw (the stage's product name is PRO225SL-1000;
+   the motor's vendor part number is the BM250 series). The
+   ``PropagationDistanceDrive`` Aerotech controller is the
+   electronics box that runs this motor; see that Asset for the
+   drive's own model + serial.
 :Mounted on: Detector optical table
 :Carries: Optique Peter MICRX080 microscope
 :Driven by: ``PropagationDistanceDrive`` (cora ``MotionController``
