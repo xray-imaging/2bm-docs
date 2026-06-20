@@ -1991,6 +1991,12 @@ Optique Peter MICRX080 microscope
      Model ``Oryx ORX-10G-51S5M``. Sony IMX250 CMOS sensor,
      global shutter; 2448 × 2048, 3.45 µm pixel pitch; 162 fps
      at full resolution over 10GigE; 12-bit ADC. C-mount.
+     **Dual-role**: same physical camera (serial ``19173710``)
+     also serves as the vibration / flat-field stability
+     measurement camera at high frame rate (~99 fps, 1000-frame
+     HDF5 streams) per :doc:`../ops/item_021` and
+     :doc:`../ops/item_070`. There is **no separate high-speed
+     camera at 2-BM**. Answers cora VIB-1.
    - **FLIR Oryx 31MP** (camera 1, ``2bmSP2:`` areaDetector prefix).
      Model ``Oryx ORX-10G-310S9M``. Sony IMX367 CMOS sensor,
      global shutter; 6464 × 4852, 3.45 µm pixel pitch. C-mount.
