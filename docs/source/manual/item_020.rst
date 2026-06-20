@@ -1106,10 +1106,21 @@ Coded aperture (Jena NV200D piezo)
 :z position: ~51,300 mm (between the B-station Slits at 50,500 mm
    and the sample stack; just downstream of the last Be window
    before 2-BM-B)
-:Hardware (controller): Piezosystem Jena **NV200D/NET** controller
-   driving two piezo axes (X and Y). Vendor datasheet:
-   `NV200D-Datasheet.pdf
+:Hardware (controllers): **Two** Piezosystem Jena **NV200D/NET**
+   controllers, one per piezo axis (not a single dual-channel
+   controller). Each is Ethernet-attached and addressed via the
+   vendor's Telnet interface on port 23 ("NV200/D NET>" prompt):
+
+   =====  ====================  ====================
+   Axis   Controller IP         Vendor model
+   =====  ====================  ====================
+   X      ``10.54.113.126``     NV200D/NET
+   Y      ``10.54.113.125``     NV200D/NET
+   =====  ====================  ====================
+
+   Vendor datasheet: `NV200D-Datasheet.pdf
    <https://www.piezosystem.com/wp-content/uploads/2023/07/NV200D-Datasheet.pdf>`__.
+
    NOT the NV100D (which lacks the external trigger mode required
    for tomoscan fly-scan integration and is therefore not used at
    2-BM in any operational procedure today; see :doc:`../ops/item_027`
@@ -1138,8 +1149,40 @@ Coded aperture (Jena NV200D piezo)
 :IOC: ``JenaNV200D`` (running on ``arcturus``)
 :Operational reference: :doc:`../ops/item_028` covers IOC startup,
    network configuration, caQtDM screens, FPGA trigger integration,
-   and the triggered-step mode (``nv200_trigger_step_lib.py`` with
-   ``--linspace`` or ``--random``; standard list length 1024).
+   and the triggered-step mode.
+:Triggered-step programming procedure: Formal procedure page
+   :doc:`../procedures/item_013` (slug ``nv200_trigger_step``).
+   Implementation lives in the ``2bm-procedures`` repository at
+   `procedures/nv200_trigger_step.py
+   <https://github.com/decarlof/2bm-procedures/blob/main/procedures/nv200_trigger_step.py>`__
+   (official `nv200 Python library
+   <https://pypi.org/project/nv200/>`__-based; runs the per-axis
+   setup concurrently via ``asyncio``). Loads a 1024-position-max
+   waveform buffer into each controller via Telnet and arms the
+   FPGA-trigger-driven advance.
+
+   A second variant lives in the sandbox at
+   ``/home/beams/2BMB/conda/sandbox/nv200/nv200_trigger_step.py`` —
+   raw Telnet, no ``nv200`` library; documents the vendor's command
+   vocabulary directly (``gparb``, ``gsarb``, ``gearb``, ``goarb``,
+   ``gtarb``, ``gcarb``, ``trgfkt,2``, ``modsrc,3``, ``grun``,
+   ``gsave``/``gload``, ``meas``, ``posmin``/``posmax``, ``cl``).
+   Kept as a reference implementation of the protocol; not the
+   operationally-blessed script.
+
+   Defaults to ``n = 256`` positions per axis (max 1024) and takes
+   a ``--random`` flag for randomly-sampled positions (default is
+   evenly-spaced ``linspace``). After each generation the positions
+   are saved to ``positions_x.txt`` and ``positions_y.txt`` in the
+   current working directory. Current operational state (as of late
+   2026) uses ``--random`` for compressive-sensing dithered sampling
+   during tomography fly-scans.
+
+   Operational constraint: each controller only accepts **one
+   Telnet connection at a time**, so the EPICS IOC must be stopped
+   before running the script (and restarted afterwards). The
+   triggered-step state can optionally be persisted to EEPROM via
+   the script's ``save_to_eeprom()`` so it survives a power cycle.
 
 .. note::
 
