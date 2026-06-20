@@ -84,7 +84,13 @@ procedure is implemented.
 - :doc:`procedures/item_004` — ``set_a_slits``. Satisfies
   ``a_slits_open``.
 - :doc:`procedures/item_005` — ``set_energy_to_preselect``.
-  Satisfies ``energy_configured``.
+  Satisfies ``energy_configured``. Two-path procedure: exact-match
+  pre-calibrated energy uses the ``energy2bm.json`` ``store_0`` row
+  directly; off-table energy uses linear interpolation between the
+  two bracketing calibrated energies (reference algorithm in the
+  older synApps ``support/energy`` package; the newer deployed
+  ``xray-imaging/energy`` does not yet implement it). Pending
+  operator validation of the linear-interp assumption per motor.
 - :doc:`procedures/item_006` — ``set_flag_in``. Satisfies
   ``flag_in_beam``. (Flag is ``2bma:m44`` in
   :doc:`manual/item_020`; energy-dependent target Y from
