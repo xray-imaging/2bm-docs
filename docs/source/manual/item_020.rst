@@ -472,10 +472,20 @@ Materials currently bound (read from the screen above):
 
 .. warning::
 
-   Only the **downstream** paddle set is currently operational. The
-   upstream paddle materials listed above are bound in software but
-   the hardware is not in service; selecting them has no effect on the
-   beam.
+   **Downstream paddle (`2bma:m18`) motor is failed.** Operator-
+   reported 2026-06-19. The motor is currently parked at position
+   107.19 mm, ~1 mm beyond the ``None`` bind at 106.000 mm — i.e.,
+   paddles are clear of the beam, but the motor cannot be commanded.
+   Bindings (see table below) remain valid in the IOC and will
+   return to use when the motor is repaired or replaced; until then,
+   no downstream filter can be selected.
+
+   The **upstream paddle (`2bma:m17`)** is **fully operational** —
+   paddles ``1 mm C``, ``150 µm Al``, ``600 µm Al``, ``1 mm Al``,
+   and ``None`` are all selectable. Earlier revisions of this page
+   said upstream "hardware not in service"; that was incorrect and
+   has been removed. Filter selection at 2-BM today is therefore
+   available via the upstream paddle only, until m18 is repaired.
 
 .. figure:: ../img/filter_setup.png
    :width: 480px
@@ -528,9 +538,10 @@ downstream ``2bma:m18.VAL``.
      - LowLimit
      - 0.000
 
-Position units follow the motor record's ``.EGU`` field; the regular
-~25-26 spacing across the 0–106 range is consistent with a millimetre
-travel.
+Position units are **millimetres**, per ``caget 2bma:m18.EGU``
+(operator-verified 2026-06-19; PV returns ``mm``). The regular
+~25-26 mm spacing across the 0–106 mm range is the physical paddle
+pitch.
 
 Y3-30 Mirror
 ~~~~~~~~~~~~
