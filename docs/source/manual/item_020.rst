@@ -1309,10 +1309,37 @@ Rotary
    distribution to the ML card. Bound cora Model:
    ``aerotech_ensemble`` (currently — see [cora#156] for the
    pending rename to a Model handle matching the actual P/N.))
-:Travel: -360 deg to +360 deg
-:Max speed: 720 deg/s
-:Encoder resolution: 0.0001 deg
+:Travel: 360° continuous (per datasheet); the 2-BM operational
+   software limits are configured at ``2bmb:m102.LLM = -360 deg``,
+   ``.HLM = +360 deg``.
+:Max speed (datasheet): 500 rpm (= 3000 deg/s). 2-BM operational
+   profile uses much lower speeds (the 720 deg/s value previously
+   listed here was an operational soft limit, not the stage maximum;
+   re-derive from the application speed profile rather than the
+   stage rating).
+:Encoder: 11,840 lines/rev fundamental (per datasheet). With
+   Aerotech's standard interpolation the addressable resolution is
+   sub-microradian, corresponding to roughly 0.0001 deg per step at
+   the application layer.
+:Accuracy: ±2 arc sec (per datasheet)
+:Repeatability (bidirectional): <1 arc sec (per datasheet)
 :Homing offset: 0 deg
+:Dimensions: 250 mm wide × 100 mm high; 228.1 mm tabletop diameter;
+   35 mm clear aperture (per datasheet — note: the "250" in
+   ``ABRS-250MP`` is the stage width, NOT the aperture, which earlier
+   revisions of this page conflated)
+:Bus voltage: 340 VDC (per datasheet)
+:Max load: 66 kg axial, 36 kg radial, 28 N·m tilt (per datasheet)
+:Air supply: 80 psig (5.5 bar) ± 10 psig; air consumption <56.6
+   SLPM (<2 SCFM); clean dry air at 0 °F dew point, 0.25 µm filter,
+   nitrogen at 99.9 % purity recommended (per datasheet)
+:Inertia (unloaded): 39,100 kg·mm² (per datasheet)
+:Total mass: 15.6 kg (per datasheet)
+:Material / finish: Aluminum, hardcoat (62 Rockwell hardness) (per datasheet)
+:Datasheet: https://de.aerotech.com/wp-content/uploads/2021/01/abrs.pdf
+   (Aerotech ABRS series rotary stages, covers ABRS150MP /
+   ABRS200MP / ABRS250MP / ABRS300MP; the 2-BM stage is the
+   ABRS250MP variant)
 :EPICS: ``2bmb:m102``
    (PV mapping from
    `tomoScanStream.substitutions
