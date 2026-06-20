@@ -75,18 +75,39 @@ Preconditions
 - :doc:`item_003` (``enable_beamline``).
 - :doc:`item_007` (``open_b_shutter``) — beam must reach the optics
   to verify the energy change.
-- **A-shutter handling is NOT automated by the energy change.** The
-  deployed ``move.py::motors()`` has both the close and re-open
-  calls explicitly commented out (the close-side log still prints
-  "closing A-shutter" misleadingly; the open-side log says
-  "opening shutter after energy change has been disabled"). The
-  A-shutter stays open continuously throughout an experimental
-  session per the operational practice documented in the A-shutter
-  block of :doc:`../manual/item_020` — closing and re-opening it
-  per energy change would create thermal transients in the
-  beamline optics. The formal procedure's precondition is simply
-  that the A-shutter is in whatever state the operator has chosen
-  (typically open); no per-move shutter sequencing.
+- **A-shutter handling is operator-managed** (current state =
+  temporary XANES-friendly patch; intended permanent behaviour is
+  conditional close, see below).
+
+  - The deployed ``move.py::motors()`` has both the close and
+    re-open calls **explicitly commented out** (the close-side log
+    still prints "closing A-shutter" misleadingly; the open-side
+    log says "opening shutter after energy change has been
+    disabled"). This is a **temporary patch** introduced to support
+    XANES workflows, where the per-scan energy step is small
+    (~eV-scale) and the operator wants the A-shutter open
+    continuously to preserve the thermal stability of the upstream
+    optics; auto-closing for every step would create a thermal
+    transient bigger than the XANES step itself.
+
+  - The **intended permanent behaviour** is **conditional**:
+
+    - **Small energy change** (XANES, eV-scale step within or near
+      a single calibrated energy): keep A-shutter open. Current
+      commented-out behaviour is correct for this case.
+    - **Large energy change** (between adjacent calibrated
+      energies, Mono <-> Pink mode switch, any move covering more
+      than ~few keV): **close** the A-shutter for the duration of
+      the move to prevent vacuum bumps from the filter-holder
+      frames crossing the beam during motion.
+
+  - Until the conditional logic is restored to ``move.py``, the
+    A-shutter is in whatever state the operator left it in. For
+    large energy changes the operator should manually close the
+    FES (``S02BM-PSS:FES:CloseEPICSC``) before invoking
+    ``energy set`` and re-open it (``OpenEPICSC``) afterwards;
+    cora-side this is a Plan-level wrap around the energy Method,
+    not a property of the Method itself.
 
 
 Parameters
