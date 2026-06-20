@@ -477,8 +477,10 @@ Materials currently bound (read from the screen above):
    107.19 mm, ~1 mm beyond the ``None`` bind at 106.000 mm — i.e.,
    paddles are clear of the beam, but the motor cannot be commanded.
    Bindings (see table below) remain valid in the IOC and will
-   return to use when the motor is repaired or replaced; until then,
-   no downstream filter can be selected.
+   return to use when the motor is repaired or replaced. **Repair
+   is not expected in the near term**; the planning assumption for
+   the foreseeable future is that filter selection at 2-BM is via
+   the upstream paddle (m17) only.
 
    The **upstream paddle (`2bma:m17`)** is **fully operational** —
    paddles ``1 mm C``, ``150 µm Al``, ``600 µm Al``, ``1 mm Al``,
