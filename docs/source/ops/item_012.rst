@@ -5,7 +5,12 @@ Beamline alignment
 White beam
 ==========
 
-Center the source white beam on the 50 mm × 3 mm (H × V) fixed mask.
+Center the source white beam on the fixed M3-24 front-end exit mask
+(44.4 mm × 4.5 mm H × V optical aperture, OFHC copper, at
+``z = 24020 mm`` per APS_2191941 row 1; see
+:doc:`../manual/item_020`). Earlier versions of this page cited
+"50 mm × 3 mm" — that was an outdated pre-APS-U value; the post-
+APS-U mask dimensions are above.
 
 Start the detector in 2-BM-A::
 
