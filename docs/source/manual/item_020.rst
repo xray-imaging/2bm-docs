@@ -1656,10 +1656,99 @@ and ``m18`` are slots on the same OMS-VME58 card — cora Asset
 ``SampleStageDrive``. The hexapod motor ``2bmHXP:m3`` is one
 DoF of ``Hexapod``, driven by ``HexapodDrive``.
 
-Calibrated lens positions (mm, both cameras): Pos. 0 = -60.030,
-Pos. 1 = -0.8370, Pos. 2 = 58.64. Camera positions: Pos. 0 = 20,
-Pos. 1 = 15. Per-objective and per-camera fine focus and rotation
-offsets are held in the IOC's autosave file.
+**Calibrated lens positions are per-camera, not shared.** MCTOptics
+stores six turret positions (3 lenses × 2 cameras) so that the
+rotation axis stays at the same physical location when the operator
+swaps cameras. When ``LensSelect`` or ``CameraSelect`` changes, the
+IOC moves ``2bmb:m1`` to the position corresponding to the new
+(lens, camera) pair. PVs and operator-verified values
+(``caget`` 2026-06-19):
+
+==========  ==============================  ==============================
+Lens / mag  Camera 0 (mm)                   Camera 1 (mm)
+==========  ==============================  ==============================
+Lens 0 / 1.1×  ``2bm:MCTOptics:Camera0LensPos0`` = ``-59.8184``  ``2bm:MCTOptics:Camera1LensPos0`` = ``-60.3784``
+Lens 1 / 2×    ``2bm:MCTOptics:Camera0LensPos1`` = ``-0.5734``   ``2bm:MCTOptics:Camera1LensPos1`` = ``-0.9240``
+Lens 2 / 10×   ``2bm:MCTOptics:Camera0LensPos2`` = ``58.8707``   ``2bm:MCTOptics:Camera1LensPos2`` = ``59.2300``
+==========  ==============================  ==============================
+
+The per-camera offsets are ~0.4–0.6 mm and reflect the slightly
+different optical-path alignment between the two cameras on the
+dual-port (the folding-mirror selector at ``2bmb:m5`` swings the
+beam between the two camera arms). Operators rarely retune this
+alignment in routine operation; the per-camera position table is
+the mechanism that lets the IOC preserve the rotation-axis
+location across camera swaps when the alignment is fresh.
+
+Camera-selector positions (folding-mirror motor ``2bmb:m5``):
+Pos. 0 = 20 mm, Pos. 1 = 15 mm.
+
+**Per-(camera, lens) camera rotation offsets** follow the same
+lookup pattern as the turret positions above, on a different pair
+of motors: ``2bmb:m7`` (``CAM0_ROT``, camera 0 image-rotation
+alignment) and ``2bmb:m8`` (``CAM1_ROT``, camera 1). Same
+rationale: keep the rotation axis aligned to the image as the
+operator swaps lens or camera. Operator-verified values
+(``caget`` 2026-06-19):
+
+==========  ==============================  ==============================
+Lens / mag  Camera 0 rotation (``2bmb:m7``)  Camera 1 rotation (``2bmb:m8``)
+==========  ==============================  ==============================
+Lens 0 / 1.1×  ``2bm:MCTOptics:Camera0Lens0Rotation`` = ``0``        ``2bm:MCTOptics:Camera1Lens0Rotation`` = ``-0.781``
+Lens 1 / 2×    ``2bm:MCTOptics:Camera0Lens1Rotation`` = ``0.555``    ``2bm:MCTOptics:Camera1Lens1Rotation`` = ``-0.92``
+Lens 2 / 10×   ``2bm:MCTOptics:Camera0Lens2Rotation`` = ``0``        ``2bm:MCTOptics:Camera1Lens2Rotation`` = ``-1.06094``
+==========  ==============================  ==============================
+
+When the operator changes ``LensSelect`` or ``CameraSelect``, the
+IOC reads the matching ``Camera{N}Lens{M}Rotation`` PV and writes
+its value to ``2bmb:m7`` (if camera 0) or ``2bmb:m8`` (if camera 1).
+This is parallel to the turret-position lookup: same per-(camera,
+lens) pair, different motor.
+
+Unit follows the motor record's ``.EGU`` field for ``2bmb:m7`` /
+``2bmb:m8`` (typically degrees for a camera rotation stage; verify
+with ``caget 2bmb:m7.EGU``).
+
+**Per-(camera, lens) fine focus offsets** are the third 6-PV
+lookup family, this time on per-LENS focus motors:
+``LENS0_FOCUS`` / ``LENS1_FOCUS`` / ``LENS2_FOCUS`` =
+``2bmb:m2`` / ``2bmb:m3`` / ``2bmb:m4``. Structurally different
+from turret position (single motor ``m1``) and camera rotation
+(per-camera motor ``m7`` or ``m8``): focus has a different motor
+per lens, and the per-camera dimension is currently degenerate
+(Camera 0 and Camera 1 hold identical focus values for every
+lens in the present calibration). Operator-verified values
+(``caget`` 2026-06-19):
+
+==========  ==============================  ==============================
+Lens / mag  Camera 0 focus                  Camera 1 focus
+==========  ==============================  ==============================
+Lens 0 / 1.1× → ``2bmb:m2``  ``2bm:MCTOptics:Camera0Lens0Focus`` = ``-0.374848``  ``2bm:MCTOptics:Camera1Lens0Focus`` = ``-0.374848``
+Lens 1 / 2× → ``2bmb:m3``    ``2bm:MCTOptics:Camera0Lens1Focus`` = ``11.9161``    ``2bm:MCTOptics:Camera1Lens1Focus`` = ``11.9161``
+Lens 2 / 10× → ``2bmb:m4``   ``2bm:MCTOptics:Camera0Lens2Focus`` = ``0``          ``2bm:MCTOptics:Camera1Lens2Focus`` = ``0``
+==========  ==============================  ==============================
+
+When ``LensSelect`` changes to slot ``M`` and ``CameraSelect`` is
+``N``, the IOC writes ``Camera{N}Lens{M}Focus`` to ``2bmb:m{2+M}``.
+The per-camera dimension is supported by the IOC infrastructure
+but is not used in the current calibration (``Camera0Lens{M}Focus
+== Camera1Lens{M}Focus`` for every ``M``); the PVs exist for
+future per-camera focus calibration if needed.
+
+**Summary — three per-(camera, lens) MCTOptics lookups, applied
+coordinately on each LensSelect / CameraSelect change:**
+
+==========================  ==============================  ==============================  ==============================
+Lookup                      Motor(s)                        Value PVs                       Per-camera dimension today
+==========================  ==============================  ==============================  ==============================
+Turret position             ``2bmb:m1``                     ``Camera{N}LensPos{M}`` (6)     active (~0.4–0.6 mm offset)
+Camera rotation             ``2bmb:m7`` (cam0), ``m8`` (cam1)  ``Camera{N}Lens{M}Rotation`` (6)  active (some zero, some non-zero)
+Per-lens fine focus         ``2bmb:m2``/``m3``/``m4`` (per lens)  ``Camera{N}Lens{M}Focus`` (6)     degenerate (Cam0 == Cam1)
+==========================  ==============================  ==============================  ==============================
+
+18 calibration PVs in total. Whichever subset is non-degenerate
+in any given calibration, all 18 lookups exist and the IOC will
+apply each on LensSelect / CameraSelect changes.
 
 .. figure:: ../img/optique_peter_medm.png
    :width: 70%
