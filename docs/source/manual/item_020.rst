@@ -1083,6 +1083,54 @@ B-station Slits
      ``centre_and_close_slits`` (:doc:`../procedures/item_011`).
 
 
+Coded aperture (Jena NV200D piezo)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:Role: Beam-shaping coded aperture mounted in the beam between the
+   B-station Slits and the sample. The aperture is stepped through
+   a list of (X, Y) piezo positions during a tomography fly-scan to
+   produce randomised / dithered sampling for compressive-sensing
+   imaging reconstructions.
+:Family: (Pending — neither Camera nor Stage in the traditional
+   sense; the mask itself is a beam-path optical element with its
+   own positioning piezo; cora's eventual Family choice for the
+   mask is a separate decision from the piezo controller below.)
+:cora Asset (piezo controller): ``CodedApertureFineDrive`` (proposed
+   name; ``SampleFineDrive`` was the earlier provisional placeholder
+   and is wrong — the device does not move the sample). Family:
+   ``MotionController``. Operator-confirmed 2026-06-19. The earlier
+   provisional ``OpticsFineDrive`` placeholder for the unused
+   NV100D (see :doc:`../ops/item_027`) should be retired since the
+   NV100D is not in operational use at 2-BM.
+:Hutch: 2-BM-B
+:z position: ~51,300 mm (between the B-station Slits at 50,500 mm
+   and the sample stack; just downstream of the last Be window
+   before 2-BM-B)
+:Hardware: Piezosystem Jena **NV200D/NET** controller driving two
+   piezo axes (X and Y) on the coded-aperture flexure stage. Stroke
+   per axis ~100 µm (per :doc:`../ops/item_028`). NOT the NV100D
+   (which lacks the external trigger mode required for tomoscan
+   fly-scan integration and is therefore not used at 2-BM in any
+   operational procedure today).
+:IOC: ``JenaNV200D`` (running on ``arcturus``)
+:Operational reference: :doc:`../ops/item_028` covers IOC startup,
+   network configuration, caQtDM screens, FPGA trigger integration,
+   and the triggered-step mode (``nv200_trigger_step_lib.py`` with
+   ``--linspace`` or ``--random``; standard list length 1024).
+
+.. note::
+
+   **Why this lives here (between B-station Slits and Sample
+   stack).** The coded aperture is a beam-path element upstream of
+   the sample, not part of the sample tower. Putting its description
+   in the z-ordered walk between B-station Slits (50,500 mm) and the
+   Sample stack section below matches the physical layout. The
+   piezo controller (``CodedApertureFineDrive``) is the
+   ``MotionController`` Asset that drives the aperture mask, but the
+   mask itself is a separate beam-path element — cora's eventual
+   Asset model needs both.
+
+
 Sample stack
 ============
 
