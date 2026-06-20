@@ -135,18 +135,27 @@ narrative + screenshots.)
    * - 6
      - Compute the measured energy from Bragg's law.
      - :math:`E_{meas} = 12.3984 / (2d \cdot \sin\theta_B)`.
-       Report ``offset = E_meas - nominal_energy_keV``.
+       Report ``E_meas`` and ``Delta = E_meas - nominal_energy_keV``
+       (the latter is for human comparison only — it is NOT stored
+       as an offset).
    * - 7
-     - Apply offset correction to the monochromator control
-       software, if required.
-     - **How the offset is folded into the saved per-energy table
-       is the scope of cora ENERGY-8 — not in this procedure's
-       scope.**
+     - Update the calibration table — direct update via
+       ``energy add``, no separate offset stored anywhere.
+     - Two operator-choice options: (a) tweak optics until the
+       rocking-curve peak hits the nominal energy, then
+       ``energy add --energy <nominal>`` overwrites the existing
+       row with the corrected positions; (b)
+       ``energy add --energy <measured>`` adds a new calibrated row
+       at the measured value, leaving the existing row in place.
+       See :doc:`../ops/item_022` step 7 for the explicit CLI
+       invocations. **The cora ENERGY-8 question's "offset folded
+       back vs applied separately" framing does not match the
+       actual mechanism — there is no offset state.**
    * - 8
      - Verify calibration: repeat the procedure at a second energy
        (e.g. 19 or 21 keV) to check linearity / consistency.
-     - Procedure passes if the second-energy offset is within
-       operator-set tolerance of the first.
+     - Procedure passes if the second-energy ``Delta`` (after the
+       step-7 update) is within operator-set tolerance.
 
 
 Postconditions
@@ -159,10 +168,15 @@ Postconditions
    keV").
 
 :Predicate:
-   - ``E_measured`` and ``E_measured - nominal_energy_keV`` (the
-     measured offset) recorded.
-   - At least two nominal energies sampled and offsets agree within
-     tolerance.
+   - ``E_measured`` at the nominal DMM setting recorded.
+   - If ``|E_measured - nominal_energy_keV|`` exceeds operator
+     tolerance, the calibration table has been updated via
+     ``energy add`` (either overwriting the existing row at the
+     nominal, or adding a new row at the measured value — operator
+     choice per step 7). The calibration table itself IS the
+     authoritative state; no separate offset is stored.
+   - At least two nominal energies sampled and the post-update
+     ``Delta`` is within tolerance at both.
    - Channel-cut crystal removed from the beam path at procedure
      end (sample-rotation stage is back to its operational state
      for the next sample).
@@ -179,14 +193,19 @@ Failure modes
   causes: crystal contamination, non-monochromatic input (DMM not
   settled), beam clipped by ROI. Recovery: clean / re-mount crystal,
   re-set DMM (wait for ``AllDoneA`` / ``AllDoneB``), enlarge ROI.
-- **Offset is large (> several hundred eV at 20 keV).** Likely
-  indicates DMM has drifted significantly; correction is meaningful
-  but operator should check whether something mechanical needs
-  attention (Bragg arm encoder drift, M2 Y miscount, etc.).
-- **Verification at second energy disagrees.** Linearity check
-  failed; offset is not a pure scalar. Procedure outputs both values
-  with a "non-linear calibration" warning; cora-side application of
-  the offset has to decide whether to use it as-is or refit.
+- **``Delta`` is large (> several hundred eV at 20 keV).** Likely
+  indicates DMM has drifted significantly since the last
+  calibration. The ``energy add`` step still works (the calibration
+  table can absorb any single-point correction), but the operator
+  should check whether something mechanical needs attention (Bragg
+  arm encoder drift, ``M2 Y`` miscount, etc.) before saving.
+- **Verification at second energy disagrees after step-7 update.**
+  Single-point calibration was applied; multiple nearby energies
+  still show large ``Delta``. Likely the underlying issue isn't a
+  single-energy shift but a curve-shape problem (e.g., d-spacing
+  drift, mechanical zero shift). Operator should re-calibrate the
+  affected energies via additional ``energy add`` calls and / or
+  investigate the mechanical root cause.
 
 
 Operator walkthrough
@@ -215,6 +234,13 @@ Notes
   stage (cora STAGE-3 / cora#164 ``SampleRotaryDrive`` / Aerotech
   ABRS-150MP), reused as the rocking axis for the calibration. No
   separate rotation hardware is involved.
-- The actual application of the measured offset (whether folded back
-  into the ``energy2bm.json`` ``store_0`` table, or applied as a
-  separate runtime correction) is the scope of cora ENERGY-8.
+- **No "energy offset" state is stored anywhere in the system.**
+  The cora ENERGY-8 question's framing — "is the offset folded back
+  into the saved table or applied separately?" — implies a stored
+  offset that doesn't exist. The actual mechanism: the calibration
+  table itself (``energy2bm.json`` ``store_0``) is updated directly
+  via ``energy add``, capturing the current motor positions as the
+  authoritative calibration for the named energy. Step 7 above is
+  the operational form of this. ENERGY-8 should be answered as
+  "neither — there is no offset; the table IS the truth, updated in
+  place".
