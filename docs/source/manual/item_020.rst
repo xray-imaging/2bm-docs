@@ -1104,6 +1104,65 @@ Pink-beam mode: flag at ``Y = 0 mm`` (user) -- same as the
    operating in
    pink mode means writing ``0 mm`` user to ``2bma:m44``.
 
+2-BM-A alignment camera (FLIR Oryx 5MP)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:Role: Beamline-alignment diagnostic camera that images the white,
+   pink, or monochromatic beam at the 2-BM-A end. Used during the
+   white-beam centring + mirror / DMM alignment procedure (see
+   :doc:`../ops/item_012` and :doc:`../procedures/item_015`).
+:Family: Camera (a second instance of the cora ``Camera`` Family;
+   the per-microscope detectors at 2-BM-B are the other instances).
+:cora Asset: proposed ``AStationAlignmentCamera`` (cora has not
+   chosen a handle yet; the role-name convention "Camera named by
+   what it images" would also work as ``WhiteBeamAlignmentCamera``).
+:Hutch: 2-BM-A.
+:Mounting: Permanently installed at 2-BM-A on a stand with a single
+   vertical (Y) motor for beam-finding. **Semi-permanent
+   diagnostic** — the camera is always in place, but the beam
+   only reaches it when the upstream vacuum chamber is opened and a
+   pipe section is physically removed. This is a multi-hour
+   operation done only **rarely** (annual / multi-year cadence,
+   typically for major realignment after a long shutdown or major
+   optics intervention). The setup is kept installed for
+   convenience because the disassembly / reassembly time is
+   nontrivial.
+:Camera model: FLIR Oryx 5MP (inferred from the IOC startup script
+   name ``2bmbOryx5MP``; same camera-family as the
+   :ref:`microscope-camera-0 <camera-0-2bmsp1>` at 2-BM-B but a
+   distinct physical unit). Operator confirmation of the exact
+   ``ORX-10G-51S5M`` model number is pending.
+:Vertical-stage motor: ``2bma:m21`` (single Y axis used for
+   beam-finding during alignment; positioned in the beam path by
+   the alignment procedure, returns to a parked Y between uses).
+:IOC: ``2bmbOryx5MP`` running on host **lyra** (a 2-BM-B
+   workstation per :doc:`../ops/item_017`; physically remote from
+   the camera in 2-BM-A but addresses it via the network). Start
+   sequence (per :doc:`../ops/item_012`)::
+
+     (base) 2bmb@lyra ~ $ 2bmbOryx5MP medm
+     (base) 2bmb@lyra ~ $ 2bmbOryx5MP run
+
+:EPICS prefix: TBD (not separately documented; accessible through
+   the IOC name above. Operator confirmation pending whether the
+   areaDetector prefix is ``2bmA:`` / ``2bma:`` / something else).
+:Live viewer: ImageJ with the EPICS_NTNDA plug-in is the standard
+   operator surface during alignment; ``ImageJ`` invoked from lyra.
+
+.. note::
+
+   **Why this is documented as a permanent inventory entry, not a
+   transient diagnostic.** The cora ALIGN-1 question explicitly
+   asks whether this is a standing diagnostic or a temporary
+   setup brought in only for alignment. The operationally correct
+   answer is **semi-permanent**: physically installed all the
+   time, but the beam only reaches it when an operator manually
+   breaks vacuum and removes a pipe. So it belongs in the cora
+   inventory as a registered ``Camera`` Asset (not a temporary /
+   transient fixture), with the understanding that its
+   operational-availability state is "deployed but not engaged"
+   most of the time. This answers cora ALIGN-1.
+
 P6-50 Safety Shutter (B-shutter)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
