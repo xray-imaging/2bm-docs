@@ -848,6 +848,59 @@ their difference produces a Z-tilt around the beam axis. The second
 crystal is positioned relative to the first via the ``DSY`` (Y),
 ``M2 Z`` (along beam), and ``M2 Y`` motors.
 
+**Tank / alignment motors (energy-independent within mode).** The
+five DMM tank-positioning motors (``2bma:m25-m29``) are part of the
+energy-change coordinated move but do NOT vary per energy; they take
+only two configurations selected by mode:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 18 14 22 22 24
+
+   * - Motor
+     - PV
+     - Mono (in beam)
+     - Pink (out of beam)
+     - Role
+   * - ``dmm_usx``
+     - ``2bma:m25``
+     - 111.0
+     - 111.0 (same)
+     - Upstream tank lateral X — **fixed alignment** (NOT a stripe
+       selector; the value is identical in Mono and Pink)
+   * - ``dmm_usy_ob``
+     - ``2bma:m26``
+     - 0.0
+     - -10.0
+     - Upstream tank Y outboard — in-beam vs retracted
+   * - ``dmm_usy_ib``
+     - ``2bma:m27``
+     - 0.0
+     - -10.0
+     - Upstream tank Y inboard — in-beam vs retracted
+   * - ``dmm_dsx``
+     - ``2bma:m28``
+     - 104.0
+     - 104.0 (same)
+     - Downstream tank lateral X — **fixed alignment** (NOT a stripe
+       selector)
+   * - ``dmm_dsy``
+     - ``2bma:m29``
+     - 0.0
+     - -10.0
+     - Downstream tank Y — in-beam vs retracted
+
+The X pair (``m25`` / ``m28``) is the same lateral position in both
+modes — they are **not** the multilayer stripe selector (the
+multilayer-stripe / pink-mode selection is on the Mirror, see
+``m1_horizontal`` (``2bma:m3``) in the Mirror M1 block). The three Y
+motors swing the DMM tank into or out of the beam at mode switch.
+
+The IOC re-asserts these values on every energy change (they're in
+the `energy_move_*` set in ``energy2bm.json``), but interpolation
+between the two constant values per axis is degenerate — the
+result is the constant. This answers cora ENERGY-5.
+
 **Per-energy saved positions (energy-tracking subset).** The energy-
 change IOC drives three of the DMM motors per energy: the two Bragg
 arms (``2bma:m30`` / ``2bma:m31``) and the second-crystal vertical
