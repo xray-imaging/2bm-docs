@@ -271,7 +271,7 @@ aperture that downstream optics see. From APS_2191941 row 1:
    descriptor stub (the placeholder cora opened for this question)
    is the appropriate model: a registered inventory item with
    physical / shielding parameters but no commandable axes.
-   Answers cora ALIGN-2.
+   Answers cora `ALIGN-2 <https://github.com/xmap/cora/issues/264>`__.
 
    Earlier 2bm-docs versions of :doc:`../ops/item_012` cited the
    mask as "50 mm × 3 mm (H × V)" — that was an outdated pre-APS-U
@@ -324,7 +324,7 @@ shielding material) for W4-20).
    No standalone cora Asset for the Be windows; they are passive
    beam-path elements with no command surface. Recorded here as
    per-Run provenance / shielding inventory data. Answers cora
-   BEAM-2.
+   `BEAM-2 <https://github.com/xmap/cora/issues/246>`__.
 
 
 .. _operational-components:
@@ -1000,7 +1000,7 @@ swing the DMM tank into or out of the beam at mode switch.
 The IOC re-asserts these values on every energy change (they're in
 the `energy_move_*` set in ``energy2bm.json``), but interpolation
 between the two constant values per axis is degenerate — the
-result is the constant. This answers cora ENERGY-5.
+result is the constant. This answers cora `ENERGY-5 <https://github.com/xmap/cora/issues/254>`__.
 
 **DMM substrate carries two multilayer stripes** (full specs in
 :doc:`../ops/item_021`: 13.8 Å and 24 Å multilayer periods, 4 mm
@@ -1014,7 +1014,7 @@ substrate move (the candidate axis is ``m25`` or ``m28``, since the
 substrate geometry matches the 4 mm stripe spacing, but the actual
 mapping needs operator confirmation) plus a separate Mono-mode
 recalibration of the Bragg arms and ``M2 Y`` for the new stripe.
-This answers cora ENERGY-6.
+This answers cora `ENERGY-6 <https://github.com/xmap/cora/issues/255>`__.
 
 **Per-energy saved positions (energy-tracking subset).** The energy-
 change IOC drives three of the DMM motors per energy: the two Bragg
@@ -1077,7 +1077,7 @@ the Mono 20 keV configuration. The other five DMM motors
 (``2bma:m25–m29``) also have ``store_0`` entries — in Pink the Y
 motors (``USY OB`` / ``USY IB`` / ``DSY``) are driven to ``-10`` mm
 to take the DMM out of beam — but those are not what cora's ENERGY-1
-question asks about. This table answers cora ENERGY-1.
+question asks about. This table answers cora `ENERGY-1 <https://github.com/xmap/cora/issues/249>`__.
 
 Flag (diagnostic phosphor)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1094,7 +1094,7 @@ Flag (diagnostic phosphor)
    front-end OMS VME58 #1). Operator-raised in Mono mode (Y
    position is energy-dependent, see table below) and parked at
    the lower limit in Pink mode. The energy-tracking Y curve is
-   the lookup-table data answering cora FLAG-1.
+   the lookup-table data answering cora `FLAG-1 <https://github.com/xmap/cora/issues/251>`__.
 :Mounted on: Own stand in 2-BM-A (floor-referenced).
 :Carries: phosphor-painted flag + visible camera (not modelled
    here; the camera is its own Asset).
@@ -1188,7 +1188,7 @@ Pink-beam mode: flag at ``Y = 0 mm`` (user) -- same as the
 .. note::
 
    **Why this is documented as a permanent inventory entry, not a
-   transient diagnostic.** The cora ALIGN-1 question explicitly
+   transient diagnostic.** The cora `ALIGN-1 <https://github.com/xmap/cora/issues/263>`__ question explicitly
    asks whether this is a standing diagnostic or a temporary
    setup brought in only for alignment. The operationally correct
    answer is **semi-permanent**: physically installed all the
@@ -1197,7 +1197,7 @@ Pink-beam mode: flag at ``Y = 0 mm`` (user) -- same as the
    inventory as a registered ``Camera`` Asset (not a temporary /
    transient fixture), with the understanding that its
    operational-availability state is "deployed but not engaged"
-   most of the time. This answers cora ALIGN-1.
+   most of the time. This answers cora `ALIGN-1 <https://github.com/xmap/cora/issues/263>`__.
 
 P6-50 Safety Shutter (B-shutter)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1223,7 +1223,7 @@ P6-50 Safety Shutter (B-shutter)
    (covers all four elements: white-beam stop ``41050401-300001``,
    W collimator ``41050401-500001``, safety shutter
    ``41050401-410003``, SS baffle ``41050401-500200``). Source:
-   APS_2191941 row 10. Answers cora BEAM-3.
+   APS_2191941 row 10. Answers cora `BEAM-3 <https://github.com/xmap/cora/issues/247>`__.
 :EPICS prefix: ``S02BM-PSS:SBS``
 :Open command: ``S02BM-PSS:SBS:OpenEPICSC``
 :Close command: ``S02BM-PSS:SBS:CloseEPICSC``
@@ -1415,7 +1415,7 @@ across all six configured energies); the slit aperture stays roughly
 constant while the pair's centre tracks the beam-walk. Pink-mode is
 constant across all four energies (slits parked wide open at
 +10 / -10 mm; no per-energy tracking because the DMM is bypassed).
-This table answers cora ENERGY-2.
+This table answers cora `ENERGY-2 <https://github.com/xmap/cora/issues/250>`__.
 
 .. note::
 
@@ -1836,7 +1836,7 @@ Rotary
    (Order # ``730578``, built to dwg ``630D2079 REV-H``); the
    chassis + PS24-1 supply provide DC bus and Aeronet
    distribution to the ML card. Bound cora Model:
-   ``aerotech_ensemble`` (currently — see [cora#156] for the
+   ``aerotech_ensemble`` (currently — see `cora#156 <https://github.com/xmap/cora/issues/156>`__ for the
    pending rename to a Model handle matching the actual P/N.))
 :Travel: 360° continuous (per datasheet); the 2-BM operational
    software limits are configured at ``2bmb:m102.LLM = -360 deg``,
@@ -1996,7 +1996,7 @@ Optique Peter MICRX080 microscope
      measurement camera at high frame rate (~99 fps, 1000-frame
      HDF5 streams) per :doc:`../ops/item_021` and
      :doc:`../ops/item_070`. There is **no separate high-speed
-     camera at 2-BM**. Answers cora VIB-1.
+     camera at 2-BM**. Answers cora `VIB-1 <https://github.com/xmap/cora/issues/265>`__.
    - **FLIR Oryx 31MP** (camera 1, ``2bmSP2:`` areaDetector prefix).
      Model ``Oryx ORX-10G-310S9M``. Sony IMX367 CMOS sensor,
      global shutter; 6464 × 4852, 3.45 µm pixel pitch. C-mount.
