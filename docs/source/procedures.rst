@@ -87,15 +87,17 @@ procedure is implemented.
   Satisfies ``energy_configured``. Two-path procedure: exact-match
   pre-calibrated energy uses the ``energy2bm.json`` ``store_0`` row
   directly; off-table energy uses linear interpolation between the
-  two bracketing calibrated energies (reference algorithm in the
-  older synApps ``support/energy`` package; the newer deployed
-  ``xray-imaging/energy`` does not yet implement it). Pending
-  operator validation of the linear-interp assumption per motor.
+  two bracketing calibrated energies. Both paths are already live
+  in the deployed ``decarlof/energy`` fork (a fork of
+  ``xray-imaging/energy`` reconciled periodically via PR;
+  deployment lives at ``/home/beams/2BMB/epics/synApps/support/energy/``).
+  The formal 2bm-procedures wrapper is pending; the operator will
+  validate the linear-interp assumption per motor when writing it.
 - :doc:`procedures/item_006` — ``set_flag_in``. Satisfies
   ``flag_in_beam``. (Flag is ``2bma:m44`` in
   :doc:`manual/item_020`; energy-dependent target Y from
   `energy2bm.json
-  <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__.)
+  <https://github.com/decarlof/energy/blob/main/src/energy/data/energy2bm.json>`__.)
 - :doc:`procedures/item_007` — ``open_b_shutter``. Satisfies
   ``b_shutter_open``.
 - :doc:`procedures/item_008` — ``set_b_slits``. Satisfies
