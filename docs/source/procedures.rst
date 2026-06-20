@@ -68,6 +68,20 @@ Current procedures
   trigger for the rest of the session. Targets the two
   ``CodedApertureFineDrive_X`` / ``_Y`` Assets and the coded-
   aperture XY flexure stage on the cora side.
+- :doc:`procedures/item_014` —
+  ``energy_characterization`` (**STATUS: STUB**). cora-Procedure-
+  shaped abstraction over the channel-cut crystal energy-calibration
+  recipe. The operator mounts a removable Si channel-cut crystal
+  (``2d = 3.84 Å``, consistent with Si (220), 36 × 3 mm) on the
+  2-BM-B sample-rotation stage in place of the sample, runs a
+  rocking-curve scan around the calculated Bragg angle, fits the
+  peak, and computes the measured energy + offset from the DMM
+  nominal setting. Full operator-facing recipe at
+  :doc:`ops/item_022`; broader alignment context (where this fits
+  in the white → pink → mono workflow) at :doc:`ops/item_012`. The
+  formal 2bm-procedures script implementation is pending; this is
+  cora's ``energy_characterization`` Procedure target with the
+  channel-cut crystal as a removable-reference-standard Subject.
 
 
 Stub procedures
