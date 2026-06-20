@@ -1497,7 +1497,7 @@ Coded aperture (Jena NV200D piezo)
    sense; the mask itself is a beam-path optical element with its
    own positioning piezo; cora's eventual Family choice for the
    mask is a separate decision from the piezo controller below.)
-:cora Asset (piezo controller): ``CodedApertureFineDrive`` (proposed
+:cora Asset: ``CodedApertureFineDrive`` (piezo-controller Asset; proposed
    name; ``SampleFineDrive`` was the earlier provisional placeholder
    and is wrong — the device does not move the sample). Family:
    ``MotionController``. Operator-confirmed 2026-06-19. The earlier
@@ -1527,23 +1527,33 @@ Coded aperture (Jena NV200D piezo)
    for tomoscan fly-scan integration and is therefore not used at
    2-BM in any operational procedure today; see :doc:`../ops/item_027`
    for the NV100D historical / decommissioned reference).
-:Hardware (actuator / XY flexure stage): Piezosystem Jena
+:Actuator: Piezosystem Jena XY flexure stage,
    **nanoSXY 120 CAP**, part number **T-223-06D** (the "D" suffix
    denotes the digital interface variant). Drawing: `nanoSXY-120-CAP
    <https://www.piezosystem.com/wp-content/uploads/2022/04/nanoSXY-120-CAP-Part-Drawing.pdf>`__
    (rev.01, Feb 2019). Key dimensions:
 
-   ===========================  ==============
-   Property                     Value
-   ===========================  ==============
-   Travel per axis (nominal)    120 µm
-   Travel per axis (closed-loop, per :doc:`../ops/item_028`)  100 µm
-   Clear aperture               Ø 12.5 mm (centred)
-   Outer footprint              82 × 79 × 30 mm
-   Mounting                     4× M3 tapped + 4× Ø3 G7 reamed dowel holes (symmetric, on both sides); 32 mm / 54 mm / 60 mm hole-pattern centres
-   Standard cable length        1600 mm (voltage + sensor cables)
-   Feedback                     Capacitive (the ``CAP`` in the model)
-   ===========================  ==============
+   .. list-table::
+      :header-rows: 1
+      :widths: 35 65
+
+      * - Property
+        - Value
+      * - Travel per axis (nominal)
+        - 120 µm
+      * - Travel per axis (closed-loop, per :doc:`../ops/item_028`)
+        - 100 µm
+      * - Clear aperture
+        - Ø 12.5 mm (centred)
+      * - Outer footprint
+        - 82 × 79 × 30 mm
+      * - Mounting
+        - 4× M3 tapped + 4× Ø3 G7 reamed dowel holes (symmetric, on
+          both sides); 32 mm / 54 mm / 60 mm hole-pattern centres
+      * - Standard cable length
+        - 1600 mm (voltage + sensor cables)
+      * - Feedback
+        - Capacitive (the ``CAP`` in the model)
 
    The clear aperture is what the coded-aperture mask itself is
    mounted into; the X / Y piezo motion moves the mask within the
@@ -1552,8 +1562,9 @@ Coded aperture (Jena NV200D piezo)
 :Operational reference: :doc:`../ops/item_028` covers IOC startup,
    network configuration, caQtDM screens, FPGA trigger integration,
    and the triggered-step mode.
-:Triggered-step programming procedure: Formal procedure page
-   :doc:`../procedures/item_013` (slug ``nv200_trigger_step``).
+:Programming procedure: Triggered-step buffer programming, formal
+   procedure page :doc:`../procedures/item_013` (slug
+   ``nv200_trigger_step``).
    Implementation lives in the ``2bm-procedures`` repository at
    `procedures/nv200_trigger_step.py
    <https://github.com/decarlof/2bm-procedures/blob/main/procedures/nv200_trigger_step.py>`__
@@ -1851,7 +1862,7 @@ Rotary
    sub-microradian, corresponding to roughly 0.0001 deg per step at
    the application layer.
 :Accuracy: ±2 arc sec (per datasheet)
-:Repeatability (bidirectional): <1 arc sec (per datasheet)
+:Repeatability: <1 arc sec bidirectional (per datasheet)
 :Homing offset: 0 deg
 :Dimensions: 250 mm wide × 100 mm high; 228.1 mm tabletop diameter;
    35 mm clear aperture (per datasheet — note: the "250" in
