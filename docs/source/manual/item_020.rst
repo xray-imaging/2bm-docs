@@ -148,10 +148,12 @@ Beam delivery
 =============
 
 The formal inventory of front-end and transport components, with
-positions, apertures, materials, and tolerances, is maintained as the
-**02-BM Beamline Component Reference Table** (APS_1404611):
-
-https://anl.box.com/s/afme9vpllerzzvsuzqiyxn7aukh7292j
+positions, apertures, materials, tolerances, and reference drawing
+numbers, is maintained as the **02-BM Beamline Component Reference
+Table** (APS_2191941, PDRC TN25-015, approved 04Aug2025, edited
+25Sept2025 following Commissioning with MLs and DMM motor-controller
+RSS removal). This is the post-APS-U revision and supersedes the
+earlier APS_1404611 (2013 pre-APS-U baseline).
 
 That document is the source of truth for positions and shielding;
 the summary below reproduces it in walking order (source to hutch) and
@@ -161,11 +163,12 @@ blocks for `cora <https://github.com/xmap/cora>`__.
 
 .. note::
 
-   The reference table was last formally updated for the 2013 Sector 02
-   Three-Year Safety Review and reflects the pre-APS-U layout. Post-
-   APS-U changes (mirror retrofit, source brightness, any added
-   components) need a separate reconciliation pass before this page is
-   considered final.
+   Several z positions in the per-component blocks further down this
+   page (Y3-30 Mirror, DMM crystals, P6-50 assembly) still carry the
+   pre-APS-U values from APS_1404611 and need a per-block reconciliation
+   pass against APS_2191941. The Be window stack (see "Be window stack"
+   below) and the P6-50 reference-drawing numbers are already updated
+   from APS_2191941.
 
 Coordinate convention (from the APS_1404611 reference table linked above):
 
@@ -234,9 +237,58 @@ Common position tolerances across all rows: dx = dy = 250 µm, dz = 5 mm.
 
 All four items are operational (have command surfaces) and are
 expanded in :ref:`operational components <operational-components>`.
-The P6-50 safety shutter (item 8c in the APS reference table) is also
-operational but gates the beam rather than conditioning it; it appears
-as its own block at the end of the operational-components section.
+The P6-50 safety shutter (row 10 in APS_2191941) is also operational
+but gates the beam rather than conditioning it; it appears as its own
+block at the end of the operational-components section.
+
+
+Be window stack
+---------------
+
+Three Be windows along the beam path, all OFHC-housed; total Be
+thickness **0.63 mm**. From APS_2191941 (post-APS-U), rows 5 / 8 / 9:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 6 22 22 12 12 26
+
+   * - #
+     - Component
+     - Reference drawing
+     - z [mm]
+     - Be thickness
+     - Aperture H x V [mm] and offset
+   * - 5
+     - W4-20 Be Window
+     - ``4105090804-200000``
+     - 28718
+     - 0.25 mm
+     - 120 x 15; on-centreline (x=0, y=0)
+   * - 8
+     - W4-60 Be Window
+     - ``4105090804-600000``
+     - 30804
+     - 0.13 mm
+     - 25 x 120; x = -7.4 mm (inboard), y = +22.3 mm (up)
+   * - 9
+     - Be Window (no separate label)
+     - ``4102020106-400000``
+     - 32417
+     - 0.25 mm
+     - 8.8 x 145; on-centreline (x=0), y = +31.0 mm (up)
+
+Position tolerances per row: dx = dy = 250 µm, dz = 5 mm. PSS [EPS]
+water flow rates: 1.5 LPM nominal, 1.0 LPM minimum (each window).
+Ref. z is the upstream face of the OFHC housing (ref convention 1 for
+W4-60 and the unlabelled Be window; ref convention 3 (upstream face of
+shielding material) for W4-20).
+
+.. note::
+
+   No standalone cora Asset for the Be windows; they are passive
+   beam-path elements with no command surface. Recorded here as
+   per-Run provenance / shielding inventory data. Answers cora
+   BEAM-2.
 
 
 .. _operational-components:
@@ -873,6 +925,12 @@ P6-50 Safety Shutter (B-shutter)
 :Material: W [21 mm]
 :Aperture: 60.0 × 44.5 mm
 :RSS tag: part of 02-BM-A-P-01 assembly
+:Reference drawing (shutter element): ``41050401-410003``
+:Reference drawing (full P6-50 assembly): ``41050401-500000``
+   (covers all four elements: white-beam stop ``41050401-300001``,
+   W collimator ``41050401-500001``, safety shutter
+   ``41050401-410003``, SS baffle ``41050401-500200``). Source:
+   APS_2191941 row 10. Answers cora BEAM-3.
 :EPICS prefix: ``S02BM-PSS:SBS``
 :Open command: ``S02BM-PSS:SBS:OpenEPICSC``
 :Close command: ``S02BM-PSS:SBS:CloseEPICSC``
