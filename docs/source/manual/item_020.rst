@@ -242,6 +242,42 @@ but gates the beam rather than conditioning it; it appears as its own
 block at the end of the operational-components section.
 
 
+Front-end exit mask (M3-24)
+---------------------------
+
+First beam-defining aperture on the 2-BM beamline; passive,
+water-cooled, fixed in place. Defines the white-beam optical
+aperture that downstream optics see. From APS_2191941 row 1:
+
+:RSS tag: ``02-BM-A-F-01``
+:Reference drawing: ``4102020101-240000``
+:z position: **24020 mm** (= 24.020 m from the centre of the
+   storage-ring straight section; ref convention 1 = upstream
+   face of the OFHC copper block)
+:Optical aperture (H × V): **44.4 mm × 4.5 mm**
+:Material: OFHC copper
+:Position tolerance: dx = dy = 250 µm, dz = 5 mm
+:PSS [EPS] water flow rates: 1.5 LPM nominal, 1.0 LPM minimum
+:Source-current limit: 220 mA
+:Notes: Aperture centred on the standard bending-magnet centreline
+   (1.35 mrad inboard); the upstream optics table is rotated to
+   accommodate the storage-ring wall. Thermal analysis is in
+   APSU_2286907.
+
+.. note::
+
+   No cora Asset for the FE exit mask itself — it has no command
+   surface (passive, fixed aperture, no actuator). Cora's ``Mask``
+   descriptor stub (the placeholder cora opened for this question)
+   is the appropriate model: a registered inventory item with
+   physical / shielding parameters but no commandable axes.
+   Answers cora ALIGN-2.
+
+   Earlier 2bm-docs versions of :doc:`../ops/item_012` cited the
+   mask as "50 mm × 3 mm (H × V)" — that was an outdated pre-APS-U
+   value; the post-APS-U dimensions above are authoritative.
+
+
 Be window stack
 ---------------
 
