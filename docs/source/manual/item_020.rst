@@ -1106,12 +1106,35 @@ Coded aperture (Jena NV200D piezo)
 :z position: ~51,300 mm (between the B-station Slits at 50,500 mm
    and the sample stack; just downstream of the last Be window
    before 2-BM-B)
-:Hardware: Piezosystem Jena **NV200D/NET** controller driving two
-   piezo axes (X and Y) on the coded-aperture flexure stage. Stroke
-   per axis ~100 µm (per :doc:`../ops/item_028`). NOT the NV100D
-   (which lacks the external trigger mode required for tomoscan
-   fly-scan integration and is therefore not used at 2-BM in any
-   operational procedure today).
+:Hardware (controller): Piezosystem Jena **NV200D/NET** controller
+   driving two piezo axes (X and Y). Vendor datasheet:
+   `NV200D-Datasheet.pdf
+   <https://www.piezosystem.com/wp-content/uploads/2023/07/NV200D-Datasheet.pdf>`__.
+   NOT the NV100D (which lacks the external trigger mode required
+   for tomoscan fly-scan integration and is therefore not used at
+   2-BM in any operational procedure today; see :doc:`../ops/item_027`
+   for the NV100D historical / decommissioned reference).
+:Hardware (actuator / XY flexure stage): Piezosystem Jena
+   **nanoSXY 120 CAP**, part number **T-223-06D** (the "D" suffix
+   denotes the digital interface variant). Drawing: `nanoSXY-120-CAP
+   <https://www.piezosystem.com/wp-content/uploads/2022/04/nanoSXY-120-CAP-Part-Drawing.pdf>`__
+   (rev.01, Feb 2019). Key dimensions:
+
+   ===========================  ==============
+   Property                     Value
+   ===========================  ==============
+   Travel per axis (nominal)    120 µm
+   Travel per axis (closed-loop, per :doc:`../ops/item_028`)  100 µm
+   Clear aperture               Ø 12.5 mm (centred)
+   Outer footprint              82 × 79 × 30 mm
+   Mounting                     4× M3 tapped + 4× Ø3 G7 reamed dowel holes (symmetric, on both sides); 32 mm / 54 mm / 60 mm hole-pattern centres
+   Standard cable length        1600 mm (voltage + sensor cables)
+   Feedback                     Capacitive (the ``CAP`` in the model)
+   ===========================  ==============
+
+   The clear aperture is what the coded-aperture mask itself is
+   mounted into; the X / Y piezo motion moves the mask within the
+   beam.
 :IOC: ``JenaNV200D`` (running on ``arcturus``)
 :Operational reference: :doc:`../ops/item_028` covers IOC startup,
    network configuration, caQtDM screens, FPGA trigger integration,
