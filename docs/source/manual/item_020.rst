@@ -891,15 +891,29 @@ only two configurations selected by mode:
      - Downstream tank Y — in-beam vs retracted
 
 The X pair (``m25`` / ``m28``) is the same lateral position in both
-modes — they are **not** the multilayer stripe selector (the
-multilayer-stripe / pink-mode selection is on the Mirror, see
-``m1_horizontal`` (``2bma:m3``) in the Mirror M1 block). The three Y
-motors swing the DMM tank into or out of the beam at mode switch.
+modes — they are **not** the per-energy stripe selector. The
+per-energy mirror-stripe selection is on the Mirror M1 (see
+``m1_horizontal`` (``2bma:m3``) in the M1 block). The three Y motors
+swing the DMM tank into or out of the beam at mode switch.
 
 The IOC re-asserts these values on every energy change (they're in
 the `energy_move_*` set in ``energy2bm.json``), but interpolation
 between the two constant values per axis is degenerate — the
 result is the constant. This answers cora ENERGY-5.
+
+**DMM substrate carries two multilayer stripes** (full specs in
+:doc:`../ops/item_021`: 13.8 Å and 24 Å multilayer periods, 4 mm
+apart laterally, 140 x 44 mm² each, W-B₄C on Si). Across all six
+calibrated Mono energies, applying Bragg's law (``λ = 2d sin θ``) to
+the saved Bragg-arm angles yields ``d ≈ 24 Å`` to within ~5%, with no
+values near 13.8 Å — so the **24 Å stripe is the currently active
+one** at 2-BM. The 13.8 Å stripe has never been calibrated into
+``energy2bm.json``; switching to it would be a 4 mm lateral
+substrate move (the candidate axis is ``m25`` or ``m28``, since the
+substrate geometry matches the 4 mm stripe spacing, but the actual
+mapping needs operator confirmation) plus a separate Mono-mode
+recalibration of the Bragg arms and ``M2 Y`` for the new stripe.
+This answers cora ENERGY-6.
 
 **Per-energy saved positions (energy-tracking subset).** The energy-
 change IOC drives three of the DMM motors per energy: the two Bragg
