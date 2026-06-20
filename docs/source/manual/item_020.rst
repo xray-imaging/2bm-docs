@@ -848,6 +848,69 @@ their difference produces a Z-tilt around the beam axis. The second
 crystal is positioned relative to the first via the ``DSY`` (Y),
 ``M2 Z`` (along beam), and ``M2 Y`` motors.
 
+**Per-energy saved positions (energy-tracking subset).** The energy-
+change IOC drives three of the DMM motors per energy: the two Bragg
+arms (``2bma:m30`` / ``2bma:m31``) and the second-crystal vertical
+(``2bma:m32``). Values are stored in
+`energy2bm.json <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__
+under the ``store_0`` field of each motor; the IOC reads them on each
+energy change. Reproduced here as a snapshot (the JSON file is the
+authoritative source):
+
+.. list-table::
+   :header-rows: 1
+   :widths: 18 22 22 22 16
+
+   * - Mode
+     - Energy [keV]
+     - ``dmm_us_arm`` (``2bma:m30``)
+     - ``dmm_ds_arm`` (``2bma:m31``)
+     - ``dmm_m2_y`` (``2bma:m32``)
+   * - Mono
+     - 13.374
+     - 1.131
+     - 1.133
+     - 25.1201075
+   * - Mono
+     - 13.574
+     - 1.081
+     - 1.083
+     - 24.3201075
+   * - Mono
+     - 18.000
+     - 0.822
+     - 0.824
+     - 18.820045
+   * - Mono
+     - 20.000
+     - 0.726
+     - 0.737
+     - 17.020045
+   * - Mono
+     - 25.000
+     - 0.57725
+     - 0.58825
+     - 14.220045
+   * - Mono
+     - 25.584
+     - 0.561
+     - 0.572
+     - 13.920045
+   * - Pink
+     - 30 / 40 / 50 / 60
+     - 0.740 (parked)
+     - 0.751 (parked)
+     - 17.020045 (parked)
+
+The Pink-mode values are constant across all four configured energies
+(30 / 40 / 50 / 60 keV) — the Bragg arms are simply retracted to a
+fixed park position and ``m2_y`` is held at the same value it had at
+the Mono 20 keV configuration. The other five DMM motors
+(``2bma:m25–m29``) also have ``store_0`` entries — in Pink the Y
+motors (``USY OB`` / ``USY IB`` / ``DSY``) are driven to ``-10`` mm
+to take the DMM out of beam — but those are not what cora's ENERGY-1
+question asks about. This table answers cora ENERGY-1.
+
 Flag (diagnostic phosphor)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1075,6 +1138,57 @@ B-station Slits
    ``b_slit_bot`` (= ``2bma:m10``) in the energy-change IOC; the
    vertical pair tracks the per-energy beam position in Mono mode.
    See :ref:`composite-iocs`.
+
+**Per-energy vertical positions.** The energy-change IOC drives the
+vertical pair (``2bma:m9`` / ``2bma:m10``) per energy to follow the
+DMM beam-walk; the horizontal pair (``2bma:m11`` / ``2bma:m12``) is
+NOT energy-tracked. Values from
+`energy2bm.json <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__
+``store_0``:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 18 22 30 30
+
+   * - Mode
+     - Energy [keV]
+     - ``b_slit_top`` (``2bma:m9``)
+     - ``b_slit_bot`` (``2bma:m10``)
+   * - Mono
+     - 13.374
+     - 28.804575
+     - 8.804575
+   * - Mono
+     - 13.574
+     - 28.804575
+     - 8.804575
+   * - Mono
+     - 18.000
+     - 28.804575
+     - 8.804575
+   * - Mono
+     - 20.000
+     - 31.144575
+     - 11.144575
+   * - Mono
+     - 25.000
+     - 26.23
+     - 6.23
+   * - Mono
+     - 25.584
+     - 26.28
+     - 6.28
+   * - Pink
+     - 30 / 40 / 50 / 60
+     - 10.0 (wide open)
+     - -10.0 (wide open)
+
+Mono-mode top/bottom values track each other (top − bottom ≈ 20 mm
+across all six configured energies); the slit aperture stays roughly
+constant while the pair's centre tracks the beam-walk. Pink-mode is
+constant across all four energies (slits parked wide open at
++10 / -10 mm; no per-energy tracking because the DMM is bypassed).
+This table answers cora ENERGY-2.
 
 .. note::
 
