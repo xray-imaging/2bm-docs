@@ -858,9 +858,12 @@ Flag (diagnostic phosphor)
    ``5 mm`` dial) -- out of the beam. In mono mode the flag is
    raised to block the M1-scattered halo while letting the
    monochromatic beam pass; the exact Y is energy-dependent.
-:Family: Diagnostic (no cora Family declared yet; this is the
-   first instance of a "viewable beam diagnostic" on the 2-BM
-   inventory).
+:Family: ``Screen`` (cora-confirmed).
+:cora Asset: ``DiagnosticFlag``, mounted on ``FrontEndDrive`` (the
+   front-end OMS VME58 #1). Operator-raised in Mono mode (Y
+   position is energy-dependent, see table below) and parked at
+   the lower limit in Pink mode. The energy-tracking Y curve is
+   the lookup-table data answering cora FLAG-1.
 :Mounted on: Own stand in 2-BM-A (floor-referenced).
 :Carries: phosphor-painted flag + visible camera (not modelled
    here; the camera is its own Asset).
