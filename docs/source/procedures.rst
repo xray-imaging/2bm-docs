@@ -55,6 +55,46 @@ Current procedures
   all blades restored to baseline. Open trigger to extend the
   per-station ``Slit`` Asset with per-blade calibration fields
   on the cora side.
+- :doc:`procedures/item_013` —
+  ``nv200_trigger_step``. Loads the per-axis coded-aperture
+  position list (default 256, max 1024 positions per axis) into
+  both Piezosystem Jena NV200D/NET controllers via Telnet and
+  arms them so each rising edge on TRG IN advances to the next
+  position in the buffer. ``--random`` selects compressive-sensing
+  dithered sampling (the current operational mode); ``--linspace``
+  (default) gives an evenly-spaced raster. Run once at session
+  setup or whenever the random list needs regenerating;
+  controllers then drive themselves frame-by-frame from the FPGA
+  trigger for the rest of the session. Targets the two
+  ``CodedApertureFineDrive_X`` / ``_Y`` Assets and the coded-
+  aperture XY flexure stage on the cora side.
+- :doc:`procedures/item_014` —
+  ``energy_characterization`` (**STATUS: STUB**). cora-Procedure-
+  shaped abstraction over the channel-cut crystal energy-calibration
+  recipe. The operator mounts a removable Si channel-cut crystal
+  (``2d = 3.84 Å``, consistent with Si (220), 36 × 3 mm) on the
+  2-BM-B sample-rotation stage in place of the sample, runs a
+  rocking-curve scan around the calculated Bragg angle, fits the
+  peak, and computes the measured energy + offset from the DMM
+  nominal setting. Full operator-facing recipe at
+  :doc:`ops/item_022`; broader alignment context (where this fits
+  in the white → pink → mono workflow) at :doc:`ops/item_015`. The
+  formal 2bm-procedures script implementation is pending; this is
+  cora's ``energy_characterization`` Procedure target with the
+  channel-cut crystal as a removable-reference-standard Subject.
+- :doc:`procedures/item_015` —
+  ``align_beamline`` (**STATUS: STUB**). cora-Procedure-shaped
+  abstraction over the three-phase beamline alignment workflow:
+  phase 1 white-beam centring (M1 / DMM dropped out), phase 2
+  pink-beam tuning (M1 at 2.618 mrad), phase 3 mono-beam DMM setup
+  (DMM Y stages + Bragg arms + ``M2 Y`` calibrated, target arm
+  angle 1.25° at energy nominal). Optionally chained with the
+  :doc:`procedures/item_014` channel-cut calibration as a final
+  step to verify absolute energy. Full operator-facing recipe with
+  screenshots at :doc:`ops/item_012`. Procedure granularity (one
+  Method with three phases vs three separate Methods) is a design
+  decision deferred to formal implementation. Natural cora
+  session-start Method for the 2-BM deployment.
 
 
 Stub procedures
@@ -71,12 +111,20 @@ procedure is implemented.
 - :doc:`procedures/item_004` — ``set_a_slits``. Satisfies
   ``a_slits_open``.
 - :doc:`procedures/item_005` — ``set_energy_to_preselect``.
-  Satisfies ``energy_configured``.
+  Satisfies ``energy_configured``. Two-path procedure: exact-match
+  pre-calibrated energy uses the ``energy2bm.json`` ``store_0`` row
+  directly; off-table energy uses linear interpolation between the
+  two bracketing calibrated energies. Both paths are already live
+  in the deployed ``decarlof/energy`` fork (a fork of
+  ``xray-imaging/energy`` reconciled periodically via PR;
+  deployment lives at ``/home/beams/2BMB/epics/synApps/support/energy/``).
+  The formal 2bm-procedures wrapper is pending; the operator will
+  validate the linear-interp assumption per motor when writing it.
 - :doc:`procedures/item_006` — ``set_flag_in``. Satisfies
   ``flag_in_beam``. (Flag is ``2bma:m44`` in
   :doc:`manual/item_020`; energy-dependent target Y from
   `energy2bm.json
-  <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__.)
+  <https://github.com/decarlof/energy/blob/main/src/energy/data/energy2bm.json>`__.)
 - :doc:`procedures/item_007` — ``open_b_shutter``. Satisfies
   ``b_shutter_open``.
 - :doc:`procedures/item_008` — ``set_b_slits``. Satisfies

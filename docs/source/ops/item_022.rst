@@ -151,11 +151,35 @@ Procedure
       print(f"Measured energy: {E_meas:.6f} keV")
       print(f"Offset from nominal: {offset_keV:.6f} keV")
 
-7. Adjust monochromator calibration
+7. Update the monochromator calibration
 
-   - Compare the calculated true energy to the nominal monochromator value
+   - Compare the measured true energy to the nominal monochromator value
      (e.g. 20 keV).
-   - Apply an energy-offset correction in the control software if required.
+   - Update the per-energy calibration table directly via the
+     ``energy`` CLI; there is no separate "offset" stored anywhere.
+     Two equivalent options, operator's choice:
+
+     - **Update the existing calibrated entry**: tweak the optics
+       (typically the DMM upstream / downstream arms and ``M2 Y``)
+       until the channel-cut rocking curve peaks at exactly the
+       nominal energy, then save the corrected motor positions ::
+
+           (base) 2bmb@arcturus $ energy add --energy 20 --mode Mono
+
+       This overwrites the existing ``20.000 keV`` row of
+       ``energy2bm.json`` ``store_0`` with the now-correct motor
+       positions. Recommended when the nominal energy is the
+       operationally-targeted value.
+
+     - **Save a new calibrated point at the measured value** ::
+
+           (base) 2bmb@arcturus $ energy add --energy 20.05 --mode Mono
+
+       This adds a fresh ``20.050 keV`` row to ``energy2bm.json``
+       without modifying ``20.000``. Recommended when the measured
+       value itself is what subsequent operation will target, or
+       when you want to densify the calibration table around a band
+       of interest.
 
 8. Verify calibration
 

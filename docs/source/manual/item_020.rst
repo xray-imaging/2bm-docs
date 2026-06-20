@@ -148,10 +148,12 @@ Beam delivery
 =============
 
 The formal inventory of front-end and transport components, with
-positions, apertures, materials, and tolerances, is maintained as the
-**02-BM Beamline Component Reference Table** (APS_1404611):
-
-https://anl.box.com/s/afme9vpllerzzvsuzqiyxn7aukh7292j
+positions, apertures, materials, tolerances, and reference drawing
+numbers, is maintained as the **02-BM Beamline Component Reference
+Table** (APS_2191941, PDRC TN25-015, approved 04Aug2025, edited
+25Sept2025 following Commissioning with MLs and DMM motor-controller
+RSS removal). This is the post-APS-U revision and supersedes the
+earlier APS_1404611 (2013 pre-APS-U baseline).
 
 That document is the source of truth for positions and shielding;
 the summary below reproduces it in walking order (source to hutch) and
@@ -161,11 +163,12 @@ blocks for `cora <https://github.com/xmap/cora>`__.
 
 .. note::
 
-   The reference table was last formally updated for the 2013 Sector 02
-   Three-Year Safety Review and reflects the pre-APS-U layout. Post-
-   APS-U changes (mirror retrofit, source brightness, any added
-   components) need a separate reconciliation pass before this page is
-   considered final.
+   Several z positions in the per-component blocks further down this
+   page (Y3-30 Mirror, DMM crystals, P6-50 assembly) still carry the
+   pre-APS-U values from APS_1404611 and need a per-block reconciliation
+   pass against APS_2191941. The Be window stack (see "Be window stack"
+   below) and the P6-50 reference-drawing numbers are already updated
+   from APS_2191941.
 
 Coordinate convention (from the APS_1404611 reference table linked above):
 
@@ -234,9 +237,94 @@ Common position tolerances across all rows: dx = dy = 250 µm, dz = 5 mm.
 
 All four items are operational (have command surfaces) and are
 expanded in :ref:`operational components <operational-components>`.
-The P6-50 safety shutter (item 8c in the APS reference table) is also
-operational but gates the beam rather than conditioning it; it appears
-as its own block at the end of the operational-components section.
+The P6-50 safety shutter (row 10 in APS_2191941) is also operational
+but gates the beam rather than conditioning it; it appears as its own
+block at the end of the operational-components section.
+
+
+Front-end exit mask (M3-24)
+---------------------------
+
+First beam-defining aperture on the 2-BM beamline; passive,
+water-cooled, fixed in place. Defines the white-beam optical
+aperture that downstream optics see. From APS_2191941 row 1:
+
+:RSS tag: ``02-BM-A-F-01``
+:Reference drawing: ``4102020101-240000``
+:z position: **24020 mm** (= 24.020 m from the centre of the
+   storage-ring straight section; ref convention 1 = upstream
+   face of the OFHC copper block)
+:Optical aperture (H × V): **44.4 mm × 4.5 mm**
+:Material: OFHC copper
+:Position tolerance: dx = dy = 250 µm, dz = 5 mm
+:PSS [EPS] water flow rates: 1.5 LPM nominal, 1.0 LPM minimum
+:Source-current limit: 220 mA
+:Notes: Aperture centred on the standard bending-magnet centreline
+   (1.35 mrad inboard); the upstream optics table is rotated to
+   accommodate the storage-ring wall. Thermal analysis is in
+   APSU_2286907.
+
+.. note::
+
+   No cora Asset for the FE exit mask itself — it has no command
+   surface (passive, fixed aperture, no actuator). Cora's ``Mask``
+   descriptor stub (the placeholder cora opened for this question)
+   is the appropriate model: a registered inventory item with
+   physical / shielding parameters but no commandable axes.
+   Answers cora ALIGN-2.
+
+   Earlier 2bm-docs versions of :doc:`../ops/item_012` cited the
+   mask as "50 mm × 3 mm (H × V)" — that was an outdated pre-APS-U
+   value; the post-APS-U dimensions above are authoritative.
+
+
+Be window stack
+---------------
+
+Three Be windows along the beam path, all OFHC-housed; total Be
+thickness **0.63 mm**. From APS_2191941 (post-APS-U), rows 5 / 8 / 9:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 6 22 22 12 12 26
+
+   * - #
+     - Component
+     - Reference drawing
+     - z [mm]
+     - Be thickness
+     - Aperture H x V [mm] and offset
+   * - 5
+     - W4-20 Be Window
+     - ``4105090804-200000``
+     - 28718
+     - 0.25 mm
+     - 120 x 15; on-centreline (x=0, y=0)
+   * - 8
+     - W4-60 Be Window
+     - ``4105090804-600000``
+     - 30804
+     - 0.13 mm
+     - 25 x 120; x = -7.4 mm (inboard), y = +22.3 mm (up)
+   * - 9
+     - Be Window (no separate label)
+     - ``4102020106-400000``
+     - 32417
+     - 0.25 mm
+     - 8.8 x 145; on-centreline (x=0), y = +31.0 mm (up)
+
+Position tolerances per row: dx = dy = 250 µm, dz = 5 mm. PSS [EPS]
+water flow rates: 1.5 LPM nominal, 1.0 LPM minimum (each window).
+Ref. z is the upstream face of the OFHC housing (ref convention 1 for
+W4-60 and the unlabelled Be window; ref convention 3 (upstream face of
+shielding material) for W4-20).
+
+.. note::
+
+   No standalone cora Asset for the Be windows; they are passive
+   beam-path elements with no command surface. Recorded here as
+   per-Run provenance / shielding inventory data. Answers cora
+   BEAM-2.
 
 
 .. _operational-components:
@@ -472,10 +560,22 @@ Materials currently bound (read from the screen above):
 
 .. warning::
 
-   Only the **downstream** paddle set is currently operational. The
-   upstream paddle materials listed above are bound in software but
-   the hardware is not in service; selecting them has no effect on the
-   beam.
+   **Downstream paddle (`2bma:m18`) motor is failed.** Operator-
+   reported 2026-06-19. The motor is currently parked at position
+   107.19 mm, ~1 mm beyond the ``None`` bind at 106.000 mm — i.e.,
+   paddles are clear of the beam, but the motor cannot be commanded.
+   Bindings (see table below) remain valid in the IOC and will
+   return to use when the motor is repaired or replaced. **Repair
+   is not expected in the near term**; the planning assumption for
+   the foreseeable future is that filter selection at 2-BM is via
+   the upstream paddle (m17) only.
+
+   The **upstream paddle (`2bma:m17`)** is **fully operational** —
+   paddles ``1 mm C``, ``150 µm Al``, ``600 µm Al``, ``1 mm Al``,
+   and ``None`` are all selectable. Earlier revisions of this page
+   said upstream "hardware not in service"; that was incorrect and
+   has been removed. Filter selection at 2-BM today is therefore
+   available via the upstream paddle only, until m18 is repaired.
 
 .. figure:: ../img/filter_setup.png
    :width: 480px
@@ -528,9 +628,10 @@ downstream ``2bma:m18.VAL``.
      - LowLimit
      - 0.000
 
-Position units follow the motor record's ``.EGU`` field; the regular
-~25-26 spacing across the 0–106 range is consistent with a millimetre
-travel.
+Position units are **millimetres**, per ``caget 2bma:m18.EGU``
+(operator-verified 2026-06-19; PV returns ``mm``). The regular
+~25-26 mm spacing across the 0–106 mm range is the physical paddle
+pitch.
 
 Y3-30 Mirror
 ~~~~~~~~~~~~
@@ -610,13 +711,78 @@ laterally with an in-vacuum X stage:
 Selector motor: ``2bma:m3``. See the ops page above for the per-
 stripe expected-flux curve (``mirror_multilayer_coating.png``).
 
+**Stripe-to-position map** (inferred from the live ``energy2bm.json``
+``store_0`` table cross-checked against the Bragg resonance
+``λ = 2d sin θ`` at the operational pink-mode mirror angle
+``m1angl = 2.615 mrad``; operator confirmation of the assignments
+is pending):
+
+.. list-table::
+   :header-rows: 1
+   :widths: 8 18 22 22 30
+
+   * - Stripe
+     - ``2bma:m3`` [mm]
+     - Table X (``m1mox`` /
+       ``m1m2x``) [mm]
+     - Calibrated Pink energy
+     - Bragg-calc resonance (or cutoff for Pt)
+   * - **a** Pt
+     - 1.0 (Mono)
+       3.039 (Pink 30 keV)
+     - 8.0 / 8.0
+     - All 6 Mono energies (held);
+       Pink 30 keV
+     - Pt critical-angle cutoff at ``θ = 2.615 mrad`` is
+       ≈ 21 keV; broadband below cutoff
+   * - **b**
+     - 13.0
+     - 10.0 / 10.0
+     - Pink 40 keV
+     - 36 keV (slight detuning from 40 keV)
+   * - **c**
+     - 39.0
+     - 10.0 / 10.0
+     - Pink 50 keV
+     - 49.8 keV (clean match)
+   * - **d**
+     - 49.0 (requires coordinated
+       table-X move)
+     - 29.0 / 29.0
+     - Pink 60 keV
+     - 60.3 keV (clean match)
+
+In **Mono mode** (all 6 calibrated energies 13.374 → 25.584 keV)
+``m3`` is **held at 1.0 mm** — stripe **a** (Pt) — with table X
+at 8.0 mm and mirror angle at 2.615 mrad. The DMM downstream does
+the per-energy monochromatic selection; the mirror just deflects
+the pink beam onto the DMM at a fixed geometry.
+
+In **Pink mode** (4 calibrated energies 30 → 60 keV) ``m3`` is
+**swept per energy**, walking up the substrate from stripe **a** at
+30 keV through stripes **b** / **c** / **d** at 40 / 50 / 60 keV.
+Table X (``m1mox`` / ``m1m2x``, mapped onto ``2bma:m1`` and
+``2bma:m4``) is co-moved per energy to extend the substrate's
+useful X range; at 60 keV the table-X support jumps from 10.0 to
+29.0 mm to reach stripe **d**. Mirror angle stays constant at
+2.615 mrad across all Pink energies.
+
+The stripe selection is therefore **not freely operator-selectable
+at run time** — the calibration table determines which stripe sits
+in the beam at each (mode, energy) tuple, and the energy-change IOC
+loads the table value on every energy change. Switching to a
+different stripe means either calibrating a new energy at that
+stripe via ``energy add``, or manually overriding ``m3``
+(operationally rare).
+
 .. warning::
 
    ``2bma:m3`` does not have enough travel on its own to reach the
-   highest-energy stripe. Reaching that stripe requires a coordinated
-   move of ``m3`` together with the optical-table X stages below.
-   This coordination is encapsulated by the energy-change IOC; see
-   :ref:`composite-iocs`.
+   highest-energy stripe (**d**). Reaching that stripe requires a
+   coordinated move of ``m3`` together with the optical-table X
+   stages (table X jumps from 10.0 to 29.0 mm at Pink 60 keV per the
+   table above). This coordination is encapsulated by the
+   energy-change IOC; see :ref:`composite-iocs`.
 
 **Mirror optical table.** The mirror sub-assembly sits on a
 multi-motor optical table whose six physical motors live on the
@@ -783,6 +949,136 @@ their difference produces a Z-tilt around the beam axis. The second
 crystal is positioned relative to the first via the ``DSY`` (Y),
 ``M2 Z`` (along beam), and ``M2 Y`` motors.
 
+**Tank / alignment motors (energy-independent within mode).** The
+five DMM tank-positioning motors (``2bma:m25-m29``) are part of the
+energy-change coordinated move but do NOT vary per energy; they take
+only two configurations selected by mode:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 18 14 22 22 24
+
+   * - Motor
+     - PV
+     - Mono (in beam)
+     - Pink (out of beam)
+     - Role
+   * - ``dmm_usx``
+     - ``2bma:m25``
+     - 111.0
+     - 111.0 (same)
+     - Upstream tank lateral X — **fixed alignment** (NOT a stripe
+       selector; the value is identical in Mono and Pink)
+   * - ``dmm_usy_ob``
+     - ``2bma:m26``
+     - 0.0
+     - -10.0
+     - Upstream tank Y outboard — in-beam vs retracted
+   * - ``dmm_usy_ib``
+     - ``2bma:m27``
+     - 0.0
+     - -10.0
+     - Upstream tank Y inboard — in-beam vs retracted
+   * - ``dmm_dsx``
+     - ``2bma:m28``
+     - 104.0
+     - 104.0 (same)
+     - Downstream tank lateral X — **fixed alignment** (NOT a stripe
+       selector)
+   * - ``dmm_dsy``
+     - ``2bma:m29``
+     - 0.0
+     - -10.0
+     - Downstream tank Y — in-beam vs retracted
+
+The X pair (``m25`` / ``m28``) is the same lateral position in both
+modes — they are **not** the per-energy stripe selector. The
+per-energy mirror-stripe selection is on the Mirror M1 (see
+``m1_horizontal`` (``2bma:m3``) in the M1 block). The three Y motors
+swing the DMM tank into or out of the beam at mode switch.
+
+The IOC re-asserts these values on every energy change (they're in
+the `energy_move_*` set in ``energy2bm.json``), but interpolation
+between the two constant values per axis is degenerate — the
+result is the constant. This answers cora ENERGY-5.
+
+**DMM substrate carries two multilayer stripes** (full specs in
+:doc:`../ops/item_021`: 13.8 Å and 24 Å multilayer periods, 4 mm
+apart laterally, 140 x 44 mm² each, W-B₄C on Si). Across all six
+calibrated Mono energies, applying Bragg's law (``λ = 2d sin θ``) to
+the saved Bragg-arm angles yields ``d ≈ 24 Å`` to within ~5%, with no
+values near 13.8 Å — so the **24 Å stripe is the currently active
+one** at 2-BM. The 13.8 Å stripe has never been calibrated into
+``energy2bm.json``; switching to it would be a 4 mm lateral
+substrate move (the candidate axis is ``m25`` or ``m28``, since the
+substrate geometry matches the 4 mm stripe spacing, but the actual
+mapping needs operator confirmation) plus a separate Mono-mode
+recalibration of the Bragg arms and ``M2 Y`` for the new stripe.
+This answers cora ENERGY-6.
+
+**Per-energy saved positions (energy-tracking subset).** The energy-
+change IOC drives three of the DMM motors per energy: the two Bragg
+arms (``2bma:m30`` / ``2bma:m31``) and the second-crystal vertical
+(``2bma:m32``). Values are stored in
+`energy2bm.json <https://github.com/decarlof/energy/blob/main/src/energy/data/energy2bm.json>`__
+under the ``store_0`` field of each motor; the IOC reads them on each
+energy change. Reproduced here as a snapshot (the JSON file is the
+authoritative source):
+
+.. list-table::
+   :header-rows: 1
+   :widths: 18 22 22 22 16
+
+   * - Mode
+     - Energy [keV]
+     - ``dmm_us_arm`` (``2bma:m30``)
+     - ``dmm_ds_arm`` (``2bma:m31``)
+     - ``dmm_m2_y`` (``2bma:m32``)
+   * - Mono
+     - 13.374
+     - 1.131
+     - 1.133
+     - 25.1201075
+   * - Mono
+     - 13.574
+     - 1.081
+     - 1.083
+     - 24.3201075
+   * - Mono
+     - 18.000
+     - 0.822
+     - 0.824
+     - 18.820045
+   * - Mono
+     - 20.000
+     - 0.726
+     - 0.737
+     - 17.020045
+   * - Mono
+     - 25.000
+     - 0.57725
+     - 0.58825
+     - 14.220045
+   * - Mono
+     - 25.584
+     - 0.561
+     - 0.572
+     - 13.920045
+   * - Pink
+     - 30 / 40 / 50 / 60
+     - 0.740 (parked)
+     - 0.751 (parked)
+     - 17.020045 (parked)
+
+The Pink-mode values are constant across all four configured energies
+(30 / 40 / 50 / 60 keV) — the Bragg arms are simply retracted to a
+fixed park position and ``m2_y`` is held at the same value it had at
+the Mono 20 keV configuration. The other five DMM motors
+(``2bma:m25–m29``) also have ``store_0`` entries — in Pink the Y
+motors (``USY OB`` / ``USY IB`` / ``DSY``) are driven to ``-10`` mm
+to take the DMM out of beam — but those are not what cora's ENERGY-1
+question asks about. This table answers cora ENERGY-1.
+
 Flag (diagnostic phosphor)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -793,9 +1089,12 @@ Flag (diagnostic phosphor)
    ``5 mm`` dial) -- out of the beam. In mono mode the flag is
    raised to block the M1-scattered halo while letting the
    monochromatic beam pass; the exact Y is energy-dependent.
-:Family: Diagnostic (no cora Family declared yet; this is the
-   first instance of a "viewable beam diagnostic" on the 2-BM
-   inventory).
+:Family: ``Screen`` (cora-confirmed).
+:cora Asset: ``DiagnosticFlag``, mounted on ``FrontEndDrive`` (the
+   front-end OMS VME58 #1). Operator-raised in Mono mode (Y
+   position is energy-dependent, see table below) and parked at
+   the lower limit in Pink mode. The energy-tracking Y curve is
+   the lookup-table data answering cora FLAG-1.
 :Mounted on: Own stand in 2-BM-A (floor-referenced).
 :Carries: phosphor-painted flag + visible camera (not modelled
    here; the camera is its own Asset).
@@ -808,7 +1107,7 @@ Flag (diagnostic phosphor)
 The energy-dependent flag positions used by mono-beam scans are
 defined in the ``energy`` package's lookup table
 (`energy2bm.json
-<https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__,
+<https://github.com/decarlof/energy/blob/main/src/energy/data/energy2bm.json>`__,
 key ``energy_move_flag``):
 
 ==============  ===================  ==========================
@@ -837,9 +1136,68 @@ Pink-beam mode: flag at ``Y = 0 mm`` (user) -- same as the
    :doc:`../procedures/item_002` (``detector_z_rail_alignment``).
    The energy-dependent target Y is read from the
    ``energy_move_flag`` field of `energy2bm.json
-   <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__;
+   <https://github.com/decarlof/energy/blob/main/src/energy/data/energy2bm.json>`__;
    operating in
    pink mode means writing ``0 mm`` user to ``2bma:m44``.
+
+2-BM-A alignment camera (FLIR Oryx 5MP)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:Role: Beamline-alignment diagnostic camera that images the white,
+   pink, or monochromatic beam at the 2-BM-A end. Used during the
+   white-beam centring + mirror / DMM alignment procedure (see
+   :doc:`../ops/item_012` and :doc:`../procedures/item_015`).
+:Family: Camera (a second instance of the cora ``Camera`` Family;
+   the per-microscope detectors at 2-BM-B are the other instances).
+:cora Asset: proposed ``AStationAlignmentCamera`` (cora has not
+   chosen a handle yet; the role-name convention "Camera named by
+   what it images" would also work as ``WhiteBeamAlignmentCamera``).
+:Hutch: 2-BM-A.
+:Mounting: Permanently installed at 2-BM-A on a stand with a single
+   vertical (Y) motor for beam-finding. **Semi-permanent
+   diagnostic** — the camera is always in place, but the beam
+   only reaches it when the upstream vacuum chamber is opened and a
+   pipe section is physically removed. This is a multi-hour
+   operation done only **rarely** (annual / multi-year cadence,
+   typically for major realignment after a long shutdown or major
+   optics intervention). The setup is kept installed for
+   convenience because the disassembly / reassembly time is
+   nontrivial.
+:Camera model: FLIR Oryx 5MP (inferred from the IOC startup script
+   name ``2bmbOryx5MP``; same camera-family as the
+   :ref:`microscope-camera-0 <camera-0-2bmsp1>` at 2-BM-B but a
+   distinct physical unit). Operator confirmation of the exact
+   ``ORX-10G-51S5M`` model number is pending.
+:Vertical-stage motor: ``2bma:m21`` (single Y axis used for
+   beam-finding during alignment; positioned in the beam path by
+   the alignment procedure, returns to a parked Y between uses).
+:IOC: ``2bmbOryx5MP`` running on host **lyra** (a 2-BM-B
+   workstation per :doc:`../ops/item_017`; physically remote from
+   the camera in 2-BM-A but addresses it via the network). Start
+   sequence (per :doc:`../ops/item_012`)::
+
+     (base) 2bmb@lyra ~ $ 2bmbOryx5MP medm
+     (base) 2bmb@lyra ~ $ 2bmbOryx5MP run
+
+:EPICS prefix: TBD (not separately documented; accessible through
+   the IOC name above. Operator confirmation pending whether the
+   areaDetector prefix is ``2bmA:`` / ``2bma:`` / something else).
+:Live viewer: ImageJ with the EPICS_NTNDA plug-in is the standard
+   operator surface during alignment; ``ImageJ`` invoked from lyra.
+
+.. note::
+
+   **Why this is documented as a permanent inventory entry, not a
+   transient diagnostic.** The cora ALIGN-1 question explicitly
+   asks whether this is a standing diagnostic or a temporary
+   setup brought in only for alignment. The operationally correct
+   answer is **semi-permanent**: physically installed all the
+   time, but the beam only reaches it when an operator manually
+   breaks vacuum and removes a pipe. So it belongs in the cora
+   inventory as a registered ``Camera`` Asset (not a temporary /
+   transient fixture), with the understanding that its
+   operational-availability state is "deployed but not engaged"
+   most of the time. This answers cora ALIGN-1.
 
 P6-50 Safety Shutter (B-shutter)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -860,6 +1218,12 @@ P6-50 Safety Shutter (B-shutter)
 :Material: W [21 mm]
 :Aperture: 60.0 × 44.5 mm
 :RSS tag: part of 02-BM-A-P-01 assembly
+:Reference drawing (shutter element): ``41050401-410003``
+:Reference drawing (full P6-50 assembly): ``41050401-500000``
+   (covers all four elements: white-beam stop ``41050401-300001``,
+   W collimator ``41050401-500001``, safety shutter
+   ``41050401-410003``, SS baffle ``41050401-500200``). Source:
+   APS_2191941 row 10. Answers cora BEAM-3.
 :EPICS prefix: ``S02BM-PSS:SBS``
 :Open command: ``S02BM-PSS:SBS:OpenEPICSC``
 :Close command: ``S02BM-PSS:SBS:CloseEPICSC``
@@ -1002,6 +1366,57 @@ B-station Slits
    vertical pair tracks the per-energy beam position in Mono mode.
    See :ref:`composite-iocs`.
 
+**Per-energy vertical positions.** The energy-change IOC drives the
+vertical pair (``2bma:m9`` / ``2bma:m10``) per energy to follow the
+DMM beam-walk; the horizontal pair (``2bma:m11`` / ``2bma:m12``) is
+NOT energy-tracked. Values from
+`energy2bm.json <https://github.com/decarlof/energy/blob/main/src/energy/data/energy2bm.json>`__
+``store_0``:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 18 22 30 30
+
+   * - Mode
+     - Energy [keV]
+     - ``b_slit_top`` (``2bma:m9``)
+     - ``b_slit_bot`` (``2bma:m10``)
+   * - Mono
+     - 13.374
+     - 28.804575
+     - 8.804575
+   * - Mono
+     - 13.574
+     - 28.804575
+     - 8.804575
+   * - Mono
+     - 18.000
+     - 28.804575
+     - 8.804575
+   * - Mono
+     - 20.000
+     - 31.144575
+     - 11.144575
+   * - Mono
+     - 25.000
+     - 26.23
+     - 6.23
+   * - Mono
+     - 25.584
+     - 26.28
+     - 6.28
+   * - Pink
+     - 30 / 40 / 50 / 60
+     - 10.0 (wide open)
+     - -10.0 (wide open)
+
+Mono-mode top/bottom values track each other (top − bottom ≈ 20 mm
+across all six configured energies); the slit aperture stays roughly
+constant while the pair's centre tracks the beam-walk. Pink-mode is
+constant across all four energies (slits parked wide open at
++10 / -10 mm; no per-energy tracking because the DMM is bypassed).
+This table answers cora ENERGY-2.
+
 .. note::
 
    **Horizontal-blade label flip.** The horizontal blade labels on
@@ -1068,6 +1483,120 @@ B-station Slits
    - Target of Procedure ``calibrate_slit_blade_throw``
      (:doc:`../procedures/item_012`) and Procedure
      ``centre_and_close_slits`` (:doc:`../procedures/item_011`).
+
+
+Coded aperture (Jena NV200D piezo)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:Role: Beam-shaping coded aperture mounted in the beam between the
+   B-station Slits and the sample. The aperture is stepped through
+   a list of (X, Y) piezo positions during a tomography fly-scan to
+   produce randomised / dithered sampling for compressive-sensing
+   imaging reconstructions.
+:Family: (Pending — neither Camera nor Stage in the traditional
+   sense; the mask itself is a beam-path optical element with its
+   own positioning piezo; cora's eventual Family choice for the
+   mask is a separate decision from the piezo controller below.)
+:cora Asset (piezo controller): ``CodedApertureFineDrive`` (proposed
+   name; ``SampleFineDrive`` was the earlier provisional placeholder
+   and is wrong — the device does not move the sample). Family:
+   ``MotionController``. Operator-confirmed 2026-06-19. The earlier
+   provisional ``OpticsFineDrive`` placeholder for the unused
+   NV100D (see :doc:`../ops/item_027`) should be retired since the
+   NV100D is not in operational use at 2-BM.
+:Hutch: 2-BM-B
+:z position: ~51,300 mm (between the B-station Slits at 50,500 mm
+   and the sample stack; just downstream of the last Be window
+   before 2-BM-B)
+:Hardware (controllers): **Two** Piezosystem Jena **NV200D/NET**
+   controllers, one per piezo axis (not a single dual-channel
+   controller). Each is Ethernet-attached and addressed via the
+   vendor's Telnet interface on port 23 ("NV200/D NET>" prompt):
+
+   =====  ====================  ====================
+   Axis   Controller IP         Vendor model
+   =====  ====================  ====================
+   X      ``10.54.113.126``     NV200D/NET
+   Y      ``10.54.113.125``     NV200D/NET
+   =====  ====================  ====================
+
+   Vendor datasheet: `NV200D-Datasheet.pdf
+   <https://www.piezosystem.com/wp-content/uploads/2023/07/NV200D-Datasheet.pdf>`__.
+
+   NOT the NV100D (which lacks the external trigger mode required
+   for tomoscan fly-scan integration and is therefore not used at
+   2-BM in any operational procedure today; see :doc:`../ops/item_027`
+   for the NV100D historical / decommissioned reference).
+:Hardware (actuator / XY flexure stage): Piezosystem Jena
+   **nanoSXY 120 CAP**, part number **T-223-06D** (the "D" suffix
+   denotes the digital interface variant). Drawing: `nanoSXY-120-CAP
+   <https://www.piezosystem.com/wp-content/uploads/2022/04/nanoSXY-120-CAP-Part-Drawing.pdf>`__
+   (rev.01, Feb 2019). Key dimensions:
+
+   ===========================  ==============
+   Property                     Value
+   ===========================  ==============
+   Travel per axis (nominal)    120 µm
+   Travel per axis (closed-loop, per :doc:`../ops/item_028`)  100 µm
+   Clear aperture               Ø 12.5 mm (centred)
+   Outer footprint              82 × 79 × 30 mm
+   Mounting                     4× M3 tapped + 4× Ø3 G7 reamed dowel holes (symmetric, on both sides); 32 mm / 54 mm / 60 mm hole-pattern centres
+   Standard cable length        1600 mm (voltage + sensor cables)
+   Feedback                     Capacitive (the ``CAP`` in the model)
+   ===========================  ==============
+
+   The clear aperture is what the coded-aperture mask itself is
+   mounted into; the X / Y piezo motion moves the mask within the
+   beam.
+:IOC: ``JenaNV200D`` (running on ``arcturus``)
+:Operational reference: :doc:`../ops/item_028` covers IOC startup,
+   network configuration, caQtDM screens, FPGA trigger integration,
+   and the triggered-step mode.
+:Triggered-step programming procedure: Formal procedure page
+   :doc:`../procedures/item_013` (slug ``nv200_trigger_step``).
+   Implementation lives in the ``2bm-procedures`` repository at
+   `procedures/nv200_trigger_step.py
+   <https://github.com/decarlof/2bm-procedures/blob/main/procedures/nv200_trigger_step.py>`__
+   (official `nv200 Python library
+   <https://pypi.org/project/nv200/>`__-based; runs the per-axis
+   setup concurrently via ``asyncio``). Loads a 1024-position-max
+   waveform buffer into each controller via Telnet and arms the
+   FPGA-trigger-driven advance.
+
+   A second variant lives in the sandbox at
+   ``/home/beams/2BMB/conda/sandbox/nv200/nv200_trigger_step.py`` —
+   raw Telnet, no ``nv200`` library; documents the vendor's command
+   vocabulary directly (``gparb``, ``gsarb``, ``gearb``, ``goarb``,
+   ``gtarb``, ``gcarb``, ``trgfkt,2``, ``modsrc,3``, ``grun``,
+   ``gsave``/``gload``, ``meas``, ``posmin``/``posmax``, ``cl``).
+   Kept as a reference implementation of the protocol; not the
+   operationally-blessed script.
+
+   Defaults to ``n = 256`` positions per axis (max 1024) and takes
+   a ``--random`` flag for randomly-sampled positions (default is
+   evenly-spaced ``linspace``). After each generation the positions
+   are saved to ``positions_x.txt`` and ``positions_y.txt`` in the
+   current working directory. Current operational state (as of late
+   2026) uses ``--random`` for compressive-sensing dithered sampling
+   during tomography fly-scans.
+
+   Operational constraint: each controller only accepts **one
+   Telnet connection at a time**, so the EPICS IOC must be stopped
+   before running the script (and restarted afterwards). The
+   triggered-step state can optionally be persisted to EEPROM via
+   the script's ``save_to_eeprom()`` so it survives a power cycle.
+
+.. note::
+
+   **Why this lives here (between B-station Slits and Sample
+   stack).** The coded aperture is a beam-path element upstream of
+   the sample, not part of the sample tower. Putting its description
+   in the z-ordered walk between B-station Slits (50,500 mm) and the
+   Sample stack section below matches the physical layout. The
+   piezo controller (``CodedApertureFineDrive``) is the
+   ``MotionController`` Asset that drives the aperture mask, but the
+   mask itself is a separate beam-path element — cora's eventual
+   Asset model needs both.
 
 
 Sample stack
@@ -1283,25 +1812,63 @@ Rotary
 :Model:
    Stage — Aerotech **ABRS-250MP-M-AS** air-bearing direct-drive
    rotary (Aerotech ABRS series, 250 mm aperture, mid-precision
-   class). Drive — Aerotech Ensemble HLE10-40-A-MXH (HLe-series
-   digital drive). The cora Device identifier ``Rotary`` is a
-   role-name per cora's #111 convention (vendor / model lives in
-   the bound Model, not the Asset name). Earlier candidate names:
-   ``Aerotech_ABRS_rotary``, ``aerotech_abs250mp_m_as`` — the
-   second one was based on a then-incorrect ``ABS`` reading of the
-   hardware label; operator confirmation 2026-06-15 settles the
-   model on ABRS.
+   class). Drive — Aerotech **ENSEMBLE ML 10-40-IO-MXH**
+   (Multi-Loop subseries, 10 A, 40 V bus, I/O option, MXH option;
+   operator-confirmed against the hardware label 2026-06-16).
+   The cora Device identifier ``Rotary`` is a role-name per cora's
+   #111 convention (vendor / model lives in the bound Model, not
+   the Asset name). Earlier candidate names: ``Aerotech_ABRS_rotary``,
+   ``aerotech_abs250mp_m_as`` — the second one was based on a
+   then-incorrect ``ABS`` reading of the hardware label; operator
+   confirmation 2026-06-15 settles the model on ABRS.
 :Serial number: ``146853-A-1-1-X``
 :Reference drawing: ``630C2125 REV (-)``
 :Mounted on: LaminographyPitch (via a fixed -10° wedge — see above)
 :Carries: SampleTop_X, SampleTop_Z
 :Driven by: ``RotaryDrive`` (cora ``MotionController`` Asset
-   wrapping the Aerotech Ensemble HLE10-40-A-MXH; bound Model
-   ``aerotech_ensemble``)
-:Travel: -360 deg to +360 deg
-:Max speed: 720 deg/s
-:Encoder resolution: 0.0001 deg
+   wrapping the **Aerotech ENSEMBLE ML 10-40-IO-MXH**, S/N
+   ``730792/1``, Aeronet-networked. Earlier this page named the
+   drive as Ensemble HLE10-40-A-MXH; operator confirmation
+   2026-06-16 corrects both the subseries (ML, not HLe) and the
+   option suffix (``-IO-`` was missing). The drive card is housed
+   in an Aerotech **TM3-A-20B VDC-20B VDC / NO SPLIT / PS24-1 /
+   C1ML-06 / C2ML-09 / US-115VAC** chassis, S/N ``160591-A-1-1``
+   (Order # ``730578``, built to dwg ``630D2079 REV-H``); the
+   chassis + PS24-1 supply provide DC bus and Aeronet
+   distribution to the ML card. Bound cora Model:
+   ``aerotech_ensemble`` (currently — see [cora#156] for the
+   pending rename to a Model handle matching the actual P/N.))
+:Travel: 360° continuous (per datasheet); the 2-BM operational
+   software limits are configured at ``2bmb:m102.LLM = -360 deg``,
+   ``.HLM = +360 deg``.
+:Max speed (datasheet): 500 rpm (= 3000 deg/s). 2-BM operational
+   profile uses much lower speeds (the 720 deg/s value previously
+   listed here was an operational soft limit, not the stage maximum;
+   re-derive from the application speed profile rather than the
+   stage rating).
+:Encoder: 11,840 lines/rev fundamental (per datasheet). With
+   Aerotech's standard interpolation the addressable resolution is
+   sub-microradian, corresponding to roughly 0.0001 deg per step at
+   the application layer.
+:Accuracy: ±2 arc sec (per datasheet)
+:Repeatability (bidirectional): <1 arc sec (per datasheet)
 :Homing offset: 0 deg
+:Dimensions: 250 mm wide × 100 mm high; 228.1 mm tabletop diameter;
+   35 mm clear aperture (per datasheet — note: the "250" in
+   ``ABRS-250MP`` is the stage width, NOT the aperture, which earlier
+   revisions of this page conflated)
+:Bus voltage: 340 VDC (per datasheet)
+:Max load: 66 kg axial, 36 kg radial, 28 N·m tilt (per datasheet)
+:Air supply: 80 psig (5.5 bar) ± 10 psig; air consumption <56.6
+   SLPM (<2 SCFM); clean dry air at 0 °F dew point, 0.25 µm filter,
+   nitrogen at 99.9 % purity recommended (per datasheet)
+:Inertia (unloaded): 39,100 kg·mm² (per datasheet)
+:Total mass: 15.6 kg (per datasheet)
+:Material / finish: Aluminum, hardcoat (62 Rockwell hardness) (per datasheet)
+:Datasheet: https://de.aerotech.com/wp-content/uploads/2021/01/abrs.pdf
+   (Aerotech ABRS series rotary stages, covers ABRS150MP /
+   ABRS200MP / ABRS250MP / ABRS300MP; the 2-BM stage is the
+   ABRS250MP variant)
 :EPICS: ``2bmb:m102``
    (PV mapping from
    `tomoScanStream.substitutions
@@ -1424,6 +1991,12 @@ Optique Peter MICRX080 microscope
      Model ``Oryx ORX-10G-51S5M``. Sony IMX250 CMOS sensor,
      global shutter; 2448 × 2048, 3.45 µm pixel pitch; 162 fps
      at full resolution over 10GigE; 12-bit ADC. C-mount.
+     **Dual-role**: same physical camera (serial ``19173710``)
+     also serves as the vibration / flat-field stability
+     measurement camera at high frame rate (~99 fps, 1000-frame
+     HDF5 streams) per :doc:`../ops/item_021` and
+     :doc:`../ops/item_070`. There is **no separate high-speed
+     camera at 2-BM**. Answers cora VIB-1.
    - **FLIR Oryx 31MP** (camera 1, ``2bmSP2:`` areaDetector prefix).
      Model ``Oryx ORX-10G-310S9M``. Sony IMX367 CMOS sensor,
      global shutter; 6464 × 4852, 3.45 µm pixel pitch. C-mount.
@@ -1607,10 +2180,99 @@ and ``m18`` are slots on the same OMS-VME58 card — cora Asset
 ``SampleStageDrive``. The hexapod motor ``2bmHXP:m3`` is one
 DoF of ``Hexapod``, driven by ``HexapodDrive``.
 
-Calibrated lens positions (mm, both cameras): Pos. 0 = -60.030,
-Pos. 1 = -0.8370, Pos. 2 = 58.64. Camera positions: Pos. 0 = 20,
-Pos. 1 = 15. Per-objective and per-camera fine focus and rotation
-offsets are held in the IOC's autosave file.
+**Calibrated lens positions are per-camera, not shared.** MCTOptics
+stores six turret positions (3 lenses × 2 cameras) so that the
+rotation axis stays at the same physical location when the operator
+swaps cameras. When ``LensSelect`` or ``CameraSelect`` changes, the
+IOC moves ``2bmb:m1`` to the position corresponding to the new
+(lens, camera) pair. PVs and operator-verified values
+(``caget`` 2026-06-19):
+
+==========  ==============================  ==============================
+Lens / mag  Camera 0 (mm)                   Camera 1 (mm)
+==========  ==============================  ==============================
+Lens 0 / 1.1×  ``2bm:MCTOptics:Camera0LensPos0`` = ``-59.8184``  ``2bm:MCTOptics:Camera1LensPos0`` = ``-60.3784``
+Lens 1 / 2×    ``2bm:MCTOptics:Camera0LensPos1`` = ``-0.5734``   ``2bm:MCTOptics:Camera1LensPos1`` = ``-0.9240``
+Lens 2 / 10×   ``2bm:MCTOptics:Camera0LensPos2`` = ``58.8707``   ``2bm:MCTOptics:Camera1LensPos2`` = ``59.2300``
+==========  ==============================  ==============================
+
+The per-camera offsets are ~0.4–0.6 mm and reflect the slightly
+different optical-path alignment between the two cameras on the
+dual-port (the folding-mirror selector at ``2bmb:m5`` swings the
+beam between the two camera arms). Operators rarely retune this
+alignment in routine operation; the per-camera position table is
+the mechanism that lets the IOC preserve the rotation-axis
+location across camera swaps when the alignment is fresh.
+
+Camera-selector positions (folding-mirror motor ``2bmb:m5``):
+Pos. 0 = 20 mm, Pos. 1 = 15 mm.
+
+**Per-(camera, lens) camera rotation offsets** follow the same
+lookup pattern as the turret positions above, on a different pair
+of motors: ``2bmb:m7`` (``CAM0_ROT``, camera 0 image-rotation
+alignment) and ``2bmb:m8`` (``CAM1_ROT``, camera 1). Same
+rationale: keep the rotation axis aligned to the image as the
+operator swaps lens or camera. Operator-verified values
+(``caget`` 2026-06-19):
+
+==========  ==============================  ==============================
+Lens / mag  Camera 0 rotation (``2bmb:m7``)  Camera 1 rotation (``2bmb:m8``)
+==========  ==============================  ==============================
+Lens 0 / 1.1×  ``2bm:MCTOptics:Camera0Lens0Rotation`` = ``0``        ``2bm:MCTOptics:Camera1Lens0Rotation`` = ``-0.781``
+Lens 1 / 2×    ``2bm:MCTOptics:Camera0Lens1Rotation`` = ``0.555``    ``2bm:MCTOptics:Camera1Lens1Rotation`` = ``-0.92``
+Lens 2 / 10×   ``2bm:MCTOptics:Camera0Lens2Rotation`` = ``0``        ``2bm:MCTOptics:Camera1Lens2Rotation`` = ``-1.06094``
+==========  ==============================  ==============================
+
+When the operator changes ``LensSelect`` or ``CameraSelect``, the
+IOC reads the matching ``Camera{N}Lens{M}Rotation`` PV and writes
+its value to ``2bmb:m7`` (if camera 0) or ``2bmb:m8`` (if camera 1).
+This is parallel to the turret-position lookup: same per-(camera,
+lens) pair, different motor.
+
+Unit follows the motor record's ``.EGU`` field for ``2bmb:m7`` /
+``2bmb:m8`` (typically degrees for a camera rotation stage; verify
+with ``caget 2bmb:m7.EGU``).
+
+**Per-(camera, lens) fine focus offsets** are the third 6-PV
+lookup family, this time on per-LENS focus motors:
+``LENS0_FOCUS`` / ``LENS1_FOCUS`` / ``LENS2_FOCUS`` =
+``2bmb:m2`` / ``2bmb:m3`` / ``2bmb:m4``. Structurally different
+from turret position (single motor ``m1``) and camera rotation
+(per-camera motor ``m7`` or ``m8``): focus has a different motor
+per lens, and the per-camera dimension is currently degenerate
+(Camera 0 and Camera 1 hold identical focus values for every
+lens in the present calibration). Operator-verified values
+(``caget`` 2026-06-19):
+
+==========  ==============================  ==============================
+Lens / mag  Camera 0 focus                  Camera 1 focus
+==========  ==============================  ==============================
+Lens 0 / 1.1× → ``2bmb:m2``  ``2bm:MCTOptics:Camera0Lens0Focus`` = ``-0.374848``  ``2bm:MCTOptics:Camera1Lens0Focus`` = ``-0.374848``
+Lens 1 / 2× → ``2bmb:m3``    ``2bm:MCTOptics:Camera0Lens1Focus`` = ``11.9161``    ``2bm:MCTOptics:Camera1Lens1Focus`` = ``11.9161``
+Lens 2 / 10× → ``2bmb:m4``   ``2bm:MCTOptics:Camera0Lens2Focus`` = ``0``          ``2bm:MCTOptics:Camera1Lens2Focus`` = ``0``
+==========  ==============================  ==============================
+
+When ``LensSelect`` changes to slot ``M`` and ``CameraSelect`` is
+``N``, the IOC writes ``Camera{N}Lens{M}Focus`` to ``2bmb:m{2+M}``.
+The per-camera dimension is supported by the IOC infrastructure
+but is not used in the current calibration (``Camera0Lens{M}Focus
+== Camera1Lens{M}Focus`` for every ``M``); the PVs exist for
+future per-camera focus calibration if needed.
+
+**Summary — three per-(camera, lens) MCTOptics lookups, applied
+coordinately on each LensSelect / CameraSelect change:**
+
+==========================  ==============================  ==============================  ==============================
+Lookup                      Motor(s)                        Value PVs                       Per-camera dimension today
+==========================  ==============================  ==============================  ==============================
+Turret position             ``2bmb:m1``                     ``Camera{N}LensPos{M}`` (6)     active (~0.4–0.6 mm offset)
+Camera rotation             ``2bmb:m7`` (cam0), ``m8`` (cam1)  ``Camera{N}Lens{M}Rotation`` (6)  active (some zero, some non-zero)
+Per-lens fine focus         ``2bmb:m2``/``m3``/``m4`` (per lens)  ``Camera{N}Lens{M}Focus`` (6)     degenerate (Cam0 == Cam1)
+==========================  ==============================  ==============================  ==============================
+
+18 calibration PVs in total. Whichever subset is non-degenerate
+in any given calibration, all 18 lookups exist and the IOC will
+apply each on LensSelect / CameraSelect changes.
 
 .. figure:: ../img/optique_peter_medm.png
    :width: 70%
@@ -1651,9 +2313,16 @@ the operator increases for phase-contrast imaging.)
 :Mounted on: Detector optical table
 :Carries: Optique Peter MICRX080 microscope
 :Driven by: ``PropagationDistanceDrive`` (cora ``MotionController``
-   Asset wrapping the Aerotech drive that the ``2bmbAERO`` IOC
-   manages; was ``FocusDrive`` in cora #111, renamed to match the
-   stage it drives)
+   Asset wrapping the **Aerotech Ensemble HLe 10-40-A-IO-MXH**
+   (HLe subseries, 10 A, 40 V bus, ``-A-`` option, ``-IO-`` option,
+   MXH option; full P/N as printed on the label:
+   ``EnsembleHLe10-40-A-IO-MXH``), S/N ``228849-02``,
+   operator-confirmed against the hardware label 2026-06-16. This
+   resolves the prior "specific product line not yet confirmed"
+   placeholder and the cora ``aerotech_2bmbaero_drive_unknown_pn``
+   Model row. The drive is what the ``2bmbAERO`` IOC manages; the
+   Asset was ``FocusDrive`` in cora #111, renamed to match the
+   stage it drives.)
 :Travel: 1000 mm
 :Accuracy: ±18 µm (SL Standard; calibrated grade not offered above 500 mm)
 :Resolution: 0.1 µm (high-resolution feedback) / 1.0 µm
@@ -1889,7 +2558,7 @@ Energy-change IOC
 
 :Exposes: Higher-level energy-change command surface (PV / RPC TBD;
    consult ``energyApp/`` in the repository).
-:Repository: https://github.com/xray-imaging/energy.git
+:Repository: https://github.com/decarlof/energy.git
    (standard EPICS app layout — ``energyApp/``, ``iocBoot/``,
    ``configure/``, ``src/``).
 
