@@ -128,15 +128,31 @@ Install the required Python library::
 
   pip install nv200 numpy
 
-Run the script on a computer on the beamline's private subnet (e.g.
-``arcturus``)::
+The script lives in the ``2bm-procedures`` repository
+(`procedures/nv200_trigger_step.py
+<https://github.com/decarlof/2bm-procedures/blob/main/procedures/nv200_trigger_step.py>`__).
+Change to that directory before invoking it — the script writes
+``positions_x.txt`` / ``positions_y.txt`` to the current working
+directory and looks for no input files. Run on a computer on the
+beamline's private subnet (e.g. ``arcturus``)::
 
-  [2bmb@arcturus]$ python nv200_trigger_step_lib.py [--n N] [--random]
+  [2bmb@arcturus]$ cd <path-to-2bm-procedures>/procedures
+  [2bmb@arcturus]$ python nv200_trigger_step.py [--n N] [--random]
+
+(Replace ``<path-to-2bm-procedures>`` with wherever the
+`2bm-procedures <https://github.com/decarlof/2bm-procedures>`__
+repository is checked out — e.g.
+``~/conda/2bm-procedures-decarlof``.)
 
 Arguments:
 
 - ``--n N`` — number of positions to load (default: 256, max: 1024)
 - ``--random`` — use random positions instead of evenly spaced (linspace)
+
+See the procedure page :doc:`../procedures/item_013` for the formal
+procedure definition (preconditions, parameters, steps,
+postconditions, failure modes) that this operational walk-through
+implements.
 
 Example output::
 

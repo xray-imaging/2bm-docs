@@ -55,6 +55,19 @@ Current procedures
   all blades restored to baseline. Open trigger to extend the
   per-station ``Slit`` Asset with per-blade calibration fields
   on the cora side.
+- :doc:`procedures/item_013` —
+  ``nv200_trigger_step``. Loads the per-axis coded-aperture
+  position list (default 256, max 1024 positions per axis) into
+  both Piezosystem Jena NV200D/NET controllers via Telnet and
+  arms them so each rising edge on TRG IN advances to the next
+  position in the buffer. ``--random`` selects compressive-sensing
+  dithered sampling (the current operational mode); ``--linspace``
+  (default) gives an evenly-spaced raster. Run once at session
+  setup or whenever the random list needs regenerating;
+  controllers then drive themselves frame-by-frame from the FPGA
+  trigger for the rest of the session. Targets the two
+  ``CodedApertureFineDrive_X`` / ``_Y`` Assets and the coded-
+  aperture XY flexure stage on the cora side.
 
 
 Stub procedures
