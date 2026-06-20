@@ -78,10 +78,23 @@ Current procedures
   peak, and computes the measured energy + offset from the DMM
   nominal setting. Full operator-facing recipe at
   :doc:`ops/item_022`; broader alignment context (where this fits
-  in the white → pink → mono workflow) at :doc:`ops/item_012`. The
+  in the white → pink → mono workflow) at :doc:`ops/item_015`. The
   formal 2bm-procedures script implementation is pending; this is
   cora's ``energy_characterization`` Procedure target with the
   channel-cut crystal as a removable-reference-standard Subject.
+- :doc:`procedures/item_015` —
+  ``align_beamline`` (**STATUS: STUB**). cora-Procedure-shaped
+  abstraction over the three-phase beamline alignment workflow:
+  phase 1 white-beam centring (M1 / DMM dropped out), phase 2
+  pink-beam tuning (M1 at 2.618 mrad), phase 3 mono-beam DMM setup
+  (DMM Y stages + Bragg arms + ``M2 Y`` calibrated, target arm
+  angle 1.25° at energy nominal). Optionally chained with the
+  :doc:`procedures/item_014` channel-cut calibration as a final
+  step to verify absolute energy. Full operator-facing recipe with
+  screenshots at :doc:`ops/item_012`. Procedure granularity (one
+  Method with three phases vs three separate Methods) is a design
+  decision deferred to formal implementation. Natural cora
+  session-start Method for the 2-BM deployment.
 
 
 Stub procedures
