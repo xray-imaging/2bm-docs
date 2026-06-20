@@ -675,13 +675,78 @@ laterally with an in-vacuum X stage:
 Selector motor: ``2bma:m3``. See the ops page above for the per-
 stripe expected-flux curve (``mirror_multilayer_coating.png``).
 
+**Stripe-to-position map** (inferred from the live ``energy2bm.json``
+``store_0`` table cross-checked against the Bragg resonance
+``λ = 2d sin θ`` at the operational pink-mode mirror angle
+``m1angl = 2.615 mrad``; operator confirmation of the assignments
+is pending):
+
+.. list-table::
+   :header-rows: 1
+   :widths: 8 18 22 22 30
+
+   * - Stripe
+     - ``2bma:m3`` [mm]
+     - Table X (``m1mox`` /
+       ``m1m2x``) [mm]
+     - Calibrated Pink energy
+     - Bragg-calc resonance (or cutoff for Pt)
+   * - **a** Pt
+     - 1.0 (Mono)
+       3.039 (Pink 30 keV)
+     - 8.0 / 8.0
+     - All 6 Mono energies (held);
+       Pink 30 keV
+     - Pt critical-angle cutoff at ``θ = 2.615 mrad`` is
+       ≈ 21 keV; broadband below cutoff
+   * - **b**
+     - 13.0
+     - 10.0 / 10.0
+     - Pink 40 keV
+     - 36 keV (slight detuning from 40 keV)
+   * - **c**
+     - 39.0
+     - 10.0 / 10.0
+     - Pink 50 keV
+     - 49.8 keV (clean match)
+   * - **d**
+     - 49.0 (requires coordinated
+       table-X move)
+     - 29.0 / 29.0
+     - Pink 60 keV
+     - 60.3 keV (clean match)
+
+In **Mono mode** (all 6 calibrated energies 13.374 → 25.584 keV)
+``m3`` is **held at 1.0 mm** — stripe **a** (Pt) — with table X
+at 8.0 mm and mirror angle at 2.615 mrad. The DMM downstream does
+the per-energy monochromatic selection; the mirror just deflects
+the pink beam onto the DMM at a fixed geometry.
+
+In **Pink mode** (4 calibrated energies 30 → 60 keV) ``m3`` is
+**swept per energy**, walking up the substrate from stripe **a** at
+30 keV through stripes **b** / **c** / **d** at 40 / 50 / 60 keV.
+Table X (``m1mox`` / ``m1m2x``, mapped onto ``2bma:m1`` and
+``2bma:m4``) is co-moved per energy to extend the substrate's
+useful X range; at 60 keV the table-X support jumps from 10.0 to
+29.0 mm to reach stripe **d**. Mirror angle stays constant at
+2.615 mrad across all Pink energies.
+
+The stripe selection is therefore **not freely operator-selectable
+at run time** — the calibration table determines which stripe sits
+in the beam at each (mode, energy) tuple, and the energy-change IOC
+loads the table value on every energy change. Switching to a
+different stripe means either calibrating a new energy at that
+stripe via ``energy add``, or manually overriding ``m3``
+(operationally rare).
+
 .. warning::
 
    ``2bma:m3`` does not have enough travel on its own to reach the
-   highest-energy stripe. Reaching that stripe requires a coordinated
-   move of ``m3`` together with the optical-table X stages below.
-   This coordination is encapsulated by the energy-change IOC; see
-   :ref:`composite-iocs`.
+   highest-energy stripe (**d**). Reaching that stripe requires a
+   coordinated move of ``m3`` together with the optical-table X
+   stages (table X jumps from 10.0 to 29.0 mm at Pink 60 keV per the
+   table above). This coordination is encapsulated by the
+   energy-change IOC; see :ref:`composite-iocs`.
 
 **Mirror optical table.** The mirror sub-assembly sits on a
 multi-motor optical table whose six physical motors live on the
