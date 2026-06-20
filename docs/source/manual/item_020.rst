@@ -852,7 +852,7 @@ crystal is positioned relative to the first via the ``DSY`` (Y),
 change IOC drives three of the DMM motors per energy: the two Bragg
 arms (``2bma:m30`` / ``2bma:m31``) and the second-crystal vertical
 (``2bma:m32``). Values are stored in
-`energy2bm.json <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__
+`energy2bm.json <https://github.com/decarlof/energy/blob/main/src/energy/data/energy2bm.json>`__
 under the ``store_0`` field of each motor; the IOC reads them on each
 energy change. Reproduced here as a snapshot (the JSON file is the
 authoritative source):
@@ -939,7 +939,7 @@ Flag (diagnostic phosphor)
 The energy-dependent flag positions used by mono-beam scans are
 defined in the ``energy`` package's lookup table
 (`energy2bm.json
-<https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__,
+<https://github.com/decarlof/energy/blob/main/src/energy/data/energy2bm.json>`__,
 key ``energy_move_flag``):
 
 ==============  ===================  ==========================
@@ -968,7 +968,7 @@ Pink-beam mode: flag at ``Y = 0 mm`` (user) -- same as the
    :doc:`../procedures/item_002` (``detector_z_rail_alignment``).
    The energy-dependent target Y is read from the
    ``energy_move_flag`` field of `energy2bm.json
-   <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__;
+   <https://github.com/decarlof/energy/blob/main/src/energy/data/energy2bm.json>`__;
    operating in
    pink mode means writing ``0 mm`` user to ``2bma:m44``.
 
@@ -1143,7 +1143,7 @@ B-station Slits
 vertical pair (``2bma:m9`` / ``2bma:m10``) per energy to follow the
 DMM beam-walk; the horizontal pair (``2bma:m11`` / ``2bma:m12``) is
 NOT energy-tracked. Values from
-`energy2bm.json <https://github.com/xray-imaging/energy/blob/main/src/energy/data/energy2bm.json>`__
+`energy2bm.json <https://github.com/decarlof/energy/blob/main/src/energy/data/energy2bm.json>`__
 ``store_0``:
 
 .. list-table::
@@ -2325,7 +2325,7 @@ Energy-change IOC
 
 :Exposes: Higher-level energy-change command surface (PV / RPC TBD;
    consult ``energyApp/`` in the repository).
-:Repository: https://github.com/xray-imaging/energy.git
+:Repository: https://github.com/decarlof/energy.git
    (standard EPICS app layout — ``energyApp/``, ``iocBoot/``,
    ``configure/``, ``src/``).
 

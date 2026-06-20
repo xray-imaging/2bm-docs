@@ -5,7 +5,7 @@ DMM
 ===
 
 2-BM has a double crystal multi-layer monochromator (DMM) to change energy.
-The beamline x-ray energy change is managed by the `energy cli <https://github.com/xray-imaging/energy>`_ python library.
+The beamline x-ray energy change is managed by the `energy cli <https://github.com/decarlof/energy>`_ python library.
 
 Login into 2bmb@arcturus then::
 
@@ -16,7 +16,7 @@ for help::
 
     energy -h
 
-More detailed instructions are here the `energy cli <https://github.com/xray-imaging/energy>`_
+More detailed instructions are here the `energy cli <https://github.com/decarlof/energy>`_
 
 Technical information about the DMM are available at the links below:
 
