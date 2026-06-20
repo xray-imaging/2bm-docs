@@ -75,9 +75,18 @@ Preconditions
 - :doc:`item_003` (``enable_beamline``).
 - :doc:`item_007` (``open_b_shutter``) — beam must reach the optics
   to verify the energy change.
-- A-shutter is closed for the duration of the move (the live
-  ``move.py::motors()`` auto-closes the front-end shutter before
-  the coordinated moves and re-opens it on completion).
+- **A-shutter handling is NOT automated by the energy change.** The
+  deployed ``move.py::motors()`` has both the close and re-open
+  calls explicitly commented out (the close-side log still prints
+  "closing A-shutter" misleadingly; the open-side log says
+  "opening shutter after energy change has been disabled"). The
+  A-shutter stays open continuously throughout an experimental
+  session per the operational practice documented in the A-shutter
+  block of :doc:`../manual/item_020` — closing and re-opening it
+  per energy change would create thermal transients in the
+  beamline optics. The formal procedure's precondition is simply
+  that the A-shutter is in whatever state the operator has chosen
+  (typically open); no per-move shutter sequencing.
 
 
 Parameters
@@ -189,8 +198,10 @@ Failure modes
 - **Calibrated list contains only one entry** → no interpolation
   possible; only Path A works (exact match required). Currently
   not an operational concern (Mono has 6, Pink has 4).
-- **Front-end shutter fails to close** before the moves → procedure
-  must abort before commanding the per-energy moves.
+- (Front-end shutter handling: not applicable — the deployed
+  ``move.py::motors()`` does not close or re-open the A-shutter
+  during the energy change, see Preconditions above. The A-shutter
+  stays in whatever state the operator left it in.)
 - **One or more motors fail to reach the commanded position**
   within timeout (``AllDoneA`` / ``AllDoneB`` never clears) →
   the energy mode PV is NOT updated and the procedure reports
