@@ -802,16 +802,16 @@ driven via two separate, purpose-fit abstractions:
 
 Per-motor role:
 
-=========  =============================================================
-Motor PV   Role
-=========  =============================================================
+===========  =============================================================
+Motor PV     Role
+===========  =============================================================
 ``2bma:m1``  Table X support, corner 0 (driven by energy-change IOC as ``m1mox``)
 ``2bma:m2``  Mirror downstream Y (``M1 DSY``; per-end Y for pitch / vertical; ``2postMirror.adl`` operational surface; also ``mDn`` in ``2postMirror.db``)
 ``2bma:m3``  In-vacuum X stripe selector (NOT a table support; see In-vacuum stripe selector block above)
 ``2bma:m4``  Table X support, corner 2 (driven by energy-change IOC as ``m1m2x``)
 ``2bma:m5``  Mirror upstream Y (``M1 USY``; per-end Y for pitch / vertical; ``2postMirror.adl`` operational surface; also ``mUp`` in ``2postMirror.db``)
 ``2bma:m6``  Table Z support; present but not used operationally
-=========  =============================================================
+===========  =============================================================
 
 .. figure:: ../img/mirror_table.png
    :width: 480px
@@ -1979,6 +1979,8 @@ it. The objectives, cameras, and scintillator are children of
 canonical composition.
 
 
+.. _camera-0-2bmsp1:
+
 Optique Peter MICRX080 microscope
 ---------------------------------
 
@@ -2199,13 +2201,22 @@ IOC moves ``2bmb:m1`` to the position corresponding to the new
 (lens, camera) pair. PVs and operator-verified values
 (``caget`` 2026-06-19):
 
-==========  ==============================  ==============================
-Lens / mag  Camera 0 (mm)                   Camera 1 (mm)
-==========  ==============================  ==============================
-Lens 0 / 1.1×  ``2bm:MCTOptics:Camera0LensPos0`` = ``-59.8184``  ``2bm:MCTOptics:Camera1LensPos0`` = ``-60.3784``
-Lens 1 / 2×    ``2bm:MCTOptics:Camera0LensPos1`` = ``-0.5734``   ``2bm:MCTOptics:Camera1LensPos1`` = ``-0.9240``
-Lens 2 / 10×   ``2bm:MCTOptics:Camera0LensPos2`` = ``58.8707``   ``2bm:MCTOptics:Camera1LensPos2`` = ``59.2300``
-==========  ==============================  ==============================
+.. list-table::
+   :header-rows: 1
+   :widths: 15 45 45
+
+   * - Lens / mag
+     - Camera 0 (mm)
+     - Camera 1 (mm)
+   * - Lens 0 / 1.1×
+     - ``2bm:MCTOptics:Camera0LensPos0`` = ``-59.8184``
+     - ``2bm:MCTOptics:Camera1LensPos0`` = ``-60.3784``
+   * - Lens 1 / 2×
+     - ``2bm:MCTOptics:Camera0LensPos1`` = ``-0.5734``
+     - ``2bm:MCTOptics:Camera1LensPos1`` = ``-0.9240``
+   * - Lens 2 / 10×
+     - ``2bm:MCTOptics:Camera0LensPos2`` = ``58.8707``
+     - ``2bm:MCTOptics:Camera1LensPos2`` = ``59.2300``
 
 The per-camera offsets are ~0.4–0.6 mm and reflect the slightly
 different optical-path alignment between the two cameras on the
@@ -2226,13 +2237,22 @@ rationale: keep the rotation axis aligned to the image as the
 operator swaps lens or camera. Operator-verified values
 (``caget`` 2026-06-19):
 
-==========  ==============================  ==============================
-Lens / mag  Camera 0 rotation (``2bmb:m7``)  Camera 1 rotation (``2bmb:m8``)
-==========  ==============================  ==============================
-Lens 0 / 1.1×  ``2bm:MCTOptics:Camera0Lens0Rotation`` = ``0``        ``2bm:MCTOptics:Camera1Lens0Rotation`` = ``-0.781``
-Lens 1 / 2×    ``2bm:MCTOptics:Camera0Lens1Rotation`` = ``0.555``    ``2bm:MCTOptics:Camera1Lens1Rotation`` = ``-0.92``
-Lens 2 / 10×   ``2bm:MCTOptics:Camera0Lens2Rotation`` = ``0``        ``2bm:MCTOptics:Camera1Lens2Rotation`` = ``-1.06094``
-==========  ==============================  ==============================
+.. list-table::
+   :header-rows: 1
+   :widths: 15 45 45
+
+   * - Lens / mag
+     - Camera 0 rotation (``2bmb:m7``)
+     - Camera 1 rotation (``2bmb:m8``)
+   * - Lens 0 / 1.1×
+     - ``2bm:MCTOptics:Camera0Lens0Rotation`` = ``0``
+     - ``2bm:MCTOptics:Camera1Lens0Rotation`` = ``-0.781``
+   * - Lens 1 / 2×
+     - ``2bm:MCTOptics:Camera0Lens1Rotation`` = ``0.555``
+     - ``2bm:MCTOptics:Camera1Lens1Rotation`` = ``-0.92``
+   * - Lens 2 / 10×
+     - ``2bm:MCTOptics:Camera0Lens2Rotation`` = ``0``
+     - ``2bm:MCTOptics:Camera1Lens2Rotation`` = ``-1.06094``
 
 When the operator changes ``LensSelect`` or ``CameraSelect``, the
 IOC reads the matching ``Camera{N}Lens{M}Rotation`` PV and writes
@@ -2255,13 +2275,22 @@ per lens, and the per-camera dimension is currently degenerate
 lens in the present calibration). Operator-verified values
 (``caget`` 2026-06-19):
 
-==========  ==============================  ==============================
-Lens / mag  Camera 0 focus                  Camera 1 focus
-==========  ==============================  ==============================
-Lens 0 / 1.1× → ``2bmb:m2``  ``2bm:MCTOptics:Camera0Lens0Focus`` = ``-0.374848``  ``2bm:MCTOptics:Camera1Lens0Focus`` = ``-0.374848``
-Lens 1 / 2× → ``2bmb:m3``    ``2bm:MCTOptics:Camera0Lens1Focus`` = ``11.9161``    ``2bm:MCTOptics:Camera1Lens1Focus`` = ``11.9161``
-Lens 2 / 10× → ``2bmb:m4``   ``2bm:MCTOptics:Camera0Lens2Focus`` = ``0``          ``2bm:MCTOptics:Camera1Lens2Focus`` = ``0``
-==========  ==============================  ==============================
+.. list-table::
+   :header-rows: 1
+   :widths: 25 40 40
+
+   * - Lens / mag
+     - Camera 0 focus
+     - Camera 1 focus
+   * - Lens 0 / 1.1× → ``2bmb:m2``
+     - ``2bm:MCTOptics:Camera0Lens0Focus`` = ``-0.374848``
+     - ``2bm:MCTOptics:Camera1Lens0Focus`` = ``-0.374848``
+   * - Lens 1 / 2× → ``2bmb:m3``
+     - ``2bm:MCTOptics:Camera0Lens1Focus`` = ``11.9161``
+     - ``2bm:MCTOptics:Camera1Lens1Focus`` = ``11.9161``
+   * - Lens 2 / 10× → ``2bmb:m4``
+     - ``2bm:MCTOptics:Camera0Lens2Focus`` = ``0``
+     - ``2bm:MCTOptics:Camera1Lens2Focus`` = ``0``
 
 When ``LensSelect`` changes to slot ``M`` and ``CameraSelect`` is
 ``N``, the IOC writes ``Camera{N}Lens{M}Focus`` to ``2bmb:m{2+M}``.
@@ -2273,13 +2302,26 @@ future per-camera focus calibration if needed.
 **Summary — three per-(camera, lens) MCTOptics lookups, applied
 coordinately on each LensSelect / CameraSelect change:**
 
-==========================  ==============================  ==============================  ==============================
-Lookup                      Motor(s)                        Value PVs                       Per-camera dimension today
-==========================  ==============================  ==============================  ==============================
-Turret position             ``2bmb:m1``                     ``Camera{N}LensPos{M}`` (6)     active (~0.4–0.6 mm offset)
-Camera rotation             ``2bmb:m7`` (cam0), ``m8`` (cam1)  ``Camera{N}Lens{M}Rotation`` (6)  active (some zero, some non-zero)
-Per-lens fine focus         ``2bmb:m2``/``m3``/``m4`` (per lens)  ``Camera{N}Lens{M}Focus`` (6)     degenerate (Cam0 == Cam1)
-==========================  ==============================  ==============================  ==============================
+.. list-table::
+   :header-rows: 1
+   :widths: 20 30 25 25
+
+   * - Lookup
+     - Motor(s)
+     - Value PVs
+     - Per-camera dimension today
+   * - Turret position
+     - ``2bmb:m1``
+     - ``Camera{N}LensPos{M}`` (6)
+     - active (~0.4–0.6 mm offset)
+   * - Camera rotation
+     - ``2bmb:m7`` (cam0), ``m8`` (cam1)
+     - ``Camera{N}Lens{M}Rotation`` (6)
+     - active (some zero, some non-zero)
+   * - Per-lens fine focus
+     - ``2bmb:m2``/``m3``/``m4`` (per lens)
+     - ``Camera{N}Lens{M}Focus`` (6)
+     - degenerate (Cam0 == Cam1)
 
 18 calibration PVs in total. Whichever subset is non-degenerate
 in any given calibration, all 18 lookups exist and the IOC will
