@@ -271,7 +271,7 @@ aperture that downstream optics see. From APS_2191941 row 1:
    descriptor stub (the placeholder cora opened for this question)
    is the appropriate model: a registered inventory item with
    physical / shielding parameters but no commandable axes.
-   Answers cora ALIGN-2.
+   Answers cora `ALIGN-2 <https://github.com/xmap/cora/issues/264>`__.
 
    Earlier 2bm-docs versions of :doc:`../ops/item_012` cited the
    mask as "50 mm × 3 mm (H × V)" — that was an outdated pre-APS-U
@@ -324,7 +324,7 @@ shielding material) for W4-20).
    No standalone cora Asset for the Be windows; they are passive
    beam-path elements with no command surface. Recorded here as
    per-Run provenance / shielding inventory data. Answers cora
-   BEAM-2.
+   `BEAM-2 <https://github.com/xmap/cora/issues/246>`__.
 
 
 .. _operational-components:
@@ -802,16 +802,16 @@ driven via two separate, purpose-fit abstractions:
 
 Per-motor role:
 
-=========  =============================================================
-Motor PV   Role
-=========  =============================================================
+===========  =============================================================
+Motor PV     Role
+===========  =============================================================
 ``2bma:m1``  Table X support, corner 0 (driven by energy-change IOC as ``m1mox``)
 ``2bma:m2``  Mirror downstream Y (``M1 DSY``; per-end Y for pitch / vertical; ``2postMirror.adl`` operational surface; also ``mDn`` in ``2postMirror.db``)
 ``2bma:m3``  In-vacuum X stripe selector (NOT a table support; see In-vacuum stripe selector block above)
 ``2bma:m4``  Table X support, corner 2 (driven by energy-change IOC as ``m1m2x``)
 ``2bma:m5``  Mirror upstream Y (``M1 USY``; per-end Y for pitch / vertical; ``2postMirror.adl`` operational surface; also ``mUp`` in ``2postMirror.db``)
 ``2bma:m6``  Table Z support; present but not used operationally
-=========  =============================================================
+===========  =============================================================
 
 .. figure:: ../img/mirror_table.png
    :width: 480px
@@ -1000,7 +1000,7 @@ swing the DMM tank into or out of the beam at mode switch.
 The IOC re-asserts these values on every energy change (they're in
 the `energy_move_*` set in ``energy2bm.json``), but interpolation
 between the two constant values per axis is degenerate — the
-result is the constant. This answers cora ENERGY-5.
+result is the constant. This answers cora `ENERGY-5 <https://github.com/xmap/cora/issues/254>`__.
 
 **DMM substrate carries two multilayer stripes** (full specs in
 :doc:`../ops/item_021`: 13.8 Å and 24 Å multilayer periods, 4 mm
@@ -1014,7 +1014,7 @@ substrate move (the candidate axis is ``m25`` or ``m28``, since the
 substrate geometry matches the 4 mm stripe spacing, but the actual
 mapping needs operator confirmation) plus a separate Mono-mode
 recalibration of the Bragg arms and ``M2 Y`` for the new stripe.
-This answers cora ENERGY-6.
+This answers cora `ENERGY-6 <https://github.com/xmap/cora/issues/255>`__.
 
 **Per-energy saved positions (energy-tracking subset).** The energy-
 change IOC drives three of the DMM motors per energy: the two Bragg
@@ -1077,7 +1077,7 @@ the Mono 20 keV configuration. The other five DMM motors
 (``2bma:m25–m29``) also have ``store_0`` entries — in Pink the Y
 motors (``USY OB`` / ``USY IB`` / ``DSY``) are driven to ``-10`` mm
 to take the DMM out of beam — but those are not what cora's ENERGY-1
-question asks about. This table answers cora ENERGY-1.
+question asks about. This table answers cora `ENERGY-1 <https://github.com/xmap/cora/issues/249>`__.
 
 Flag (diagnostic phosphor)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1094,7 +1094,7 @@ Flag (diagnostic phosphor)
    front-end OMS VME58 #1). Operator-raised in Mono mode (Y
    position is energy-dependent, see table below) and parked at
    the lower limit in Pink mode. The energy-tracking Y curve is
-   the lookup-table data answering cora FLAG-1.
+   the lookup-table data answering cora `FLAG-1 <https://github.com/xmap/cora/issues/251>`__.
 :Mounted on: Own stand in 2-BM-A (floor-referenced).
 :Carries: phosphor-painted flag + visible camera (not modelled
    here; the camera is its own Asset).
@@ -1188,7 +1188,7 @@ Pink-beam mode: flag at ``Y = 0 mm`` (user) -- same as the
 .. note::
 
    **Why this is documented as a permanent inventory entry, not a
-   transient diagnostic.** The cora ALIGN-1 question explicitly
+   transient diagnostic.** The cora `ALIGN-1 <https://github.com/xmap/cora/issues/263>`__ question explicitly
    asks whether this is a standing diagnostic or a temporary
    setup brought in only for alignment. The operationally correct
    answer is **semi-permanent**: physically installed all the
@@ -1197,7 +1197,7 @@ Pink-beam mode: flag at ``Y = 0 mm`` (user) -- same as the
    inventory as a registered ``Camera`` Asset (not a temporary /
    transient fixture), with the understanding that its
    operational-availability state is "deployed but not engaged"
-   most of the time. This answers cora ALIGN-1.
+   most of the time. This answers cora `ALIGN-1 <https://github.com/xmap/cora/issues/263>`__.
 
 P6-50 Safety Shutter (B-shutter)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1223,7 +1223,7 @@ P6-50 Safety Shutter (B-shutter)
    (covers all four elements: white-beam stop ``41050401-300001``,
    W collimator ``41050401-500001``, safety shutter
    ``41050401-410003``, SS baffle ``41050401-500200``). Source:
-   APS_2191941 row 10. Answers cora BEAM-3.
+   APS_2191941 row 10. Answers cora `BEAM-3 <https://github.com/xmap/cora/issues/247>`__.
 :EPICS prefix: ``S02BM-PSS:SBS``
 :Open command: ``S02BM-PSS:SBS:OpenEPICSC``
 :Close command: ``S02BM-PSS:SBS:CloseEPICSC``
@@ -1415,7 +1415,7 @@ across all six configured energies); the slit aperture stays roughly
 constant while the pair's centre tracks the beam-walk. Pink-mode is
 constant across all four energies (slits parked wide open at
 +10 / -10 mm; no per-energy tracking because the DMM is bypassed).
-This table answers cora ENERGY-2.
+This table answers cora `ENERGY-2 <https://github.com/xmap/cora/issues/250>`__.
 
 .. note::
 
@@ -1497,7 +1497,7 @@ Coded aperture (Jena NV200D piezo)
    sense; the mask itself is a beam-path optical element with its
    own positioning piezo; cora's eventual Family choice for the
    mask is a separate decision from the piezo controller below.)
-:cora Asset (piezo controller): ``CodedApertureFineDrive`` (proposed
+:cora Asset: ``CodedApertureFineDrive`` (piezo-controller Asset; proposed
    name; ``SampleFineDrive`` was the earlier provisional placeholder
    and is wrong — the device does not move the sample). Family:
    ``MotionController``. Operator-confirmed 2026-06-19. The earlier
@@ -1527,23 +1527,33 @@ Coded aperture (Jena NV200D piezo)
    for tomoscan fly-scan integration and is therefore not used at
    2-BM in any operational procedure today; see :doc:`../ops/item_027`
    for the NV100D historical / decommissioned reference).
-:Hardware (actuator / XY flexure stage): Piezosystem Jena
+:Actuator: Piezosystem Jena XY flexure stage,
    **nanoSXY 120 CAP**, part number **T-223-06D** (the "D" suffix
    denotes the digital interface variant). Drawing: `nanoSXY-120-CAP
    <https://www.piezosystem.com/wp-content/uploads/2022/04/nanoSXY-120-CAP-Part-Drawing.pdf>`__
    (rev.01, Feb 2019). Key dimensions:
 
-   ===========================  ==============
-   Property                     Value
-   ===========================  ==============
-   Travel per axis (nominal)    120 µm
-   Travel per axis (closed-loop, per :doc:`../ops/item_028`)  100 µm
-   Clear aperture               Ø 12.5 mm (centred)
-   Outer footprint              82 × 79 × 30 mm
-   Mounting                     4× M3 tapped + 4× Ø3 G7 reamed dowel holes (symmetric, on both sides); 32 mm / 54 mm / 60 mm hole-pattern centres
-   Standard cable length        1600 mm (voltage + sensor cables)
-   Feedback                     Capacitive (the ``CAP`` in the model)
-   ===========================  ==============
+   .. list-table::
+      :header-rows: 1
+      :widths: 35 65
+
+      * - Property
+        - Value
+      * - Travel per axis (nominal)
+        - 120 µm
+      * - Travel per axis (closed-loop, per :doc:`../ops/item_028`)
+        - 100 µm
+      * - Clear aperture
+        - Ø 12.5 mm (centred)
+      * - Outer footprint
+        - 82 × 79 × 30 mm
+      * - Mounting
+        - 4× M3 tapped + 4× Ø3 G7 reamed dowel holes (symmetric, on
+          both sides); 32 mm / 54 mm / 60 mm hole-pattern centres
+      * - Standard cable length
+        - 1600 mm (voltage + sensor cables)
+      * - Feedback
+        - Capacitive (the ``CAP`` in the model)
 
    The clear aperture is what the coded-aperture mask itself is
    mounted into; the X / Y piezo motion moves the mask within the
@@ -1552,8 +1562,9 @@ Coded aperture (Jena NV200D piezo)
 :Operational reference: :doc:`../ops/item_028` covers IOC startup,
    network configuration, caQtDM screens, FPGA trigger integration,
    and the triggered-step mode.
-:Triggered-step programming procedure: Formal procedure page
-   :doc:`../procedures/item_013` (slug ``nv200_trigger_step``).
+:Programming procedure: Triggered-step buffer programming, formal
+   procedure page :doc:`../procedures/item_013` (slug
+   ``nv200_trigger_step``).
    Implementation lives in the ``2bm-procedures`` repository at
    `procedures/nv200_trigger_step.py
    <https://github.com/decarlof/2bm-procedures/blob/main/procedures/nv200_trigger_step.py>`__
@@ -1836,7 +1847,7 @@ Rotary
    (Order # ``730578``, built to dwg ``630D2079 REV-H``); the
    chassis + PS24-1 supply provide DC bus and Aeronet
    distribution to the ML card. Bound cora Model:
-   ``aerotech_ensemble`` (currently — see [cora#156] for the
+   ``aerotech_ensemble`` (currently — see `cora#156 <https://github.com/xmap/cora/issues/156>`__ for the
    pending rename to a Model handle matching the actual P/N.))
 :Travel: 360° continuous (per datasheet); the 2-BM operational
    software limits are configured at ``2bmb:m102.LLM = -360 deg``,
@@ -1851,7 +1862,7 @@ Rotary
    sub-microradian, corresponding to roughly 0.0001 deg per step at
    the application layer.
 :Accuracy: ±2 arc sec (per datasheet)
-:Repeatability (bidirectional): <1 arc sec (per datasheet)
+:Repeatability: <1 arc sec bidirectional (per datasheet)
 :Homing offset: 0 deg
 :Dimensions: 250 mm wide × 100 mm high; 228.1 mm tabletop diameter;
    35 mm clear aperture (per datasheet — note: the "250" in
@@ -1968,6 +1979,8 @@ it. The objectives, cameras, and scintillator are children of
 canonical composition.
 
 
+.. _camera-0-2bmsp1:
+
 Optique Peter MICRX080 microscope
 ---------------------------------
 
@@ -1996,7 +2009,7 @@ Optique Peter MICRX080 microscope
      measurement camera at high frame rate (~99 fps, 1000-frame
      HDF5 streams) per :doc:`../ops/item_021` and
      :doc:`../ops/item_070`. There is **no separate high-speed
-     camera at 2-BM**. Answers cora VIB-1.
+     camera at 2-BM**. Answers cora `VIB-1 <https://github.com/xmap/cora/issues/265>`__.
    - **FLIR Oryx 31MP** (camera 1, ``2bmSP2:`` areaDetector prefix).
      Model ``Oryx ORX-10G-310S9M``. Sony IMX367 CMOS sensor,
      global shutter; 6464 × 4852, 3.45 µm pixel pitch. C-mount.
@@ -2188,13 +2201,22 @@ IOC moves ``2bmb:m1`` to the position corresponding to the new
 (lens, camera) pair. PVs and operator-verified values
 (``caget`` 2026-06-19):
 
-==========  ==============================  ==============================
-Lens / mag  Camera 0 (mm)                   Camera 1 (mm)
-==========  ==============================  ==============================
-Lens 0 / 1.1×  ``2bm:MCTOptics:Camera0LensPos0`` = ``-59.8184``  ``2bm:MCTOptics:Camera1LensPos0`` = ``-60.3784``
-Lens 1 / 2×    ``2bm:MCTOptics:Camera0LensPos1`` = ``-0.5734``   ``2bm:MCTOptics:Camera1LensPos1`` = ``-0.9240``
-Lens 2 / 10×   ``2bm:MCTOptics:Camera0LensPos2`` = ``58.8707``   ``2bm:MCTOptics:Camera1LensPos2`` = ``59.2300``
-==========  ==============================  ==============================
+.. list-table::
+   :header-rows: 1
+   :widths: 15 45 45
+
+   * - Lens / mag
+     - Camera 0 (mm)
+     - Camera 1 (mm)
+   * - Lens 0 / 1.1×
+     - ``2bm:MCTOptics:Camera0LensPos0`` = ``-59.8184``
+     - ``2bm:MCTOptics:Camera1LensPos0`` = ``-60.3784``
+   * - Lens 1 / 2×
+     - ``2bm:MCTOptics:Camera0LensPos1`` = ``-0.5734``
+     - ``2bm:MCTOptics:Camera1LensPos1`` = ``-0.9240``
+   * - Lens 2 / 10×
+     - ``2bm:MCTOptics:Camera0LensPos2`` = ``58.8707``
+     - ``2bm:MCTOptics:Camera1LensPos2`` = ``59.2300``
 
 The per-camera offsets are ~0.4–0.6 mm and reflect the slightly
 different optical-path alignment between the two cameras on the
@@ -2215,13 +2237,22 @@ rationale: keep the rotation axis aligned to the image as the
 operator swaps lens or camera. Operator-verified values
 (``caget`` 2026-06-19):
 
-==========  ==============================  ==============================
-Lens / mag  Camera 0 rotation (``2bmb:m7``)  Camera 1 rotation (``2bmb:m8``)
-==========  ==============================  ==============================
-Lens 0 / 1.1×  ``2bm:MCTOptics:Camera0Lens0Rotation`` = ``0``        ``2bm:MCTOptics:Camera1Lens0Rotation`` = ``-0.781``
-Lens 1 / 2×    ``2bm:MCTOptics:Camera0Lens1Rotation`` = ``0.555``    ``2bm:MCTOptics:Camera1Lens1Rotation`` = ``-0.92``
-Lens 2 / 10×   ``2bm:MCTOptics:Camera0Lens2Rotation`` = ``0``        ``2bm:MCTOptics:Camera1Lens2Rotation`` = ``-1.06094``
-==========  ==============================  ==============================
+.. list-table::
+   :header-rows: 1
+   :widths: 15 45 45
+
+   * - Lens / mag
+     - Camera 0 rotation (``2bmb:m7``)
+     - Camera 1 rotation (``2bmb:m8``)
+   * - Lens 0 / 1.1×
+     - ``2bm:MCTOptics:Camera0Lens0Rotation`` = ``0``
+     - ``2bm:MCTOptics:Camera1Lens0Rotation`` = ``-0.781``
+   * - Lens 1 / 2×
+     - ``2bm:MCTOptics:Camera0Lens1Rotation`` = ``0.555``
+     - ``2bm:MCTOptics:Camera1Lens1Rotation`` = ``-0.92``
+   * - Lens 2 / 10×
+     - ``2bm:MCTOptics:Camera0Lens2Rotation`` = ``0``
+     - ``2bm:MCTOptics:Camera1Lens2Rotation`` = ``-1.06094``
 
 When the operator changes ``LensSelect`` or ``CameraSelect``, the
 IOC reads the matching ``Camera{N}Lens{M}Rotation`` PV and writes
@@ -2244,13 +2275,22 @@ per lens, and the per-camera dimension is currently degenerate
 lens in the present calibration). Operator-verified values
 (``caget`` 2026-06-19):
 
-==========  ==============================  ==============================
-Lens / mag  Camera 0 focus                  Camera 1 focus
-==========  ==============================  ==============================
-Lens 0 / 1.1× → ``2bmb:m2``  ``2bm:MCTOptics:Camera0Lens0Focus`` = ``-0.374848``  ``2bm:MCTOptics:Camera1Lens0Focus`` = ``-0.374848``
-Lens 1 / 2× → ``2bmb:m3``    ``2bm:MCTOptics:Camera0Lens1Focus`` = ``11.9161``    ``2bm:MCTOptics:Camera1Lens1Focus`` = ``11.9161``
-Lens 2 / 10× → ``2bmb:m4``   ``2bm:MCTOptics:Camera0Lens2Focus`` = ``0``          ``2bm:MCTOptics:Camera1Lens2Focus`` = ``0``
-==========  ==============================  ==============================
+.. list-table::
+   :header-rows: 1
+   :widths: 25 40 40
+
+   * - Lens / mag
+     - Camera 0 focus
+     - Camera 1 focus
+   * - Lens 0 / 1.1× → ``2bmb:m2``
+     - ``2bm:MCTOptics:Camera0Lens0Focus`` = ``-0.374848``
+     - ``2bm:MCTOptics:Camera1Lens0Focus`` = ``-0.374848``
+   * - Lens 1 / 2× → ``2bmb:m3``
+     - ``2bm:MCTOptics:Camera0Lens1Focus`` = ``11.9161``
+     - ``2bm:MCTOptics:Camera1Lens1Focus`` = ``11.9161``
+   * - Lens 2 / 10× → ``2bmb:m4``
+     - ``2bm:MCTOptics:Camera0Lens2Focus`` = ``0``
+     - ``2bm:MCTOptics:Camera1Lens2Focus`` = ``0``
 
 When ``LensSelect`` changes to slot ``M`` and ``CameraSelect`` is
 ``N``, the IOC writes ``Camera{N}Lens{M}Focus`` to ``2bmb:m{2+M}``.
@@ -2262,13 +2302,26 @@ future per-camera focus calibration if needed.
 **Summary — three per-(camera, lens) MCTOptics lookups, applied
 coordinately on each LensSelect / CameraSelect change:**
 
-==========================  ==============================  ==============================  ==============================
-Lookup                      Motor(s)                        Value PVs                       Per-camera dimension today
-==========================  ==============================  ==============================  ==============================
-Turret position             ``2bmb:m1``                     ``Camera{N}LensPos{M}`` (6)     active (~0.4–0.6 mm offset)
-Camera rotation             ``2bmb:m7`` (cam0), ``m8`` (cam1)  ``Camera{N}Lens{M}Rotation`` (6)  active (some zero, some non-zero)
-Per-lens fine focus         ``2bmb:m2``/``m3``/``m4`` (per lens)  ``Camera{N}Lens{M}Focus`` (6)     degenerate (Cam0 == Cam1)
-==========================  ==============================  ==============================  ==============================
+.. list-table::
+   :header-rows: 1
+   :widths: 20 30 25 25
+
+   * - Lookup
+     - Motor(s)
+     - Value PVs
+     - Per-camera dimension today
+   * - Turret position
+     - ``2bmb:m1``
+     - ``Camera{N}LensPos{M}`` (6)
+     - active (~0.4–0.6 mm offset)
+   * - Camera rotation
+     - ``2bmb:m7`` (cam0), ``m8`` (cam1)
+     - ``Camera{N}Lens{M}Rotation`` (6)
+     - active (some zero, some non-zero)
+   * - Per-lens fine focus
+     - ``2bmb:m2``/``m3``/``m4`` (per lens)
+     - ``Camera{N}Lens{M}Focus`` (6)
+     - degenerate (Cam0 == Cam1)
 
 18 calibration PVs in total. Whichever subset is non-degenerate
 in any given calibration, all 18 lookups exist and the IOC will

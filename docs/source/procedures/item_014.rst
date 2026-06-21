@@ -1,6 +1,6 @@
-============================================
+=============================================
 Energy characterization (channel-cut crystal)
-============================================
+=============================================
 
 .. warning::
 
@@ -56,7 +56,8 @@ Devices
 - **Rotation stage** for rocking the crystal: the 2-BM-B
   sample-rotation stage (the Aerotech ABRS-150MP described in the
   :doc:`../manual/item_020` sample-stack block, also tracked by cora
-  STAGE-3 / cora#164). The crystal is mounted in place of the sample
+  STAGE-3 / `cora#164 <https://github.com/xmap/cora/issues/164>`__).
+  The crystal is mounted in place of the sample
   for the duration of the calibration.
 
 - :doc:`../manual/item_020`: **DMM** — the optic being calibrated.
@@ -148,7 +149,7 @@ narrative + screenshots.)
        ``energy add --energy <measured>`` adds a new calibrated row
        at the measured value, leaving the existing row in place.
        See :doc:`../ops/item_022` step 7 for the explicit CLI
-       invocations. **The cora ENERGY-8 question's "offset folded
+       invocations. **The cora `ENERGY-8 <https://github.com/xmap/cora/issues/257>`__ question's "offset folded
        back vs applied separately" framing does not match the
        actual mechanism — there is no offset state.**
    * - 8
@@ -231,16 +232,17 @@ Notes
   field: ``si_channel_cut_220`` or similar, with ``two_d_angstrom =
   3.84`` and dimensions 36 x 3 mm).
 - The rotation stage used for rocking is the 2-BM-B sample-rotation
-  stage (cora STAGE-3 / cora#164 ``SampleRotaryDrive`` / Aerotech
+  stage (cora STAGE-3 / `cora#164 <https://github.com/xmap/cora/issues/164>`__
+  ``SampleRotaryDrive`` / Aerotech
   ABRS-150MP), reused as the rocking axis for the calibration. No
   separate rotation hardware is involved.
 - **No "energy offset" state is stored anywhere in the system.**
-  The cora ENERGY-8 question's framing — "is the offset folded back
+  The cora `ENERGY-8 <https://github.com/xmap/cora/issues/257>`__ question's framing — "is the offset folded back
   into the saved table or applied separately?" — implies a stored
   offset that doesn't exist. The actual mechanism: the calibration
   table itself (``energy2bm.json`` ``store_0``) is updated directly
   via ``energy add``, capturing the current motor positions as the
   authoritative calibration for the named energy. Step 7 above is
-  the operational form of this. ENERGY-8 should be answered as
+  the operational form of this. `ENERGY-8 <https://github.com/xmap/cora/issues/257>`__ should be answered as
   "neither — there is no offset; the table IS the truth, updated in
   place".
