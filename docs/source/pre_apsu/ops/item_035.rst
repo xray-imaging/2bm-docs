@@ -136,7 +136,7 @@ Restore
 
 To restore an experiment, e.g. Finfrock-2023-03, from tape to its original location on voyager
 
-.. image:: ../img/voyager_on_globus.png 
+.. image:: ../img/voyager_on_globus.png
    :width: 200px
    :align: center
    :alt: dm
