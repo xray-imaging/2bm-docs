@@ -73,6 +73,197 @@ That document is the source of truth for the 2-BM interlock
 configuration. This page is the conceptual overview only.
 
 
+Physical assignments at 2-BM
+============================
+
+The Excel transfer table refers to the gate valves, mirror
+thermocouples and water-flow loops only by numeric index
+(``GV1``/``GV2``/``GV3``, ``Temp1``/``Temp2``/``Temp3``,
+``Flow1``..``Flow8``). The physical device each index refers to is
+configured in the PLC and is not stored in the transfer table — it
+is read off the **2 BMBLEPS** Allen-Bradley operator panel, which
+surfaces ``Flow1``-``Flow5`` / ``Temp1``-``Temp3`` / ``GV1`` /
+``GV2`` on the *Station A* page and ``Flow6``-``Flow8`` / ``GV3``
+on the *Station B* page. The mapping below is taken from those
+screens.
+
+Gate valves — location in beam direction
+----------------------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 15 85
+
+   * - Tag
+     - Physical location
+   * - ``GV1``
+     - Between the upstream Slits (downstream of the BIV) and the
+       M1 mirror tank. Isolates the mirror tank from the front-end
+       side.
+   * - ``GV2``
+     - Between Windows 2 & 3 (downstream end of the Station A
+       optics enclosure) and the SBS (Station B Shutter). Isolates
+       the Station A optics enclosure from the transport to Station
+       B.
+   * - ``GV3``
+     - Between the transport pipe coming from Station A and the
+       Station B optics (Station B entrance slits and Window 4).
+       Isolates Station B from the transport.
+
+Mirror tank thermocouples
+-------------------------
+
+All three ``Temp`` channels are thermocouples on the M1 mirror
+tank; the index maps top-to-bottom on the tank:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 15 85
+
+   * - Tag
+     - Physical location
+   * - ``Temp1``
+     - M1 mirror tank — Lower thermocouple.
+   * - ``Temp2``
+     - M1 mirror tank — Middle thermocouple.
+   * - ``Temp3``
+     - M1 mirror tank — Upper thermocouple.
+
+Water-flow loops
+----------------
+
+Each ``Flow`` channel monitors the cooling-water flow through one
+group of water-cooled components:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 15 85
+
+   * - Tag
+     - Cooled components
+   * - ``Flow1``
+     - Filter assembly and upstream Slits.
+   * - ``Flow2``
+     - M1 mirror tank and the DMM (Double Multilayer Monochromator).
+   * - ``Flow3``
+     - Window 1 and the Missteer Mask.
+   * - ``Flow4``
+     - Windows 2 & 3.
+   * - ``Flow5``
+     - White Beam Mask and the SBS (Station B Shutter).
+   * - ``Flow6``
+     - Station B entrance slits.
+   * - ``Flow7``
+     - Window 4 (Station B).
+   * - ``Flow8``
+     - Station B Photon Stop.
+
+
+Operator screens
+================
+
+Two graphical interfaces are used at 2-BM to monitor the BLEPS:
+
+The **full BLEPS panel** (caQtDM, support-supplied) surfaces every
+BLEPS channel — shutters, gate-valve open/close commands and
+per-fault flags, ion pumps and gauges, vacuum sections, flows,
+temperatures, and the trip / fault / warning FIFOs. Use it for
+diagnostics and to acknowledge / reset latched faults.
+
+.. image:: ../img/BLEPScaQt.png
+   :width: 720px
+   :align: center
+   :alt: BLEPS full operator panel (caQtDM)
+
+The **status summary** (MEDM, ``bleps_gv_status.adl``) is a smaller
+read-only screen showing the BLEPS state most relevant to daily
+operations: the overall fault / trip / warning latches, the three
+beamline shutters (BIV, FES, SBS), the three gate-valve open/closed
+limit switches with their physical location, the M1 mirror
+thermocouples, and the eight cooling-water flows. Every numeric
+channel is labelled with the physical device it monitors, so the
+indexed PV names below do not need to be cross-referenced by hand.
+
+.. image:: ../img/BLEPSMEDM.png
+   :width: 480px
+   :align: center
+   :alt: BLEPS status summary (MEDM)
+
+Launch the summary screen with::
+
+    medm -x -macro "P=2bmBLEPS:" bleps_gv_status.adl
+
+PVs shown on the status summary screen
+--------------------------------------
+
+The *Current* and *Trip limit* columns on the summary screen are
+driven by the PVs in the table below (all share the prefix
+``2bmBLEPS:BLEPS:``).
+
+.. list-table::
+   :header-rows: 1
+   :widths: 10 35 27 28
+
+   * - Channel
+     - Location / cooled components
+     - Current value PV
+     - Trip limit PV
+   * - ``Temp1``
+     - M1 mirror tank — Lower thermocouple
+     - ``TEMP1_CURRENT``
+     - ``TEMP1_SET_POINT``
+   * - ``Temp2``
+     - M1 mirror tank — Middle thermocouple
+     - ``TEMP2_CURRENT``
+     - ``TEMP2_SET_POINT``
+   * - ``Temp3``
+     - M1 mirror tank — Upper thermocouple
+     - ``TEMP3_CURRENT``
+     - ``TEMP3_SET_POINT``
+   * - ``Flow1``
+     - Filter / Slits
+     - ``FLOW1_CURRENT``
+     - ``FLOW1_SET_POINT``
+   * - ``Flow2``
+     - M1 Mirror / DMM
+     - ``FLOW2_CURRENT``
+     - ``FLOW2_SET_POINT``
+   * - ``Flow3``
+     - Window 1 / Missteer Mask
+     - ``FLOW3_CURRENT``
+     - ``FLOW3_SET_POINT``
+   * - ``Flow4``
+     - Windows 2 & 3
+     - ``FLOW4_CURRENT``
+     - ``FLOW4_SET_POINT``
+   * - ``Flow5``
+     - White Beam Mask / SBS Shutter
+     - ``FLOW5_CURRENT``
+     - ``FLOW5_SET_POINT``
+   * - ``Flow6``
+     - Station B entrance slits
+     - ``FLOW6_CURRENT``
+     - ``FLOW6_SET_POINT``
+   * - ``Flow7``
+     - Window 4 (Station B)
+     - ``FLOW7_CURRENT``
+     - ``FLOW7_SET_POINT``
+   * - ``Flow8``
+     - Station B Photon Stop
+     - ``FLOW8_CURRENT``
+     - ``FLOW8_SET_POINT``
+
+Temperature trip limits are *high* setpoints (a fault is raised
+when the reading rises above the setpoint); flow trip limits are
+*low* setpoints (a fault is raised when the reading falls below
+the setpoint). The top-row status latches
+(``A_FAULT_EXISTS``, ``A_TRIP_EXISTS``, ``WARNING_EXISTS``), the
+shutter closed-status inputs (``BIV_CLOSED``, ``FES_CLOSED``,
+``SBS_CLOSED``) and the gate-valve limit switches
+(``GVx_OPENED_LS`` / ``GVx_CLOSED_LS``) are documented under the
+*Faults*, *Inputs* and *Outputs* tables below.
+
+
 BLEPS PV inventory (2-BM)
 =========================
 
