@@ -159,46 +159,141 @@ group of water-cooled components:
      - Station B Photon Stop.
 
 
-Operator screens
-================
+EPICS IOC
+=========
 
-Two graphical interfaces are used at 2-BM to monitor the BLEPS:
+The 2-BM BLEPS PLC surfaces its state to EPICS via a soft IOC
+running on the beamline server ``arcturus`` under the ``2bmb``
+account. Every ``2bmBLEPS:`` PV documented in the inventory
+below comes from this IOC.
 
-The **full BLEPS panel** (caQtDM, support-supplied) surfaces every
-BLEPS channel — shutters, gate-valve open/close commands and
-per-fault flags, ion pumps and gauges, vacuum sections, flows,
-temperatures, and the trip / fault / warning FIFOs. Use it for
-diagnostics and to acknowledge / reset latched faults.
+Deployment
+----------
 
-.. image:: ../img/BLEPScaQt.png
+:IOC directory: ``/net/s2dserv/xorApps/epics/synApps_6_3/ioc/2bmBLEPS``
+:Host: ``arcturus``
+:Account: ``2bmb``
+:PV prefix: ``2bmBLEPS:`` (BLEPS-domain PVs live under
+   ``2bmBLEPS:BLEPS:*``)
+:Framework: synApps 6.3 — standard ``iocBoot/`` +
+   ``2bmBLEPSApp/`` layout, with ``2bmBLEPSApp/op/ui`` holding the
+   caQtDM screens.
+:PV count: 599 total — 385 in the BLEPS domain,
+   214 IOC-admin (heartbeat / CA statistics from iocAdminSoft).
+
+Starting the IOC
+----------------
+
+The IOC is a synApps soft IOC. Two equivalent ways to start it.
+
+**Via the wrapper script** (recommended — opens a new
+gnome-terminal tab and follows the beamline convention of one tab
+per running IOC)::
+
+    ~/bin/bleps_IOC.sh
+
+The wrapper ``ssh``'s to ``2bmb@arcturus`` and invokes the softioc
+launcher.
+
+**Directly** (when logged in as ``2bmb@arcturus``)::
+
+    cd /net/s2dserv/xorApps/epics/synApps_6_3/ioc/2bmBLEPS/iocBoot/ioc2bmBLEPS/softioc
+    ./2bmBLEPS.pl run
+
+The IOC runs in the foreground of that terminal and prints its
+startup output. Leave the terminal open for the duration of the
+session; closing it kills the IOC.
+
+Stopping the IOC
+----------------
+
+Two equivalent ways.
+
+**Via the wrapper script**::
+
+    ~/bin/bleps_IOC_stop.sh
+
+which calls ``kill_IOC.sh 2bmBLEPS`` on ``arcturus``.
+
+**Directly** (as ``2bmb@arcturus``)::
+
+    kill_IOC.sh 2bmBLEPS
+
+Or, from the IOC's own terminal, ``Ctrl-C``.
+
+MEDM status summary
+-------------------
+
+The ``bleps_status.adl`` screen (see figure below) shows the
+operationally-relevant BLEPS state on a single page. It is the
+day-to-day interface for on-shift operators.
+
+Launch it with::
+
+    medm -x -macro "P=2bmBLEPS:" /home/beams/2BMB/bin/bleps_status.adl
+
+.. image:: ../img/bleps_status.png
    :width: 720px
    :align: center
-   :alt: BLEPS full operator panel (caQtDM)
+   :alt: BLEPS status summary (MEDM, bleps_status.adl)
 
-The **status summary** (MEDM, ``bleps_gv_status.adl``) is a smaller
-read-only screen showing the BLEPS state most relevant to daily
-operations: the overall fault / trip / warning latches, the three
-beamline shutters (BIV, FES, SBS), the three gate-valve open/closed
-limit switches with their physical location, the M1 mirror
-thermocouples, and the eight cooling-water flows. Every numeric
-channel is labelled with the physical device it monitors, so the
-indexed PV names below do not need to be cross-referenced by hand.
+The figure above shows the running screen with a real snapshot of
+the beamline. Reading top to bottom, left to right:
 
-.. image:: ../img/BLEPSMEDM.png
-   :width: 480px
-   :align: center
-   :alt: BLEPS status summary (MEDM)
+**Top row — ALARMS + SHUTTERS.**  Grey / coloured indicators for
+``FAULT`` (grey when clear, red when latched), ``TRIP`` (grey /
+orange), ``WARNING`` (grey / yellow), and the ``BIV`` / ``FES`` /
+``SBS`` shutter states (green = open, red = closed). Two
+message-button widgets — **Reset FAULT** and **Reset TRIP** — write
+``1`` to ``A_FAULT_RESET`` / ``TRIP_RESET`` respectively. These
+clear the corresponding latches on the PLC; the underlying
+condition must have cleared first or the latch immediately
+re-arms. There is no dedicated ``WARNING_RESET`` PV — latched
+warnings can only be cleared by the physical BLEPS panel button
+(or, in some PLC configurations, by ``A_FAULT_RESET`` cascading).
 
-Launch the summary screen with::
+**Gate valves.** ``GV1`` / ``GV2`` / ``GV3`` open / closed
+limit-switch readbacks, labelled with the physical location each
+isolates (Slits ↔ M1, Windows 2&3 ↔ SBS, Transport ↔ Station B).
 
-    medm -x -macro "P=2bmBLEPS:" bleps_gv_status.adl
+**M1 mirror tank temperatures.** Three thermocouple readings
+(``TEMP1``..``TEMP3``, lower / middle / upper on the tank) with
+their trip-high limits. A fault is raised when the reading rises
+above the setpoint.
 
-PVs shown on the status summary screen
---------------------------------------
+**Cooling water flows.** Eight flow readings (``FLOW1``..``FLOW8``)
+with their trip-floor setpoints, labelled with the cooled
+components (filter/slits, M1/DMM, Window 1 & Missteer Mask,
+Windows 2&3, White Beam Mask / SBS Shutter, Station B slits,
+Window 4, Station B Photon Stop). A fault is raised when the
+reading falls below the setpoint.
 
-The *Current* and *Trip limit* columns on the summary screen are
-driven by the PVs in the table below (all share the prefix
-``2bmBLEPS:BLEPS:``).
+**Vacuum monitoring.** Seven ion-pump indicators
+(``IP1``..``IP7``) and eight ion-gauge indicators
+(``IG1``..``IG8``) as compact coloured boxes. Three-state
+colouring:
+
+- **green** — ``IPx_STATUS`` / ``IGx_STATUS`` = GOOD **and** no
+  warning latched (all clear).
+- **yellow** — device recovered, but ``IPx_WARNING`` /
+  ``IGx_WARNING`` is still latched (needs a reset).
+- **red** — ``_STATUS`` = BAD right now (overrides yellow).
+
+In the screenshot, ``IP2`` and the odd-numbered ion gauges
+``IG1`` / ``IG3`` / ``IG5`` / ``IG7`` show red — four
+odd-numbered channels being simultaneously BAD usually points to
+a common controller-side issue rather than four independent
+failures, and is worth investigating on the physical side.
+
+**IOC row (bottom).** A red ``Stop`` and a yellow ``BLEPS IOC``
+start button invoke ``~/bin/bleps_IOC_stop.sh`` /
+``~/bin/bleps_IOC.sh`` in a new gnome-terminal tab on the calling
+host, so operators can recycle the IOC without leaving the MEDM
+screen.
+
+*Reference — temperature and flow PVs shown on the summary.* The
+``Current`` and ``Trip limit`` columns are backed by the following
+PVs (all under the ``2bmBLEPS:BLEPS:`` prefix).
 
 .. list-table::
    :header-rows: 1
@@ -262,6 +357,74 @@ shutter closed-status inputs (``BIV_CLOSED``, ``FES_CLOSED``,
 ``SBS_CLOSED``) and the gate-valve limit switches
 (``GVx_OPENED_LS`` / ``GVx_CLOSED_LS``) are documented under the
 *Faults*, *Inputs* and *Outputs* tables below.
+
+Full caQtDM panel
+-----------------
+
+The support-supplied ``bleps_all.ui`` screen (see figure below)
+surfaces **every** BLEPS channel: shutters, per-cause gate-valve
+fault flags, ion pumps and gauges, vacuum sections, flows,
+temperatures, and the trip / fault / warning FIFOs (10-entry
+history with timestamps). It is the diagnostics interface — use
+it to identify the specific channel that latched a warning and
+to acknowledge / reset faults that the MEDM buttons don't cover.
+
+Launch it with the wrapper shipped by the IOC::
+
+    /net/s2dserv/xorApps/epics/synApps_6_3/ioc/2bmBLEPS/start_caQtDM_2bmBLEPS
+
+The wrapper exports ``P=2bmBLEPS:`` as the UI macro and opens
+``bleps_all.ui`` by default. Optional positional arguments:
+
+- first argument: alternate ``.ui`` filename (jumps directly to a
+  sub-panel — e.g. ``bleps_top.ui`` for the top-level index).
+- second argument: macro string override
+  (defaults to ``P=2bmBLEPS:``).
+
+.. image:: ../img/bleps_status_caQtDM.png
+   :width: 720px
+   :align: center
+   :alt: BLEPS full operator panel (caQtDM, bleps_all.ui)
+
+The figure above shows the panel with the same beamline snapshot
+as the MEDM summary. Notable groups, left to right:
+
+**Shutters** (top-left). Beamline Iso, Front End, Station B —
+each with a state indicator, a *Failed to Close* alarm indicator,
+and explicit **Close** / **Open** command buttons that write to
+``BIV_PERMIT`` / ``FES_PERMIT`` / ``SBS_PERMIT``.
+
+**Gate Valves** (below Shutters). One column per GV1 / GV2 / GV3
+listing every per-cause fault the PLC tracks (Fault, No Switch,
+Opened Switch, Closed Switch, Both Switch, Fail to Open / Fully
+Open, Fail to Close / Fully Close, Beam Exposure) plus **Close** /
+**Open** command buttons wired to the ``GVx_EPICS_CLOSE`` /
+``GVx_EPICS_OPEN`` PVs.
+
+**Flows** (centre). Eight water-flow tiles, each with the current
+reading, the trip-floor setpoint, and the scaling factor (raw
+counts → gpm calibration).
+
+**Temps** (centre-right). Three M1 mirror-tank thermocouples,
+each with the current value, trip-high setpoint, and an *Over
+Range* indicator.
+
+**Ion Pumps / Ion Gauges** (top-right). One row per channel with
+independent *Status* (device health) and *Warn* (latched warning)
+indicators. In the screenshot the four odd-numbered gauges
+(``IG1`` / ``IG3`` / ``IG5`` / ``IG7``) show red on both columns
+— the same pattern surfaced on the MEDM summary.
+
+**Vac. Sections** (right). Seven vacuum-section trip indicators
+(``VS1``..``VS7``), all green in the screenshot.
+
+**Trip / Fault / Warning Stacks** (bottom). 10-entry FIFOs of
+recent events with fault number, timestamp, and date. **Reset
+Trips** and **Reset Faults** buttons at the top of the Trip and
+Fault stacks are the caQtDM equivalents of the MEDM summary's
+message buttons. There is no dedicated *Reset Warnings* button —
+the Warning stack drains as its underlying conditions clear (or
+via the physical BLEPS panel button).
 
 
 BLEPS PV inventory (2-BM)
@@ -1229,8 +1392,7 @@ master Excel.
      - EPICS GV3 Close Request
 
 
-See also
-========
+.. rubric:: See also
 
 - :doc:`item_020` — beamline components reference (per-component
   PV names; the shutter blocks document the BLEPS-closable
