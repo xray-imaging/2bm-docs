@@ -130,6 +130,11 @@ script
 *.autotools
 *.cproject
 
+# Session-local files (Claude Code, shell) #
+############################################
+.claude-session-pickup.md
+.loglogin
+
 # Benchmarking #
 ################
 /Build.cmake
