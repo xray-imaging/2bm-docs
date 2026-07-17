@@ -304,3 +304,70 @@ Two characteristic vertical spacings can be measured on the DMM stripe pattern
 | Coarse spacing (envelope of strong   | ≈ 700    | ≈ 2415    |
 | bands)                               |          | (≈ 2.4 mm)|
 +--------------------------------------+----------+-----------+
+
+Substrate correction specification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+An engineering analysis of the substrate height power-spectral-density
+(PSD) has been produced as the basis for a substrate-improvement
+specification: `2-BM Multilayer Substrate Stripe-Reduction Specification`_.
+The report derives the mirror-surface height and slope tolerances that
+would produce <2% RMS detector-intensity variation, and compares the
+measured PSD from the ``S11-AHU505_1000frms_99fps_001.h5`` dataset
+(the same acquisition characterised in the *Vertical intensity
+modulation* subsection above) against that target.
+
+The analysis uses the geometry documented in this page: grazing
+angle 12.882 mrad, source-to-optic distance ``p = 29.9342 m``,
+optic-to-detector distance ``q = 24.0658 m``, point-source
+magnification ``M = (p+q)/p = 1.804``, a 3.45 µm detector pixel, and
+a 12 µm RMS vertical source producing a 9.647 µm RMS Gaussian blur
+at the detector plane.
+
+Main findings:
+
+- The measured substrate height PSD **exceeds** the specification
+  required for <2% RMS detector-intensity variation across the
+  mid- to low-spatial-frequency range.
+- Recommended correction: best-effort broadband ion-beam figuring
+  (IBF) over mirror-surface periods from **8.1 mm to the full mirror
+  length** (145 mm).
+- Overall measured height RMS on the current substrate is **6.9 nm**.
+  Corresponding total-band targets are 3.11 nm (5% intensity-RMS
+  target), 1.24 nm (2%), and 0.62 nm (1%).
+- Two spectral maxima in the PSD sit at mirror periods of 14.50 mm
+  and 48.33 mm, but these are maxima within predefined search bands
+  rather than deterministic narrow spectral lines. The data support
+  broadband correction, not cancellation of two discrete sinusoidal
+  periods.
+- Both a geometric ray-density model and a Fresnel wavefront-
+  propagation calculation are given in the report; the two agree
+  closely for mirror periods above ~8 mm and diverge only at the
+  shortest periods where diffraction dominates.
+
+Analytic single-frequency height and slope tolerances at the two
+identified spectral maxima (excerpted from Section 3 of the report):
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25 20 25 30
+
+   * - Mirror period (mm)
+     - Intensity RMS target
+     - Height RMS limit (nm)
+     - Slope RMS limit (nrad)
+   * - 14.50
+     - 2%
+     - 0.053
+     - 22.8
+   * - 48.33
+     - 2%
+     - 0.565
+     - 73.4
+
+Full derivation, the analytic single-frequency model, the measured
+PSD plot with 1% / 2% / 5% envelopes overlaid, and the height/slope
+tolerance curves across the full mirror-period range are in the
+report.
+
+.. _2-BM Multilayer Substrate Stripe-Reduction Specification: https://anl.box.com/s/vnpnet5n9ep67v5luilggwg5852u5zaa
