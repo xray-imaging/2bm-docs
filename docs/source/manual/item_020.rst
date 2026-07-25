@@ -1513,12 +1513,12 @@ Coded aperture (Jena NV200D piezo)
    controller). Each is Ethernet-attached and addressed via the
    vendor's Telnet interface on port 23 ("NV200/D NET>" prompt):
 
-   =====  ====================  ====================
-   Axis   Controller IP         Vendor model
-   =====  ====================  ====================
-   X      ``10.54.113.126``     NV200D/NET
-   Y      ``10.54.113.125``     NV200D/NET
-   =====  ====================  ====================
+   =====  ====================  ====================  =====================
+   Axis   Controller IP         Vendor model          MAC address
+   =====  ====================  ====================  =====================
+   X      ``10.54.113.126``     NV200D/NET            ``00-80-A3-6F-BD-6E``
+   Y      ``10.54.113.125``     NV200D/NET            ``00-80-A3-6F-BD-64``
+   =====  ====================  ====================  =====================
 
    Vendor datasheet: `NV200D-Datasheet.pdf
    <https://www.piezosystem.com/wp-content/uploads/2023/07/NV200D-Datasheet.pdf>`__.
