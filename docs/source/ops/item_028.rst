@@ -124,8 +124,16 @@ D-Sub, 0/3.3–5 V) advances the actuator to the next position.
    Stop the EPICS IOC before running the script — only one Telnet
    connection is allowed at a time. Restart the IOC when done.
 
-Install the required Python library::
+Activate the dedicated ``nv200`` conda env (Python 3.12,
+``/home/beams/2BMB/conda/anaconda/envs/nv200``), which already has the
+required ``nv200`` + ``numpy`` libraries installed::
 
+  conda activate nv200
+
+To recreate the env from scratch::
+
+  conda create -n nv200 python=3.12 -y
+  conda activate nv200
   pip install nv200 numpy
 
 The script lives in the ``2bm-procedures`` repository
