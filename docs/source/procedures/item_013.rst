@@ -56,8 +56,18 @@ Preconditions
   the script cannot connect.
 - **Network reachable to both controllers.** ``ping 10.54.113.126``
   and ``ping 10.54.113.125`` should both succeed from ``arcturus``.
-- **Python environment has the `nv200` library installed.**
-  ``pip install nv200 numpy`` once per environment.
+- **The `nv200` conda environment is active.** At 2-BM the script
+  runs under the dedicated ``nv200`` conda env (Python 3.12,
+  ``/home/beams/2BMB/conda/anaconda/envs/nv200``), which has the
+  ``nv200`` + ``numpy`` libraries installed::
+
+    conda activate nv200
+
+  To recreate it from scratch::
+
+    conda create -n nv200 python=3.12 -y
+    conda activate nv200
+    pip install nv200 numpy
 - **Coded-aperture stage is mechanically aligned in the beam path.**
   The position list spans the full 0–100 µm closed-loop stroke; if
   the stage is mis-aligned the random walk will produce nonsense
