@@ -74,6 +74,29 @@ Preconditions
   aperture positions even though the script runs cleanly.
 
 
+To run
+------
+
+From ``arcturus`` as ``2bmb``, activate the dedicated ``nv200``
+conda env and change into the ``2bm-procedures`` checkout::
+
+    ssh 2bmb@arcturus
+    (base) 2bmb@arcturus ~ $ conda activate nv200
+    (nv200) 2bmb@arcturus ~ $ cd ~/conda/2bm-procedures-decarlof/procedures/
+
+Inspect the script's argument list::
+
+    (nv200) 2bmb@arcturus ~/.../2bm-procedures-decarlof/procedures $ python nv200_trigger_step.py -h
+    usage: nv200_trigger_step.py [-h] [--random] [--n N]
+
+    NV200 triggered step mode
+
+    options:
+      -h, --help  show this help message and exit
+      --random    Use random positions instead of evenly-spaced (default: linspace)
+      --n N       Number of positions to load (default: 256, max: 1024)
+
+
 Parameters
 ----------
 
