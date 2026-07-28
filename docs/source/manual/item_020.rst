@@ -1559,6 +1559,21 @@ Coded aperture (Jena NV200D piezo)
    mounted into; the X / Y piezo motion moves the mask within the
    beam.
 :IOC: ``JenaNV200D`` (running on ``arcturus``)
+:FPGA trigger cabling: Each NV200D controller receives its step
+   pulse from the softGlueZynq FPGA on a dedicated output channel:
+
+   =====  ================================  ============  ================================
+   Axis   NV200D IP (TRG IN)                FPGA out      softGlue delay PV
+   =====  ================================  ============  ================================
+   X      ``10.54.113.126``                 ``out2``      ``2bmbMZ1:SG:GateDly-2_DLY``
+   Y      ``10.54.113.125``                 ``out3``      ``2bmbMZ1:SG:GateDly-3_DLY``
+   =====  ================================  ============  ================================
+
+   Verified physically at the softGlueZynq patch panel 2026-07-28.
+   Delay units are 10 MHz clock cycles (100 ns/count); set to
+   detector exposure time + safety margin. See :doc:`../ops/item_028`
+   "FPGA trigger integration" section for the wiring photo and the
+   delay-setting recipe.
 :Operational reference: :doc:`../ops/item_028` covers IOC startup,
    network configuration, caQtDM screens, FPGA trigger integration,
    and the triggered-step mode.

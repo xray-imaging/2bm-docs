@@ -165,3 +165,85 @@ Route PSO pulses to the camera::
 Route trigILF pulses to the camera::
 
   [2bmb@arcturus]$ caput 2bmbMZ1:SG:MUX2-1_SEL_Signal 1
+
+Driving the two Jena piezo stages
+=================================
+
+During coded-aperture fly-scans, two additional GateDly blocks
+(``GateDly-2`` and ``GateDly-3``) generate the step pulses that
+advance the two Piezosystem Jena NV200D/NET controllers (X and Y
+axes of the ``nanoSXY 120 CAP`` XY flexure stage; see the
+NV200D block of :doc:`../manual/item_020` for the hardware
+description and the physical FPGA-out → axis wiring table).
+
+Each block takes the camera trigger (``outTrig``) as input and
+produces a delayed step pulse that lands during the readout
+interval, after the exposure finishes:
+
+.. figure:: ../img/piezo_softGlueZynq_GateDly_02.png
+   :width: 480px
+   :align: center
+   :alt: softGlueZynq Gate&Delay 2 (drives X axis)
+
+   ``GateDly-2`` — takes ``outTrig`` as IN, ``ck10`` (10 MHz) as
+   clock, ``DLY = 50000`` (50000 × 100 ns = **5 ms** delay), and
+   ``WIDTH = 100`` (100 × 100 ns = 10 µs pulse width). Output is
+   the ``JenaX`` softGlue signal, routed through the field-I/O to
+   FPGA ``out2`` and cabled to the **X-axis** NV200D ``TRG IN``.
+
+.. figure:: ../img/piezo_softGlueZynq_GateDly_03.png
+   :width: 480px
+   :align: center
+   :alt: softGlueZynq Gate&Delay 3 (drives Y axis)
+
+   ``GateDly-3`` — identical shape and settings; output is the
+   ``JenaY`` softGlue signal, routed through the field-I/O to FPGA
+   ``out3`` and cabled to the **Y-axis** NV200D ``TRG IN``. Same
+   5 ms delay, 10 µs pulse width.
+
+The 5 ms delay is set to detector exposure time + a small safety
+margin, so the piezo step happens **after** the sensor has
+integrated the frame. Adjust ``DLY`` when the exposure time changes:
+
+- ``DLY`` and ``WIDTH`` are in **10 MHz clock cycles**
+  (100 ns per count).
+- ``DLY = 50000`` → 5 ms. Increase for longer exposures.
+- ``WIDTH = 100`` → 10 µs pulse (comfortably above the NV200D
+  ``TRG IN`` minimum sensitivity).
+
+PVs (set from the caQtDM Gate&Delay page or with ``caput``):
+
+- ``2bmbMZ1:SG:GateDly-2_DLY`` and ``2bmbMZ1:SG:GateDly-2_WIDTH``
+- ``2bmbMZ1:SG:GateDly-3_DLY`` and ``2bmbMZ1:SG:GateDly-3_WIDTH``
+
+Verifying the pulses are actually reaching the piezos
+-----------------------------------------------------
+
+Two dedicated ``UpCntr`` blocks count the delivered step pulses so
+an operator can confirm that both axes are stepping in lock-step
+with the camera. Open the *Collections → all softGlueZynq*
+(``softGlueZynqAll.adl``) screen:
+
+.. figure:: ../img/piezo_softGlueZynqAll.png
+   :width: 1024px
+   :align: center
+   :alt: softGlueZynqAll showing UpCntr-3 and UpCntr-4 counts for the two Jena axes
+
+   ``softGlueZynqAll.adl`` during an active fly-scan. Right column,
+   top-to-bottom: ``UpCntr-1`` (PSO master pulse count = 9,562,989),
+   ``UpCntr-2`` (``trigILF`` = 720, interlaced-trigger subset),
+   ``UpCntr-3`` (X piezo pulse count = 5,819,549) and ``UpCntr-4``
+   (Y piezo pulse count = 5,819,461). ``UpCntr-3`` and ``UpCntr-4``
+   should stay within one count of each other during any scan
+   (both are stepped by the same camera trigger); a drift between
+   them means one of the two piezo trigger paths is dropping
+   pulses.
+
+The softGlue internal signal names ``JenaX`` and ``JenaY`` are set
+to match the axis they drive: ``GateDly-2`` → ``JenaX`` → FPGA
+``out2`` → Jena X controller; ``GateDly-3`` → ``JenaY`` → FPGA
+``out3`` → Jena Y controller. Signal name, GateDly index, FPGA out
+number, and axis are all consistent — no need to cross-check
+against the wiring table for axis identification, though the
+physical wiring in the NV200D block of :doc:`../manual/item_020`
+is still the authoritative record for which cable runs where.
