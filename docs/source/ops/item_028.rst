@@ -99,8 +99,8 @@ cables are connected to **FPGA out2** and **out3** respectively.
 The delay before each pulse is set via two softGlue PVs (units: number of
 10 MHz clock cycles, i.e. 100 ns per unit)::
 
-  2bmbMZ1:SG:GateDly-2_DLY    # Y axis delay
-  2bmbMZ1:SG:GateDly-3_DLY    # X axis delay
+  2bmbMZ1:SG:GateDly-2_DLY    # X axis delay
+  2bmbMZ1:SG:GateDly-3_DLY    # Y axis delay
 
 Set the DLY field to the detector exposure time plus a safety margin:
 
