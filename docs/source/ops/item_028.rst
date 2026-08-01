@@ -60,6 +60,36 @@ the Lantronix XPort web interface for the EPICS support to work correctly.
 
    Lantronix XPort Serial Settings — Channel 1 flow control configuration (Y axis).
 
+.. warning::
+
+   The ``nv200`` Python library (see `Triggered step mode`_ below) calls
+   ``configure_flow_control(XON_XOFF_PASS_TO_HOST)`` on connect when
+   ``auto_adjust_comm_params=True`` (its default). This is a **persistent
+   NVM write** to the XPort and silently flips the flow-control mode
+   from ``Xon/Xoff`` (Flow 01) to ``XON_XOFF_PASS_TO_HOST`` (Flow 05).
+
+   In Flow 05, controller replies come wrapped with XOFF/XON bytes
+   (``\x13meas,-10.750\r\x00\n\x11``) that the shared stream proto
+   (``$(IP)/db/JenaNV100D.proto``) cannot parse; the EPICS IOC's
+   ``read`` records then sit at ``SEVR=INVALID``, ``STAT=CALC`` even
+   though `write` still forwards to the controller.
+
+   If the EPICS side stops updating after a Python session, either:
+
+   1. Reset the XPort back to ``Xon/Xoff`` (Flow 01) via the web UI,
+      **and** either patch the ``nv200_trigger_step.py`` call site to
+      pass ``auto_adjust_comm_params=False`` or refuse to run any
+      library code that would flip the mode again. Fragile — the next
+      default-parameter Python run breaks it again.
+   2. Or install a local proto override at
+      ``iocBoot/iocJenaNV200D/JenaNV100D.proto`` that accepts the
+      framed reply (add a leading ``\x13`` on each ``read*`` ``in``
+      line). Because ``STREAM_PROTOCOL_PATH=".:$(IP)/db"``, the local
+      file wins over the shared support module for this IOC only.
+      See the 32-ID equivalent page in the 32-ID docs
+      (``manual/manual_030`` "Device configuration") for the concrete
+      diff applied at 32-ID.
+
 
 MEDM control screens
 ====================
@@ -185,6 +215,21 @@ Example output::
   Press Enter to stop...
   Stopping...
   Stopped. Manual control restored.
+
+On a clean exit (Enter pressed at the prompt), the script's ``finally``
+block stops the waveform generator, disables the trigger input, forces
+``PidLoopMode.CLOSED_LOOP``, and issues a ``move_to_position(0.0)`` on
+each device before closing the Telnet connection. The
+``move_to_position`` call is what actually restores serial-driven
+setpoint control on the controller, so the EPICS IOC (or a subsequent
+Python session) can drive the piezo immediately after the script exits.
+
+If a Python session is killed uncleanly (``kill -9``, crash) and the
+IOC's ``JenaNV200D:jena1:write`` no longer moves the piezo afterwards,
+the controller is stuck in waveform / trigger-driven mode. Recover by
+re-running ``nv200_trigger_step.py`` and pressing Enter immediately
+(so the ``finally`` block runs), or by opening a short Python session
+that calls ``dev.move_to_position(0.0)`` on each controller.
 
 .. note::
 
