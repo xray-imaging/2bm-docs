@@ -64,8 +64,8 @@ Pending — still on local disk, not fully archived
    delete. Click the link to send a pre-filled approval email to Francesco
    De Carlo (decarlo@anl.gov). If your browser has no email client
    configured, copy the path/size info from the row and send it via Slack
-   or any other channel instead. The dataset will be removed once approval
-   is received.
+   or any other channel instead. The dataset will be moved to DM once
+   approval is received.
 
 .. list-table::
    :header-rows: 1
