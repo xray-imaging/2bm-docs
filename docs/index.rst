@@ -22,6 +22,7 @@ Content
    source/manual
    source/ops
    source/procedures
+   source/data_management
    source/maxiv
    source/pre_apsu/pre_apsu
    source/publications
