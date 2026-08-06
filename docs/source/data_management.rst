@@ -60,9 +60,12 @@ Pending — still on local disk, not fully archived
 
 .. note::
 
-   Rows with a ☐ **approve →** link are already verified on DM and ready to
-   delete. Click the link to send a pre-filled approval email; the dataset
-   will be removed once the email is received.
+   Rows with an **approve →** link are already verified on DM and ready to
+   delete. Click the link to send a pre-filled approval email to Francesco
+   De Carlo (decarlo@anl.gov). If your browser has no email client
+   configured, copy the path/size info from the row and send it via Slack
+   or any other channel instead. The dataset will be removed once approval
+   is received.
 
 .. list-table::
    :header-rows: 1
@@ -72,17 +75,17 @@ Pending — still on local disk, not fully archived
      - Size
      - DM status
      - Action needed
-     - Confirm delete
+     - Confirm to move
    * - ``/local2/2BM/2026-07-Liu-0/``
      - 475 G
      - all 21 h5 on DM (byte-exact)
      - safe to ``rm -rf``; frees 475 G
-     - ☐ `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Flocal2%2F2BM%2F2026-07-Liu-0%2F&body=I%20approve%20deletion%20of%20%2Flocal2%2F2BM%2F2026-07-Liu-0%2F%20(475%20G%2C%2021%20h5%20verified%20byte-exact%20on%20DM).>`__
+     - `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Flocal2%2F2BM%2F2026-07-Liu-0%2F&body=I%20approve%20deletion%20of%20%2Flocal2%2F2BM%2F2026-07-Liu-0%2F%20(475%20G%2C%2021%20h5%20verified%20byte-exact%20on%20DM).>`__
    * - ``/local2/2BM/2026-07-Nikitin-0/``
      - 883 G
      - all 23 h5 on DM (byte-exact)
      - safe to ``rm -rf``; frees 883 G
-     - ☐ `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Flocal2%2F2BM%2F2026-07-Nikitin-0%2F&body=I%20approve%20deletion%20of%20%2Flocal2%2F2BM%2F2026-07-Nikitin-0%2F%20(883%20G%2C%2023%20h5%20verified%20byte-exact%20on%20DM).>`__
+     - `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Flocal2%2F2BM%2F2026-07-Nikitin-0%2F&body=I%20approve%20deletion%20of%20%2Flocal2%2F2BM%2F2026-07-Nikitin-0%2F%20(883%20G%2C%2023%20h5%20verified%20byte-exact%20on%20DM).>`__
    * - ``/data3/2BM/2026-07-DeCarlo-0``
      - 82 G
      - not on DM (test folder)
@@ -92,12 +95,12 @@ Pending — still on local disk, not fully archived
      - 457 G raw + 2.0 T rec
      - fully on DM (raw 20/21 h5 byte-exact, rec 50,016/50,016 files byte-exact)
      - safe to ``rm -rf``; frees ~2.5 T
-     - ☐ `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata3%2F2BM%2F2026-07-Liu-0%20and%20_rec&body=I%20approve%20deletion%20of%20%2Fdata3%2F2BM%2F2026-07-Liu-0%20and%20%2Fdata3%2F2BM%2F2026-07-Liu-0_rec%20(~2.5%20T%2C%20fully%20on%20DM%20byte-exact).>`__
+     - `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata3%2F2BM%2F2026-07-Liu-0%20and%20_rec&body=I%20approve%20deletion%20of%20%2Fdata3%2F2BM%2F2026-07-Liu-0%20and%20%2Fdata3%2F2BM%2F2026-07-Liu-0_rec%20(~2.5%20T%2C%20fully%20on%20DM%20byte-exact).>`__
    * - ``/data2/2BM/2026-03/2026-03-Li-1018528`` (raw)
      - 3.4 T
      - all 66 h5 on DM (DM has 238 h5 — superset)
      - safe to ``rm -rf``
-     - ☐ `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata2%2F2BM%2F2026-03%2F2026-03-Li-1018528&body=I%20approve%20deletion%20of%20%2Fdata2%2F2BM%2F2026-03%2F2026-03-Li-1018528%20(3.4%20T%2C%2066%20h5%20fully%20on%20DM).>`__
+     - `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata2%2F2BM%2F2026-03%2F2026-03-Li-1018528&body=I%20approve%20deletion%20of%20%2Fdata2%2F2BM%2F2026-03%2F2026-03-Li-1018528%20(3.4%20T%2C%2066%20h5%20fully%20on%20DM).>`__
    * - ``/data2/2BM/2026-03/Noemi`` + ``Noemi_rec``
      - 230 G + 87 G
      - no DM folder; possible candidate ``/gdata/dm/2BM/2026-02/2026-02-BrainNoemi-0``
@@ -107,12 +110,12 @@ Pending — still on local disk, not fully archived
      - 3.8 T
      - fully on DM (byte-exact)
      - safe to ``rm -rf``; frees 3.8 T
-     - ☐ `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata2%2F2BM%2F2026-07-Boyer-0&body=I%20approve%20deletion%20of%20%2Fdata2%2F2BM%2F2026-07-Boyer-0%20(3.8%20T%20raw%2C%20fully%20on%20DM%20byte-exact).>`__
+     - `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata2%2F2BM%2F2026-07-Boyer-0&body=I%20approve%20deletion%20of%20%2Fdata2%2F2BM%2F2026-07-Boyer-0%20(3.8%20T%20raw%2C%20fully%20on%20DM%20byte-exact).>`__
    * - ``/data2/2BM/2026-07-Boyer-0_rec``
      - 149 G
      - partial; DM ``/analysis`` has 213 GB more content, /data2 has 1 log file variant
      - safe to ``rm -rf`` (only 879 B log unique to /data2)
-     - ☐ `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata2%2F2BM%2F2026-07-Boyer-0_rec&body=I%20approve%20deletion%20of%20%2Fdata2%2F2BM%2F2026-07-Boyer-0_rec%20(149%20G%2C%20DM%20has%20everything%20except%20a%20single%20879%20B%20log%20file).>`__
+     - `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata2%2F2BM%2F2026-07-Boyer-0_rec&body=I%20approve%20deletion%20of%20%2Fdata2%2F2BM%2F2026-07-Boyer-0_rec%20(149%20G%2C%20DM%20has%20everything%20except%20a%20single%20879%20B%20log%20file).>`__
    * - ``/data2/2BM/2026-07-Boyer-0_tmp`` + ``_tmp_rec``
      - 107 G + 79 G
      - not verified against DM
