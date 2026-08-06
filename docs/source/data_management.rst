@@ -45,6 +45,10 @@ Done — permanently on DM
      - ~28 T
      - /local2 + /data2/2BM/2026-07-Qiu-1017594{,_rec}/
      - /gdata/dm/2BM/2026-07/2026-07-Qiu-1017594/{data,analysis}/
+   * - ``2026-07-Rippner-1011312`` (eBERlight)
+     - 5.1 T
+     - /data3/2BM/2026-07-Rippner-1011312/
+     - uploaded to DM directly by Xiaoyang Liu (outside standard /gdata/dm/2BM path)
    * - ``2026-08-Haridy-1015116`` (raw + rec)
      - ~36 T
      - /local2 + /data2/2BM/2026-08-Haridy-1015116{,_rec}/
@@ -70,18 +74,14 @@ Pending — still on local disk, not fully archived
      - 883 G
      - all 23 h5 on DM (byte-exact)
      - safe to ``rm -rf``; frees 883 G
-   * - ``/data3/2BM/2026-07-Rippner-1011312``
-     - 5.1 T
-     - **not on DM** — /local2 copy was deleted, so /data3 is the only surviving copy
-     - decide: upload to DM or accept as sole archive
    * - ``/data3/2BM/2026-07-DeCarlo-0``
      - 82 G
      - not on DM (test folder)
      - assess necessity
    * - ``/data3/2BM/2026-07-Liu-0`` + ``_rec``
      - 457 G raw + 2.0 T rec
-     - not fully backed up on DM
-     - upload to DM before delete
+     - fully on DM (raw 20/21 h5 byte-exact, rec 50,016/50,016 files byte-exact)
+     - safe to ``rm -rf``; frees ~2.5 T
    * - ``/data2/2BM/2026-03/2026-03-Li-1018528`` (raw)
      - 3.4 T
      - all 66 h5 on DM (DM has 238 h5 — superset)
