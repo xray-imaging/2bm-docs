@@ -91,6 +91,16 @@ Pending — still on local disk, not fully archived
      - not on DM (test folder)
      - assess necessity
      - —
+   * - ``/data3/Allen-NIH-mosaic_2`` (owner sboyer)
+     - 36 T
+     - rsync in progress → ``/gdata/dm/2BM/2026-05/2026-05-Boyer-0/data/`` (DM manual experiment, GUP 0, PI Sarah Boyer)
+     - wait for rsync + verify, then ``rm -rf``
+     - — (transfer in progress)
+   * - ``/data3/Allen-NIH-mosaic`` (owner tomo)
+     - 18 T
+     - not yet on DM; Sarah moving active subfolders out first
+     - upload to DM (reuse Boyer experiment) after Sarah moves; then ``rm -rf``
+     - —
    * - ``/data3/2BM/2026-07-Liu-0`` + ``_rec``
      - 457 G raw + 2.0 T rec
      - fully on DM (raw 20/21 h5 byte-exact, rec 50,016/50,016 files byte-exact)
