@@ -56,3 +56,5 @@ Useful Links
 `ESAF <https://beam.aps.anl.gov/pls/apsweb/esaf0001.start_page>`_
 
 `Safety and Training <https://www.aps.anl.gov/Safety-and-Training>`_
+
+`Retired APS Beam Time Access System (read only) <https://beam.aps.anl.gov/pls/apsweb/gup0005.start_page>`_
