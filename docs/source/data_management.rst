@@ -91,15 +91,15 @@ Pending — still on local disk, not fully archived
      - not on DM (test folder)
      - assess necessity
      - —
-   * - ``/data3/Allen-NIH-mosaic_2`` (owner sboyer)
+   * - ``/data3/Allen-NIH-mosaic_2`` (owner sboyer, raw y-segments + mosaic)
      - 36 T
-     - rsync in progress → ``/gdata/dm/2BM/2026-05/2026-05-Boyer-0/data/`` (DM manual experiment, GUP 0, PI Sarah Boyer)
-     - wait for rsync + verify, then ``rm -rf``
+     - rsync in progress → ``/gdata/dm/2BM/2026-05/2026-05-Boyer-0/data/`` (~39% done, ~8.4 T transferred). DM manual experiment ``2026-05-Boyer-0``, GUP 0, PI Sarah Boyer. Watcher will move contents into ``data/Allen-NIH-mosaic_2/`` subdir once complete.
+     - wait for rsync + verify + auto-rename, then ``rm -rf``
      - — (transfer in progress)
-   * - ``/data3/Allen-NIH-mosaic`` (owner tomo)
+   * - ``/data3/Allen-NIH-mosaic`` (owner tomo, zarr derivatives)
      - 18 T
-     - not yet on DM; Sarah moving active subfolders out first
-     - upload to DM (reuse Boyer experiment) after Sarah moves; then ``rm -rf``
+     - **transfer aborted** — the ~9.2 M small zarr chunk files were making the rsync take days at ~55 MB/s. Partial DM copy (~544 GB) was removed. Consider bundling the zarr trees into ``.tar`` archives before re-uploading to avoid per-file overhead.
+     - decide on bundling strategy; then rsync + verify + ``rm -rf``
      - —
    * - ``/data3/2BM/2026-07-Liu-0`` + ``_rec``
      - 457 G raw + 2.0 T rec
