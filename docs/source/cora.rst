@@ -84,6 +84,12 @@ and ends with a concrete verification step.
   Swagger UI's CDN assets by serving the vendored Swagger UI bundle
   from a local static file server. Includes a screenshot of the
   rendered UI so you know what a successful bring-up looks like.
+- :doc:`cora/item_005` — Daily restart recipe: two terminals, one
+  ``conda activate cora`` in each, then the CORA server in one and
+  the Swagger UI static server in the other. Also documents how
+  to SSH into arcturus and resume the Claude Code session that
+  drove this bring-up. Reference card for everyday use once the
+  first four items have been done once.
 
 
 .. toctree::
