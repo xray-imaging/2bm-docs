@@ -136,6 +136,31 @@ Current NVMe SSD array status for tomodata2 and tomodata3:
 |           |           |        |       | Solidigm SSDPF2NV153TZ 14 TB NVMe (mixed)   |                |           |
 +-----------+-----------+--------+-------+---------------------------------------------+----------------+-----------+
 
+Sequential I/O throughput measured with ``fio`` (native on the storage
+host, 1 MiB block, ``--direct=1``, ``libaio``, single job) on 2026-08-06:
+
++-----------+-----------+--------+-----------+---------------+---------------+
+| Station   | Name      | RAID   | Test file | Sequential    | Sequential    |
+|           |           |        |           | write         | read          |
++-----------+-----------+--------+-----------+---------------+---------------+
+| 2-BM      | tomodata2 | 0      | 100 GiB   | 25.8 GB/s     | 36.4 GB/s     |
++-----------+-----------+--------+-----------+---------------+---------------+
+| 2-BM      | tomodata3 | 5      | 20 GiB    | 2.33 GB/s     | 13.1 GB/s     |
++-----------+-----------+--------+-----------+---------------+---------------+
+
+tomodata1 was offline at the time of measurement and is not reported.
+The tomodata3 write rate reflects the RAID-5 parity cost for a
+single-stream writer; multi-stream writes are expected to be higher.
+
+Reproduce with::
+
+    fio --name=seq_write --directory=<mount> --rw=write --bs=1M \
+        --size=100G --numjobs=1 --iodepth=8 --direct=1 \
+        --ioengine=libaio --end_fsync=1 --group_reporting
+    fio --name=seq_read  --directory=<mount> --rw=read  --bs=1M \
+        --size=100G --numjobs=1 --iodepth=8 --direct=1 \
+        --ioengine=libaio --group_reporting
+
 Data collection
 ===============
 
