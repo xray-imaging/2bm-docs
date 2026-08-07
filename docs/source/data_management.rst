@@ -25,6 +25,10 @@ Done — permanently on DM
      - Size
      - Removed from
      - DM location
+   * - ``2026-03-Li-1018528`` (raw)
+     - 3.4 T
+     - /data2/2BM/2026-03/2026-03-Li-1018528/
+     - /gdata/dm/2BM/2026-03/2026-03-Li-1018528/data/
    * - ``2026-03-Li-1018528`` (trimmed h5)
      - 378 G
      - /data2/2BM/2026-03/2026-03-Li-1018528_rec/
@@ -106,11 +110,6 @@ Pending — still on local disk, not fully archived
      - fully on DM (raw 20/21 h5 byte-exact, rec 50,016/50,016 files byte-exact)
      - safe to ``rm -rf``; frees ~2.5 T
      - `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata3%2F2BM%2F2026-07-Liu-0%20and%20_rec&body=I%20approve%20deletion%20of%20%2Fdata3%2F2BM%2F2026-07-Liu-0%20and%20%2Fdata3%2F2BM%2F2026-07-Liu-0_rec%20(~2.5%20T%2C%20fully%20on%20DM%20byte-exact).>`__
-   * - ``/data2/2BM/2026-03/2026-03-Li-1018528`` (raw)
-     - 3.4 T
-     - all 66 h5 on DM (DM has 238 h5 — superset)
-     - safe to ``rm -rf``
-     - `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata2%2F2BM%2F2026-03%2F2026-03-Li-1018528&body=I%20approve%20deletion%20of%20%2Fdata2%2F2BM%2F2026-03%2F2026-03-Li-1018528%20(3.4%20T%2C%2066%20h5%20fully%20on%20DM).>`__
    * - ``/data2/2BM/2026-03/Noemi`` + ``Noemi_rec``
      - 230 G + 87 G
      - no DM folder; possible candidate ``/gdata/dm/2BM/2026-02/2026-02-BrainNoemi-0``
