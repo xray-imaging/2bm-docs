@@ -97,14 +97,19 @@ Pending — still on local disk, not fully archived
      - —
    * - ``/data3/Allen-NIH-mosaic_2`` (owner sboyer, raw y-segments + mosaic)
      - 36 T
-     - rsync in progress → ``/gdata/dm/2BM/2026-05/2026-05-Boyer-0/data/`` (~39% done, ~8.4 T transferred). DM manual experiment ``2026-05-Boyer-0``, GUP 0, PI Sarah Boyer. Watcher will move contents into ``data/Allen-NIH-mosaic_2/`` subdir once complete.
-     - wait for rsync + verify + auto-rename, then ``rm -rf``
-     - — (transfer in progress)
+     - **fully on DM** — 59,741/59,741 files byte-exact under ``/gdata/dm/2BM/2026-05/2026-05-Boyer-0/data/Allen-NIH-mosaic_2/``. DM manual experiment ``2026-05-Boyer-0``, GUP 0, PI Sarah Boyer. rsync completed 2026-08-07 21:01 (33h 43m at ~305 MB/s avg).
+     - awaiting Sarah to ``rm -rf`` as ``sboyer`` (files owned by her)
+     - — (waiting on Sarah)
    * - ``/data3/Allen-NIH-mosaic`` (owner tomo, zarr derivatives)
      - 18 T
      - **not backed up to DM** — derived data (zarr rewrites of the mosaic_2 content); can be regenerated from the DM copy of ``Allen-NIH-mosaic_2`` if ever needed. ~9.2 M small zarr chunk files would take days to rsync; decision was to keep this only on /data3.
      - no action — keep on /data3 as long as space permits
      - —
+   * - ``/data3/vnikitin`` (Viktor's personal workspace)
+     - 57 T
+     - rsync in progress → ``/gdata/dm/2BM/2026-08/2026-08-Nikitin-0/data/vnikitin_data3/``. DM manual experiment ``2026-08-Nikitin-0``, GUP 0, PI Viktor Nikitin. Started 2026-08-11; ~420 MB/s effective rate; ETA ~38 h. Layout leaves room for a future ``vnikitin_data2/`` sibling.
+     - wait for rsync + verify, then ``rm -rf`` (Viktor approved archival)
+     - — (transfer in progress)
    * - ``/data3/2BM/2026-07-Liu-0`` + ``_rec``
      - 457 G raw + 2.0 T rec
      - fully on DM (raw 20/21 h5 byte-exact, rec 50,016/50,016 files byte-exact)
