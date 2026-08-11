@@ -107,8 +107,13 @@ Pending — still on local disk, not fully archived
      - —
    * - ``/data3/vnikitin`` (Viktor's personal workspace)
      - 57 T
-     - rsync in progress → ``/gdata/dm/2BM/2026-08/2026-08-Nikitin-0/data/vnikitin_data3/``. DM manual experiment ``2026-08-Nikitin-0``, GUP 0, PI Viktor Nikitin. Started 2026-08-11; ~420 MB/s effective rate; ETA ~38 h. Layout leaves room for a future ``vnikitin_data2/`` sibling.
+     - rsync in progress → ``/gdata/dm/2BM/2026-08/2026-08-Nikitin-0/data/vnikitin_data3/``. DM manual experiment ``2026-08-Nikitin-0``, GUP 0, PI Viktor Nikitin. Started 2026-08-11; ~420 MB/s solo (halved while sibling rsync runs); ETA ~38 h solo.
      - wait for rsync + verify, then ``rm -rf`` (Viktor approved archival)
+     - — (transfer in progress)
+   * - ``/data2/vnikitin`` (Viktor's active workspace — **INACTIVE items only, ~8.7 T of 14 T**)
+     - 8.7 T
+     - rsync in progress → ``/gdata/dm/2BM/2026-08/2026-08-Nikitin-0/data/vnikitin_data2/`` (same DM experiment). Started 2026-08-11; only 13 subdirs/files idle for >30 d (``ESRF``, ``ctxl``, ``data_brainY350a_dist1234.h5``, ``Chawla{,_rec}``, ``Y350a{,_noise}``, ``correct_correct3D.txt``, plus 5 empty dirs). ACTIVE items (``20240515``, ``iotest*``, ``tmp``, ``ctxl_rec*``, ``Y350c_rec_new_cubic_deform`` — ~5.3 T combined) are NOT being transferred yet — Viktor still writing.
+     - wait for rsync + verify; then ask Viktor about ACTIVE items before final delete
      - — (transfer in progress)
    * - ``/data3/2BM/2026-07-Liu-0`` + ``_rec``
      - 457 G raw + 2.0 T rec
