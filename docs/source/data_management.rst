@@ -102,8 +102,8 @@ Pending — still on local disk, not fully archived
      - — (transfer in progress)
    * - ``/data3/Allen-NIH-mosaic`` (owner tomo, zarr derivatives)
      - 18 T
-     - **transfer aborted** — the ~9.2 M small zarr chunk files were making the rsync take days at ~55 MB/s. Partial DM copy (~544 GB) was removed. Consider bundling the zarr trees into ``.tar`` archives before re-uploading to avoid per-file overhead.
-     - decide on bundling strategy; then rsync + verify + ``rm -rf``
+     - **not backed up to DM** — derived data (zarr rewrites of the mosaic_2 content); can be regenerated from the DM copy of ``Allen-NIH-mosaic_2`` if ever needed. ~9.2 M small zarr chunk files would take days to rsync; decision was to keep this only on /data3.
+     - no action — keep on /data3 as long as space permits
      - —
    * - ``/data3/2BM/2026-07-Liu-0`` + ``_rec``
      - 457 G raw + 2.0 T rec
