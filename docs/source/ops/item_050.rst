@@ -205,31 +205,62 @@ To recover:
 
 After a few minutes, the hexapod will restart.
 
-.. warning::
+After reboot, all six hexapod axes are homed automatically as part
+of the reboot procedure — no manual dial adjustment is required.
 
-   After reboot, the hexapod Y stage does not correctly reset its dial
-   position. Follow the procedure below until a permanent fix is in place.
+Per-axis convention: ``user = dial home + OFFSET``. For Y, the dial
+home is 350 and the OFFSET is -350, so the Y user coordinate reads
+zero at Y dial 350. Other axes have their own dial home + OFFSET
+values chosen so their user coordinate at the homed position is
+sensible for the beamline geometry.
 
-After reboot, all motions home correctly (dial position and encoder
+.. note::
+
+   Earlier versions of this page described a "manual dial reset"
+   workflow where the operator had to set the Y dial to 350 by hand
+   after every reboot. That behaviour is **obsolete** — see the
+   *Fixed / obsolete behaviour* subsection below for the
+   historical record, or cora issue
+   `#597 <https://github.com/xmap/cora/issues/597>`__ (HXP-8) for
+   the change record.
+
+
+Fixed / obsolete behaviour
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This subsection preserves the description of a hexapod-reboot
+quirk that has since been fixed. The workflow below is **no
+longer required**; kept here as a reference for anyone
+reading historical logs or comparing against the pre-fix screens.
+
+*Old behaviour (fixed 2026-07-28, cora#597 / HXP-8):* after a
+reboot, all motions homed correctly (dial position and encoder
 readback both zero) **except** for Y. For Y:
 
-- Dial position is reset to zero (red arrow).
-- Encoder readback dial is at 350 (green arrow).
+- Dial position was reset to zero (red arrow).
+- Encoder readback dial was at 350 (green arrow).
 
-Attempting to move Y in this state will trigger a drive error.
+Attempting to move Y in this state would trigger a drive error.
 
-.. figure:: ../img/hexapod_08.png 
+.. figure:: ../img/hexapod_08.png
    :width: 360px
    :align: center
    :alt: hexapod_y_after_reboot
 
-   Hexapod Y after controller reboot
+   Hexapod Y after controller reboot (old behaviour — dial reset
+   to 0 while encoder read 350).
 
-Set the Y dial manually to 350, as shown below:
+The operator then had to set the Y dial manually to 350 before
+any Y move:
 
-.. figure:: ../img/hexapod_09.png 
+.. figure:: ../img/hexapod_09.png
    :width: 360px
    :align: center
    :alt: hexapod_y_dial
 
-   Hexapod Y dial must be manually set to 350 after controller reboot.
+   Hexapod Y dial manually set to 350 after controller reboot
+   (old procedure).
+
+*Current behaviour (since 2026-07-28):* the reboot procedure homes
+Y at 350 and sets the user coordinate to 0 automatically, as
+documented above. No manual dial adjustment is required.
