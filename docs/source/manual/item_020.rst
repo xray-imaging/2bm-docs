@@ -2507,15 +2507,35 @@ softGlueZynq (PSO → camera trigger)
 :Mounted on: Hutch electronics rack
 :Inputs: PSO output of the Aerotech Ensemble drive that runs the
    rotary ``2bmb:m102``.
-:Outputs: Camera trigger input. Per
-   ``tomoscan/tomoscan_fpga_2bm.py``, the wiring is FLIR Oryx
-   ``Line2`` for the current Oryx 5MP / 31MP cameras; the same
-   module also supports Grasshopper3 (``Line0``) and Adimec
-   (continuous-timed) modes if those cameras are swapped in.
-:Signal path:
+:Outputs: Three physical FPGA output channels are wired to
+   downstream devices (verified at the softGlueZynq patch panel
+   2026-07-28):
+
+   =========  ================  ================================================================
+   FPGA out   softGlue signal   Downstream device / connector
+   =========  ================  ================================================================
+   ``out1``   ``outTrig``       Camera trigger — FLIR Oryx ``Line2`` (Oryx 5MP / 31MP)
+   ``out2``   ``JenaX``         X-axis Piezosystem Jena NV200D ``TRG IN``
+                                (see NV200D block, :ref:`coded-aperture-jena-nv200d-piezo`)
+   ``out3``   ``JenaY``         Y-axis Piezosystem Jena NV200D ``TRG IN``
+   =========  ================  ================================================================
+
+   Per ``tomoscan/tomoscan_fpga_2bm.py``, ``Line2`` is the current
+   Oryx 5MP / 31MP wiring; the same module also supports
+   Grasshopper3 (``Line0``) and Adimec (continuous-timed) modes if
+   those cameras are swapped in.
+:Signal path (camera leg):
    PSO → ``MUX2-1`` (selects raw PSO or ``trigILF``) →
-   ``GateDly 1`` (pulse width / delay; default 100 × 100 ns = 10 µs)
-   → camera trigger.
+   ``GateDly1`` (pulse width / delay; default 100 × 100 ns = 10 µs)
+   → ``outTrig`` softGlue signal → FPGA ``out1`` → FLIR Oryx
+   ``Line2``.
+:Signal path (piezo legs):
+   ``outTrig`` also feeds the two per-axis piezo GateDly blocks:
+   → ``GateDly-2`` (5 ms delay) → ``JenaX`` → FPGA ``out2`` →
+   X-axis piezo; and → ``GateDly-3`` (5 ms delay) → ``JenaY`` →
+   FPGA ``out3`` → Y-axis piezo. Full delay-setting and
+   pulse-verification workflow in :doc:`../ops/item_060`
+   "Driving the two Jena piezo stages".
 :EPICS prefix: ``2bmbMZ1:SG:``. Key PVs:
 
    ===================================  =========================================================
