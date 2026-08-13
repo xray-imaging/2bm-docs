@@ -931,7 +931,10 @@ is encapsulated by the energy-change IOC; see :ref:`composite-iocs`.
      - Global tank downstream X
      - ``2bma:m28``
    * - DMM DSY
-     - Second crystal Y relative to the first
+     - Downstream tank Y (in-beam / retracted at mode switch;
+       constant within each mode — see the tank / alignment sub-block
+       below). NOT a second-crystal fine motor; that role belongs to
+       ``M2 Y`` (``2bma:m32``).
      - ``2bma:m29``
    * - DMM US Arm
      - Upstream Bragg-arm rotation
@@ -946,8 +949,16 @@ is encapsulated by the energy-change IOC; see :ref:`composite-iocs`.
 The tank's upstream end carries two independent Y motors (``USY OB``
 and ``USY IB``); their average sets the upstream tank Y position and
 their difference produces a Z-tilt around the beam axis. The second
-crystal is positioned relative to the first via the ``DSY`` (Y),
-``M2 Z`` (along beam), and ``M2 Y`` motors.
+crystal is positioned relative to the first via the along-beam
+translation ``M2 Z`` (``2bma:m8``) and the fine vertical ``M2 Y``
+(``2bma:m32``) — the per-energy Bragg-tracking motors that sweep
+with energy in Mono mode (see the per-energy saved-position sub-block
+below and `ENERGY-1 (cora#249) <https://github.com/xmap/cora/issues/249>`__
+for the numeric table). ``DSY`` (``2bma:m29``) is NOT part of this
+crystal-fine positioning — it is a downstream tank Y that only
+switches between in-beam (``0``) and retracted (``-10``) at mode
+change; see the tank / alignment sub-block below and
+`ENERGY-5 (cora#254) <https://github.com/xmap/cora/issues/254>`__.
 
 **Tank / alignment motors (energy-independent within mode).** The
 five DMM tank-positioning motors (``2bma:m25-m29``) are part of the
