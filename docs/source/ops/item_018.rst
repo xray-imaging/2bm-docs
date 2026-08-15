@@ -232,6 +232,51 @@ To list all tasks::
   (dm-user) [2bmb@arcturus]$ dm-list-archive-tasks
 
 
+Scan-file ``/process/acquisition/start_date`` provenance
+========================================================
+
+Starting 2026-08-13, ``/process/acquisition/start_date`` in every scan
+HDF5 file at 2-BM is written by the tomoscan client
+(`decarlof/tomoscan@d0025a2
+<https://github.com/decarlof/tomoscan/commit/d0025a233059a4b51af34b5025a98b7dfca4a686>`__
+and later) in ``end_scan()`` via ``h5py``, using the Python-captured
+scan-start timestamp. ``/process/acquisition/end_date`` remains
+areaDetector-written via the HDF5 plugin's ``when="OnFileClose"``
+layout entry and was correct throughout.
+
+Scan files written **before** the fix carry a stale ``start_date`` that
+reflects the previous scan's last-frame time. The mechanism was an
+``EPICS_PV`` NDAttribute + ``when="OnFileOpen"`` race in the
+areaDetector plugin chain: the NDAttribute plugin snapshot only
+refreshes when an NDArray flows through, and no NDArray of the current
+scan exists yet at file-open time, so the ``start_date`` dataset was
+populated with the plugin cache's frozen last-frame value from the
+previous scan. Skew ranged from seconds (short inter-scan gap) to
+days (long idle); a 9-hour offset was directly observed on 2026-08-12.
+
+For pre-fix files, read the corrected value via ``meta show``
+(`xray-imaging/meta-cli@29a56bc
+<https://github.com/xray-imaging/meta-cli/commit/29a56bc3d5bc788f1325a0937185ec496d241cb9>`__
+and later), which computes it as ``end_date - (num_angles *
+acquire_period + num_dark * exposure + num_flat * flat_exposure_time
++ 30 s overhead)`` and displays it with a ``[derived]`` suffix. The
+on-disk value is left as-is for provenance; the correction is display-
+only at read time.
+
+The IOC-side removal of the buggy NDAttribute + layout entry lives at
+`data-exchange/dxfile@de33f3a
+<https://github.com/data-exchange/dxfile/commit/de33f3a2da7de49f116be021d734890c608b51d6>`__,
+deployed via the working tree at ``/home/beams/2BMB/conda/dxfile/`` (
+symlinked into the 2bmbSP2 IOC boot dir at
+``/net/s2dserv/xorApps/epics/PreBuilts/2bmbSP2/iocBoot/ioc2bmbSP2/``);
+the IOC was restarted 2026-08-13 to pick up the change.
+
+Details, three-repo fix summary, and CORA impact:
+`cora#655 <https://github.com/xmap/cora/issues/655>`__ and
+`tomography/tomoscan#180
+<https://github.com/tomography/tomoscan/issues/180>`__.
+
+
 Add users
 =========
 
