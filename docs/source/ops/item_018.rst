@@ -235,24 +235,54 @@ To list all tasks::
 Scan-file ``/process/acquisition/start_date`` provenance
 ========================================================
 
-Starting 2026-08-13, ``/process/acquisition/start_date`` in every scan
-HDF5 file at 2-BM is written by the tomoscan client
-(`decarlof/tomoscan@d0025a2
-<https://github.com/decarlof/tomoscan/commit/d0025a233059a4b51af34b5025a98b7dfca4a686>`__
-and later) in ``end_scan()`` via ``h5py``, using the Python-captured
-scan-start timestamp. ``/process/acquisition/end_date`` remains
-areaDetector-written via the HDF5 plugin's ``when="OnFileClose"``
-layout entry and was correct throughout.
+Since 2026-08-14, ``/process/acquisition/start_date`` in every 2-BM
+scan HDF5 file is written correctly by the areaDetector HDF5 file
+plugin itself, via the ``when="OnFileOpen"`` layout entry against
+the ``DateTimeStart`` NDAttribute (sourced from the APS
+time-of-day PV ``S:IOC:timeOfDayISO8601``). No client-side rewrite
+step is involved. ``/process/acquisition/end_date`` continues to be
+written by the same plugin via ``when="OnFileClose"`` and was
+correct throughout.
 
-Scan files written **before** the fix carry a stale ``start_date`` that
-reflects the previous scan's last-frame time. The mechanism was an
-``EPICS_PV`` NDAttribute + ``when="OnFileOpen"`` race in the
-areaDetector plugin chain: the NDAttribute plugin snapshot only
-refreshes when an NDArray flows through, and no NDArray of the current
-scan exists yet at file-open time, so the ``start_date`` dataset was
+The correctness of ``start_date`` depends on one PV setting on the
+HDF5 file plugin:
+
+.. code-block:: text
+
+   caput 2bmSP2:HDF1:LazyOpen Yes
+   caget 2bmSP2:HDF1:LazyOpen_RBV
+   2bmSP2:HDF1:LazyOpen_RBV       Yes
+
+Autosaved; persists across IOC restarts. Sometimes also worth
+adding to the areaDetector IOC startup script for extra safety, but
+autosave alone is sufficient in practice.
+
+**What ``LazyOpen`` does.** With ``LazyOpen=Yes``, the HDF5 plugin
+defers actually opening the file until the first NDArray of the
+new scan arrives. Because NDArrays refresh every ``EPICS_PV``
+NDAttribute snapshot as they pass through the NDAttributes plugin,
+this means by the time ``when="OnFileOpen"`` fires there IS a
+fresh snapshot of every NDAttribute, and ``start_date`` is written
+with the current-scan timestamp rather than with the previous
+scan's last-frame timestamp. The fix is general: every
+``EPICS_PV`` NDAttribute wired via ``when="OnFileOpen"`` benefits,
+not just ``DateTimeStart``. Mechanism attributed to Mark Rivers
+(`tomography/tomoscan#180
+<https://github.com/tomography/tomoscan/issues/180>`__, 2026-08-13
+comment).
+
+Scan files written **before** ``LazyOpen=Yes`` was enabled carry a
+stale ``start_date`` that reflects the previous scan's last-frame
+time. The mechanism was an ``EPICS_PV`` NDAttribute +
+``when="OnFileOpen"`` race in the areaDetector plugin chain: the
+NDAttribute plugin snapshot only refreshes when an NDArray flows
+through, and without ``LazyOpen`` no NDArray of the current scan
+existed yet at file-open time, so the ``start_date`` dataset was
 populated with the plugin cache's frozen last-frame value from the
 previous scan. Skew ranged from seconds (short inter-scan gap) to
-days (long idle); a 9-hour offset was directly observed on 2026-08-12.
+days (long idle); a 9-hour offset was directly observed on
+2026-08-12 (``test_006.h5`` started ``15:30:05`` recorded
+``start_date = 06:21:17``).
 
 For pre-fix files, read the corrected value via ``meta show``
 (`xray-imaging/meta-cli@29a56bc
@@ -260,21 +290,42 @@ For pre-fix files, read the corrected value via ``meta show``
 and later), which computes it as ``end_date - (num_angles *
 acquire_period + num_dark * exposure + num_flat * flat_exposure_time
 + 30 s overhead)`` and displays it with a ``[derived]`` suffix. The
-on-disk value is left as-is for provenance; the correction is display-
-only at read time.
+on-disk value is left as-is for provenance; the correction is
+display-only at read time.
 
-The IOC-side removal of the buggy NDAttribute + layout entry lives at
-`data-exchange/dxfile@de33f3a
-<https://github.com/data-exchange/dxfile/commit/de33f3a2da7de49f116be021d734890c608b51d6>`__,
-deployed via the working tree at ``/home/beams/2BMB/conda/dxfile/`` (
-symlinked into the 2bmbSP2 IOC boot dir at
-``/net/s2dserv/xorApps/epics/PreBuilts/2bmbSP2/iocBoot/ioc2bmbSP2/``);
-the IOC was restarted 2026-08-13 to pick up the change.
+Historical note
+---------------
 
-Details, three-repo fix summary, and CORA impact:
-`cora#655 <https://github.com/xmap/cora/issues/655>`__ and
+An earlier three-repo approach was landed on 2026-08-13 and
+promptly superseded on 2026-08-14 when the ``LazyOpen`` fix was
+tested. Recording the reverts so the git history stays legible:
+
+- `data-exchange/dxfile@4c2fc248
+  <https://github.com/data-exchange/dxfile/commit/4c2fc248b9e32efdddab11ccc65b99943a235a95>`__
+  reverts `data-exchange/dxfile@de33f3a
+  <https://github.com/data-exchange/dxfile/commit/de33f3a2da7de49f116be021d734890c608b51d6>`__
+  (which had removed ``DateTimeStart`` and the ``start_date``
+  dataset from the 2-BM areaDetector XML files). The XML entries
+  are back; ``LazyOpen`` makes them work.
+- `decarlof/tomoscan@5760cd31
+  <https://github.com/decarlof/tomoscan/commit/5760cd3199ad975e1f2e866b779d64e3e1cc22ac>`__
+  reverts `decarlof/tomoscan@d0025a2
+  <https://github.com/decarlof/tomoscan/commit/d0025a233059a4b51af34b5025a98b7dfca4a686>`__
+  (which had added an ``add_start_date()`` client-side ``h5py``
+  rewrite in ``end_scan()``). The client is out of the
+  ``start_date`` write path again.
+
+Only ``xray-imaging/meta-cli@29a56bc`` remains in service from the
+original three-repo change, because it addresses **pre-fix files
+already on disk** rather than the write path.
+
+Details, LazyOpen supersession, and CORA impact:
+`cora#655 <https://github.com/xmap/cora/issues/655>`__
+(and its `follow-up comment
+<https://github.com/xmap/cora/issues/655#issuecomment-5308714943>`__),
 `tomography/tomoscan#180
-<https://github.com/tomography/tomoscan/issues/180>`__.
+<https://github.com/tomography/tomoscan/issues/180>`__ (reopened
+2026-08-14).
 
 
 Add users
