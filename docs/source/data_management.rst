@@ -2,6 +2,16 @@
 Data Management
 ===============
 
+.. warning::
+
+   **2026-08-14 — tomodata2 disk-array failure:** the ``/data2`` mount was
+   totally lost. Everything on ``/data2`` that had **not** yet been mirrored
+   to DM is permanently gone. Items on ``/data3`` and on DM were unaffected.
+   Entries below tagged "**LOST**" refer to /data2 content that was not on DM
+   at the time of failure. Detailed inventories: ``data2_backup_summary.pdf``
+   (what was saved) and ``data2_lost_summary.pdf`` (what was lost) in
+   ``/home/beams/2BMB/claude/dm/``.
+
 This page summarizes the DM (APS Data Management) status for 2-BM datasets.
 
 Convention: **Done** means the dataset was permanently moved from ``/local2/2BM``,
@@ -110,58 +120,66 @@ Pending — still on local disk, not fully archived
      - **fully on DM** — 398,021 files byte-exact under ``/gdata/dm/2BM/2026-08/2026-08-Nikitin-0/data/vnikitin_data3/``. DM manual experiment ``2026-08-Nikitin-0``, GUP 0, PI Viktor Nikitin. Completed 2026-08-14 06:20 (initial pass on tomo4 died with the host; resumed on tomdet, finished cleanly).
      - awaiting Viktor's ``rm -rf`` as ``vnikitin`` (data owned by tomo/vnikitin)
      - — (waiting on Viktor)
-   * - ``/data2/vnikitin`` (Viktor's active workspace — pass 1 done + 2 more passes in progress)
-     - 14 T source (~13 T targeted)
-     - Multi-pass rsync into ``/gdata/dm/2BM/2026-08/2026-08-Nikitin-0/data/vnikitin_data2/`` (same experiment as ``vnikitin_data3``). **Pass 1 DONE** (8.7 T, 61,036 files: ``ESRF``, ``ctxl``, ``data_brainY350a_dist1234.h5``, ``Chawla{,_rec}``, ``Y350a{,_noise}``, ``correct_correct3D.txt``, + empty dirs). **Pass 2 in progress** (~1.8 T: ``ctxl_rec``, ``ctxl_rec40`` — newly idle >30 d). **Pass 3 in progress** (~2.6 T: ``Y350c_rec_new_cubic_deform``, ``tmp``, ``ctxl_rec60``, ``ctxl_rec40_deform`` — idle 16–20 d, Viktor considers stable). Still ACTIVE and excluded: ``20240515`` (554 G, 3.9 d idle), ``iotest`` (307 G, 7 d), ``iotest_buf_ups1`` (527 G, writing today).
-     - wait for passes 2 + 3 verify; then loop back to Viktor about the remaining ACTIVE items before final delete
-     - — (partial complete, more transfers in progress)
+   * - ``/data2/vnikitin`` (Viktor's active workspace)
+     - 14 T source, **~13 T saved / ~1.4 T LOST**
+     - All 3 rsync passes completed before crash; ~13 T (61,036 files pass 1 + 166 files pass 2 + 119,371 files pass 3) safely under ``/gdata/dm/2BM/2026-08/2026-08-Nikitin-0/data/vnikitin_data2/``. **LOST on 2026-08-14**: active items excluded from rsync — ``20240515`` (554 G), ``iotest`` (307 G), ``iotest_buf_ups1`` (527 G), plus ``tmp/t_test.h5`` (157 MB, appeared during pass 3 scan).
+     - no action; Viktor already notified of the lost active items
+     - N/A — /data2 gone
    * - ``/data3/2BM/2026-07-Liu-0`` + ``_rec``
      - 457 G raw + 2.0 T rec
      - fully on DM (raw 20/21 h5 byte-exact, rec 50,016/50,016 files byte-exact)
      - safe to ``rm -rf``; frees ~2.5 T
      - `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata3%2F2BM%2F2026-07-Liu-0%20and%20_rec&body=I%20approve%20deletion%20of%20%2Fdata3%2F2BM%2F2026-07-Liu-0%20and%20%2Fdata3%2F2BM%2F2026-07-Liu-0_rec%20(~2.5%20T%2C%20fully%20on%20DM%20byte-exact).>`__
-   * - ``/data2/2BM/2026-03/Noemi`` + ``Noemi_rec``
-     - 230 G + 87 G
-     - no DM folder; possible candidate ``/gdata/dm/2BM/2026-02/2026-02-BrainNoemi-0``
-     - manual verification needed
-     - —
    * - ``/data2/2BM/2026-07-Boyer-0`` (raw)
      - 3.8 T
-     - fully on DM (byte-exact)
-     - safe to ``rm -rf``; frees 3.8 T
-     - `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata2%2F2BM%2F2026-07-Boyer-0&body=I%20approve%20deletion%20of%20%2Fdata2%2F2BM%2F2026-07-Boyer-0%20(3.8%20T%20raw%2C%20fully%20on%20DM%20byte-exact).>`__
+     - **on DM** — verified byte-exact before crash. /data2 source LOST 2026-08-14 but DM copy at ``/gdata/dm/2BM/2026-07/2026-07-Boyer-0/data/`` is intact.
+     - none — DM is authoritative
+     - N/A — /data2 gone
    * - ``/data2/2BM/2026-07-Boyer-0_rec``
      - 149 G
-     - partial; DM ``/analysis`` has 213 GB more content, /data2 has 1 log file variant
-     - safe to ``rm -rf`` (only 879 B log unique to /data2)
-     - `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata2%2F2BM%2F2026-07-Boyer-0_rec&body=I%20approve%20deletion%20of%20%2Fdata2%2F2BM%2F2026-07-Boyer-0_rec%20(149%20G%2C%20DM%20has%20everything%20except%20a%20single%20879%20B%20log%20file).>`__
+     - **on DM** (all but a 879 B log) — /data2 source LOST 2026-08-14; DM ``/analysis`` unaffected.
+     - none — DM is authoritative
+     - N/A — /data2 gone
+
+Lost to 2026-08-14 tomodata2 failure
+====================================
+
+The following ``/data2/2BM`` content had NOT been mirrored to DM at the time of the
+disk-array failure and is permanently unrecoverable:
+
+.. list-table::
+   :header-rows: 1
+   :widths: auto
+
+   * - Dataset / Path
+     - Size
+     - Notes
+   * - ``/data2/2BM/2026-03/Noemi`` + ``Noemi_rec``
+     - 230 G + 87 G
+     - no DM folder; possible earlier candidate ``/gdata/dm/2BM/2026-02/2026-02-BrainNoemi-0`` never verified
    * - ``/data2/2BM/2026-07-Boyer-0_tmp`` + ``_tmp_rec``
      - 107 G + 79 G
-     - not verified against DM
-     - assess necessity
-     - —
+     - was never verified against DM
    * - ``/data2/2BM/2026-02`` (Feb 2026 working folder)
      - 1.5 T
-     - not verified per-dataset
-     - inventory + verify
-     - —
+     - never inventoried per-dataset
    * - ``/data2/2BM/2026-07-Li-1014288_rec_test``
      - 480 G
-     - scratch/test folder
-     - assess necessity
-     - —
+     - scratch / test folder
    * - ``/data2/2BM/tmp_denose_brain``
      - 2.5 T
-     - scratch folder
-     - assess necessity
-     - —
+     - scratch folder (denoise brain)
    * - ``/data2/2BM/brain_beta`` + ``brain_delta``
      - 316 G + 633 G
-     - not verified against DM
-     - assess
-     - —
+     - never verified against DM
    * - ``/data2/2BM/test``, ``/data2/2BM/test2``, ``/data2/2BM/2025-06``, ``/data2/2BM/2025-12``
-     - < 130 G combined
-     - test/old
-     - clean-up candidates
-     - —
+     - < 170 G combined
+     - test / old
+   * - ``/data2/vnikitin`` active items (see also main entry above)
+     - ~1.4 T
+     - ``20240515``, ``iotest``, ``iotest_buf_ups1``, ``tmp/t_test.h5``
+
+Plus the /data2 unbacked content from other beamlines (``/data2/Allen-nih`` ~20 T,
+``/data2/Center_of_Rotation`` 3 T, ``/data2/ESRF`` 2.1 T, ``/data2/cekmekci`` 1.4 T,
+``/data2/maria`` 635 G, ``/data2/tmp_from_data3`` 354 G, ``/data2/Brain_holo`` 125 G,
+``/data2/tmp`` 80 G) — see the full inventory in ``data2_lost_summary.pdf``.
