@@ -51,6 +51,10 @@ Done — permanently on DM
      - 58 T
      - /data2/2BM/2026-07-Li-1014288{,_rec}/
      - /gdata/dm/2BM/2026-07/2026-07-Li-1014288/{data,analysis}/
+   * - ``2026-07-Liu-0`` (raw + rec)
+     - ~2.5 T (457 G + 2.0 T)
+     - /data3/2BM/2026-07-Liu-0{,_rec}/
+     - /gdata/dm/2BM/2026-07/2026-07-Liu-0/{data,analysis}/ *(3 JPG snapshots ~940 KB unique to /data3 not archived)*
    * - ``2026-07-Nikitin-0`` (raw + rec)
      - ~12 T
      - /data3/2BM/2026-07-Nikitin-0{,_rec}/
@@ -125,11 +129,6 @@ Pending — still on local disk, not fully archived
      - All 3 rsync passes completed before crash; ~13 T (61,036 files pass 1 + 166 files pass 2 + 119,371 files pass 3) safely under ``/gdata/dm/2BM/2026-08/2026-08-Nikitin-0/data/vnikitin_data2/``. **LOST on 2026-08-14**: active items excluded from rsync — ``20240515`` (554 G), ``iotest`` (307 G), ``iotest_buf_ups1`` (527 G), plus ``tmp/t_test.h5`` (157 MB, appeared during pass 3 scan).
      - no action; Viktor already notified of the lost active items
      - N/A — /data2 gone
-   * - ``/data3/2BM/2026-07-Liu-0`` + ``_rec``
-     - 457 G raw + 2.0 T rec
-     - fully on DM (raw 20/21 h5 byte-exact, rec 50,016/50,016 files byte-exact)
-     - safe to ``rm -rf``; frees ~2.5 T
-     - `approve → <mailto:decarlo@anl.gov?subject=DM%20delete%20approval%3A%20%2Fdata3%2F2BM%2F2026-07-Liu-0%20and%20_rec&body=I%20approve%20deletion%20of%20%2Fdata3%2F2BM%2F2026-07-Liu-0%20and%20%2Fdata3%2F2BM%2F2026-07-Liu-0_rec%20(~2.5%20T%2C%20fully%20on%20DM%20byte-exact).>`__
    * - ``/data2/2BM/2026-07-Boyer-0`` (raw)
      - 3.8 T
      - **on DM** — verified byte-exact before crash. /data2 source LOST 2026-08-14 but DM copy at ``/gdata/dm/2BM/2026-07/2026-07-Boyer-0/data/`` is intact.
