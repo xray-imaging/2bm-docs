@@ -110,8 +110,8 @@ Pending — still on local disk, not fully archived
      - assess necessity
      - —
    * - ``/data3/Allen-NIH-mosaic_2`` (owner sboyer, raw y-segments + mosaic)
-     - 36 T
-     - **fully on DM** — 59,741/59,741 files byte-exact under ``/gdata/dm/2BM/2026-05/2026-05-Boyer-0/data/Allen-NIH-mosaic_2/``. Also being re-rsynced fresh into ``2026-08-ImagingStaff-0/data/data3/Allen-NIH-mosaic_2/`` (queued, see *Shared staff/project backup* below); Boyer-0 will be retired once ImagingStaff verifies.
+     - 38.5 T
+     - **fully on DM in two places, verified 1:1** — ``2026-05-Boyer-0/data/Allen-NIH-mosaic_2/`` (original) and ``2026-08-ImagingStaff-0/data/data3/Allen-NIH-mosaic_2/`` (consolidated). All three (/data3, Boyer-0, ImagingStaff) show 59,741 files exact match. Boyer-0 to be retired via dmadmin on demand.
      - awaiting Sarah to ``rm -rf`` as ``sboyer`` (files owned by her)
      - — (waiting on Sarah)
    * - ``/data3/Allen-NIH-mosaic`` (owner tomo, zarr derivatives)
@@ -120,13 +120,14 @@ Pending — still on local disk, not fully archived
      - no action — keep on /data3 as long as space permits
      - —
    * - ``/data3/vnikitin`` (Viktor's personal workspace)
-     - 57 T
-     - **fully on DM** — 398,021 files byte-exact under ``/gdata/dm/2BM/2026-08/2026-08-Nikitin-0/data/vnikitin_data3/``. DM manual experiment ``2026-08-Nikitin-0``, GUP 0, PI Viktor Nikitin. Completed 2026-08-14 06:20 (initial pass on tomo4 died with the host; resumed on tomdet, finished cleanly). **Also being re-rsynced fresh** into ``2026-08-ImagingStaff-0/data/data3/vnikitin/`` (queued, see *Shared staff/project backup* below); Nikitin-0 will be retired once ImagingStaff verifies.
-     - awaiting Viktor's ``rm -rf`` as ``vnikitin`` (data owned by tomo/vnikitin)
-     - — (waiting on Viktor)
+     - 26.2 T current / 57 T pre-reorg
+     - **fully on DM in two places** — (1) ``2026-08-Nikitin-0/data/vnikitin_data3/`` (398 K files, pre-Aug-22 snapshot, KEPT as historical archive of content Viktor deleted during his reorganization), and (2) ``2026-08-ImagingStaff-0/data/data3/vnikitin/`` (~201 K files, clean mirror of current /data3 state). See *Viktor Nikitin workspace reorganization* in the shared backup section below.
+     - Viktor is actively using /data3/vnikitin; no delete pending
+     - N/A — active workspace
+
    * - ``/data2/vnikitin`` (Viktor's active workspace)
      - 14 T source, **~13 T saved / ~1.4 T LOST**
-     - All 3 rsync passes completed before crash; ~13 T (61,036 files pass 1 + 166 files pass 2 + 119,371 files pass 3) safely under ``/gdata/dm/2BM/2026-08/2026-08-Nikitin-0/data/vnikitin_data2/``. **LOST on 2026-08-14**: active items excluded from rsync — ``20240515`` (554 G), ``iotest`` (307 G), ``iotest_buf_ups1`` (527 G), plus ``tmp/t_test.h5`` (157 MB, appeared during pass 3 scan). **Nikitin-0 copy currently being DM→DM folded** into ``2026-08-ImagingStaff-0/data/data2/vnikitin/`` (Stream B, see *Shared staff/project backup* below).
+     - All 3 rsync passes completed before crash; ~13 T (61,036 files pass 1 + 166 files pass 2 + 119,371 files pass 3) safely under ``/gdata/dm/2BM/2026-08/2026-08-Nikitin-0/data/vnikitin_data2/``. **LOST on 2026-08-14**: active items excluded from rsync — ``20240515`` (554 G), ``iotest`` (307 G), ``iotest_buf_ups1`` (527 G), plus ``tmp/t_test.h5`` (157 MB, appeared during pass 3 scan). **Nikitin-0 copy DM→DM folded** into ``2026-08-ImagingStaff-0/data/data2/vnikitin/`` (Stream B completed 2026-08-19, 14.2 T byte-exact).
      - no action; Viktor already notified of the lost active items
      - N/A — /data2 gone
    * - ``/data2/2BM/2026-07-Boyer-0`` (raw)
@@ -173,69 +174,112 @@ The ``--chmod=Dg+w`` flag keeps new dirs group-writable so the ACL mask stays
 ``rwx`` and future delta rsyncs don't hit "mkstemp Permission denied" errors on
 tight-mask subdirs.
 
-Current status (as of 2026-08-18 20:47)
----------------------------------------
+Current status (all complete as of 2026-08-23)
+----------------------------------------------
 
 .. list-table::
    :header-rows: 1
    :widths: auto
 
    * - Source
+     - Files
      - Size
      - DM destination under ``2026-08-ImagingStaff-0/``
      - Status
    * - ``/data3/sboyer``
-     - 31 T
+     - 9,418,412
+     - 44.7 T
      - ``data/data3/sboyer/``
-     - **IN PROGRESS** (Stream A, first item, ETA ~8h)
+     - ✅ DONE, 1:1 verified
    * - ``/data3/sboyer_rec``
-     - 1.2 T
+     - 7,681
+     - ~1.2 T
      - ``data/data3/sboyer_rec/``
-     - Stream A, queued
+     - ✅ DONE, 1:1 verified
    * - ``/data3/vnikitin``
-     - 57 T
+     - 200,985
+     - 26.2 T
      - ``data/data3/vnikitin/``
-     - Stream A, queued (biggest single item, ETA ~1.5 days once started)
+     - ✅ DONE — clean mirror of current /data3 state (see *Viktor workspace reorganization* below)
    * - ``/data3/Allen-NIH-mosaic_2``
-     - 36 T
+     - 59,741
+     - 38.5 T
      - ``data/data3/Allen-NIH-mosaic_2/``
-     - Stream A, queued
+     - ✅ DONE, 1:1 verified (Stream D DM→DM from Boyer-0, then Stream A verify)
    * - ``/data3/ESRF``
-     - ?
+     - 5,802
+     - (small)
      - ``data/data3/ESRF/``
-     - Stream A, queued
+     - ✅ DONE, 1:1 verified
    * - ``/data3/TMP_BRAIN_ESRF``
-     - ?
+     - 0
+     - empty
      - ``data/data3/TMP_BRAIN_ESRF/``
-     - Stream A, queued
+     - ✅ empty dir mirrored
    * - ``/data3/TMP_YALE``
-     - ? (large dir, many files)
+     - 2,261,466
+     - (large)
      - ``data/data3/TMP_YALE/``
-     - Stream A, queued
+     - ✅ DONE, 1:1 verified
    * - ``Nikitin-0/data/vnikitin_data2/`` (DM→DM)
-     - 13 T
+     - ~192,000
+     - 14.2 T
      - ``data/data2/vnikitin/``
-     - **IN PROGRESS** (Stream B, ETA ~5h)
+     - ✅ DONE 2026-08-19 (Stream B, only surviving copy of destroyed /data2/vnikitin)
    * - ``/data3/Allen-NIH-mosaic`` (18 T zarr)
+     - ~9.2 M
      - 18 T
      - — (**excluded**)
      - regenerable from Allen-NIH-mosaic_2; keep on /data3 only
 
-Estimated total wall-clock: **4–5 days** (Stream A serialized, ~163 T at ~350 MB/s).
+Total transferred to ImagingStaff: **~170 T** across 5 parallel/sequential streams
+over 2026-08-18 through 2026-08-23. Actual wall-clock exceeded initial estimates
+because Viktor was actively writing to ``/data3/vnikitin`` throughout (see below).
+
+Viktor Nikitin workspace reorganization
+---------------------------------------
+
+Between the ``2026-08-Nikitin-0`` rescue snapshot (2026-08-14) and the
+ImagingStaff rsync (2026-08-22), Viktor made a major reorganization of
+``/data3/vnikitin``:
+
+- Top-level dirs went from **97** (in Nikitin-0) to **14** (current /data3)
+- ~57 T of older content was deleted from /data3 (reconstructions,
+  experimental variants, older ESRF / atomium runs, etc.)
+- The active-work directory ``20260416/`` (25 subdirs) was ``mv``'d from
+  ``/data3/vnikitin/20260416/`` to ``/data3/vnikitin/ESRF/20260416/``
+- 5 new top-level dirs added: ``APS_IRI``, ``brain_dose_study``,
+  ``dose_study``, ``holobrain_syn``, ``mosaic_brain``
+
+**Consequence:** ``ImagingStaff/data/data3/vnikitin/`` holds a clean mirror
+of the **current** /data3/vnikitin state (26.2 T, ~201 K files, verified).
+The **pre-reorg** state — including the 57 T Viktor deleted — survives
+**only** in ``2026-08-Nikitin-0/data/vnikitin_data3/`` (398 K files). For
+this reason ``2026-08-Nikitin-0`` is **kept as historical archive** and is
+**not** retired.
 
 Notes
 -----
 
-- ``/data2`` is essentially empty after the 2026-08-14 tomodata2 failure. IT is
-  still investigating BIOS-level issues. Once /data2 is cleared and staff
-  repopulate it, delta rsyncs into ``ImagingStaff/data/data2/`` will pick up
-  the new content.
-- After ImagingStaff verifies clean, ``2026-08-Nikitin-0`` and
-  ``2026-05-Boyer-0`` will be retired (via dmadmin, not ``rm -rf``, to avoid
-  orphaning DM metadata). Their content will exist only under ImagingStaff.
-- Refresh cadence: quarterly delta rsyncs from ``/data2`` + ``/data3`` into the
-  current year's experiment. No ``--delete`` — DM keeps history of anything
-  users removed since last snapshot.
+- ``/data2`` has been rebuilt as RAID5 (was RAID0, lost in the 2026-08-14
+  failure). Currently essentially empty; four top-level dirs seeded for the
+  beamlines (``2BM``, ``7BM``, ``19BM``, ``32ID``). Once staff repopulate it,
+  weekly rsyncs will pick up the new content into
+  ``ImagingStaff/data/data2/``.
+- ``2026-05-Boyer-0`` — verified 1:1 against ImagingStaff (59,741 files exact
+  match on all three: /data3, Boyer-0, ImagingStaff). **Ready to retire** via
+  dmadmin (not ``rm -rf`` on ``/gdata/dm/``, which would orphan DM metadata).
+  Retirement will be triggered on demand.
+- ``2026-08-Nikitin-0`` — **kept as historical archive** (see reorganization
+  section above); sole surviving copy of the pre-Aug-22 /data3/vnikitin state.
+  Small ACL preserved (Viktor + Francesco).
+- Refresh cadence: **weekly weekend delta rsyncs** from ``/data2`` +
+  ``/data3`` into the current year's experiment. Currently run **on demand**
+  until the process is stable; automated cron to follow. No ``--delete`` — DM
+  keeps history of anything users removed since last snapshot.
+- Before deleting any ``/data3`` source, spot-check against the ImagingStaff
+  destination using the pattern in ``/home/beams/2BMB/claude/dm/verify_all_subtrees.sh``
+  (path+size 1:1 comparison via ``find | sort | comm``).
 
 Lost to 2026-08-14 tomodata2 failure
 ====================================
