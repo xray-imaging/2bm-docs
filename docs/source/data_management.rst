@@ -120,8 +120,8 @@ Pending — still on local disk, not fully archived
      - no action — keep on /data3 as long as space permits
      - —
    * - ``/data3/vnikitin`` (Viktor's personal workspace)
-     - 26.2 T current / 57 T pre-reorg
-     - **fully on DM in two places** — (1) ``2026-08-Nikitin-0/data/vnikitin_data3/`` (398 K files, pre-Aug-22 snapshot, KEPT as historical archive of content Viktor deleted during his reorganization), and (2) ``2026-08-ImagingStaff-0/data/data3/vnikitin/`` (~201 K files, clean mirror of current /data3 state). See *Viktor Nikitin workspace reorganization* in the shared backup section below.
+     - 30.35 T current / 57 T pre-reorg
+     - **fully on DM in two places** — (1) ``2026-08-Nikitin-0/data/vnikitin_data3/`` (398 K files, pre-Aug-22 snapshot, KEPT as historical archive of content Viktor deleted during his reorganization), and (2) ``2026-08-ImagingStaff-0/data/data3/vnikitin/`` (~202 K files, clean mirror of current /data3 state, **byte-identical to /data3 as of 2026-08-26**). See *Viktor Nikitin workspace reorganization* in the shared backup section below.
      - Viktor is actively using /data3/vnikitin; no delete pending
      - N/A — active workspace
 
@@ -197,10 +197,10 @@ Current status (all complete as of 2026-08-23)
      - ``data/data3/sboyer_rec/``
      - ✅ DONE, 1:1 verified
    * - ``/data3/vnikitin``
-     - 200,985
-     - 26.2 T
+     - ~202,000
+     - 30.35 T
      - ``data/data3/vnikitin/``
-     - ✅ DONE — clean mirror of current /data3 state (see *Viktor workspace reorganization* below)
+     - ✅ DONE + 3 on-demand delta rsyncs (2026-08-24 → 2026-08-26). **Confirmed byte-identical to /data3 on 2026-08-26** (rsync #3 transferred 0 literal bytes, speedup 6.4M×). See *Viktor workspace reorganization* below.
    * - ``/data3/Allen-NIH-mosaic_2``
      - 59,741
      - 38.5 T
@@ -252,7 +252,9 @@ ImagingStaff rsync (2026-08-22), Viktor made a major reorganization of
   ``dose_study``, ``holobrain_syn``, ``mosaic_brain``
 
 **Consequence:** ``ImagingStaff/data/data3/vnikitin/`` holds a clean mirror
-of the **current** /data3/vnikitin state (26.2 T, ~201 K files, verified).
+of the **current** /data3/vnikitin state (30.35 T, ~202 K files), confirmed
+byte-identical to /data3 on 2026-08-26 after three on-demand delta rsyncs
+that closed the gap left by Viktor's live writes during the initial pass.
 The **pre-reorg** state — including the 57 T Viktor deleted — survives
 **only** in ``2026-08-Nikitin-0/data/vnikitin_data3/`` (398 K files). For
 this reason ``2026-08-Nikitin-0`` is **kept as historical archive** and is
