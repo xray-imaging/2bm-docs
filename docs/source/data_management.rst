@@ -148,7 +148,7 @@ Started **2026-08-18** to consolidate all non-beamline dirs on ``/data3`` (and
 later ``/data2`` once IT clears it after the 2026-08-14 failure) into a single
 yearly shared DM experiment. Purpose: provide DM archival for staff personal
 workspaces (sboyer, vnikitin, etc.) and cross-cutting project dirs (ESRF,
-Allen-NIH-\*, TMP_\*) that don't fit under a beamline GUP. **Yearly rollover:**
+``Allen-NIH-*``, ``TMP_*``) that don't fit under a beamline GUP. **Yearly rollover:**
 this experiment covers Aug–Dec 2026; a fresh ``2027-01-ImagingStaff-0`` will
 be created in January.
 
