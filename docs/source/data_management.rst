@@ -187,20 +187,20 @@ Current status (all complete as of 2026-08-23)
      - DM destination under ``2026-08-ImagingStaff-0/``
      - Status
    * - ``/data3/sboyer``
-     - 9,418,412
-     - 44.7 T
+     - 9.4 M initial → growing
+     - 44.7 T initial → 52 T (2026-09-01)
      - ``data/data3/sboyer/``
-     - ✅ DONE, 1:1 verified
+     - ✅ initial rsync DONE 1:1 verified; delta rsync 2026-09-01 added ~4.9 T of Sarah's marmoset_brain reconstructions
    * - ``/data3/sboyer_rec``
      - 7,681
      - ~1.2 T
      - ``data/data3/sboyer_rec/``
      - ✅ DONE, 1:1 verified
    * - ``/data3/vnikitin``
-     - ~202,000
-     - 30.35 T
+     - ~202,000 → growing
+     - 30.35 T → 34.86 T (2026-09-01)
      - ``data/data3/vnikitin/``
-     - ✅ DONE + 3 on-demand delta rsyncs (2026-08-24 → 2026-08-26). **Confirmed byte-identical to /data3 on 2026-08-26** (rsync #3 transferred 0 literal bytes, speedup 6.4M×). See *Viktor workspace reorganization* below.
+     - ✅ DONE + on-demand delta rsyncs (2026-08-24, 25, 26, and 2026-09-01). Delta rsync #4 (2026-09-01) added ~5.1 T; now includes exclude filters ``tmp*/TMP*/*tmp/*TMP`` per Viktor's request. See *Viktor workspace reorganization* below.
    * - ``/data3/Allen-NIH-mosaic_2``
      - 59,741
      - 38.5 T
