@@ -120,8 +120,8 @@ Pending — still on local disk, not fully archived
      - no action — keep on /data3 as long as space permits
      - —
    * - ``/data3/vnikitin`` (Viktor's personal workspace)
-     - 30.35 T current / 57 T pre-reorg
-     - **fully on DM in two places** — (1) ``2026-08-Nikitin-0/data/vnikitin_data3/`` (398 K files, pre-Aug-22 snapshot, KEPT as historical archive of content Viktor deleted during his reorganization), and (2) ``2026-08-ImagingStaff-0/data/data3/vnikitin/`` (~202 K files, clean mirror of current /data3 state, **byte-identical to /data3 as of 2026-08-26**). See *Viktor Nikitin workspace reorganization* in the shared backup section below.
+     - 34.86 T current / 57 T pre-reorg
+     - **fully on DM in two places** — (1) ``2026-08-Nikitin-0/data/vnikitin_data3/`` (398 K files, pre-Aug-22 snapshot, KEPT as historical archive of content Viktor deleted during his reorganization), and (2) ``2026-08-ImagingStaff-0/data/data3/vnikitin/`` (~202 K+ files, clean mirror of current /data3 state; last delta rsync 2026-09-01 with ``tmp*/TMP*/*tmp/*TMP`` excludes). See *Viktor Nikitin workspace reorganization* in the shared backup section below.
      - Viktor is actively using /data3/vnikitin; no delete pending
      - N/A — active workspace
 
@@ -174,8 +174,8 @@ The ``--chmod=Dg+w`` flag keeps new dirs group-writable so the ACL mask stays
 ``rwx`` and future delta rsyncs don't hit "mkstemp Permission denied" errors on
 tight-mask subdirs.
 
-Current status (all complete as of 2026-08-23)
-----------------------------------------------
+Current status (initial rsyncs complete 2026-08-23; on-demand deltas ongoing)
+-----------------------------------------------------------------------------
 
 .. list-table::
    :header-rows: 1
@@ -232,9 +232,21 @@ Current status (all complete as of 2026-08-23)
      - — (**excluded**)
      - regenerable from Allen-NIH-mosaic_2; keep on /data3 only
 
-Total transferred to ImagingStaff: **~170 T** across 5 parallel/sequential streams
-over 2026-08-18 through 2026-08-23. Actual wall-clock exceeded initial estimates
-because Viktor was actively writing to ``/data3/vnikitin`` throughout (see below).
+Initial full population: **~170 T** transferred to ImagingStaff across 5
+parallel/sequential streams over 2026-08-18 → 2026-08-23. Actual wall-clock
+exceeded initial estimates because Viktor was actively writing to
+``/data3/vnikitin`` throughout (see below). Since then, on-demand delta
+rsyncs have kept the active subtrees (``sboyer``, ``vnikitin``) current:
+
+- 2026-08-24 → 26: three delta rsyncs for ``vnikitin`` (closed initial
+  1699-file gap; confirmed byte-identical on 2026-08-26)
+- 2026-09-01: parallel delta rsyncs for ``sboyer`` (+4.9 T, Sarah's
+  marmoset_brain reconstructions) and ``vnikitin`` (+5.1 T),
+  monitor-triggered after both were quiet for 60 min
+
+All other subtrees (``sboyer_rec``, ``Allen-NIH-mosaic_2``, ``ESRF``,
+``TMP_YALE``, ``TMP_BRAIN_ESRF``) are frozen and remain 1:1 with the
+initial snapshot.
 
 Viktor Nikitin workspace reorganization
 ---------------------------------------
@@ -252,13 +264,14 @@ ImagingStaff rsync (2026-08-22), Viktor made a major reorganization of
   ``dose_study``, ``holobrain_syn``, ``mosaic_brain``
 
 **Consequence:** ``ImagingStaff/data/data3/vnikitin/`` holds a clean mirror
-of the **current** /data3/vnikitin state (30.35 T, ~202 K files), confirmed
-byte-identical to /data3 on 2026-08-26 after three on-demand delta rsyncs
-that closed the gap left by Viktor's live writes during the initial pass.
-The **pre-reorg** state — including the 57 T Viktor deleted — survives
-**only** in ``2026-08-Nikitin-0/data/vnikitin_data3/`` (398 K files). For
-this reason ``2026-08-Nikitin-0`` is **kept as historical archive** and is
-**not** retired.
+of the **current** /data3/vnikitin state (34.86 T at 2026-09-01 delta), kept
+up to date via on-demand delta rsyncs (three on 2026-08-24 → 26 confirmed a
+byte-identical snapshot before Viktor resumed active work; one on 2026-09-01
+picked up ~5.1 T of new content and started applying the ``tmp*/TMP*/*tmp/*TMP``
+exclude rule Viktor requested). The **pre-reorg** state — including the 57 T
+Viktor deleted — survives **only** in
+``2026-08-Nikitin-0/data/vnikitin_data3/`` (398 K files). For this reason
+``2026-08-Nikitin-0`` is **kept as historical archive** and is **not** retired.
 
 Notes
 -----
@@ -277,8 +290,15 @@ Notes
   Small ACL preserved (Viktor + Francesco).
 - Refresh cadence: **weekly weekend delta rsyncs** from ``/data2`` +
   ``/data3`` into the current year's experiment. Currently run **on demand**
-  until the process is stable; automated cron to follow. No ``--delete`` — DM
+  until the process is stable; automated cron to follow. Preferred pattern:
+  monitor script ``monitor_quiet_then_dual_rsync.sh`` polls for a 60-min
+  quiet window on both ``sboyer`` and ``vnikitin`` then fires parallel
+  rsyncs (avoids racing with staff's live writes). No ``--delete`` — DM
   keeps history of anything users removed since last snapshot.
+- Per-user exclude rules apply. Currently: ``vnikitin`` excludes any
+  name starting or ending with ``tmp``/``TMP`` (Viktor's request 2026-08-28).
+  Rules keyed in the driver's ``EXTRA_EXCLUDES`` map; see
+  ``/home/beams/2BMB/claude/dm/stream_a_data3_fresh_rsync.sh``.
 - Before deleting any ``/data3`` source, spot-check against the ImagingStaff
   destination using the pattern in ``/home/beams/2BMB/claude/dm/verify_all_subtrees.sh``
   (path+size 1:1 comparison via ``find | sort | comm``).
