@@ -90,6 +90,100 @@ Coating Specifications (W–B₄C Multilayer)
 | Gamma (Γ)                 | 0.5                                          |
 +---------------------------+----------------------------------------------+
 
+Second Crystal Cleaning (Sep 2026)
+-----------------------------------
+
+The two-stripe W–B₄C multilayer second crystal (fabricated in 2007) was removed from the
+beamline and sent to the APS Optics Group for cleaning. Bing Shi performed the cleaning and
+Gary Navrotski measured the optic before and after. Results reported Sep 29, 2026.
+
+On removal, the ``d`` = 24 Å stripe showed physical damage and various contamination, and the
+``d`` ≈ 44 Å stripe showed contamination. After cleaning **all contamination was removed and
+the surface roughness was significantly reduced**, but the **damage on the**
+``d`` **= 24 Å stripe remains**.
+
+The metrology maps identify the two stripes as follows, separated by a band of clear bare Si:
+
++--------------------------+----------------------+-------------------------------------------+
+| Stripe (as labelled)     | Multilayer period    | Condition                                 |
++==========================+======================+===========================================+
+| Top — "blue"             | 43.8 Å               | Contaminated only; fully recovered        |
++--------------------------+----------------------+-------------------------------------------+
+| Bottom — "brown"         | 24 Å                 | Contaminated **and** damaged; damage      |
+|                          |                      | remains after cleaning                    |
++--------------------------+----------------------+-------------------------------------------+
+
+Before cleaning
+~~~~~~~~~~~~~~~
+
+.. figure:: ../img/dmm_crystal2_before_cleaning.png
+   :width: 1024px
+   :align: center
+   :alt: DMM second crystal before cleaning, photo and metrology
+
+   DMM second crystal as removed from the beamline: photograph (left) and metrology height map
+   with vertical line profile (right), over a 143.31 × 100.37 mm² area. The top ("blue") and
+   bottom ("brown") multilayer stripes are separated by a band of clear bare Si. Contamination
+   is visible on both stripes and is heaviest along the lower edge of the brown stripe, where
+   the profile also marks the damaged region at the far edge of the 24 Å stripe.
+
+After cleaning
+~~~~~~~~~~~~~~
+
+.. figure:: ../img/dmm_crystal2_after_cleaning.png
+   :width: 1024px
+   :align: center
+   :alt: DMM second crystal after cleaning, photo and metrology
+
+   DMM second crystal after cleaning: photograph (left) and metrology height map with vertical
+   line profile (right), over a 143.46 × 99.05 mm² area. All contamination is gone and the
+   surface roughness is much improved, but the trough structure at the far edge of the 24 Å
+   stripe persists.
+
+Metrology summary
+~~~~~~~~~~~~~~~~~
+
++-------------------------------------------+---------------------------+---------------------------+
+| Region                                    | Before cleaning           | After cleaning            |
++===========================================+===========================+===========================+
+| Top stripe (blue) — RMS                   | 7.6 ± 2.7 Å               | 4.6 ± 1.8 Å               |
++-------------------------------------------+---------------------------+---------------------------+
+| Top stripe (blue) — P-V                   | 80.7 ± 50.7 Å             | 44.3 ± 24.6 Å             |
++-------------------------------------------+---------------------------+---------------------------+
+| Bottom stripe (brown), top 2/3 — RMS      | 5.8 ± 0.9 Å               | 2.7 ± 0.91 Å              |
++-------------------------------------------+---------------------------+---------------------------+
+| Bottom stripe (brown), top 2/3 — P-V      | 49.6 ± 8.2 Å              | 34.0 ± 25.0 Å             |
++-------------------------------------------+---------------------------+---------------------------+
+| Bottom stripe (brown), bottom 1/3 — RMS   | 93.1 ± 18.6 Å             | 5.5 ± 1.6 Å               |
++-------------------------------------------+---------------------------+---------------------------+
+| Bottom stripe (brown), bottom 1/3 — P-V   | 620.2 ± 70.1 Å            | 42.5 ± 19.1 Å             |
++-------------------------------------------+---------------------------+---------------------------+
+
+Observations
+~~~~~~~~~~~~
+
+**Top (blue) stripe.** Before cleaning it had uniform polishing texturing and a uniform
+distribution of scratches, pits and defects. After cleaning the stripe is clean; the uniform
+polishing texture and the uniform distribution of scratches and pits remain, and the roughness
+improved by a factor of ≈ 2×.
+
+**Bottom (brown) stripe, upper 2/3.** Good and uniform before cleaning, with further improved
+roughness after cleaning.
+
+**Bottom (brown) stripe, lower 1/3.** Before cleaning this region had deep troughs 500–1000 Å
+deep along the entire length. After cleaning the troughs remain — measured up to 2000 Å deep
+along the entire length — and surface pitting remains. Surface peak contaminants are gone and
+the reported roughness is much improved.
+
+.. note::
+
+   Three different values appear for the period of the top ("blue") stripe: the coating
+   specification above lists **13.8 Å**, the metrology map is annotated **43.8 Å**, and Bing
+   Shi's cover note quotes **48 Å**. The bottom ("brown") stripe is consistently **24 Å**. The
+   13.8 / 43.8 pair differs by a single digit and looks like a transcription error in one of
+   the two documents; the as-built period should be confirmed against the `crystals specs`_
+   before it is used for energy calibration.
+
 Stripe-Free Multilayer
 ----------------------
 
