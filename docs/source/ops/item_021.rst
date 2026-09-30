@@ -20,11 +20,11 @@ More detailed instructions are here the `energy cli <https://github.com/decarlof
 
 Technical information about the DMM are available at the links below:
 
-+-----------+--------------+-------------------+------------------------------------------------------------------------+
-| Station   | Description  |   Images          |   Info                                                                 |
-+===========+==============+===================+========================================================================+
-| 2-BM-A    |     DMM      | |00001|, |00002|  | `drawings1`_, `drawings2`_, `crystals specs`_, `documentation folder`_ |
-+-----------+--------------+-------------------+------------------------------------------------------------------------+
++-----------+--------------+-------------------+-----------------------------------------------------------------------------------------------+
+| Station   | Description  |   Images          |   Info                                                                                        |
++===========+==============+===================+===============================================================================================+
+| 2-BM-A    |     DMM      | |00001|, |00002|  | `drawings1`_, `drawings2`_, `crystals specs`_, `substrate drawings`_, `documentation folder`_ |
++-----------+--------------+-------------------+-----------------------------------------------------------------------------------------------+
 
 
 .. |00001| image:: ../img/dmm_01.png
@@ -38,6 +38,8 @@ Technical information about the DMM are available at the links below:
 .. _drawings1: https://anl.box.com/s/0whx6hy3lcqllocolhee8kq72y0f4wnn
 .. _drawings2: https://anl.box.com/s/0sa7gjm3nbmacwjknxth0k98y21sa7iy
 .. _crystals specs: https://anl.box.com/s/4o7fewu63rwm2tj0l9ezr79ccjozyn77
+.. _substrate drawings: https://anl.box.com/s/wqozy95i0f6wxn2p4s11qapl6rcsq0ai
+.. _X2-230001-00: https://anl.box.com/s/wqozy95i0f6wxn2p4s11qapl6rcsq0ai
 .. _documentation folder: https://anl.box.com/s/w1eg4cxw43715bnzk8jcg3hd64rdnsdl
 
 Substrate Specifications (Si <100>)
@@ -64,7 +66,7 @@ Substrate Specifications (Si <100>)
 +----------------------------+-------------------------------------------------------------+
 | HSFR Spatial Sampling      | 0.004–1 µm                                                  |
 +----------------------------+-------------------------------------------------------------+
-| Manufacturing Note         | Grooves per ANL drawing "X2-230001-00" (28 Jan 1998)        |
+| Manufacturing Note         | Grooves per ANL drawing `X2-230001-00`_ (28 Jan 1998)       |
 +----------------------------+-------------------------------------------------------------+
 
 Coating Specifications (W–B₄C Multilayer)
