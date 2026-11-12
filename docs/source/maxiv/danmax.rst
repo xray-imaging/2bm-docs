@@ -373,5 +373,3 @@ References
 - Conceptual Design Report (Gundlach *et al.*, 2014).
 - Project-overview abstract, ICTMS 2017:
   https://meetingorganizer.copernicus.org/ICTMS2017/ICTMS2017-122.pdf
-- For TomoWISE (the second MAX IV imaging beamline, currently
-  under design): :doc:`tomowise`.
