@@ -2418,6 +2418,118 @@ the operator increases for phase-contrast imaging.)
    ``2bmbAERO:m1.VAL``). Lives in a dedicated Aerotech IOC,
    ``2bmbAERO``, separate from the main ``2bmb`` IOC.
 
+.. _propagation-distance-limit-fault:
+
+Recovering from a hard-limit controller fault
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Driving the stage into either end-of-travel limit switch latches a
+fault in the Ensemble HLe drive. The axis then refuses **all**
+motion — including motion back away from the limit — until the
+fault is explicitly acknowledged. First documented 2026-11-23
+(operator hit the positive-Z limit; diagnosis and fix by Nicholas
+Marks, APS controls).
+
+.. figure:: ../img/propagation_distance_limit_fault.png
+   :width: 320px
+   :align: center
+   :alt: motorx_all.adl showing a latched Ensemble limit fault
+
+   ``motorx_all.adl`` for ``2bmbAERO:m1`` with the fault latched.
+   Note the red ``limit`` indicator and ``Controller Error``
+   banner at top right of the Drive block. The axis is stopped at
+   dial 561.98 mm and will not move in either direction.
+
+**Symptoms**
+
+- ``Controller Error`` and a lit red ``limit`` indicator on
+  ``motorx_all.adl``.
+- No motion in either direction; ``Move``/``Go`` have no effect.
+- The IOC console repeats, once per move attempt::
+
+    drvEnsembleAsyn:sendAndReceive: Error returned for command =
+    LINEAR @1 551.4799850 F10.0000000 with response = #
+
+  The bare ``#`` is the Ensemble's "command rejected, axis
+  faulted" response.
+
+**What does not clear it**
+
+- Toggling ``Disable`` / ``Enable`` on the motor screen.
+- Stopping and restarting the ``2bmbAERO`` IOC
+  (``./2bmbAERO.sh stop`` then ``run`` in
+  ``/net/s2dserv/xorApps/epics/synApps_6_2_1/ioc/2bmbAERO/iocBoot/ioc2bmbAERO/softioc/``).
+- Power-cycling the Ensemble controller.
+
+The fault is latched in the drive and survives all three.
+
+**Recovery (preferred — from EPICS, no laptop needed)**
+
+Acknowledge the fault through the Ensemble's asyn command record,
+then back off the limit::
+
+    caput 2bmbAERO:asyn_1.AOUT ACKNOWLEDGEALL
+
+Then move the stage a small amount (~1 mm) **away** from the limit
+you tripped — negative dial direction after a positive-limit trip,
+positive after a negative-limit trip. Normal motion resumes once
+the stage is off the switch.
+
+.. warning::
+
+   After acknowledging, check the sign of your move before
+   pressing ``Go``. Moving *further into* the limit re-trips the
+   fault immediately and you start over. This happened during the
+   2026-11-23 incident.
+
+**Recovery (fallback — Ensemble Motion Composer)**
+
+Aerotech's *Ensemble Motion Composer* is installed on the laptop
+``sec2lt06`` / ``sec2lt06-113`` (``10.54.113.16``). Connect to the
+controller and type ``ACKNOWLEDGEALL`` in the command box, then
+back off the limit from EPICS as above.
+
+.. note::
+
+   The laptop must be on the **private** network for Motion
+   Composer to reach the controller. In the 2-BM-B control area,
+   jack **E07** is private and jack **D01** is public; wired to
+   E07, the software connects. If the laptop is on wifi or on D01,
+   ``Connect`` does nothing and the command box stays greyed out —
+   this is the failure mode seen on 2026-11-23, not a fault in the
+   controller.
+
+.. figure:: ../img/network_jack_e07.jpg
+   :width: 260px
+   :align: center
+   :alt: Network jack labelled E07 in the 2-BM-B control area
+
+   Private-network jack **E07** in the **2-BM-B control area**
+   (yellow ``DATA`` outlet, port 121). Plug the ``sec2lt06``
+   laptop in here — not into **D01**, which is the public
+   network — before starting Ensemble Motion Composer.
+
+.. note::
+
+   The ``save_restore ... Couldn't make backup ... .savB`` and
+   ``CA client library is unable to contact CA repeater`` messages
+   that appear in the ``2bmbAERO`` console at IOC start are
+   unrelated to this fault and were not implicated in the
+   2026-11-23 diagnosis. They are longstanding console noise from
+   this IOC; root cause not yet investigated.
+
+.. note::
+
+   **Soft limits do not protect this stage.** The configured soft
+   limits span dial ``-500`` to ``+1011`` mm — 1511 mm of range on
+   a stage with 1000 mm of physical travel — so the hardware limit
+   switch is reached well before the soft limit stops the move. In
+   the 2026-11-23 incident the positive switch tripped at dial
+   561.98 mm, 449 mm short of the soft Hi limit. Tightening
+   ``2bmbAERO:m1.HLM`` / ``.LLM`` to the real travel would prevent
+   the fault rather than recover from it; **not yet done, pending
+   a survey of the true end-of-travel dial positions.**
+
 
 Detector optical table
 ----------------------
